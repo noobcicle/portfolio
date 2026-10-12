@@ -1,0 +1,65 @@
+{
+ "clips": {
+  "intro": {
+   "src": "assets/audio/tour-intro.mp3",
+   "text": "Hi, I'm the narrator. I'm a voice model running on Mike Purpura's Mac Studio, in Milton, Wisconsin. Mike spent thirteen years keeping a carrier network running. Now he builds AI tools that take over the repetitive work, and the guardrails that keep them honest. Scroll at your own pace. I'll follow along.",
+   "seconds": 18.31
+  },
+  "tldr": {
+   "src": "assets/audio/tour-tldr.mp3",
+   "text": "Here's the short version. Thirteen years as a network engineer at Charter and Spectrum Enterprise. Python automation since 2020. Two years on a dev-ops team. And these days, hands-on AI, every single day.",
+   "seconds": 13.8
+  },
+  "thesis": {
+   "src": "assets/audio/tour-thesis.mp3",
+   "text": "Mike's take on all this: AI can do most of the work now. The hard part is harnessing it. Pointing it at real problems, checking its work, and reining it in when it's wrong. That's the part he's good at.",
+   "seconds": 11.47
+  },
+  "story": {
+   "src": "assets/audio/tour-story.mp3",
+   "text": "Here's the route he took. Tech school in 2011. Charter in 2013, turning up fiber circuits by the thousand. A Visual Basic tool that cut an hour of work down to five minutes. Then Python, a dev-ops team, and finally a Mac Studio full of AI.",
+   "seconds": 16.85
+  },
+  "numbers": {
+   "src": "assets/audio/tour-numbers.mp3",
+   "text": "A few numbers worth knowing. Up to two thousand circuits a year, by himself. A region-wide quality-of-service rollout he automated solo, when other regions used five or six engineers. And when he moved to the dev-ops team, it took six engineers to cover his old work.",
+   "seconds": 16.9
+  },
+  "lab": {
+   "src": "assets/audio/tour-lab.mp3",
+   "text": "This is the lab, and his family uses it every day. There's a mission control for AI agents, a household system that wakes the house for tornado warnings, fleet monitoring that makes failures loud, an assistant that answers dairy regulation questions with citations, and a garden planner called GrowYear.",
+   "seconds": 18.49
+  },
+  "before": {
+   "src": "assets/audio/tour-before.mp3",
+   "text": "None of this started with AI. Mike was wiring up garage doors, plant waterers and pepper sensors years before a language model could help. The habit is the same. AI just moved the bottleneck.",
+   "seconds": 12.17
+  },
+  "garden": {
+   "src": "assets/audio/tour-garden.mp3",
+   "text": "A gardener who starts young gets about sixty gardens in a lifetime. Mike thinks about that a lot. It's why he builds tools. So the computers get more of the chores, and his family gets more of him.",
+   "seconds": 11.29
+  },
+  "studio": {
+   "src": "assets/audio/tour-studio.mp3",
+   "text": "Everything you're seeing and hearing on this page was made on his desk. The art, the soundtrack, the theme song, and me. No cloud required.",
+   "seconds": 8.11
+  },
+  "how": {
+   "src": "assets/audio/tour-how.mp3",
+   "text": "How he works. Do it by hand until it hurts, then script it. Be the first one in. Make failures loud. And let the agents flag things, while humans approve them.",
+   "seconds": 9.4
+  },
+  "next": {
+   "src": "assets/audio/tour-next.mp3",
+   "text": "What he's looking for: a small team that wants to hand real work to AI, and needs someone who'll make it safe and actually useful. Anywhere from Madison to Milwaukee. Hybrid is his favorite.",
+   "seconds": 11.38
+  },
+  "contact": {
+   "src": "assets/audio/tour-contact.mp3",
+   "text": "That's the tour. If any of this sounds like your team, his email is right there. Okay, cool. Thanks for listening.",
+   "seconds": 6.23
+  }
+ },
+ "voice": "Kokoro-82M (af_heart) on MLX"
+}

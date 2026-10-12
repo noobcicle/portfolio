@@ -1,0 +1,23 @@
+{
+  "voice": {"voice": "af_heart", "lang_code": "a", "kspeed": 1.0, "pitch": 0.0, "clarity": false, "speed": 1.0},
+  "clips": {
+    "intro": "Hi, I'm the narrator. I'm a voice model running on Mike Purpura's Mac Studio, in Milton, Wisconsin. Mike spent thirteen years keeping a carrier network running. Now he builds AI tools that take over the repetitive work, and the guardrails that keep them honest. Scroll at your own pace. I'll follow along.",
+    "tldr": "Here's the short version. Thirteen years as a network engineer at Charter and Spectrum Enterprise. Python automation since 2020. Two years on a dev-ops team. And these days, hands-on AI, every single day.",
+    "thesis": "Mike's take on all this: AI can do most of the work now. The hard part is harnessing it. Pointing it at real problems, checking its work, and reining it in when it's wrong. That's the part he's good at.",
+    "story": "Here's the route he took. Tech school in 2011. Charter in 2013, turning up fiber circuits by the thousand. A Visual Basic tool that cut an hour of work down to five minutes. Then Python, a dev-ops team, and finally a Mac Studio full of AI.",
+    "numbers": "A few numbers worth knowing. Up to two thousand circuits a year, by himself. A region-wide quality-of-service rollout he automated solo, when other regions used five or six engineers. And when he moved to the dev-ops team, it took six engineers to cover his old work.",
+    "lab": "This is the lab, and his family uses it every day. There's a mission control for AI agents, a household system that wakes the house for tornado warnings, fleet monitoring that makes failures loud, an assistant that answers dairy regulation questions with citations, and a garden planner called GrowYear.",
+    "before": "None of this started with AI. Mike was wiring up garage doors, plant waterers and pepper sensors years before a language model could help. The habit is the same. AI just moved the bottleneck.",
+    "garden": "A gardener who starts young gets about sixty gardens in a lifetime. Mike thinks about that a lot. It's why he builds tools. So the computers get more of the chores, and his family gets more of him.",
+    "studio": "Everything you're seeing and hearing on this page was made on his desk. The art, the soundtrack, the theme song, and me. No cloud required.",
+    "how": "How he works. Do it by hand until it hurts, then script it. Be the first one in. Make failures loud. And let the agents flag things, while humans approve them.",
+    "next": "What he's looking for: a small team that wants to hand real work to AI, and needs someone who'll make it safe and actually useful. Anywhere from Madison to Milwaukee. Hybrid is his favorite.",
+    "contact": "That's the tour. If any of this sounds like your team, his email is right there. Okay, cool. Thanks for listening."
+  },
+  "extras": {
+    "pemberton": {
+      "voice": {"voice": "bm_lewis", "lang_code": "b", "kspeed": 0.95, "pitch": -2.5, "clarity": false, "speed": 1.0},
+      "text": "Good evening, and welcome back to Okay Cool Radio. I am Lord Pemberton, and I am obliged by contract to introduce the following number. It was composed entirely by machine, on a desk in Milton, Wisconsin, about a network engineer who simply refused to do anything twice. I am told it is catchy. I remain unconvinced. Here it is. Okay, Cool."
+    }
+  }
+}

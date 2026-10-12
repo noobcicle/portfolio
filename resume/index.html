@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mike Purpura · Résumé</title>
+<meta name="description" content="Résumé of Mike Purpura: network and AI automation engineer in Milton, Wisconsin. 13 years at Charter / Spectrum Enterprise, Python and GitLab CI/CD automation, AI tooling.">
+<meta name="theme-color" content="#0b0716">
+<link rel="canonical" href="https://okay-cool.net/resume/">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Mike Purpura · Résumé">
+<meta property="og:description" content="Network engineer turned AI builder. 13 years on a carrier network, Python automation since 2020, AI tools every day.">
+<meta property="og:image" content="https://okay-cool.net/assets/img/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@500&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+  :root { --bg: #0b0716; --ink: #1d1428; --dim: #5d5070; --line: #e7e0ef; --pink: #e0367f; --blue: #2f6fe0; --gummy: linear-gradient(100deg, #ff5ca8, #c46bff 48%, #4c8dff); }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: radial-gradient(60% 40% at 15% 0%, rgba(255,92,168,.18), transparent 70%), radial-gradient(60% 40% at 90% 10%, rgba(76,141,255,.18), transparent 70%), var(--bg); font: 15px/1.55 Geist, ui-sans-serif, system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .bar { max-width: 860px; margin: 0 auto; padding: 22px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; color: #f5f0fd; }
+  .bar a { color: #f5f0fd; text-decoration: none; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
+  .bar svg { width: 34px; height: 17px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.22); background: var(--gummy); color: #fff; font: 600 14px/1 Geist, sans-serif; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 8px 22px -10px rgba(255,92,168,.7); }
+  .sheet { max-width: 860px; margin: 0 auto 60px; background: #fff; border-radius: 18px; padding: 52px 56px; box-shadow: 0 40px 100px -40px rgba(255,92,168,.45), 0 30px 80px -40px rgba(76,141,255,.5); position: relative; overflow: hidden; }
+  .sheet::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 6px; background: var(--gummy); }
+  header.top { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: 18px; margin-bottom: 18px; }
+  h1 { font: 400 46px/1 "Instrument Serif", Georgia, serif; margin: 0 0 6px; letter-spacing: -.01em; }
+  .role { margin: 0; font-weight: 600; color: var(--pink); }
+  .contact { text-align: right; font-size: 13.5px; color: var(--dim); line-height: 1.7; }
+  .contact a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
+  h2 { font: 600 11.5px/1 "Geist Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--blue); margin: 22px 0 10px; }
+  p { margin: 0 0 8px; }
+  .summary { font-size: 15.5px; }
+  .skills { display: grid; grid-template-columns: 150px 1fr; gap: 6px 16px; font-size: 14px; }
+  .skills dt { font-weight: 650; }
+  .skills dd { margin: 0; color: #3b304a; }
+  .job { margin-bottom: 6px; }
+  .job-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-weight: 650; }
+  .job-sub { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--dim); font-size: 14px; margin-bottom: 6px; }
+  h3 { font-size: 13.5px; margin: 12px 0 4px; color: var(--ink); font-weight: 650; }
+  ul { margin: 0 0 6px; padding-left: 18px; }
+  li { margin: 0 0 4px; font-size: 14.2px; }
+  li::marker { color: var(--pink); }
+  .projects li strong { font-weight: 650; }
+  .foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 13px; color: var(--dim); }
+  @media (max-width: 640px) {
+    .sheet { padding: 36px 22px; border-radius: 0; }
+    .contact { text-align: left; }
+    .skills { grid-template-columns: 1fr; gap: 2px; }
+    .skills dd { margin-bottom: 8px; }
+    h1 { font-size: 38px; }
+  }
+  @media print {
+    @page { size: letter; margin: 0.45in 0.5in; }
+    body { background: #fff; font-size: 10.3pt; }
+    .bar { display: none; }
+    .sheet { box-shadow: none; padding: 0; margin: 0; max-width: none; border-radius: 0; }
+    .sheet::before { display: none; }
+    h1 { font-size: 30pt; }
+    h2 { margin: 12pt 0 5pt; }
+    li { font-size: 9.9pt; margin-bottom: 2pt; }
+    .skills { font-size: 9.8pt; }
+    a { color: inherit; border: 0; }
+    .no-print { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="bar">
+  <a href="../"><svg viewBox="0 0 64 32" aria-hidden="true"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ff5ca8"/><stop offset=".5" stop-color="#c46bff"/><stop offset="1" stop-color="#4c8dff"/></linearGradient></defs><path d="M6 20c6-10 12-10 18 0s12 10 18 0 12-10 16-2" fill="none" stroke="url(#g)" stroke-width="7" stroke-linecap="round"/></svg> Back to okay-cool.net</a>
+  <button class="btn" type="button" onclick="window.print()">Save as PDF</button>
+</div>
+
+<main class="sheet">
+  <header class="top">
+    <div>
+      <h1>Michael &ldquo;Mike&rdquo; Purpura</h1>
+      <p class="role">Network &amp; AI Automation Engineer</p>
+    </div>
+    <div class="contact">
+      Milton, WI · Madison–Milwaukee, hybrid<br>
+      <a id="em" href="#">email</a><noscript>mapurpura12 [at] gmail [dot] com</noscript><br>
+      <a href="https://okay-cool.net">okay-cool.net</a>
+    </div>
+  </header>
+
+  <h2>Summary</h2>
+  <p class="summary">Network engineer with 13 years at Charter Communications / Spectrum Enterprise running a multi-vendor carrier network, the last two on a DevOps team building tools for network engineers. I automate with Python and GitLab CI/CD, and I build with AI every day: Claude Code, local LLMs, and agents that ask before they act. I'm looking for AI and automation, DevOps or NetDevOps work on a small team.</p>
+
+  <h2>Skills</h2>
+  <dl class="skills">
+    <dt>AI &amp; agents</dt><dd>Claude Code (daily), agent workflows with human approval gates, Ollama and local LLMs, RAG with evaluation suites, structured JSON output, ComfyUI, TTS (Kokoro, Piper)</dd>
+    <dt>Automation &amp; dev</dt><dd>Python, Paramiko, Flask, FastAPI, JavaScript/TypeScript, React, SQLite/Postgres, REST/OpenAPI, Visual Basic</dd>
+    <dt>DevOps</dt><dd>GitLab CI/CD, Git/GitHub, HashiCorp Vault, Linux, nginx, systemd, Docker (basics), Confluence</dd>
+    <dt>Networking</dt><dd>Juniper MX480/MX960, Cisco ASR 9000, Nokia 7750; MPLS, IS-IS, BGP, L2VPN/VPLS/LDP, QoS, BFD, TACACS+, SNMP; Carrier Ethernet; EXFO RFC 2544 / Y.1731</dd>
+    <dt>IoT</dt><dd>Raspberry Pi, Arduino, ESP32/ESP8266, MicroPython, MQTT, ESPHome</dd>
+  </dl>
+
+  <h2>Experience</h2>
+  <div class="job">
+    <div class="job-head"><span>Charter Communications / Spectrum Enterprise</span><span>Sep 2013 – Jun 2026</span></div>
+    <div class="job-sub"><span>Network Engineer 3 (Automation &amp; DevOps)</span><span>Madison, WI</span></div>
+
+    <h3>DevOps team: network automation tools · 2024–2026</h3>
+    <ul>
+      <li>Built front-end and back-end applications for network engineering teams, including password rotation and maintenance reporting, with daily GitLab CI/CD.</li>
+      <li>Wrote the multi-vendor Python/Paramiko modules (vendor interface code plus all CLI navigation and command logic) that audited configurations and rotated credentials over SSH across thousands of core routers and hundreds of thousands of customer edge devices, with secrets in HashiCorp Vault.</li>
+      <li>Shipped through GitLab pipelines that tested and promoted each release from candidate to live on three regional Linux servers sharing a priority-ordered job list.</li>
+    </ul>
+
+    <h3>Network automation, design &amp; implementation</h3>
+    <ul>
+      <li>From about 2020, automated weekly configuration audits and standards deployments across the region's Cisco ASR 9000, Nokia 7750 and Juniper MX routers in Python.</li>
+      <li>Redesigned the regional QoS policy and automated its rollout to every PE router single-handedly; other regions staffed the same work with 5–6 engineers.</li>
+      <li>Team lead for the Cisco-to-Juniper migration after the Time Warner Cable merger; wrote the region's internet, voice and WAN standards in Confluence and a JavaScript config generator for MX960/MX480.</li>
+    </ul>
+
+    <h3>Enterprise circuit build &amp; turn-up</h3>
+    <ul>
+      <li>Built 1,000–2,000 enterprise circuits in a peak year: Carrier Ethernet point-to-point, large E-LAN multipoint networks, cell backhaul to carrier MTSOs and off-net Type 2 circuits; turn-up tested with EXFO.</li>
+      <li>Built a ~5,000-line Visual Basic tool that drove the CRM to assign circuit IDs, IPs and VLANs and draw the Visio diagram, cutting order time from over an hour to about five minutes; adopted by a 30-person team.</li>
+      <li>Chosen repeatedly as lead engineer for travel assignments; kept most of the team's documentation.</li>
+    </ul>
+  </div>
+
+  <h2>Selected projects · self-hosted, built with AI (2025–2026)</h2>
+  <ul class="projects">
+    <li><strong>The Hub:</strong> AI control plane on a Mac Studio. Multiplexed Claude Code sessions, local LLMs via Ollama, image/video/music/voice generation through ComfyUI, and an approval queue for agent-proposed work.</li>
+    <li><strong>Household platform:</strong> Flask on a Raspberry Pi. NWS severe-weather alerts summarized by a local LLM and spoken on every Sonos speaker; smart plugs, recipes by dictation, and an agent API (OpenAPI, scoped tokens).</li>
+    <li><strong>Fleet ops:</strong> agentless SNMP/SSH monitoring and alerting, patch management, certificate-expiry checks, repo drift detection and GitOps auto-deploy across five hosts.</li>
+    <li><strong>Dairy Audit Assistant:</strong> citation-grounded RAG over federal and Wisconsin Grade &ldquo;A&rdquo; dairy regulation, with an eval suite covering both lookups and scenarios (17/17 recall, 19/19 lookups).</li>
+    <li><strong>GrowYear:</strong> garden planner (React, TypeScript, Supabase) with 2,500+ varieties from 12 seed companies.</li>
+  </ul>
+
+  <h2>Certifications &amp; education</h2>
+  <p>Nokia NRS I (active) · Cisco CCNP R&amp;S and Juniper JNCIA (lapsed)</p>
+  <p>Northcentral Technical College, Network Specialist, 2011</p>
+
+  <div class="foot no-print"><span>More detail, stories and demos at <a href="../">okay-cool.net</a></span><span>References available on request</span></div>
+</main>
+<script>
+  (function () {
+    var a = document.getElementById('em'), addr = ['mapurpura12', 'gmail.com'].join('@');
+    a.href = 'mailto:' + addr + '?subject=' + encodeURIComponent('Hello from okay-cool.net');
+    a.textContent = addr;
+  })();
+</script>
+</body>
+</html>

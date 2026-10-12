@@ -1,0 +1,57 @@
+{
+ "model": "Qwen-Image 2.1 Uncensored Q8_0 GGUF via ComfyUI (Hub Image Studio)",
+ "settings": {
+  "steps": 25,
+  "cfg": 1.0,
+  "sampler": "euler",
+  "megapixels": 1
+ },
+ "note": "Two seeds per prompt; the pick is the Hub image job id that made it onto the site.",
+ "images": {
+  "gummy_fiber": {
+   "aspect": "16:9",
+   "prompt": "A dramatic macro studio photograph of translucent sour gummy worms that are also fiber optic cables. Each worm is a glossy two-tone candy strand, hot pink at one end blending through soft violet into electric blue at the other, lightly dusted with sparkling sugar crystals. Bright pulses of light travel inside the gummy strands like data, making them glow from within. The worms coil and loop through the open ports of a sleek matte-black network router, their glowing tips plugged into the ports. Dark charcoal background, rim lighting in pink and blue, crisp reflections on the candy surface, shallow depth of field with soft bokeh highlights, high-end product photography, ultra detailed, no text, no logos.",
+   "hub_job": 9
+  },
+  "lab_night": {
+   "aspect": "16:9",
+   "prompt": "A cozy home technology lab in a finished basement at night in Wisconsin. On a solid walnut desk sits a small square aluminum desktop computer glowing softly, beside two Raspberry Pi single-board computers in clear cases with tiny blinking green and blue status LEDs, a compact four-bay network storage box, and neatly coiled cables in translucent candy pink and electric blue. A wide monitor shows abstract charts and terminal windows. A small basement window shows falling snow outside under a dark blue sky. Warm desk lamp light mixed with cool blue and pink LED glow, cinematic photograph, shallow depth of field, rich detail, no people, no readable text, no logos.",
+   "hub_job": 12
+  },
+  "garden_dawn": {
+   "aspect": "16:9",
+   "prompt": "A backyard vegetable garden in southern Wisconsin at golden hour in late August. Wooden raised beds overflowing with hot pepper plants heavy with glossy red, orange and yellow peppers, tomatoes on stakes, marigolds along the edges. A small hoop greenhouse in the background and a rural red barn far beyond a cornfield. The sky glows with a soft gradient of pink and periwinkle blue. Dew sparkles on leaves, gentle lens flare, warm natural light, lush and slightly overgrown, photorealistic, shot on a full-frame camera, no people, no text.",
+   "hub_job": 13
+  },
+  "workbench": {
+   "aspect": "3:2",
+   "prompt": "Top-down flat-lay photograph of a hobbyist electronics workbench on a dark walnut surface: an Arduino Uno board, an ESP8266 WiFi module, a Raspberry Pi with a small breadboard, three capacitive soil moisture sensors, a tiny submersible water pump with clear tubing, a seed packet of hot peppers, jumper wires in candy pink and electric blue, a soldering iron on its stand, a spiral notebook with hand-drawn wiring sketches, and a mug of coffee. Soft overhead light, crisp detail, tidy but well used, editorial product photography, no readable text, no logos.",
+   "hub_job": 16
+  },
+  "central_office": {
+   "aspect": "16:9",
+   "prompt": "Inside a telecommunications central office at night: a long aisle of tall black equipment racks filled with carrier-grade routers, hundreds of thin fiber optic patch cables cascading down in glowing translucent pink and electric blue, tiny status lights blinking, polished concrete floor reflecting the colored light, overhead cable trays, symmetrical one-point perspective, moody cinematic photograph, high detail, no people, no logos, no text.",
+   "hub_job": 18
+  },
+  "neon_sign": {
+   "aspect": "16:9",
+   "prompt": "A glowing neon sign mounted on a dark weathered red-brick wall at night. The sign is hand-bent glass tubing shaped like the lowercase words \"okay, cool.\" in a relaxed handwritten script, the tubes made of translucent sugar-dusted gummy candy that glows hot pink on the first word fading into electric blue on the second. Soft pink and blue light spills onto the bricks, a few drops of rain on the wall, subtle haze, shallow depth of field, cinematic photograph, the only text in the image is okay, cool.",
+   "hub_job": 20
+  },
+  "agents": {
+   "aspect": "16:9",
+   "prompt": "A whimsical, highly detailed miniature scene on a wooden desk: a line of tiny translucent gummy-candy robots, some hot pink and some electric blue, each carrying a small folded paper note, marching in a neat queue toward a large round brass desk bell and a stamp pad. At the front of the line one gummy robot politely holds up its note toward a human hand that reaches in from the edge of the frame holding a rubber stamp. Warm soft studio light, glossy candy textures with sugar crystals, tilt-shift macro photography, charming and playful, no readable text.",
+   "hub_job": 22
+  },
+  "winter_window": {
+   "aspect": "16:9",
+   "prompt": "January in southern Wisconsin: a frosted farmhouse window looking out on a snow-covered backyard garden with raised beds buried in snow under a pale pink and blue winter sunset. On the wide windowsill inside: an open laptop glowing with a colorful garden layout grid, a mug of steaming coffee, a spread of colorful vegetable seed packets, a small pepper seedling in a pot under a grow light. Cozy, hopeful mood, warm interior light against cool exterior, photorealistic, shallow depth of field, no readable text, no logos.",
+   "hub_job": 24
+  },
+  "desk_studio": {
+   "aspect": "16:9",
+   "prompt": "A small square silver aluminum desktop computer sitting on a dark matte desk in a dim room, with several translucent sugar-dusted gummy-worm cables in hot pink and electric blue flowing out of its back ports and curling across the desk, glowing from within like fiber optic light. Soft volumetric haze, pink and blue rim lighting, sleek product photography, minimal composition with empty space on the left, high detail, no logos, no text.",
+   "hub_job": 26
+  }
+ }
+}
