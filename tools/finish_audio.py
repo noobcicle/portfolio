@@ -38,7 +38,19 @@ def encode(audio, sr, dest, kbps, title):
     print(f"{os.path.basename(dest)}: {len(audio) / sr:.1f}s, {os.path.getsize(dest) // 1024} KB")
 
 
+def trim_tail(audio, sr, floor_db=-30.0):
+    """ACE-Step renders end in a fade to silence; cut where the music actually stops."""
+    blk = sr // 4
+    k = len(audio) // blk
+    m = audio[: k * blk].mean(axis=1).reshape(k, blk)
+    db = 20 * np.log10(np.sqrt((m ** 2).mean(axis=1)) + 1e-9)
+    loud = np.nonzero(db > floor_db)[0]
+    end = (loud[-1] + 1) * blk if len(loud) else len(audio)
+    return audio[:end]
+
+
 def seamless(audio, sr, xfade=4.0):
+    audio = trim_tail(audio, sr)
     n = int(xfade * sr)
     body = audio[: len(audio) - n].copy()
     ramp = np.linspace(0.0, 1.0, n, dtype=np.float32)[:, None]
