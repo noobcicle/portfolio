@@ -1,0 +1,9 @@
+# When apt replaces /usr/bin/cloudflared, restart the tunnel so the new binary is actually running.
+[Unit]
+Description=Restart cloudflared when its binary is upgraded
+
+[Path]
+PathChanged=/usr/bin/cloudflared
+
+[Install]
+WantedBy=multi-user.target

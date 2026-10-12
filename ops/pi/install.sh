@@ -17,6 +17,12 @@ cat > /etc/cron.d/okay-cool <<CRON
 CRON
 chmod 644 /etc/cron.d/okay-cool
 touch /var/log/okay-cool-deploy.log && chown thaddeus /var/log/okay-cool-deploy.log
+# keep cloudflared patched, and actually running the patched binary
+install -m 644 "$OPS/53unattended-upgrades-cloudflared" /etc/apt/apt.conf.d/53unattended-upgrades-cloudflared
+install -m 644 "$OPS/cloudflared-restart.path" /etc/systemd/system/cloudflared-restart.path
+install -m 644 "$OPS/cloudflared-restart.service" /etc/systemd/system/cloudflared-restart.service
+systemctl daemon-reload
+systemctl enable --now cloudflared-restart.path >/dev/null 2>&1
 sudo -u thaddeus "$OPS/deploy.sh" --force
 /usr/bin/python3 "$OPS/status.py"
 echo "okay-cool.net installed: nginx on 127.0.0.1:8088, deploy every 2 min, status every minute."

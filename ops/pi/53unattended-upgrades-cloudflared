@@ -1,0 +1,3 @@
+// okay-cool.net: keep the tunnel client current. It runs with --no-autoupdate,
+// so security updates arrive through apt with the rest of the fleet's patches.
+Unattended-Upgrade::Origins-Pattern { "origin=cloudflared"; };
