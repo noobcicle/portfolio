@@ -193,6 +193,8 @@ export function initAudio({ toast, onTourChange } = {}) {
 
     function load(i) {
       idx = i;
+      now.textContent = queue[i].label;
+      if (!a && !ac) return; // the audio graph is built on the first click, inside the gesture
       if (!a) {
         a = new Audio(); a.preload = 'none'; a.crossOrigin = 'anonymous';
         ctx().createMediaElementSource(a).connect(master);
@@ -207,7 +209,6 @@ export function initAudio({ toast, onTourChange } = {}) {
         });
       }
       a.src = queue[i].src;
-      now.textContent = queue[i].label;
     }
     function done() {
       el.classList.remove('playing');
@@ -216,7 +217,9 @@ export function initAudio({ toast, onTourChange } = {}) {
     }
     load(0);
     btn.addEventListener('click', async () => {
-      ctx(); await ac.resume();
+      ctx();
+      if (!a) load(idx);
+      await ac.resume();
       if (a.paused) {
         if (activePlayer && activePlayer !== el) activePlayer.querySelector('.player-btn').click();
         activePlayer = el;
