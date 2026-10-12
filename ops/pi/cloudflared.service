@@ -1,0 +1,20 @@
+# Cloudflare Tunnel for okay-cool.net. The Pi dials out to Cloudflare; nothing dials in.
+# The tunnel token lives only in /etc/cloudflared/okay-cool.env (root, 0600), never in git.
+[Unit]
+Description=Cloudflare Tunnel (okay-cool.net)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+EnvironmentFile=/etc/cloudflared/okay-cool.env
+ExecStart=/usr/bin/cloudflared --no-autoupdate --edge-ip-version auto --metrics 127.0.0.1:20241 tunnel run
+Restart=always
+RestartSec=5
+DynamicUser=yes
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

@@ -68,7 +68,7 @@ $$('[data-count-to]').forEach(el => countIO.observe(el));
 // ------------------------------------------------------------------ thesis: split into words
 const thesis = $('#thesis');
 const thesisText = $('#thesis-text');
-const KEYS = new Set(['harnessing', 'reining', 'good']);
+const KEYS = new Set(['complain', 'computer', 'doesnt']);
 thesisText.innerHTML = thesisText.textContent.trim().split(/\s+/).map(w => {
   const bare = w.toLowerCase().replace(/[^a-z]/g, '');
   return `<span class="w${KEYS.has(bare) ? ' key' : ''}">${w}</span>`;
@@ -244,8 +244,74 @@ addEventListener('load', () => { measure(); update(); });
 // ------------------------------------------------------------------ email (assembled here to keep scrapers off it)
 const emailLink = $('#email-link');
 const addr = `${emailLink.dataset.u}@${emailLink.dataset.d}`;
-emailLink.href = `mailto:${addr}?subject=${encodeURIComponent('Hello from okay-cool.net')}`;
-emailLink.title = addr;
+$$('.js-email').forEach(a => {
+  a.href = `mailto:${addr}?subject=${encodeURIComponent('Hello from okay-cool.net')}`;
+  a.title = addr;
+});
+
+// ------------------------------------------------------------------ live: the visitor's trip and the Pi's vitals
+const COLOS = { ORD: 'Chicago', MSP: 'Minneapolis', MCI: 'Kansas City', STL: 'St. Louis', DTW: 'Detroit', IND: 'Indianapolis',
+  CMH: 'Columbus', CLE: 'Cleveland', OMA: 'Omaha', DFW: 'Dallas', IAH: 'Houston', DEN: 'Denver', IAD: 'Ashburn', ATL: 'Atlanta',
+  EWR: 'Newark', JFK: 'New York', BOS: 'Boston', MIA: 'Miami', CLT: 'Charlotte', BNA: 'Nashville', PIT: 'Pittsburgh', PHL: 'Philadelphia',
+  LAX: 'Los Angeles', SJC: 'San Jose', SFO: 'San Francisco', SEA: 'Seattle', PDX: 'Portland', PHX: 'Phoenix', LAS: 'Las Vegas',
+  SLC: 'Salt Lake City', SAN: 'San Diego', YYZ: 'Toronto', YVR: 'Vancouver', YUL: 'Montreal', LHR: 'London', AMS: 'Amsterdam',
+  FRA: 'Frankfurt', CDG: 'Paris', DUB: 'Dublin', NRT: 'Tokyo', SIN: 'Singapore', SYD: 'Sydney', GRU: 'São Paulo' };
+const esc = (v) => String(v).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const facts = (pairs) => pairs.filter(([, v]) => v).map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('');
+function ago(iso) {
+  const s = Math.max(0, (Date.now() - Date.parse(iso)) / 1000);
+  if (s < 90) return 'just now';
+  if (s < 5400) return `${Math.round(s / 60)} minutes ago`;
+  if (s < 129600) return `${Math.round(s / 3600)} hours ago`;
+  return `${Math.round(s / 86400)} days ago`;
+}
+function uptime(sec) {
+  const d = Math.floor(sec / 86400), h = Math.floor((sec % 86400) / 3600), m = Math.floor((sec % 3600) / 60);
+  return d ? `${d}d ${h}h` : h ? `${h}h ${m}m` : `${m}m`;
+}
+
+async function liveTrip() {
+  try {
+    const r = await fetch('/cdn-cgi/trace', { cache: 'no-store' });
+    if (!r.ok) return;
+    const t = Object.fromEntries((await r.text()).trim().split('\n').map(l => l.split('=')));
+    if (!t.colo) return;
+    const city = COLOS[t.colo] ? `${COLOS[t.colo]} (${t.colo})` : t.colo;
+    const http = (t.http || '').replace('http/', 'HTTP/').replace('HTTP/2', 'HTTP/2');
+    const tls = (t.tls || '').replace('TLSv', 'TLS ');
+    const fam = (t.ip || '').includes(':') ? 'IPv6' : 'IPv4';
+    $('#trip-text').innerHTML = `You came in through Cloudflare's <b>${esc(city)}</b> data center over ${esc(http)}${tls ? ` and ${esc(tls)}` : ''}, then down a tunnel over Starlink to a Raspberry Pi in Milton, Wisconsin.`;
+    $('#trip-facts').innerHTML = facts([['Edge', city], ['Protocol', http], ['Encryption', tls], ['You arrived on', fam], ['From', t.loc]]);
+    const colo = $('[data-live="colo"]');
+    if (colo) colo.textContent = `you're on ${t.colo} right now`;
+  } catch { /* not behind Cloudflare (local preview): keep the static copy */ }
+}
+
+async function livePi() {
+  try {
+    const r = await fetch('/status.json', { cache: 'no-store' });
+    if (!r.ok) return;
+    const s = await r.json();
+    const up = uptime(s.uptime_s), temp = s.temp_c != null ? `${Math.round(s.temp_c)}°C` : null;
+    $('#live-text').textContent = `Live from my basement: Raspberry Pi 4 over Starlink · up ${up}${temp ? ` · ${temp}` : ''}`;
+    $('#live-badge').hidden = false;
+    const pi = $('[data-live="pi"]');
+    if (pi) pi.textContent = `up ${up}${temp ? ` · ${temp}` : ''}`;
+    const reqs = s.requests_today > 0 ? `, and it has served ${Number(s.requests_today).toLocaleString('en-US')} requests today` : '';
+    $('#pi-text').innerHTML = `A ${esc(s.host || 'Raspberry Pi 4')} in my basement. It's been up <b>${esc(up)}</b>${temp ? `, it's running at ${esc(temp)}` : ''}${esc(reqs)}.`;
+    const t = s.tunnel || {};
+    $('#pi-facts').innerHTML = facts([
+      ['Load', s.load1 != null ? `${s.load1} (4 cores)` : null],
+      ['Memory', s.mem_used_pct != null ? `${s.mem_used_pct}% used` : null],
+      ['Tunnel', t.connections ? `${t.connections} connections over ${t.family || 'IPv6'}${t.edges && t.edges.length ? ` to ${t.edges.join(', ')}` : ''}` : null],
+      ['Last deploy', s.deploy ? `${s.deploy.commit} "${s.deploy.subject}" ${ago(s.deploy.time)}` : null],
+      ['OS', s.os],
+    ]);
+  } catch { /* status.json only exists on the Pi */ }
+}
+liveTrip();
+livePi();
+setInterval(livePi, 60000);
 $('#copy-email').addEventListener('click', async () => {
   try { await navigator.clipboard.writeText(addr); toast(`Copied ${addr}`); }
   catch { toast(addr); }

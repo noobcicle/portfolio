@@ -11,9 +11,7 @@
 <meta property="og:title" content="Mike Purpura · Résumé">
 <meta property="og:description" content="Network engineer turned AI builder. 13 years on a carrier network, Python automation since 2020, AI tools every day.">
 <meta property="og:image" content="https://okay-cool.net/assets/img/og.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@500&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="/assets/css/fonts.css">
 <style>
   :root { --bg: #0b0716; --ink: #1d1428; --dim: #5d5070; --line: #e7e0ef; --pink: #e0367f; --blue: #2f6fe0; --gummy: linear-gradient(100deg, #ff5ca8, #c46bff 48%, #4c8dff); }
   * { box-sizing: border-box; }
@@ -61,7 +59,7 @@
     h1 { font-size: 25pt; margin-bottom: 2pt; }
     .role { font-size: 10pt; }
     .contact { font-size: 8.8pt; line-height: 1.5; }
-    h2 { font-size: 7.8pt; margin: 8pt 0 3.5pt; }
+    h2 { font-size: 7.8pt; margin: 7pt 0 3pt; }
     p, .summary { font-size: 9.3pt; margin-bottom: 3pt; }
     .skills { font-size: 8.9pt; gap: 1.5pt 10pt; grid-template-columns: 100pt 1fr; }
     .job-head { font-size: 9.6pt; }
@@ -76,7 +74,7 @@
 <body>
 <div class="bar">
   <a href="../"><svg viewBox="0 0 64 32" aria-hidden="true"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ff5ca8"/><stop offset=".5" stop-color="#c46bff"/><stop offset="1" stop-color="#4c8dff"/></linearGradient></defs><path d="M6 20c6-10 12-10 18 0s12 10 18 0 12-10 16-2" fill="none" stroke="url(#g)" stroke-width="7" stroke-linecap="round"/></svg> Back to okay-cool.net</a>
-  <button class="btn" type="button" onclick="window.print()">Save as PDF</button>
+  <button class="btn" type="button" id="print-btn">Save as PDF</button>
 </div>
 
 <main class="sheet">
@@ -97,10 +95,10 @@
 
   <h2>Skills</h2>
   <dl class="skills">
-    <dt>AI &amp; agents</dt><dd>Claude Code (daily), agent workflows with human approval gates, Ollama and local LLMs, RAG with evaluation suites, structured JSON output, ComfyUI, TTS (Kokoro, Piper)</dd>
+    <dt>AI, run locally</dt><dd>Claude Code (daily), human-approval agent workflows, Ollama and local LLMs, RAG with evaluation suites, structured JSON output, ComfyUI, TTS (Kokoro, Piper)</dd>
     <dt>Automation &amp; dev</dt><dd>Python, Paramiko, Flask, FastAPI, JavaScript/TypeScript, React, SQLite/Postgres, REST/OpenAPI, Visual Basic</dd>
     <dt>DevOps</dt><dd>GitLab CI/CD, Git/GitHub, HashiCorp Vault, Linux, nginx, systemd, Docker (basics), Confluence</dd>
-    <dt>Networking</dt><dd>Juniper MX480/MX960, Cisco ASR 9000, Nokia 7750; MPLS, IS-IS, BGP, L2VPN/VPLS/LDP, QoS, BFD, TACACS+, SNMP; Carrier Ethernet; EXFO RFC 2544 / Y.1731</dd>
+    <dt>Networking</dt><dd>Juniper MX480/MX960, Cisco ASR 9000, Nokia 7750; MPLS, IS-IS, BGP, L2VPN/VPLS/LDP, QoS, BFD, TACACS+, SNMP; Carrier Ethernet; IPv6; Cloudflare; EXFO RFC 2544 / Y.1731</dd>
     <dt>IoT</dt><dd>Raspberry Pi, Arduino, ESP32/ESP8266, MicroPython, MQTT, ESPHome</dd>
   </dl>
 
@@ -136,21 +134,16 @@
     <li><strong>The Hub:</strong> AI control plane on a Mac Studio. Multiplexed Claude Code sessions, local LLMs via Ollama, image/video/music/voice generation through ComfyUI, and an approval queue for agent-proposed work.</li>
     <li><strong>Household platform:</strong> Flask on a Raspberry Pi. NWS severe-weather alerts summarized by a local LLM and spoken on every Sonos speaker; smart plugs, recipes by dictation, and an agent API (OpenAPI, scoped tokens).</li>
     <li><strong>Fleet ops:</strong> agentless SNMP/SSH monitoring and alerting, patch management, certificate-expiry checks, repo drift detection and GitOps auto-deploy across five hosts.</li>
-    <li><strong>Dairy Audit Assistant:</strong> citation-grounded RAG over federal and Wisconsin Grade &ldquo;A&rdquo; dairy regulation, with an eval suite covering both lookups and scenarios (17/17 recall, 19/19 lookups).</li>
+    <li><strong>okay-cool.net:</strong> this portfolio, self-hosted on a Raspberry Pi over Starlink via Cloudflare Tunnel (no inbound ports); all media made with local AI.</li>
     <li><strong>GrowYear:</strong> garden planner (React, TypeScript, Supabase) with 2,500+ varieties from 12 seed companies.</li>
   </ul>
 
   <h2>Certifications &amp; education</h2>
-  <p>Nokia NRS I (active) · Cisco CCNP R&amp;S and Juniper JNCIA (lapsed) · Northcentral Technical College, Network Specialist, 2011</p>
+  <p>Cisco CCNP Routing &amp; Switching (2018, #431094169024ISDH) · MEF-CECP Carrier Ethernet Certified Professional (2017, #25547X2) · Nokia NRS I (#10434)</p>
+  <p>Northcentral Technical College, 2012: AAS, IT Network Specialist (Unified Comms) · Technical Certificate, IT Web Admin</p>
 
   <div class="foot no-print"><span>More detail, stories and demos at <a href="../">okay-cool.net</a></span><span>References available on request</span></div>
 </main>
-<script>
-  (function () {
-    var a = document.getElementById('em'), addr = ['mapurpura12', 'gmail.com'].join('@');
-    a.href = 'mailto:' + addr + '?subject=' + encodeURIComponent('Hello from okay-cool.net');
-    a.textContent = addr;
-  })();
-</script>
+<script src="../assets/js/resume.js" defer></script>
 </body>
 </html>
