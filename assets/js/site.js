@@ -251,6 +251,17 @@ $('#copy-email').addEventListener('click', async () => {
   catch { toast(addr); }
 });
 
+// ------------------------------------------------------------------ studio video: play only while on screen
+const video = $('#studio-video');
+if (video && !reduce) {
+  new IntersectionObserver(([en]) => {
+    if (en.isIntersecting) { video.preload = 'auto'; video.play().catch(() => {}); }
+    else video.pause();
+  }, { threshold: 0.35 }).observe(video);
+} else if (video) {
+  video.controls = true;
+}
+
 // ------------------------------------------------------------------ sound
 initAudio({ toast });
 

@@ -435,7 +435,7 @@ html.js .hero.ready .hero-title .word { opacity: 1; transform: none; filter: non
 .studio-card img { width: 100%; height: 100%; object-fit: cover; }
 article.studio-card { padding: 24px; }
 figure.studio-card { display: flex; flex-direction: column; }
-figure.studio-card img { flex: 1; min-height: 0; aspect-ratio: 16 / 9; }
+figure.studio-card img, .studio-video { flex: 1; min-height: 0; aspect-ratio: 16 / 9; width: 100%; object-fit: cover; display: block; background: #0b0716; }
 .studio-card figcaption { margin: 0; padding: 16px 22px 20px; color: var(--ink-dim); font-size: 14.5px; line-height: 1.55; }
 .studio-k { display: inline-block; font: 600 11.5px/1 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--pink-2); margin: 0 0 12px; }
 figcaption .studio-k { margin: 0 8px 0 0; }
@@ -445,8 +445,11 @@ figcaption .studio-k { margin: 0 8px 0 0; }
 .studio-song { grid-column: span 4; grid-row: span 2; display: flex; flex-direction: column; background: linear-gradient(170deg, rgba(255,92,168,.18), rgba(76,141,255,.14) 70%), var(--glass); border-color: rgba(255,92,168,.3); }
 .studio-voice { grid-column: span 4; }
 .studio-sound { grid-column: span 4; }
-.studio-neon { grid-column: span 6; }
+.studio-making { grid-column: span 6; }
+figure.studio-making img { object-fit: contain; background: #0e0a24; }
 .studio-agents { grid-column: span 6; }
+.studio-neon { grid-column: span 12; }
+figure.studio-neon img { aspect-ratio: 21 / 8; object-position: 50% 45%; }
 .player { display: flex; align-items: center; gap: 14px; padding: 12px; border-radius: 18px; background: rgba(11,7,22,.6); border: 1px solid var(--line-2); margin-bottom: 16px; }
 .player-btn { width: 52px; height: 52px; flex: none; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); background: var(--gummy); color: #fff; cursor: pointer; display: grid; place-items: center; box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 8px 22px -8px rgba(255,92,168,.7); transition: transform .2s var(--ease); }
 .player-btn:hover { transform: scale(1.06); }
@@ -461,7 +464,8 @@ figcaption .studio-k { margin: 0 8px 0 0; }
 .lyrics summary { cursor: pointer; font: 600 13px/1.4 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-dim); }
 .lyrics pre { margin: 12px 0 0; font: 13.5px/1.7 var(--font-sans); color: var(--ink-dim); white-space: pre-wrap; max-height: 300px; overflow: auto; }
 @media (max-width: 980px) {
-  .studio-art, .studio-song, .studio-voice, .studio-sound, .studio-neon, .studio-agents { grid-column: span 12; grid-row: auto; }
+  .studio-art, .studio-song, .studio-voice, .studio-sound, .studio-neon, .studio-agents, .studio-making { grid-column: span 12; grid-row: auto; }
+  figure.studio-neon img { aspect-ratio: 16 / 9; }
   .studio-voice, .studio-sound { grid-column: span 6; }
 }
 @media (max-width: 640px) { .studio-voice, .studio-sound { grid-column: span 12; } }

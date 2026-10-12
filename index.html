@@ -440,8 +440,10 @@ int PumpCutOffTime = 15;</code></pre><p class="film-file">Plant Waterer v1.txt</
 
     <div class="studio-grid">
       <figure class="studio-card studio-art reveal">
-        <img src="assets/img/art/gummy_fiber.webp" alt="AI-generated art: translucent pink and blue gummy worms glowing like fiber optic cables, plugged into a router" loading="lazy">
-        <figcaption><span class="studio-k">Art</span> Qwen-Image 2.1 (Q8 GGUF) in ComfyUI. 1376×768, 25 steps, about a minute per image. Gummy worms as fiber: the site's whole look in one picture.</figcaption>
+        <video class="studio-video" id="studio-video" muted loop playsinline preload="none" poster="assets/img/art/gummy_fiber.webp" aria-label="AI-generated video: the gummy-worm fiber art brought to life, light pulses racing through the strands">
+          <source src="assets/video/gummy_fiber.mp4" type="video/mp4">
+        </video>
+        <figcaption><span class="studio-k">Art → video</span> Qwen-Image 2.1 painted the still (1376×768, 25 steps, about a minute). Then MiniMax H3 animated it: five seconds of video from <span id="video-minutes">about half an hour</span> of GPU time on the Mac Studio. Gummy worms as fiber: the site's whole look in one shot.</figcaption>
       </figure>
 
       <article class="studio-card studio-song reveal">
@@ -504,14 +506,18 @@ Then go home for the night
         <button class="btn btn-small btn-ghost" type="button" data-sound-toggle>Play the soundtrack</button>
       </article>
 
-      <figure class="studio-card studio-neon reveal">
-        <img src="assets/img/art/neon_sign.webp" alt="AI-generated art: a pink and blue neon sign reading okay, cool. on a brick wall" loading="lazy">
-        <figcaption><span class="studio-k">Text rendering</span> The same model can spell. Mostly. This one worked on the first take.</figcaption>
-      </figure>
 
+      <figure class="studio-card studio-making reveal">
+        <img src="assets/img/shots/hub_render.webp" alt="Screenshot: the Hub's Image Studio rendering the gummy robot picture, live preview at diffusion step 8 of 25" loading="lazy" width="1097" height="599">
+        <figcaption><span class="studio-k">Making of</span> The Hub's Image Studio, mid-render on the picture next to it: live latent preview at step 8 of 25, with four more of this page's images queued behind it.</figcaption>
+      </figure>
       <figure class="studio-card studio-agents reveal">
         <img src="assets/img/art/agents.webp" alt="AI-generated art: tiny gummy-candy robots queueing with notes for a human to stamp" loading="lazy">
         <figcaption><span class="studio-k">The idea, illustrated</span> Agents queue up with their requests. A human holds the stamp.</figcaption>
+      </figure>
+      <figure class="studio-card studio-neon reveal">
+        <img src="assets/img/art/neon_sign.webp" alt="AI-generated art: a pink and blue neon sign reading okay, cool. on a brick wall" loading="lazy">
+        <figcaption><span class="studio-k">Text rendering</span> The same model can spell. Mostly. This one worked on the first take.</figcaption>
       </figure>
     </div>
   </div>
