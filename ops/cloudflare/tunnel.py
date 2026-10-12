@@ -74,6 +74,17 @@ def main():
         "sudo systemctl enable --now cloudflared && sudo systemctl restart cloudflared", stdin=unit)
     print("cloudflared service installed and started on the Pi")
 
+    # don't touch DNS until the tunnel is really up
+    import time
+    for _ in range(30):
+        regs = ssh("sudo journalctl -u cloudflared --since '-2 min' -o cat --no-pager | grep -c 'Registered tunnel connection' || true").strip()
+        if regs and int(regs) >= 1:
+            print(f"tunnel registered ({regs} connection(s) so far)")
+            break
+        time.sleep(2)
+    else:
+        sys.exit("tunnel never registered; DNS left alone. Check: journalctl -u cloudflared")
+
     # 4. DNS: replace GitHub Pages' records with proxied CNAMEs to the tunnel
     target = f"{tid}.cfargotunnel.com"
     for host in HOSTS:
