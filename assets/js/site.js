@@ -144,7 +144,7 @@ function setGardens(n) {
   squares.forEach((sq, i) => { sq.classList.toggle('on', i < n); sq.classList.toggle('now', i === n - 1); });
   sixtyN.textContent = n;
 }
-if (reduce || innerWidth <= 860) setGardens(60);
+if (reduce || innerWidth <= 860) { setGardens(60); garden.classList.add('day'); garden.style.setProperty('--g', 1); }
 
 // ------------------------------------------------------------------ marquee (speeds up with scroll)
 const marquee = $('#marquee-track');
@@ -194,9 +194,9 @@ function update() {
   if (pinStrip()) track.style.transform = `translate3d(${-bp * Math.max(0, track.scrollWidth - innerWidth)}px,0,0)`;
 
   if (!reduce && innerWidth > 860) {
-    const g = clamp((gp - 0.04) / 0.22);
+    const g = clamp((gp - 0.03) / 0.16);
     garden.style.setProperty('--g', g.toFixed(3));
-    garden.classList.toggle('day', g > 0.5);
+    garden.classList.toggle('day', g > 0.62);
     setGardens(Math.round(clamp((gp - 0.12) / 0.72) * 60));
   }
   bands.forEach((b, i) => b.style.setProperty('--p', clamp(1 - bandTops[i] / innerHeight, 0, 2).toFixed(3)));

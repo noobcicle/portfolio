@@ -394,7 +394,8 @@ html.js .hero.ready .hero-title .word { opacity: 1; transform: none; filter: non
 /* ---------------------------------------------------------------- garden (dark → daylight) */
 .garden { position: relative; height: 240vh; --g: 0; }
 .garden-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; display: grid; align-items: center; overflow: hidden; }
-.garden-sticky::before { content: ""; position: absolute; inset: 0; background: radial-gradient(70% 60% at 70% 40%, #ffe9f2, transparent 70%), radial-gradient(60% 60% at 20% 80%, #e6f0ff, transparent 70%), var(--cream); opacity: var(--g); }
+/* daylight rises out of the 60-gardens grid like a sunrise */
+.garden-sticky::before { content: ""; position: absolute; inset: 0; background: radial-gradient(70% 60% at 70% 40%, #ffe9f2, transparent 70%), radial-gradient(60% 60% at 20% 80%, #e6f0ff, transparent 70%), var(--cream); clip-path: circle(calc(var(--g) * 150%) at 74% 50%); }
 .garden-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(30px, 6vw, 90px); align-items: center; }
 .garden-copy p { color: var(--ink-dim); font-size: clamp(1.05rem, 1.4vw, 1.2rem); max-width: 46ch; transition: color .6s; }
 .garden-copy .eyebrow { transition: color .6s; }
@@ -420,7 +421,7 @@ html.js .hero.ready .hero-title .word { opacity: 1; transform: none; filter: non
 @media (max-width: 860px) {
   .garden { height: auto !important; }
   .garden-sticky { position: relative; height: auto; padding: 90px 0; }
-  .garden-sticky::before { opacity: 1; }
+  .garden-sticky::before { clip-path: none; }
   .garden-grid { grid-template-columns: minmax(0, 1fr); }
   .garden-copy p { color: #5b4a6e; } .garden-copy .display { color: var(--cream-ink); } .garden-copy .eyebrow { color: #c2397e; } .garden-punch { color: var(--cream-ink) !important; }
   .sixty i { background: rgba(42, 24, 56, .06); border-color: rgba(42, 24, 56, .12); }
@@ -532,7 +533,7 @@ figcaption .studio-k { margin: 0 8px 0 0; }
   .thesis { height: auto; } .thesis-sticky { position: relative; height: auto; padding: 120px 0; } .thesis-text .w { opacity: 1; }
   .before { height: auto !important; } .before-sticky { position: relative; height: auto; padding: 90px 0; }
   .before-track { transform: none !important; width: auto; overflow-x: auto; }
-  .garden { height: auto !important; } .garden-sticky { position: relative; height: auto; padding: 100px 0; }
+  .garden { height: auto !important; } .garden-sticky { position: relative; height: auto; padding: 100px 0; } .garden-sticky::before { clip-path: none; }
   .principle { position: relative; top: 0; margin-bottom: 18px; min-height: 0; }
   .flow-card { opacity: 1; transform: none; } .flow-log span { opacity: 1; }
 }

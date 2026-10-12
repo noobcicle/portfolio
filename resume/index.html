@@ -52,17 +52,24 @@
     h1 { font-size: 38px; }
   }
   @media print {
-    @page { size: letter; margin: 0.45in 0.5in; }
-    body { background: #fff; font-size: 10.3pt; }
-    .bar { display: none; }
+    @page { size: letter; margin: 0.32in 0.45in 0.3in; }
+    body { background: #fff; font-size: 9.3pt; line-height: 1.31; }
+    .bar, .no-print { display: none; }
     .sheet { box-shadow: none; padding: 0; margin: 0; max-width: none; border-radius: 0; }
     .sheet::before { display: none; }
-    h1 { font-size: 30pt; }
-    h2 { margin: 12pt 0 5pt; }
-    li { font-size: 9.9pt; margin-bottom: 2pt; }
-    .skills { font-size: 9.8pt; }
-    a { color: inherit; border: 0; }
-    .no-print { display: none; }
+    header.top { padding-bottom: 7pt; margin-bottom: 4pt; }
+    h1 { font-size: 25pt; margin-bottom: 2pt; }
+    .role { font-size: 10pt; }
+    .contact { font-size: 8.8pt; line-height: 1.5; }
+    h2 { font-size: 7.8pt; margin: 8pt 0 3.5pt; }
+    p, .summary { font-size: 9.3pt; margin-bottom: 3pt; }
+    .skills { font-size: 8.9pt; gap: 1.5pt 10pt; grid-template-columns: 100pt 1fr; }
+    .job-head { font-size: 9.6pt; }
+    .job-sub { font-size: 9pt; margin-bottom: 2pt; }
+    h3 { font-size: 9.1pt; margin: 6pt 0 2pt; }
+    ul { margin-bottom: 2pt; padding-left: 13pt; }
+    li { font-size: 8.95pt; margin-bottom: 1pt; }
+    a { color: inherit; border: 0 !important; }
   }
 </style>
 </head>
@@ -134,8 +141,7 @@
   </ul>
 
   <h2>Certifications &amp; education</h2>
-  <p>Nokia NRS I (active) · Cisco CCNP R&amp;S and Juniper JNCIA (lapsed)</p>
-  <p>Northcentral Technical College, Network Specialist, 2011</p>
+  <p>Nokia NRS I (active) · Cisco CCNP R&amp;S and Juniper JNCIA (lapsed) · Northcentral Technical College, Network Specialist, 2011</p>
 
   <div class="foot no-print"><span>More detail, stories and demos at <a href="../">okay-cool.net</a></span><span>References available on request</span></div>
 </main>
