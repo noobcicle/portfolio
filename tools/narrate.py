@@ -9,6 +9,7 @@ person's voice is used anywhere on the site. Each clip is loudness-normalised
 to -16 LUFS and written as a mono MP3, and assets/audio/tour.json gets the
 text (shown as captions) plus the duration of every clip.
 """
+import hashlib
 import json
 import os
 import subprocess
@@ -24,13 +25,19 @@ sys.path.insert(0, os.path.expanduser("~/apps/voicebox"))
 import server as voicebox  # noqa: E402  (only its render helpers; no server is started)
 
 
+# "room" adds a small hall around a voice (the wizard gets one); it's ours, not Kokoro's
+ROOMS = {"hall": "aecho=0.8:0.55:45|95:0.18|0.09,"}
+
+
 def render(text, values, dest):
+    values = dict(values)
+    room = ROOMS.get(values.pop("room", None) or "", "")
     wav, dur = voicebox._generate_kokoro(text, {**voicebox.DEFAULTS, **values})
     with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as fh:
         fh.write(wav)
         raw = fh.name
     subprocess.run([FFMPEG, "-y", "-loglevel", "error", "-i", raw,
-                    "-af", "highpass=f=70,loudnorm=I=-16:TP=-1.5:LRA=7",
+                    "-af", f"highpass=f=70,{room}loudnorm=I=-16:TP=-1.5:LRA=7",
                     "-ar", "44100", "-ac", "1", "-c:a", "libmp3lame", "-b:a", "80k", dest],
                    check=True)
     os.unlink(raw)
@@ -48,14 +55,17 @@ def main():
             continue
         name = f"tour-{key}.mp3"
         dur = render(text, script["voice"], os.path.join(OUT, name))
-        manifest["clips"][key] = {"src": f"assets/audio/{name}", "text": text, "seconds": dur}
+        # mp3s are cached for a week at Cloudflare's edge and in browsers, so the URL carries
+        # a content hash: a re-rendered clip is a new URL, and nobody hears the old one
+        ver = hashlib.sha1(open(os.path.join(OUT, name), "rb").read()).hexdigest()[:8]
+        manifest["clips"][key] = {"src": f"assets/audio/{name}?v={ver}", "text": text, "seconds": dur}
         print(f"{key:<8} {dur:5.1f}s")
     for key, extra in script["extras"].items():
         if only and key not in only:
             continue
         dur = render(extra["text"], extra["voice"], os.path.join(OUT, f"{key}.mp3"))
         print(f"{key:<8} {dur:5.1f}s")
-    manifest["voice"] = "Kokoro-82M (af_heart) on MLX"
+    manifest["voice"] = f"Kokoro-82M ({script['voice']['voice']}) on MLX"
     json.dump(manifest, open(manifest_path, "w"), indent=1)
 
 
