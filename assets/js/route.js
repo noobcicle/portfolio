@@ -52,6 +52,26 @@ const ZONES = [
   { from: 11, to: 12, label: 'HOME', name: 'my basement' },
 ];
 
+// The sidebar's words for each hop: an emoji, whether the hop is made up, and one line of the
+// home-hosting story. Hops 2-6 (the ISP, its border and the exchange or transit) are simulated.
+const HOP_ICONS = ['💻', '🏠', '🏢', '🔀', '🔀', '🚪', '🔁', '☁️', '🔒', '📡', '🛰️', '🍓', '👋'];
+const SIMULATED = (k) => k >= 2 && k <= 6;
+const STORY = [
+  () => 'This page isn\u2019t on a cloud server. It\u2019s coming from my house. Scroll, and your request makes the trip.',
+  () => 'Your router strips off the Ethernet frame. From here on, it\u2019s an IP packet.',
+  () => 'Into an ISP like yours. This stretch is simulated: made-up routers and metrics, but BGP\u2019s real best-path rules pick the way out.',
+  () => 'IS-IS runs Dijkstra across the core, and the lowest total cost wins each next hop. Still simulated.',
+  () => 'Every router in the core runs the same math and agrees on the path. Made-up routers, real algorithm.',
+  () => 'The border router hands it to the next network over eBGP. Simulated.',
+  () => 'Across an exchange or a transit network toward Cloudflare. The last simulated hop.',
+  (v) => `Real from here on: Cloudflare${v.colo ? `\u2019s ${v.colo} data center` : ''} caught your request, and TLS ends here.`,
+  () => 'My house has no public IPv4: Starlink puts it behind carrier-grade NAT. So my Pi dialed out to Cloudflare over IPv6 and holds a tunnel open. Your request rides it home.',
+  () => 'Down the tunnel to a Starlink ground station\u2026',
+  () => '\u2026up to a satellite about 550 km overhead, and back down to my dish\u2026',
+  () => '\u2026to a Raspberry Pi 4 in my basement. nginx hands it this page.',
+  () => 'Delivered. The whole story, and how the rest of this site was made, is at the bottom of the page.',
+];
+
 // ---------------------------------------------------------------- routing, for real
 function graph(keep) {
   const g = new Map();
@@ -216,6 +236,11 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
   const pduEl = note.querySelector('.route-pdu'), msgEl = note.querySelector('.route-msg'), whyEl = note.querySelector('.route-why');
   const map = root.querySelector('.route-map');
   const mapList = map.querySelector('ol');
+  const mapLive = root.querySelector('.route-map-live');
+  // the sidebar (wide screens only): the hops so far, and the story at the current one
+  const hopsEl = root.querySelector('.route-hops');
+  const storyEl = root.querySelector('.route-story');
+  let sideMode = false, curK = 0, live = null;
 
   const nodes = new Map(NODES.map(([id, L, lane, kind, name]) => [id, { id, L, lane, kind, name, x: 0, y: 0 }]));
   const links = LINKS.map(([a, b, m]) => ({ a: nodes.get(a), b: nodes.get(b), kind: typeof m === 'number' ? 'isis' : m, pts: [], cum: [] }));
@@ -248,7 +273,8 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
     }
   }
   function layout() {
-    const r = root.getBoundingClientRect();
+    const r = canvas.getBoundingClientRect();
+    sideMode = !!hopsEl && getComputedStyle(hopsEl).display !== 'none';
     const d = Math.min(window.devicePixelRatio || 1, 2);
     if (r.width === W && r.height === H && d === dpr && W >= 10) return true;
     W = r.width; H = r.height;
@@ -274,6 +300,7 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
       zones = ZONES.map(z => ({ ...z, x0: 1.5, x1: W - 1.5, y0: z.from * step + 2, y1: (z.to + 1) * step - 2, c: c(z) }));
     }
     for (const l of links) sample(l);
+    placeHops();
     return true;
   }
 
@@ -344,8 +371,12 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
       const wide = z.x1 - z.x0;
       if (horiz && ctx.measureText(z.label).width > wide - 8) continue;
       ctx.fillText(z.label, z.x0 + (horiz ? 4 : 4.5), z.y0 + (horiz ? 8 : 11));
-      const right = z.label === 'LAN' ? (visitor.family || '') : z.label === 'AS13335' ? (visitor.colo || '') : z.right;
-      if (right && ctx.measureText(z.label + right).width < wide - 14) { ctx.textAlign = 'right'; ctx.fillText(right, z.x1 - 4.5, z.y0 + (horiz ? 8 : 11)); }
+      const right = z.label === 'LAN' ? (visitor.family || '') : z.label === 'AS13335' ? (visitor.colo || '') : z.label === 'HOME' ? (live ? 'LIVE' : '') : z.right;
+      if (right && ctx.measureText(z.label + right).width < wide - 14) {
+        ctx.textAlign = 'right';
+        if (z.label === 'HOME') ctx.fillStyle = '#7dffb1';
+        ctx.fillText(right, z.x1 - 4.5, z.y0 + (horiz ? 8 : 11));
+      }
     }
     ctx.textAlign = 'left';
 
@@ -405,7 +436,7 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
 
   function draw(now) {
     const k = Math.min(LAYERS - 1, Math.floor(hop + 1e-6)), f = hop - k;
-    const key = [k, route.path.join(), visitor.colo, visitor.family, W, H, dpr, fontsReady].join('|');
+    const key = [k, route.path.join(), visitor.colo, visitor.family, live ? 1 : 0, W, H, dpr, fontsReady].join('|');
     if (key !== layerKey) { paintLayers(k); layerKey = key; }
     ctx.clearRect(0, 0, W, H);
     ctx.drawImage(under, 0, 0, W, H);
@@ -559,10 +590,40 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
   // ------------------------------------------------------------ the card and the map
   function writeNote(k) {
     const n = notes[k];
-    pduEl.textContent = n.pdu; msgEl.textContent = n.msg; whyEl.textContent = n.why;
+    curK = k;
+    pduEl.textContent = n.pdu; msgEl.textContent = `${HOP_ICONS[k]} ${n.msg}`; whyEl.textContent = n.why;
     note.classList.toggle('is-frame', k === 0);
-    noteW = note.offsetWidth;
+    if (!sideMode) noteW = note.offsetWidth;
     for (const li of mapList.children) li.classList.toggle('is-here', +li.dataset.k === k);
+    markHops(k);
+  }
+  const hopName = (k) => {
+    const node = nodes.get(route.path[k]);
+    return node.L === 7 && visitor.colo ? `Cloudflare ${visitor.colo}` : node.name;
+  };
+  const storyText = (k) => STORY[k] ? STORY[k](visitor) : '';
+  // sidebar rows: one per hop, lined up with its router on the rail; the ones ahead stay dark
+  function buildHops() {
+    if (!hopsEl) return;
+    hopsEl.innerHTML = notes.map((n, k) =>
+      `<li data-k="${k}" title="${esc(chapters[k]?.dataset.chapter || '')}"><span class="rh-ico">${HOP_ICONS[k]}</span>` +
+      `<span class="rh-name">${esc(hopName(k))}${SIMULATED(k) ? '<i class="rh-sim">sim</i>' : ''}</span>` +
+      `<span class="rh-msg">${esc(n.pdu)} · ${esc(n.why)}</span></li>`).join('');
+    placeHops();
+    markHops(curK);
+  }
+  function placeHops() {
+    if (!hopsEl || !sideMode || !step) return;
+    [...hopsEl.children].forEach((li, k) => { li.style.top = `${((k + 0.5) * step).toFixed(1)}px`; });
+  }
+  function markHops(k) {
+    if (storyEl) storyEl.textContent = storyText(k);
+    if (!hopsEl) return;
+    for (const li of hopsEl.children) {
+      const i = +li.dataset.k;
+      li.classList.toggle('is-here', i === k);
+      li.classList.toggle('is-next', i > k);
+    }
   }
   function buildMap() {
     mapList.innerHTML = notes.map((n, k) => {
@@ -571,12 +632,18 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
       const as = node.L === 6 ? (node.id === 'tr1' ? 'AS64511' : '') : zone.label.startsWith('AS') ? zone.label : '';
       const name = node.L === 7 && visitor.colo ? `Cloudflare ${visitor.colo}` : node.name;
       return `<li data-k="${k}"><span class="rm-k">${String(k).padStart(2, '0')}</span>` +
-        `<span class="rm-node">${esc(name)}${as ? ` <i>${as}</i>` : ''}</span>` +
+        `<span class="rm-node"><span class="rm-ico">${HOP_ICONS[k]}</span>${esc(name)}${as ? ` <i>${as}</i>` : ''}${SIMULATED(k) ? '<i class="rm-sim">sim</i>' : ''}</span>` +
         `<span class="rm-ch">${esc(chapters[k]?.dataset.chapter || '')}</span>` +
-        `<span class="rm-msg">${esc(n.line)}</span></li>`;
+        `<span class="rm-msg">${esc(n.line)}</span>` +
+        `<span class="rm-story">${esc(storyText(k))}</span></li>`;
     }).join('');
+    buildHops();
     writeNote(Math.min(LAYERS - 1, Math.floor(hop + 1e-6)));
   }
+  hopsEl?.addEventListener('click', (e) => {
+    const li = e.target.closest('li');
+    if (li) chapters[+li.dataset.k]?.scrollIntoView();
+  });
   mapList.addEventListener('click', (e) => {
     const li = e.target.closest('li');
     if (!li) return;
@@ -584,10 +651,9 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
     chapters[+li.dataset.k]?.scrollIntoView();
   });
   let mapT = 0;
-  root.addEventListener('pointerenter', (e) => {
-    if (e.pointerType !== 'mouse') return;
-    clearTimeout(mapT); mapT = setTimeout(() => root.classList.add('is-open'), 140);
-  });
+  const openMap = () => { clearTimeout(mapT); mapT = setTimeout(() => root.classList.add('is-open'), 140); };
+  root.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse' && !sideMode) openMap(); });
+  canvas.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse' && sideMode) openMap(); });
   root.addEventListener('pointerleave', (e) => {
     if (e.pointerType !== 'mouse') return;
     clearTimeout(mapT); mapT = setTimeout(() => root.classList.remove('is-open'), 220);
@@ -623,7 +689,7 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
     // on wide screens the card fits in the margin, so it can stay up
     const wrap = document.querySelector('main .wrap');
     const left = wrap ? wrap.getBoundingClientRect().left + parseFloat(getComputedStyle(wrap).paddingLeft) : 0;
-    root.classList.toggle('is-roomy', !horiz && left - root.getBoundingClientRect().right > 330);
+    root.classList.toggle('is-roomy', !horiz && !sideMode && left - root.getBoundingClientRect().right > 330);
     kick();
   }
 
@@ -678,6 +744,15 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
       visitor.colo = colo || null; visitor.v6 = !!v6; visitor.family = v6 ? 'IPv6' : 'IPv4';
       notes = writeNotes(route, visitor);
       buildMap();
+      kick();
+    },
+    // the Pi answered: tag the HOME zone LIVE and put its vitals at the top of the map
+    setLive(text) {
+      live = text || null;
+      if (mapLive) {
+        mapLive.hidden = !live;
+        mapLive.innerHTML = live ? `<span class="live-dot" aria-hidden="true"></span>${esc(live)}` : '';
+      }
       kick();
     },
   };

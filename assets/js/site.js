@@ -1,6 +1,8 @@
 import { initHero } from './hero.js';
 import { initAudio } from './audio.js';
 import { initRoute } from './route.js';
+import { initSkills } from './skills.js';
+import { initSysmap } from './lab.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -69,7 +71,7 @@ $$('[data-count-to]').forEach(el => countIO.observe(el));
 // ------------------------------------------------------------------ thesis: split into words
 const thesis = $('#thesis');
 const thesisText = $('#thesis-text');
-const KEYS = new Set(['complain', 'computer', 'doesnt']);
+const KEYS = new Set(['hand', 'ai', 'doesnt']);
 thesisText.innerHTML = thesisText.textContent.trim().split(/\s+/).map(w => {
   const bare = w.toLowerCase().replace(/[^a-z]/g, '');
   return `<span class="w${KEYS.has(bare) ? ' key' : ''}">${w}</span>`;
@@ -96,8 +98,7 @@ const hopIO = new IntersectionObserver((entries) => {
 }, { rootMargin: '-45% 0px -45% 0px' });
 hops.forEach(h => hopIO.observe(h));
 
-// ------------------------------------------------------------------ lab: sticky media follows the item in view
-const slides = $$('.media-slide');
+// ------------------------------------------------------------------ the Hub: the voice → approval → Claude Code demo
 const flow = $('#flow-demo');
 let flowTimer = 0, flowOn = false;
 function runFlow() {
@@ -112,13 +113,6 @@ function setFlow(on) {
   clearTimeout(flowTimer);
   if (on) { if (reduce) flow.dataset.step = 4; else runFlow(); }
 }
-function setSlide(key) {
-  slides.forEach(s => s.classList.toggle('is-active', s.dataset.slide === key));
-}
-const labIO = new IntersectionObserver((entries) => {
-  for (const en of entries) if (en.isIntersecting) setSlide(en.target.dataset.slide);
-}, { rootMargin: '-45% 0px -45% 0px' });
-$$('.lab-item').forEach(el => labIO.observe(el));
 new IntersectionObserver(([en]) => setFlow(en.isIntersecting), { threshold: 0.25 }).observe(flow);
 
 // ------------------------------------------------------------------ before AI: pinned horizontal strip
@@ -148,10 +142,9 @@ function setGardens(n) {
 }
 if (reduce || innerWidth <= 860) { setGardens(60); garden.classList.add('day'); sun.style.clipPath = 'none'; }
 
-// ------------------------------------------------------------------ marquee (speeds up with scroll)
-const marquee = $('#marquee-track');
-marquee.innerHTML += marquee.innerHTML;
-let mx = 0, mlast = 0, vel = 0, lastY = scrollY, mhalf = 1, mraf = 0, mOn = false;
+// ------------------------------------------------------------------ skills map and the lab's system map
+initSkills($('#skillmap'), { detail: $('#skillmap-detail'), table: $('#skill-table'), reduceMotion: reduce });
+initSysmap($('#sysmap'), { reduceMotion: reduce });
 
 // ------------------------------------------------------------------ scroll progress: a packet routed to me
 const chapters = $$('[data-chapter]');
@@ -173,7 +166,6 @@ function measure() {
     nav: [...linkFor.keys()].map(id => document.getElementById(id)).filter(Boolean).map(el => ({ id: el.id, ...box(el) })),
     travel: Math.max(0, track.scrollWidth - innerWidth),
   };
-  mhalf = marquee.scrollWidth / 2;
   route.measure();
 }
 
@@ -186,7 +178,6 @@ function update() {
   ticking = false;
   if (!geo) return;
   const y = scrollY, vh = innerHeight;
-  vel = y - lastY; lastY = y;
   if (last.scrolled !== (y > 20)) nav.classList.toggle('scrolled', (last.scrolled = y > 20));
   heroCtl.setFade(clamp(1 + (geo.hero.top - y) / (geo.hero.h * 0.9)));
 
@@ -232,21 +223,6 @@ function onScroll() {
 addEventListener('scroll', onScroll, { passive: true });
 addEventListener('resize', () => { measure(); update(); });
 new ResizeObserver(() => { measure(); update(); }).observe(document.body);
-
-function marqueeLoop(t) {
-  mraf = 0;
-  if (!mOn) return;
-  const dt = Math.min(0.05, (t - (mlast || t)) / 1000); mlast = t;
-  const speed = 46 + Math.min(600, Math.abs(vel) * 9);
-  vel *= 0.9;
-  mx = (mx - speed * dt) % mhalf;
-  marquee.style.transform = `translate3d(${mx}px,0,0)`;
-  mraf = requestAnimationFrame(marqueeLoop);
-}
-if (!reduce) new IntersectionObserver(([en]) => {
-  mOn = en.isIntersecting;
-  if (mOn && !mraf) { mlast = 0; mraf = requestAnimationFrame(marqueeLoop); }
-}).observe(marquee.parentElement);
 
 measure(); update();
 addEventListener('load', () => { measure(); update(); });
@@ -304,8 +280,11 @@ async function livePi() {
     if (!r.ok) return;
     const s = await r.json();
     const up = uptime(s.uptime_s), temp = s.temp_c != null ? `${Math.round(s.temp_c)}°C` : null;
-    $('#live-text').textContent = `Live from my basement: Raspberry Pi 4 over Starlink · up ${up}${temp ? ` · ${temp}` : ''}`;
-    $('#live-badge').hidden = false;
+    const vitals = `Pi 4 · up ${up}${temp ? ` · ${temp}` : ''}`;
+    $('#route-live-text').textContent = vitals;
+    $('#route-live').hidden = false;
+    route.setLive(`Live from my house: Raspberry ${vitals}`);
+    $('#made-live').textContent = `Right now: up ${up}${temp ? `, ${temp}` : ''}${s.deploy ? `, last deploy ${ago(s.deploy.time)}` : ''}`;
     const pi = $('[data-live="pi"]');
     if (pi) pi.textContent = `up ${up}${temp ? ` · ${temp}` : ''}`;
     const reqs = s.requests_today > 0 ? `, and it has served ${Number(s.requests_today).toLocaleString('en-US')} requests today` : '';
@@ -339,6 +318,32 @@ addEventListener('load', () => {
   const next = () => { const img = queue.shift(); if (!img) return; img.loading = 'eager'; idle(next); };
   setTimeout(() => idle(next), 1200);
 });
+
+// ------------------------------------------------------------------ projects: arrow buttons for the two carousels
+$$('.pnav-btn').forEach(btn => {
+  const trackEl = document.getElementById(btn.dataset.track);
+  if (!trackEl) return;
+  btn.addEventListener('click', () => {
+    const card = trackEl.querySelector('.pcard');
+    const step = card ? card.getBoundingClientRect().width + 16 : trackEl.clientWidth * 0.8;
+    trackEl.scrollBy({ left: +btn.dataset.dir * step, behavior: reduce ? 'auto' : 'smooth' });
+  });
+});
+function syncPnav(trackEl) {
+  const max = trackEl.scrollWidth - trackEl.clientWidth - 2;
+  $$(`.pnav-btn[data-track="${trackEl.id}"]`).forEach(b => { b.disabled = +b.dataset.dir < 0 ? trackEl.scrollLeft <= 2 : trackEl.scrollLeft >= max; });
+}
+$$('.ptrack').forEach(t => {
+  let raf = 0;
+  t.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; syncPnav(t); }); }, { passive: true });
+  new ResizeObserver(() => syncPnav(t)).observe(t);
+});
+
+// ------------------------------------------------------------------ the making-of card opens itself when a link points at it
+const madeDetails = $('#made-details');
+function openMade() { if (madeDetails && !madeDetails.open) madeDetails.open = true; }
+document.addEventListener('click', (e) => { if (e.target.closest('a[href="#made"]')) openMade(); });
+if (location.hash === '#made') openMade();
 
 // ------------------------------------------------------------------ studio video: play only while on screen
 const video = $('#studio-video');

@@ -1,6 +1,6 @@
 # okay-cool.net
 
-Mike Purpura's portfolio: a network engineer turned AI builder, from Milton, Wisconsin.
+Mike Purpura's portfolio: network engineer, then network DevOps, now an AI-first engineer, from Milton, Wisconsin.
 
 **Live at [okay-cool.net](https://okay-cool.net).**
 
@@ -44,13 +44,17 @@ No real person's voice is cloned: the wizard was designed from a text descriptio
 
 - `index.html`: the whole story, chapter by chapter
 - `assets/js/hero.js`: the canvas network in the hero (packets are gummy worms of light)
-- `assets/js/route.js`: the scroll bar, a packet routed from the visitor to me with one router per section
-  (a rail down the left on desktop, a strip under the nav on phones).
+- `assets/js/route.js`: the scroll bar, a packet routed from the visitor to me with one router per section.
+  On wide screens it's a sidebar that tells the home-hosting story hop by hop (emoji per hop, simulated hops
+  marked); between 1100 and 1279 px it's the slim rail, and on phones a strip under the nav.
   IS-IS (Dijkstra) and BGP best-path selection really run; Cloudflare AS13335 and Starlink AS14593 are
   real, while the ISP, the transit networks (RFC 5398 ASNs) and the metrics are made up. Hover it (or tap the
   strip) for the traceroute.
 - `assets/js/site.js`: one scroll loop for the pinned chapters, traceroute sync, the 60-gardens grid,
-  and the live trip and server widgets
+  the project carousels, and the live trip and server widgets
+- `assets/js/skills.js`: the skills map, skills and work wired to what they used; solid is by hand,
+  hollow is Claude-built (the data lives at the top of the file)
+- `assets/js/lab.js`: the wires on the lab's system map
 - `assets/js/audio.js`: the opt-in soundtrack and narrated tour with live captions, all through Web Audio
 - `resume/`: a printable one-page web résumé
 

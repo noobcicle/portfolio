@@ -171,7 +171,11 @@ export function initAudio({ toast, onTourChange } = {}) {
     onTourChange?.(on);
     document.querySelectorAll('[data-tour-toggle]').forEach(b => (b.textContent = on ? 'Stop the tour' : 'Start the tour'));
     const tb = document.getElementById('tour-btn');
-    if (tb) tb.lastChild.textContent = on ? ' Stop the audio tour' : ' Play the audio tour';
+    if (tb) {
+      tb.setAttribute('aria-pressed', String(on));
+      const label = tb.querySelector('.tour-label');
+      if (label) label.textContent = on ? 'Stop tour' : 'Audio tour';
+    }
     if (!on) {
       clearTimeout(pendingTimer);
       if (voiceEl) voiceEl.pause();

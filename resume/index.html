@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mike Purpura · Résumé</title>
-<meta name="description" content="Résumé of Mike Purpura: network and AI automation engineer in Milton, Wisconsin. 13 years at Charter / Spectrum Enterprise, Python and GitLab CI/CD automation, AI tooling.">
+<meta name="description" content="Résumé of Mike Purpura: network and AI automation engineer in Milton, Wisconsin. 13 years at Charter / Spectrum Enterprise, Python and GitLab automation, AI tooling.">
 <meta name="theme-color" content="#0b0716">
 <link rel="canonical" href="https://okay-cool.net/resume/">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="Mike Purpura · Résumé">
-<meta property="og:description" content="Network engineer turned AI builder. 13 years on a carrier network, Python automation since 2020, AI tools every day.">
+<meta property="og:description" content="Network engineer, then network DevOps, now an AI-first engineer. 13 years on a carrier network, Python automation since 2020, AI tools every day.">
 <meta property="og:image" content="https://okay-cool.net/assets/img/og.png">
 <link rel="stylesheet" href="/assets/css/fonts.css">
 <style>
@@ -91,13 +91,14 @@
   </header>
 
   <h2>Summary</h2>
-  <p class="summary">Network engineer with 13 years at Charter Communications / Spectrum Enterprise running a multi-vendor carrier network, the last two on a DevOps team building tools for network engineers. I automate with Python and GitLab CI/CD, and I build with AI every day: Claude Code, local LLMs, and agents that ask before they act. I'm looking for AI and automation, DevOps or NetDevOps work on a small team.</p>
+  <p class="summary">Network engineer with 13 years at Charter Communications / Spectrum Enterprise running a multi-vendor carrier network, the last two on a DevOps team building tools for network engineers. I find the work engineers repeat and make a computer do it, first with Python and now with AI every day: Amazon Q and Kiro at work, Claude Code and local LLMs at home, and agents that ask before they act. I'm looking for AI and automation, DevOps or NetDevOps work on a small team.</p>
 
   <h2>Skills</h2>
   <dl class="skills">
-    <dt>AI, run locally</dt><dd>Claude Code (daily), human-approval agent workflows, Ollama and local LLMs, RAG with evaluation suites, structured JSON output, ComfyUI, TTS (Kokoro, Piper)</dd>
-    <dt>Automation &amp; dev</dt><dd>Python, Paramiko, Flask, FastAPI, JavaScript/TypeScript, React, SQLite/Postgres, REST/OpenAPI, Visual Basic</dd>
-    <dt>DevOps</dt><dd>GitLab CI/CD, Git/GitHub, HashiCorp Vault, Linux, nginx, systemd, Docker (basics), Confluence</dd>
+    <dt>AI</dt><dd>Claude Code (daily), Amazon Q with GitLab, Kiro, human-approval agent workflows, Ollama and local LLMs, RAG with evaluation suites, structured JSON output, ComfyUI, TTS (Kokoro, Piper)</dd>
+    <dt>Code, by hand</dt><dd>Python, Paramiko, JavaScript, Bash, FastAPI, SQLite, OpenCV + Tesseract OCR, Visual Basic</dd>
+    <dt>Built with AI</dt><dd>Flask, React/TypeScript, Supabase/Postgres, REST/OpenAPI (Claude Code writes it; I direct and run it)</dd>
+    <dt>DevOps</dt><dd>Git, GitLab, GitHub, HashiCorp Vault, Linux, nginx, systemd, Docker (beginner), Confluence (admin)</dd>
     <dt>Networking</dt><dd>Juniper MX480/MX960, Cisco ASR 9000, Nokia 7750; MPLS, IS-IS, BGP, L2VPN/VPLS/LDP, QoS, BFD, TACACS+, SNMP; Carrier Ethernet; IPv6; Cloudflare; EXFO RFC 2544 / Y.1731</dd>
     <dt>IoT</dt><dd>Raspberry Pi, Arduino, ESP32/ESP8266, MicroPython, MQTT, ESPHome</dd>
   </dl>
@@ -109,23 +110,23 @@
 
     <h3>DevOps team: network automation tools · 2024–2026</h3>
     <ul>
-      <li>Built front-end and back-end applications for network engineering teams, including password rotation and maintenance reporting, with daily GitLab CI/CD.</li>
+      <li>Built applications for network engineering teams, including password rotation and maintenance reporting, with all code in GitLab.</li>
       <li>Wrote the multi-vendor Python/Paramiko modules (vendor interface code plus all CLI navigation and command logic) that audited configurations and rotated credentials over SSH across thousands of core routers and hundreds of thousands of customer edge devices, with secrets in HashiCorp Vault.</li>
-      <li>Shipped through GitLab pipelines that tested and promoted each release from candidate to live on three regional Linux servers sharing a priority-ordered job list.</li>
+      <li>Used AI in the team's daily work: we paired GitLab with Amazon Q in the IDE (I connected the two), and I worked with Kiro, Amazon's AI for the terminal.</li>
     </ul>
 
     <h3>Network automation, design &amp; implementation</h3>
     <ul>
-      <li>From about 2020, automated weekly configuration audits and standards deployments across the region's Cisco ASR 9000, Nokia 7750 and Juniper MX routers in Python.</li>
-      <li>Redesigned the regional QoS policy and automated its rollout to every PE router single-handedly; other regions staffed the same work with 5–6 engineers.</li>
-      <li>Team lead for the Cisco-to-Juniper migration after the Time Warner Cable merger; wrote the region's internet, voice and WAN standards in Confluence and a JavaScript config generator for MX960/MX480.</li>
+      <li>From 2020, automated weekly standards updates in Python across roughly 500 multi-vendor core routers (Juniper, Cisco, Nokia) from New York City to the Midwest, including the regional QoS rewrite and rollout.</li>
+      <li>Wrote a migration script that turned an Excel cut sheet into a full method of procedure: pull and analyze each config over SSH, then build the destination config. Saved hundreds of hours per migration.</li>
+      <li>After the Time Warner Cable merger, replaced everyone's private Excel sheets with shared circuit standards in Confluence (as its admin), built a JavaScript config generator for MX960/MX480, and became team lead for documentation.</li>
     </ul>
 
     <h3>Enterprise circuit build &amp; turn-up</h3>
     <ul>
-      <li>Built 1,000–2,000 enterprise circuits in a peak year: Carrier Ethernet point-to-point, large E-LAN multipoint networks, cell backhaul to carrier MTSOs and off-net Type 2 circuits; turn-up tested with EXFO.</li>
-      <li>Built a ~5,000-line Visual Basic tool that drove the CRM to assign circuit IDs, IPs and VLANs and draw the Visio diagram, cutting order time from over an hour to about five minutes; adopted by a 30-person team.</li>
-      <li>Chosen repeatedly as lead engineer for travel assignments; kept most of the team's documentation.</li>
+      <li>Turned up thousands of enterprise circuits, every config hand-built at first: Carrier Ethernet point-to-point, large E-LAN multipoint networks, cell backhaul to carrier MTSOs and off-net Type 2 circuits; turn-up tested with EXFO.</li>
+      <li>Wrote my first automation in Visual Basic: a spreadsheet that drove the order system to assign circuit IDs, IPs and VLANs and draw the Visio diagram; the whole team adopted it.</li>
+      <li>Chosen repeatedly as lead engineer for travel assignments.</li>
     </ul>
   </div>
 
@@ -134,8 +135,8 @@
     <li><strong>The Hub:</strong> AI control plane on a Mac Studio. Multiplexed Claude Code sessions, local LLMs via Ollama, image/video/music/voice generation through ComfyUI, and an approval queue for agent-proposed work.</li>
     <li><strong>Household platform:</strong> Flask on a Raspberry Pi. NWS severe-weather alerts summarized by a local LLM and spoken on every Sonos speaker; smart plugs, recipes by dictation, and an agent API (OpenAPI, scoped tokens).</li>
     <li><strong>Fleet ops:</strong> agentless SNMP/SSH monitoring and alerting, patch management, certificate-expiry checks, repo drift detection and GitOps auto-deploy across five hosts.</li>
-    <li><strong>okay-cool.net:</strong> this portfolio, self-hosted on a Raspberry Pi over Starlink via Cloudflare Tunnel (no inbound ports); all media made with local AI.</li>
-    <li><strong>GrowYear:</strong> garden planner (React, TypeScript, Supabase) with 2,500+ varieties from 12 seed companies.</li>
+    <li><strong>okay-cool.net:</strong> this portfolio, self-hosted on a Raspberry Pi over Starlink via Cloudflare Tunnel; all media made with local AI.</li>
+    <li><strong>GrowYear:</strong> garden planner (React, TypeScript, Supabase) built on real seed-company catalogs.</li>
   </ul>
 
   <h2>Certifications &amp; education</h2>
