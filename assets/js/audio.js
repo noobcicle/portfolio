@@ -1,6 +1,6 @@
 // Sound for okay-cool.net. Nothing plays until the visitor asks.
 //  - soundtrack: an ACE-Step ambient bed, looped gaplessly from an AudioBuffer
-//  - tour: Kokoro narration per chapter, captions with a word-by-word sweep
+//  - tour: the wizard's narration per chapter, captions with a word-by-word sweep
 //  - players: the theme song (with Lord Pemberton's intro)
 // Everything routes through Web Audio gain nodes, because iOS ignores
 // HTMLMediaElement.volume and we need fades and ducking.
@@ -121,22 +121,29 @@ export function initAudio({ toast, onTourChange } = {}) {
     const v = voice();
     v.src = clip.src;
     try { await ac.resume(); await v.play(); } catch { return; }
-    showCaptions(clip.text);
+    showCaptions(clip.text, clip.t);
   }
 
-  function showCaptions(text) {
+  // times: when each word starts (Whisper, from narrate.py), so the sweep waits out the
+  // wizard's pauses; without them it falls back to sweeping by character count
+  function showCaptions(text, times) {
     caps.hidden = false;
     const words = text.split(/\s+/);
     capsText.innerHTML = words.map(w => `<span class="unsaid">${escapeHtml(w)}</span>`).join(' ');
     const spans = [...capsText.children];
+    const timed = Array.isArray(times) && times.length === words.length;
     const total = text.length;
     const offsets = []; let acc = 0;
     words.forEach(w => { offsets.push(acc / total); acc += w.length + 1; });
+    let said = 0;
     cancelAnimationFrame(captionTimer);
     const tick = () => {
       if (!voiceEl || voiceEl.paused) return;
-      const p = voiceEl.duration ? voiceEl.currentTime / voiceEl.duration : 0;
-      spans.forEach((s, i) => (s.className = offsets[i] <= p ? 'said' : 'unsaid'));
+      const now = voiceEl.currentTime;
+      const p = voiceEl.duration ? now / voiceEl.duration : 0;
+      let n = said;
+      while (n < spans.length && (timed ? times[n] <= now : offsets[n] <= p)) n++;
+      for (; said < n; said++) spans[said].className = 'said';
       captionTimer = requestAnimationFrame(tick);
     };
     captionTimer = requestAnimationFrame(tick);

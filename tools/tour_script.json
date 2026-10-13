@@ -1,26 +1,60 @@
 {
   "voice": {
-    "voice": "bm_george",
-    "lang_code": "b",
-    "kspeed": 0.9,
-    "pitch": -3.0,
-    "clarity": false,
-    "speed": 1.0,
-    "room": "hall"
+    "engine": "voxcpm2",
+    "studio_profile": "fc0b254e",
+    "name": "Grey Wizard HD (designed)",
+    "design": "OmniVoice voice design (male, elderly, low pitch, British accent; seed 13), re-recorded by VoxCPM2 with the direction 'theatrical, warm, delighted'. No real person's audio.",
+    "takes": 6
   },
   "clips": {
-    "intro": "Ah. A traveler. Welcome. I am your guide for this little journey, a wizard of sorts. Well. Truthfully, I am an AI voice, conjured on Mike's Mac Studio, down in his basement, same as this website. Mike kept a carrier network running for thirteen years, and he holds an ancient grudge against doing anything twice. Scroll at your own pace. I shall keep up.",
-    "tldr": "The short version, for the impatient. Thirteen years as a network engineer at Charter. Python automation since 2020. Two years on a dev-ops team. And now, AI tools, built and run on his own hardware.",
-    "built": "Now, behold the trick. Everything you see and hear on this page was conjured by AI models running on Mike's own Mac Studio. And the page itself travels to you from a Raspberry Pi in his basement, through a tunnel, by way of a satellite. Including me. Especially me.",
-    "thesis": "Mike lives by one rule. Do it once by hand. Do it twice, and complain about it. The third time, a computer does it. The tools keep changing. The rule does not.",
-    "story": "Here is the road he traveled. Tech school, then Charter in 2013, turning up fiber circuits by the thousand. A spreadsheet that turned an hour of work into five minutes. Python. A dev-ops team. And in June of 2026, a most eventful week: a new baby on Tuesday, and a closed office on Friday.",
-    "numbers": "Some numbers, for the scholars among you. Up to two thousand circuits a year, by his own hand. A region-wide rollout he automated alone, while other regions needed five or six engineers. And when he moved to the dev-ops team, it took six people to cover his old job.",
-    "lab": "And now, the workshop beneath the house. A control room for all his AI, a stock dashboard that pinned people's tweets right onto the price chart, a house voice named Thaddeus who reads tornado warnings at three in the morning, monitoring that makes failures loud, and a garden planner called GrowYear. His family uses most of it. Some of them even like it.",
-    "before": "None of this began with AI. Long before any machine could help him write a single spell, Mike was wiring up garage doors, plant waterers and pepper sensors by hand. The AI simply made him faster.",
-    "garden": "A gardener who starts young gets about sixty gardens in a lifetime. Sixty. That is why Mike builds these tools: so the computers take more of the chores, and his family gets more of him.",
-    "how": "How he works. Do it twice, then script it. Be the first one in. Make failures loud. And let the AI ask before it does anything that matters. Wise rules, those.",
-    "next": "What he seeks: a small team that wants the boring stuff gone. Anywhere from Madison to Milwaukee, hybrid if he can get it.",
-    "contact": "And so our journey ends. If any of this sounds like your team, his email is right there. Go on. Okay, cool. Farewell, traveler."
+    "intro": {
+      "text": "Ah! There you are. Welcome, traveler. Now, you may be wondering about the grey hat. Don't. I am your guide for this little journey, and I have guided far stranger folk down far darker roads. Truthfully, I am an AI voice, conjured on Mike's Mac Studio, down in his basement, same as this website. Mike kept a carrier network running for thirteen years, and he holds an ancient grudge against doing anything twice. Scroll at your own pace. I shall keep up.",
+      "mood": "theatrical, warm, delighted to welcome a guest"
+    },
+    "tldr": {
+      "text": "The short version, for the impatient. There are always impatient ones. Thirteen years as a network engineer at Charter. Python automation since 2020. Then two years on a dev-ops team. And now? AI tools, built and run on his own hardware. There. Short. I am rarely short.",
+      "mood": "theatrical, warm, brisk and amused"
+    },
+    "built": {
+      "text": "Now. Behold! Everything you see and hear on this page was conjured by AI models, running on Mike's own Mac Studio. In my day, I was rather famous for fireworks. This is better. And the page itself travels to you from a Raspberry Pi in his basement, through a tunnel, by way of a satellite. Including me. Especially me.",
+      "mood": "theatrical, warm, full of wonder"
+    },
+    "thesis": {
+      "text": "Mike lives by one rule, and it is a good one. Do it once, by hand. Do it twice, and grumble about it. The third time? A computer does it. The tools keep changing. The rule does not.",
+      "mood": "theatrical, warm, wise and amused"
+    },
+    "story": {
+      "text": "Gather round. Here is the road he traveled. Tech school. Then Charter, in 2013, turning up fiber circuits by the thousand. A spreadsheet that turned an hour of work into five minutes. Then Python. Then a dev-ops team. And in June of 2026, a most eventful week: a new baby on Tuesday, and a closed office on Friday. Quite a week, even by a wizard's standards.",
+      "mood": "theatrical, warm, fond and storytelling"
+    },
+    "numbers": {
+      "text": "Some numbers, for the scholars among you. Up to two thousand circuits a year, by his own hand. A region-wide rollout he automated alone, while other regions needed five or six engineers. And when he moved to the dev-ops team, it took six people to cover his old job. Six! I have known wizards who got less done in a century.",
+      "mood": "theatrical, warm, impressed and amused"
+    },
+    "lab": {
+      "text": "And now, the workshop beneath the house. Mind your head. A control room for all his AI. A stock dashboard that pinned people's tweets right onto the price chart. A house voice named Thaddeus, who reads tornado warnings at three in the morning. Monitoring that makes failures loud. And a garden planner, called GrowYear. His family uses most of it. Some of them even like it.",
+      "mood": "theatrical, warm, proud and playful"
+    },
+    "before": {
+      "text": "None of this began with AI. Long before any machine could help him with a single spell, Mike was wiring up garage doors, plant waterers, and pepper sensors, by hand. Tinkerers are a stubborn sort. I should know. The AI simply made him faster.",
+      "mood": "theatrical, warm, fond"
+    },
+    "garden": {
+      "text": "A gardener who starts young gets about sixty gardens in a lifetime. Sixty. That is not so very many, is it? That is why Mike builds these tools: so the computers take more of the chores, and his family gets more of him.",
+      "mood": "warm, gentle and tender"
+    },
+    "how": {
+      "text": "How he works. Do it twice, then script it. Be the first one in. Make failures loud. And let the AI ask before it does anything that matters. Wise rules, those. I have given worse advice. Not often, mind you.",
+      "mood": "theatrical, warm, wise and amused"
+    },
+    "next": {
+      "text": "What he seeks: a small team that wants the boring stuff gone. Anywhere from Madison to Milwaukee, hybrid if he can get it. Small teams have done great things before. I have seen it myself.",
+      "mood": "theatrical, warm, sincere"
+    },
+    "contact": {
+      "text": "And so, our journey ends. If any of this sounds like your team, his email is right there. Go on, then. Write to him. Okay, cool. Farewell, traveler.",
+      "mood": "theatrical, warm, a grand and fond farewell"
+    }
   },
   "extras": {
     "pemberton": {

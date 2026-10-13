@@ -34,10 +34,11 @@ Everything that isn't code was generated on a Mac Studio, using the AI studios M
 |---|---|---|
 | Art | Qwen-Image 2.1 (Q8 GGUF) | ComfyUI on Apple Silicon, ~85 s per image; prompts in `tools/art_prompts.json` |
 | Theme song and soundtrack | ACE-Step 1.5 XL | ComfyUI, mastered to -14 LUFS; looped with `tools/finish_audio.py` |
-| Narrator and Lord Pemberton | Kokoro-82M on MLX | `tools/narrate.py`, script in `tools/tour_script.json` |
+| Narrator (the wizard) | VoxCPM2 in the hub's Voice Studio; voice designed with OmniVoice | `tools/narrate.py takes`, then `pick`: six takes a chapter, best one kept; script and stage directions in `tools/tour_script.json` |
+| Lord Pemberton | Kokoro-82M on MLX | `tools/narrate.py pemberton` |
 | Video | MiniMax H3 | image-to-video from the gummy-fiber art, 10 steps, 31 min of GPU time; looped with `tools/finish_video.py` |
 
-All voices are synthetic presets; no real person's voice is cloned.
+No real person's voice is cloned: the wizard was designed from a text description, and Pemberton is a Kokoro preset.
 
 ## Pieces
 
