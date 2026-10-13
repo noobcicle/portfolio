@@ -4,6 +4,9 @@ import { initRoute } from './route.js';
 import { initSkills } from './skills.js';
 import { initSysmap } from './lab.js';
 import { initLightbox } from './lightbox.js';
+import { initPeppers } from './peppers.js';
+import { initWidgets } from './widgets.js';
+import { initMission } from './mission.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -99,22 +102,8 @@ const hopIO = new IntersectionObserver((entries) => {
 }, { rootMargin: '-45% 0px -45% 0px' });
 hops.forEach(h => hopIO.observe(h));
 
-// ------------------------------------------------------------------ the Hub: the voice → approval → Claude Code demo
-const flow = $('#flow-demo');
-let flowTimer = 0, flowOn = false;
-function runFlow() {
-  if (!flowOn) return;
-  const steps = [[1, 0], [2, 1300], [3, 2900], [4, 4300]];
-  for (const [s, at] of steps) setTimeout(() => flowOn && (flow.dataset.step = s), at);
-  flowTimer = setTimeout(() => { if (!flowOn) return; flow.dataset.step = 0; setTimeout(runFlow, 500); }, 8200);
-}
-function setFlow(on) {
-  if (on === flowOn) return;
-  flowOn = on;
-  clearTimeout(flowTimer);
-  if (on) { if (reduce) flow.dataset.step = 4; else runFlow(); }
-}
-new IntersectionObserver(([en]) => setFlow(en.isIntersecting), { threshold: 0.25 }).observe(flow);
+// ------------------------------------------------------------------ the Hub: one real request, start to finish (mission.js)
+initMission($('#mc'), { reduceMotion: reduce });
 
 // ------------------------------------------------------------------ before AI: pinned horizontal strip
 const before = $('#before');
@@ -126,7 +115,10 @@ function sizeBefore() {
   before.style.height = (innerHeight + travel) + 'px';
 }
 
-// ------------------------------------------------------------------ garden: 60 squares
+// a small working model of each Before AI project
+initWidgets($('#before'), { reduceMotion: reduce });
+
+// ------------------------------------------------------------------ garden: 60 plots, one per garden year
 const sixty = $('#sixty');
 const sixtyN = $('#sixty-n');
 const garden = $('#garden');
@@ -142,6 +134,11 @@ function setGardens(n) {
   sixtyN.textContent = n;
 }
 if (reduce || innerWidth <= 860) { setGardens(60); garden.classList.add('day'); sun.style.clipPath = 'none'; }
+const patch = $('#garden-patch');
+const peppers = initPeppers(patch, { reduceMotion: reduce });
+// the router-versus-pepper loop plays only while it's on screen
+const vs = $('#garden-vs');
+if (vs && !reduce) new IntersectionObserver(([en]) => vs.classList.toggle('play', en.isIntersecting)).observe(vs);
 
 // ------------------------------------------------------------------ skills map and the lab's system map
 initSkills($('#skillmap'), { detail: $('#skillmap-detail'), table: $('#skill-table'), reduceMotion: reduce });
@@ -162,7 +159,7 @@ function measure() {
   docH = Math.max(1, document.documentElement.scrollHeight - innerHeight);
   const box = (el) => { const r = el.getBoundingClientRect(); return { top: r.top + scrollY, h: r.height }; };
   geo = {
-    thesis: box(thesis), before: box(before), garden: box(garden), hero: box(hero),
+    thesis: box(thesis), before: box(before), garden: box(garden), patch: box(patch), hero: box(hero),
     bands: bands.map(box),
     nav: [...linkFor.keys()].map(id => document.getElementById(id)).filter(Boolean).map(el => ({ id: el.id, ...box(el) })),
     travel: Math.max(0, track.scrollWidth - innerWidth),
@@ -196,7 +193,10 @@ function update() {
     if (g !== last.g) { last.g = g; sun.style.clipPath = `circle(${(g * 150).toFixed(1)}% at 74% 50%)`; }
     if (last.day !== (g > 0.62)) garden.classList.toggle('day', (last.day = g > 0.62));
     setGardens(Math.round(clamp((gp - 0.12) / 0.72) * 60));
+    peppers.update(gp);
   }
+  // unpinned on phones: the plants grow as their strip rises from the bottom of the screen to just past the middle
+  if (!reduce && innerWidth <= 860 && near(geo.patch, y, vh)) peppers.update((y + vh - geo.patch.top) / (vh * 0.55));
   geo.bands.forEach((b, i) => {
     if (!near(b, y, vh)) return;
     const p = Math.round(clamp(1 - (b.top - y) / vh, 0, 2) * 400) / 400;

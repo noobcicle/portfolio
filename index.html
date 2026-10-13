@@ -427,31 +427,70 @@
     <header class="section-head">
       <p class="eyebrow reveal">05 · The Hub</p>
       <h2 class="display reveal">Mission control <em>for my AI.</em></h2>
-      <p class="section-lede reveal">My daily driver: I'm in it about half of every day. It's one web app on the Mac Studio that runs every Claude Code session I have going, every local model and every generator in the house. It's built around one rule: when an AI wants to do something that matters, it waits for me.</p>
+      <p class="section-lede reveal">My daily driver: I'm in it about half of every day. It's one web app on the Mac Studio that runs every Claude Code session I have going, every local model and every generator in the house. It's built around one rule: when an AI wants to do something that matters, it waits for me. Here's one real request, start to finish: the one that put GrowYear at the top of this page.</p>
     </header>
-    <div class="hub-grid">
-      <div class="hub-demo reveal" aria-hidden="true">
-        <div class="flow" id="flow-demo">
-          <div class="flow-card flow-agent">
-            <p class="flow-k"><span class="flow-dot pink"></span> Grokbot · voice</p>
-            <p class="flow-t">&ldquo;Make the tornado warning play in the basement too.&rdquo;</p>
+    <!-- the whole pipeline, played step by step (mission.js). The Hub's own pieces are rebuilt here
+         from its stylesheet: the gold "prompt waiting" flag, the amber candidate dot, the review
+         dialog and the terminal's colors. The spinner frames and colors are Claude Code's own. -->
+    <div class="mc reveal" id="mc" data-step="0">
+      <ol class="mc-steps" aria-label="The steps">
+        <li><button type="button" data-step="0"><span>01</span>Mike talks to Get A Job Bot</button></li>
+        <li><button type="button" data-step="1"><span>02</span>The bot hears a waveform</button></li>
+        <li><button type="button" data-step="2"><span>03</span>The waveform flows into Grok</button></li>
+        <li><button type="button" data-step="3"><span>04</span>Grok writes the prompt</button></li>
+        <li><button type="button" data-step="4"><span>05</span>The text goes to the Mac Studio</button></li>
+        <li><button type="button" data-step="5"><span>06</span>Into the session's terminal</button></li>
+        <li><button type="button" data-step="6"><span>07</span>It lands as a golden flag</button></li>
+        <li><button type="button" data-step="7"><span>08</span>The flag is a candidate prompt</button></li>
+        <li><button type="button" data-step="8"><span>09</span>A human approves it</button></li>
+        <li><button type="button" data-step="9"><span>10</span>It hands off to Claude</button></li>
+        <li><button type="button" data-step="10"><span>11</span>Claude thinks</button></li>
+      </ol>
+
+      <div class="mc-stage">
+        <div class="mc-scene" aria-hidden="true">
+          <!-- left: Mike and Get A Job Bot, which runs on Grok -->
+          <div class="mc-grok">
+            <div class="mc-mike"><span class="mc-mic"><svg viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM6 11a6 6 0 0 0 12 0M12 17v4M8 21h8"/></svg></span><b>Mike</b><small>talking it through</small></div>
+            <div class="mc-wave"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i><i style="--i:12"></i><i style="--i:13"></i><i style="--i:14"></i><i style="--i:15"></i><i style="--i:16"></i><i style="--i:17"></i><i style="--i:18"></i><i style="--i:19"></i><i style="--i:20"></i><i style="--i:21"></i><i style="--i:22"></i><i style="--i:23"></i><i style="--i:24"></i><i style="--i:25"></i><i style="--i:26"></i><i style="--i:27"></i></div>
+            <div class="mc-bot"><img class="mc-grok-logo" src="assets/img/logos/grok.png" alt="" width="100" height="100"><div><b>Get A Job Bot</b><small>runs on Grok</small></div></div>
+            <div class="mc-text"><p class="mc-k">Grok&rsquo;s prompt</p><p class="mc-prompt" id="mc-prompt">GrowYear is now a finished, live product at https://mygrowyear.com (Google sign-in). Update Mike&rsquo;s portfolio: (1) Make GrowYear more prominent, ideally the featured or top project. Mark it as live, and give it a clear, clickable link that opens https://mygrowyear.com.</p></div>
           </div>
-          <div class="flow-arrow"><span>drafts a prompt for a new session</span></div>
-          <div class="flow-card flow-gate">
-            <p class="flow-k"><span class="flow-dot violet"></span> Hub · waiting on Mike</p>
-            <p class="flow-t">Add the Basement speaker to severe-weather alerts; keep the volume restore.</p>
-            <div class="flow-btns"><span class="flow-approve">Yes, send to Claude</span><span>No, discard</span></div>
-          </div>
-          <div class="flow-arrow"><span>a human says yes</span></div>
-          <div class="flow-card flow-run">
-            <p class="flow-k"><span class="flow-dot blue"></span> Claude Code · session</p>
-            <pre class="flow-log"><span>› reading apps/weather/announce.py</span>
-<span>› editing speaker targets</span>
-<span>› running tests ✓</span>
-<span class="ok">✓ deployed to the Pi</span></pre>
+          <!-- the wire to the Studio -->
+          <div class="mc-wire"><i class="mc-pkt"></i><span>the Hub&rsquo;s API, with the bot&rsquo;s own key</span></div>
+          <!-- right: the Mac Studio, the Hub, one Claude Code session -->
+          <div class="mc-studio">
+            <p class="mc-k mc-host">Mac Studio · the Hub</p>
+            <div class="mc-rail"><span class="mc-rail-item"><span class="cc-pending-dot"></span><span class="mc-rail-title">okay-cool.net</span><span class="rail-pending-tag">waiting</span><span class="rail-pulse"></span></span></div>
+            <div class="mc-pane">
+              <div class="mc-pane-head"><span class="mc-pty">PTY</span>Claude Code · okay-cool.net</div>
+              <div class="cc-pane-pending"><span class="dot"></span><span class="label">Prompt waiting for review</span><span class="meta">1,002 chars · Get A Job Bot</span><span class="chev">&rsaquo;</span></div>
+              <pre class="mc-term"><span class="mc-t-dim">╭──────────────────────────────╮
+│ ✻ Welcome to Claude Code     │
+╰──────────────────────────────╯</span>
+<span class="mc-t-in"><span class="mc-t-p">&gt;</span> <span class="mc-t-typed" id="mc-typed"></span><span class="mc-cursor"></span></span>
+<span class="mc-spin"><span class="mc-glyph" id="mc-glyph">✻</span> <span class="mc-verb" id="mc-verb">Clauding…</span> <span class="mc-t-dim">(esc to interrupt)</span></span></pre>
+              <div class="mc-modal">
+                <div class="mc-modal-head"><h4>◆ Prompt waiting for review</h4><span class="mc-x">×</span></div>
+                <p class="cc-pending-meta"><span>from <b>Get A Job Bot</b></span><span><b>1,002</b> chars</span></p>
+                <div class="cc-pending-toolbar"><span class="cc-pending-seg"><span class="on">Preview</span><span>Raw</span></span><span class="spacer"></span><span class="cc-pending-live"><span class="pip"></span>live — updates if Grokbot revises it</span></div>
+                <div class="cc-pending-text">GrowYear is now a finished, live product at https://mygrowyear.com (Google sign-in). Update Mike&rsquo;s portfolio…</div>
+                <div class="mc-modal-foot"><span class="mc-btn mc-btn-ghost">No — discard</span><span class="mc-btn mc-btn-yes">Yes — send to Claude</span><span class="mc-hand"></span></div>
+              </div>
+            </div>
           </div>
         </div>
+        <p class="mc-cap" id="mc-cap" aria-live="polite"></p>
+        <div class="mc-ctl">
+          <button class="mc-ctl-btn" type="button" id="mc-prev" aria-label="Previous step">&lsaquo;</button>
+          <button class="mc-ctl-btn mc-play" type="button" id="mc-play" aria-label="Pause" aria-pressed="true"><span class="i-pause"></span></button>
+          <button class="mc-ctl-btn" type="button" id="mc-next" aria-label="Next step">&rsaquo;</button>
+          <span class="mc-count" id="mc-count"></span>
+        </div>
       </div>
+    </div>
+
+    <div class="hub-grid">
       <div class="hub-features">
         <article class="hub-f reveal">
           <h3>Every Claude Code session, one page</h3>
@@ -571,7 +610,7 @@
 
         <a class="pcard pcard-more" href="#before">
           <span class="pcard-more-k">Ten more, with their code</span>
-          <span class="pcard-more-t">The garage door Pi, the HDMI remote, the plant waterer, the Pepperpi and the rest are in <em>Before AI</em>, just below. Each one comes straight off my NAS: notes, code and configs.</span>
+          <span class="pcard-more-t">The garage door Pi, the HDMI remote, the plant waterer, the Pepperpi and the rest are in <em>Before AI</em>, just below. Each one comes straight off my NAS, and each one has a small working model of what it did.</span>
           <span class="pcard-more-go" aria-hidden="true">&darr;</span>
         </a>
       </div>
@@ -911,22 +950,22 @@
     <div class="before-track" id="before-track">
       <article class="film film-intro">
         <img decoding="async" src="assets/img/art/workbench.webp" alt="AI-generated art: an electronics workbench with an Arduino, Raspberry Pi, soil sensors and pink and blue wires" loading="lazy"><span class="ai-chip ai-chip-film"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>Qwen-Image 2.1 (Q8_0 GGUF) · 1248×832 · 25 steps · CFG 1 · seed 2467715383</span></span>
-        <p>Everything in this strip is real, pulled straight off my NAS: notes, code and configs from projects I built by hand. Badly at first, then less badly.</p>
+        <p>Everything in this strip is real, pulled straight off my NAS: notes, code and configs from projects I built by hand. Badly at first, then less badly. Each card has a small model of what the code did; play with it. It&rsquo;s all simulated, so nothing in my house moves.</p>
       </article>
-      <article class="film"><p class="film-year">2017</p><h3>CCNP, the hard way</h3><p>GNS3 labs on a home PC, the official cert guides and a lot of late nights. The CCNP R&amp;S landed in January 2018.</p><p class="film-file">CCNP Pass 001.jpg</p></article>
-      <article class="film"><p class="film-year">2019</p><h3>The garage door Pi</h3><p>A door sensor on a Raspberry Pi pin, a web button to open it, and a cron job that closes it when somebody (not me) leaves it open.</p><p class="film-file">garagedoorcheck.py</p></article>
-      <article class="film"><p class="film-year">2019</p><h3>HDMI switch remote</h3><p>A web page that flips our HDMI switch over RS-232 through a USB-serial adapter. The original remote is still missing.</p><p class="film-file">port0R.php … poweroffR.php</p></article>
+      <article class="film"><p class="film-year">2017</p><h3>CCNP, the hard way</h3><p>GNS3 labs on a home PC, the official cert guides and a lot of late nights. The CCNP R&amp;S landed in January 2018.</p><div class="wdg" data-widget="gns3"></div><p class="film-file">CCNP Pass 001.jpg</p></article>
+      <article class="film"><p class="film-year">2019</p><h3>The garage door Pi</h3><p>A door sensor on a Raspberry Pi pin, a web button to open it, and a cron job that closes it when somebody (not me) leaves it open.</p><div class="wdg" data-widget="garage"></div><p class="film-file">garagedoorcheck.py</p></article>
+      <article class="film"><p class="film-year">2019</p><h3>HDMI switch remote</h3><p>A web page that flips our HDMI switch over RS-232 through a USB-serial adapter. The original remote is still missing.</p><div class="wdg" data-widget="hdmi"></div><p class="film-file">port0R.php … poweroffR.php</p></article>
       <article class="film film-code"><p class="film-year">2019 → 2020</p><h3>Plant waterer v1 → v3.1</h3><p>Arduino, three soil sensors, three pumps and status LEDs. Even v1 had guardrails, years before I'd say that word about AI:</p>
 <pre><code>int PumpFrequencyLimiter = 14400; //TIME PERIOD FOR
   // EACH WATERING 14400 = 4 hours // PUMP WILL ONLY
   // RUN ONCE PER TIME PERIOD
-int PumpCutOffTime = 15;</code></pre><p class="film-file">Plant Waterer v1.txt</p></article>
-      <article class="film"><p class="film-year">2020</p><h3>Purpura Peppers</h3><p>The &ldquo;Pepperpi&rdquo;: a Raspberry Pi with temperature, humidity and soil sensors, charted live in a browser. Plus the &ldquo;Pepperduino&rdquo; for the far end of the garden. The peppers did not care.</p><p class="film-file">soil_logging.py</p></article>
-      <article class="film"><p class="film-year">2020</p><h3>Pi security camera</h3><p>Recording and archiving IP camera streams on a Raspberry Pi, with scripts to record and convert the footage.</p><p class="film-file">recordCAM.sh</p></article>
-      <article class="film"><p class="film-year">2022</p><h3>ESP32 + MQTT</h3><p>Relays switched over MQTT from MicroPython on ESP32 boards. Smart plugs, the hard way.</p><p class="film-file">Turn Relay on-off.txt</p></article>
-      <article class="film"><p class="film-year">2023</p><h3>AskChef.ai</h3><p>My first AI app: a chatbot on OpenAI that only talked food and answered in strict JSON (recipe, timing, ingredients, allergens), in Docker behind nginx. Ask it about anything else and it politely changed the subject.</p><p class="film-file">backend/app/main.py</p></article>
-      <article class="film"><p class="film-year">2023</p><h3>Portable network test rig</h3><p>A Kali live USB plus EVE-NG with virtual Cisco routers, and Python traffic generators for MTU and MAC-table testing. A carrier lab in a backpack.</p><p class="film-file">Network_Testing/README.txt</p></article>
-      <article class="film"><p class="film-year">2024</p><h3>Radios</h3><p>Got my GMRS license, flashed custom firmware onto cheap handhelds and programmed them with CHIRP. Because of course I did.</p><p class="film-file">FCC GMRS License.pdf</p></article>
+int PumpCutOffTime = 15;</code></pre><div class="wdg" data-widget="waterer"></div><p class="film-file">Plant Waterer v1.txt</p></article>
+      <article class="film"><p class="film-year">2020</p><h3>Purpura Peppers</h3><p>The &ldquo;Pepperpi&rdquo;: a Raspberry Pi with temperature, humidity and soil sensors, charted live in a browser. Plus the &ldquo;Pepperduino&rdquo; for the far end of the garden. The peppers did not care.</p><div class="wdg" data-widget="pepperpi"></div><p class="film-file">soil_logging.py</p></article>
+      <article class="film"><p class="film-year">2020</p><h3>Pi security camera</h3><p>Recording and archiving IP camera streams on a Raspberry Pi, with scripts to record and convert the footage.</p><div class="wdg" data-widget="camera"></div><p class="film-file">recordCAM.sh</p></article>
+      <article class="film"><p class="film-year">2022</p><h3>ESP32 + MQTT</h3><p>Relays switched over MQTT from MicroPython on ESP32 boards. Smart plugs, the hard way.</p><div class="wdg" data-widget="mqtt"></div><p class="film-file">Turn Relay on-off.txt</p></article>
+      <article class="film"><p class="film-year">2023</p><h3>AskChef.ai</h3><p>My first AI app: a chatbot on OpenAI that only talked food and answered in strict JSON (recipe, timing, ingredients, allergens), in Docker behind nginx. Ask it about anything else and it politely changed the subject.</p><div class="wdg" data-widget="askchef"></div><p class="film-file">backend/app/main.py</p></article>
+      <article class="film"><p class="film-year">2023</p><h3>Portable network test rig</h3><p>A Kali live USB plus EVE-NG with virtual Cisco routers, and Python traffic generators for MTU and MAC-table testing. A carrier lab in a backpack.</p><div class="wdg" data-widget="rig"></div><p class="film-file">Network_Testing/README.txt</p></article>
+      <article class="film"><p class="film-year">2024</p><h3>Radios</h3><p>Got my GMRS license, flashed custom firmware onto cheap handhelds and programmed them with CHIRP. Because of course I did.</p><div class="wdg" data-widget="radio"></div><p class="film-file">FCC GMRS License.pdf</p></article>
       <article class="film film-outro"><p class="film-year">2025</p><h3>Then the bottleneck moved.</h3><p>Same habit, better tools. It used to be my typing speed. Now it's how clearly I can explain what I want.</p></article>
     </div>
   </div>
@@ -936,16 +975,48 @@ int PumpCutOffTime = 15;</code></pre><p class="film-file">Plant Waterer v1.txt</
 <section class="garden" id="garden" data-progress data-chapter="One garden a year" data-guide="garden">
   <div class="garden-sticky">
     <div class="garden-sun" aria-hidden="true"></div>
+    <div class="garden-patch" id="garden-patch" aria-hidden="true"></div>
     <div class="wrap garden-grid">
       <div class="garden-copy">
         <p class="eyebrow">08 · Why I build</p>
         <h2 class="display">About <em>sixty</em> gardens.</h2>
+        <!-- routers quit, peppers don't: a small loop for the paragraph below it (paused off screen; one still frame with reduced motion) -->
+        <svg class="vs" id="garden-vs" viewBox="0 0 320 104" aria-hidden="true" focusable="false">
+          <g class="vs-net">
+            <path class="vs-link vs-link-out" d="M4 62H38"/>
+            <path class="vs-link vs-link-in" d="M44 62H70"/>
+            <circle class="vs-pkt" cx="8" cy="62" r="2.6"/>
+            <path class="vs-spark" d="M41 54v4M41 66v4M35 62h-3M50 62h-3M37 57l-2-2M45 67l2 2M45 57l2-2M37 67l-2 2"/>
+            <g class="vs-router">
+              <path class="vs-ant" d="M84 50l-5-14M120 50l5-14"/>
+              <rect class="vs-box" x="70" y="48" width="64" height="28" rx="7"/>
+              <circle class="vs-led vs-led-1" cx="83" cy="62" r="3"/>
+              <circle class="vs-led vs-led-2" cx="95" cy="62" r="3"/>
+              <circle class="vs-led vs-led-3" cx="107" cy="62" r="3"/>
+              <circle class="vs-led vs-led-4" cx="119" cy="62" r="3"/>
+              <path class="vs-x" d="M128 36l8 8M136 36l-8 8"/>
+            </g>
+          </g>
+          <g class="vs-grow">
+            <path class="vs-pot" d="M226 82h52l-6 20h-40z"/>
+            <path class="vs-soil" d="M228 84h48"/>
+            <g class="vs-plant">
+              <path class="vs-stem" d="M252 84C251 70 254 58 252 40"/>
+              <path class="vs-leaf vs-leaf-1" d="M252 70c-10-1-16-6-18-14 9 0 16 5 18 14z"/>
+              <path class="vs-leaf vs-leaf-2" d="M253 62c9-2 15-8 16-16-9 1-15 7-16 16z"/>
+              <path class="vs-leaf vs-leaf-3" d="M252 48c-7-1-12-6-13-12 7 0 12 5 13 12z"/>
+              <path class="vs-leaf vs-leaf-4" d="M252 42c6-2 10-7 10-13-6 1-10 6-10 13z"/>
+              <g class="vs-pepper"><path class="vs-pepper-body" d="M259 52c-4 1-6 5-5 11 1 5 4 9 6 11 1 1 2 1 2 0 2-4 3-9 3-14 0-5-2-8-6-8z"/><path class="vs-pepper-cap" d="M256 52c2-2 6-2 8 0"/></g>
+            </g>
+            <path class="vs-sun" d="M296 18v6M296 40v6M282 32h6M304 32h6M286 22l4 4M302 38l4 4M306 22l-4 4M290 38l-4 4"/>
+          </g>
+        </svg>
         <p>Plants want to succeed. Leave a router alone long enough and one day it just stops working. Give a pepper plant sun, water and a little tending, and it keeps on growing.</p>
         <p>The garden is where I go to get out of my tech. Every January I plan the next one like it's the first, and by August it's a jungle.</p>
         <p>None of it is meant to last. Each garden is here for a season, and that's the point. A gardener who starts young gets maybe sixty gardens in a lifetime. Not even a hundred.</p>
         <p class="garden-punch">That's why I build tools: so the computers get more of the chores, and my family gets more of me.</p>
       </div>
-      <div class="garden-viz" aria-label="Sixty squares, one for each garden in a gardening lifetime">
+      <div class="garden-viz" aria-label="Sixty garden plots, one for each garden in a gardening lifetime">
         <div class="sixty" id="sixty"></div>
         <p class="sixty-cap"><span id="sixty-n">0</span> / 60 gardens</p>
       </div>
