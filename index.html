@@ -74,12 +74,15 @@
   <a href="#story">Story</a><a href="#lab">Lab</a><a href="#before">Before AI</a><a href="#built">How it's built</a><a href="#how">How I work</a><a href="#contact">Contact</a><a href="resume/">Résumé</a>
 </div>
 
-<!-- scroll progress: a gummy worm that grows down the page -->
-<div class="spine" aria-hidden="true">
-  <div class="spine-track"></div>
-  <div class="spine-fill" id="spine-fill"></div>
-  <div class="spine-head" id="spine-head"></div>
-  <ol class="spine-stops" id="spine-stops"></ol>
+<!-- scroll progress: a packet routed from your computer to me, one router per section (assets/js/route.js) -->
+<div class="route" id="route" aria-hidden="true">
+  <canvas class="route-canvas"></canvas>
+  <div class="route-note"><span class="route-pdu"></span><span class="route-msg"></span><span class="route-why"></span></div>
+  <div class="route-map">
+    <p class="route-map-head">traceroute to mike · one hop per section</p>
+    <ol></ol>
+    <p class="route-map-foot">IS-IS and BGP run for real in your browser. Cloudflare and Starlink are the networks this page actually crossed. The ISP, the transit networks and every metric are made up.</p>
+  </div>
 </div>
 <div class="topbar" aria-hidden="true"><div class="topbar-fill" id="topbar-fill"></div></div>
 
@@ -551,6 +554,7 @@ Then go home for the night
     </div>
 
     <p class="written reveal"><strong>And the words?</strong> They started as a week of voice interviews with an AI agent and got shaped with Claude Code. The opinions are all mine. The source is <a href="https://github.com/noobcicle/portfolio">on GitHub</a>, and every push to it is live on the Pi within two minutes.</p>
+    <p class="written written-route reveal"><strong>And the scroll bar?</strong> It's a tiny internet. Scrolling carries a packet from your computer to me, one router per section. It leaves as a frame and becomes a packet at your router. Then IS-IS runs Dijkstra across a made-up ISP, and BGP's real best-path rules pick every exit through Cloudflare and Starlink, the two networks this page actually crossed. Hover over it for the traceroute. Thirteen years in carrier networking will do that to a scroll bar.</p>
   </div>
 </section>
 

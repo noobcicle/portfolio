@@ -1,5 +1,6 @@
 import { initHero } from './hero.js';
 import { initAudio } from './audio.js';
+import { initRoute } from './route.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -151,25 +152,20 @@ const marquee = $('#marquee-track');
 marquee.innerHTML += marquee.innerHTML;
 let mx = 0, mlast = 0, vel = 0, lastY = scrollY;
 
-// ------------------------------------------------------------------ spine + chapter stops
-const spineFill = $('#spine-fill');
-const spineHead = $('#spine-head');
-const spineStops = $('#spine-stops');
+// ------------------------------------------------------------------ scroll progress: a packet routed to me
 const topFill = $('#topbar-fill');
 const chapters = $$('[data-chapter]');
-spineStops.innerHTML = chapters.map(c => `<li><span>${c.dataset.chapter}</span></li>`).join('');
-const stopEls = [...spineStops.children];
-let docH = 1, stopsAt = [];
+const route = initRoute($('#route'), { chapters, reduceMotion: reduce });
+let docH = 1;
 function measure() {
   sizeBefore();
   docH = Math.max(1, document.documentElement.scrollHeight - innerHeight);
-  stopsAt = chapters.map(c => clamp((c.getBoundingClientRect().top + scrollY) / docH));
-  stopEls.forEach((li, i) => (li.style.top = (stopsAt[i] * 100) + '%'));
+  route.measure();
 }
 
 // ------------------------------------------------------------------ the one scroll loop
 const bands = $$('.chapter-band');
-let ticking = false;
+let ticking = false, scrolled = false;
 function progressOf(el) {
   const r = el.getBoundingClientRect();
   return { p: clamp(-r.top / Math.max(1, r.height - innerHeight)), r };
@@ -202,12 +198,9 @@ function update() {
   bands.forEach((b, i) => b.style.setProperty('--p', clamp(1 - bandTops[i] / innerHeight, 0, 2).toFixed(3)));
 
   const p = clamp(y / docH);
-  spineFill.style.transform = `scaleY(${p})`;
-  spineHead.style.top = (p * 100) + '%';
   topFill.style.transform = `scaleX(${p})`;
-  let cur = 0;
-  stopsAt.forEach((s, i) => { if (p + 0.004 >= s) cur = i; });
-  stopEls.forEach((li, i) => { li.classList.toggle('passed', i < cur); li.classList.toggle('current', i === cur); });
+  route.update(p, scrolled);
+  scrolled = false;
 
   // nav highlight by section
   let activeId = null;
@@ -221,6 +214,7 @@ function update() {
 }
 function onScroll() {
   vel = scrollY - lastY; lastY = scrollY;
+  scrolled = true;
   if (!ticking) { ticking = true; requestAnimationFrame(update); }
 }
 addEventListener('scroll', onScroll, { passive: true });
@@ -284,6 +278,7 @@ async function liveTrip() {
     $('#trip-facts').innerHTML = facts([['Edge', city], ['Protocol', http], ['Encryption', tls], ['You arrived on', fam], ['From', t.loc]]);
     const colo = $('[data-live="colo"]');
     if (colo) colo.textContent = `you're on ${t.colo} right now`;
+    route.setVisitor({ colo: t.colo, v6: fam === 'IPv6' });
   } catch { /* not behind Cloudflare (local preview): keep the static copy */ }
 }
 
