@@ -271,15 +271,15 @@ Then go home for the night
       </article>
 
       <figure class="studio-card studio-making reveal">
-        <img src="assets/img/shots/hub_render.webp" alt="Screenshot: the Hub's Image Studio rendering the gummy robot picture, live preview at diffusion step 8 of 25" loading="lazy" width="1097" height="599">
+        <img decoding="async" src="assets/img/shots/hub_render.webp" alt="Screenshot: the Hub's Image Studio rendering the gummy robot picture, live preview at diffusion step 8 of 25" loading="lazy" width="1097" height="599">
         <figcaption><span class="studio-k">Making of</span> My Image Studio, mid-render on the picture next to it: live preview at step 8 of 25, with four more of this page's images queued behind it.</figcaption>
       </figure>
       <figure class="studio-card studio-agents reveal">
-        <img src="assets/img/art/agents.webp" alt="AI-generated art: tiny gummy-candy robots queueing with notes for a human to stamp" loading="lazy">
+        <img decoding="async" src="assets/img/art/agents.webp" alt="AI-generated art: tiny gummy-candy robots queueing with notes for a human to stamp" loading="lazy">
         <figcaption><span class="studio-k">The idea, illustrated</span> The robots line up with their requests. A human holds the stamp.</figcaption>
       </figure>
       <figure class="studio-card studio-neon reveal">
-        <img src="assets/img/art/neon_sign.webp" alt="AI-generated art: a pink and blue neon sign reading okay, cool. on a brick wall" loading="lazy">
+        <img decoding="async" src="assets/img/art/neon_sign.webp" alt="AI-generated art: a pink and blue neon sign reading okay, cool. on a brick wall" loading="lazy">
         <figcaption><span class="studio-k">Text rendering</span> Yes, the same local model can spell. First take, too.</figcaption>
       </figure>
     </div>
@@ -302,7 +302,7 @@ Then go home for the night
 <!-- ===================================================== STORY / TRACEROUTE -->
 <section class="story" id="story" data-chapter="The route here" data-guide="story">
   <div class="chapter-band">
-    <img class="chapter-band-art" src="assets/img/art/central_office.webp" alt="AI-generated art: a long aisle of carrier network racks with glowing pink and blue fiber patch cables" loading="lazy" width="1376" height="768">
+    <img decoding="async" class="chapter-band-art" src="assets/img/art/central_office.webp" alt="AI-generated art: a long aisle of carrier network racks with glowing pink and blue fiber patch cables" loading="lazy" width="1376" height="768">
     <div class="wrap chapter-band-text">
       <p class="eyebrow reveal">02 · The route here</p>
       <h2 class="display reveal">A career, traced <em>hop by hop.</em></h2>
@@ -405,7 +405,7 @@ Then go home for the night
 <!-- ===================================================== LAB -->
 <section class="lab" id="lab" data-chapter="The lab" data-guide="lab">
   <div class="lab-intro chapter-band">
-    <img class="lab-intro-art chapter-band-art" src="assets/img/art/lab_night.webp" alt="AI-generated art: a home lab at night with a small desktop computer, Raspberry Pis and glowing pink and blue cables" loading="lazy" width="1376" height="768">
+    <img decoding="async" class="lab-intro-art chapter-band-art" src="assets/img/art/lab_night.webp" alt="AI-generated art: a home lab at night with a small desktop computer, Raspberry Pis and glowing pink and blue cables" loading="lazy" width="1376" height="768">
     <div class="wrap lab-intro-text chapter-band-text">
       <p class="eyebrow reveal">04 · What I build now</p>
       <h2 class="display reveal">The lab in my <em>basement.</em></h2>
@@ -439,10 +439,10 @@ Then go home for the night
               </div>
             </div>
           </div>
-          <div class="media-slide" data-slide="ticker"><img src="assets/img/shots/tickerscope.webp" alt="" loading="lazy" style="object-position:56% 0%"><span class="shot-tag">Tickerscope · MU, with the X pins</span></div>
-          <div class="media-slide" data-slide="house"><img src="assets/img/shots/weather.webp" alt="" loading="lazy" style="object-position:30% 0%"><span class="shot-tag">House platform · weather</span></div>
-          <div class="media-slide" data-slide="fleet"><img src="assets/img/shots/monitor.webp" alt="" loading="lazy" style="object-position:30% 0%"><span class="shot-tag">Home Lab · monitor</span></div>
-          <div class="media-slide" data-slide="grow"><img src="assets/img/shots/growyear.webp" alt="" loading="lazy" style="object-position:50% 0%"><span class="shot-tag">GrowYear</span></div>
+          <div class="media-slide" data-slide="ticker"><img decoding="async" src="assets/img/shots/tickerscope.webp" alt="" loading="lazy" style="object-position:56% 0%"><span class="shot-tag">Tickerscope · MU, with the X pins</span></div>
+          <div class="media-slide" data-slide="house"><img decoding="async" src="assets/img/shots/weather.webp" alt="" loading="lazy" style="object-position:30% 0%"><span class="shot-tag">House platform · weather</span></div>
+          <div class="media-slide" data-slide="fleet"><img decoding="async" src="assets/img/shots/monitor.webp" alt="" loading="lazy" style="object-position:30% 0%"><span class="shot-tag">Home Lab · monitor</span></div>
+          <div class="media-slide" data-slide="grow"><img decoding="async" src="assets/img/shots/growyear.webp" alt="" loading="lazy" style="object-position:50% 0%"><span class="shot-tag">GrowYear</span></div>
         </div>
       </div>
 
@@ -463,7 +463,7 @@ Then go home for the night
           <p>Tickerscope started as an X firehose. It pulled every post from the accounts I tracked, and local AI did the reading: a small model triaged the stream and tossed the noise, then sent the interesting posts up to bigger models, as large as 235 billion parameters, for a bullish-or-bearish call. A vision model even read the charts people posted. Each post landed on the candlestick chart at the moment it was said, colored by the call, so you can see who called the run and who was late. 38,000 posts in, I cut the firehose down to on-demand lookups my AI agents can run, and Tickerscope became my portfolio's system of record: live-priced positions, a tax page that plans harvests around wash sales, and a morning brief my agents read before the bell.</p>
           <ul class="shows"><li>A local-LLM pipeline with a triage tier: the small model reads everything, the big ones only what's worth it</li><li>Event data on time series, clustered like map pins</li><li>Tax-aware portfolio math: lots, wash sales, Schedule D</li></ul>
           <p class="chips"><span>Python</span><span>Flask</span><span>Ollama</span><span>Qwen 3</span><span>twikit</span><span>Lightweight Charts</span><span>SQLite</span></p>
-          <figure class="mobile-shot"><img src="assets/img/shots/tickerscope_m.webp" alt="Screenshot of Tickerscope: Micron's candlestick chart with tweet pins and an open stack of tweets" loading="lazy" style="aspect-ratio:4/3"></figure>
+          <figure class="mobile-shot"><img decoding="async" src="assets/img/shots/tickerscope_m.webp" alt="Screenshot of Tickerscope: Micron's candlestick chart with tweet pins and an open stack of tweets" loading="lazy" style="aspect-ratio:4/3"></figure>
         </article>
 
         <article class="lab-item" data-slide="house">
@@ -473,7 +473,7 @@ Then go home for the night
           <p>When the National Weather Service issues a warning, a local AI model summarizes it, Thaddeus reads it on every speaker in the house, turns the volume up for tornadoes, then puts every room back exactly how it was. There are no quiet hours, on purpose. The same Raspberry Pi runs our smart plugs, a recipe book you can dictate to while you cook, AI radio DJs, and a baby tracker that 3&nbsp;a.m. me depends on more than I'd like to admit.</p>
           <ul class="shows"><li>Reliable, event-driven services that run unattended</li><li>Shared building blocks instead of copy-paste apps</li><li>An API that AI agents can use without breaking things</li></ul>
           <p class="chips"><span>Python</span><span>SQLite</span><span>nginx</span><span>Sonos / UPnP</span><span>ESPHome</span><span>Piper TTS</span><span>OpenAPI</span></p>
-          <figure class="mobile-shot"><img src="assets/img/shots/weather.webp" alt="Screenshot of the household weather page for Milton, Wisconsin" loading="lazy"></figure>
+          <figure class="mobile-shot"><img decoding="async" src="assets/img/shots/weather.webp" alt="Screenshot of the household weather page for Milton, Wisconsin" loading="lazy"></figure>
         </article>
 
         <article class="lab-item" data-slide="fleet">
@@ -483,7 +483,7 @@ Then go home for the night
           <p>Five machines, two Pis acting as a high-availability Tailscale router pair, and a pile of services and certificates. So: agentless monitoring over SNMP and SSH, patch management with staggered reboots, certificate-expiry alarms, and a page that checks my code matches across the Mac, GitHub, a local git mirror and production. Push code and every Pi deploys itself within two minutes.</p>
           <ul class="shows"><li>Monitoring and alerting that people actually read</li><li>GitOps deploys across a small fleet</li><li>Linux hardening: default-drop firewalls, keys-only SSH</li></ul>
           <p class="chips"><span>SNMP</span><span>Paramiko</span><span>nftables</span><span>Tailscale</span><span>Let's Encrypt</span><span>Forgejo</span></p>
-          <figure class="mobile-shot"><img src="assets/img/shots/monitor.webp" alt="Screenshot of the Home Lab monitor with live host metrics" loading="lazy"></figure>
+          <figure class="mobile-shot"><img decoding="async" src="assets/img/shots/monitor.webp" alt="Screenshot of the Home Lab monitor with live host metrics" loading="lazy"></figure>
         </article>
 
         <article class="lab-item" data-slide="grow">
@@ -493,7 +493,7 @@ Then go home for the night
           <p>Planning a garden means spreadsheets, sketches and five seed catalogs, and I am not that organized. GrowYear holds 2,500+ real varieties from 12 seed companies. Pick a seed, point at a bed, and it works out the spacing, how many to start indoors and when to do what. It started on Lovable in January 2025 as an excuse to learn AI coding, and got rebuilt with Claude Code this fall.</p>
           <ul class="shows"><li>Full-stack React and TypeScript</li><li>Postgres data modeling, with real vendor catalogs imported</li><li>Product thinking: the plan is the output, not the chore</li></ul>
           <p class="chips"><span>React</span><span>TypeScript</span><span>Vite</span><span>Supabase / Postgres</span></p>
-          <figure class="mobile-shot"><img src="assets/img/shots/growyear.webp" alt="Screenshot of the GrowYear home page" loading="lazy"></figure>
+          <figure class="mobile-shot"><img decoding="async" src="assets/img/shots/growyear.webp" alt="Screenshot of the GrowYear home page" loading="lazy"></figure>
         </article>
       </div>
     </div>
@@ -522,7 +522,7 @@ Then go home for the night
     </div>
     <div class="before-track" id="before-track">
       <article class="film film-intro">
-        <img src="assets/img/art/workbench.webp" alt="AI-generated art: an electronics workbench with an Arduino, Raspberry Pi, soil sensors and pink and blue wires" loading="lazy">
+        <img decoding="async" src="assets/img/art/workbench.webp" alt="AI-generated art: an electronics workbench with an Arduino, Raspberry Pi, soil sensors and pink and blue wires" loading="lazy">
         <p>Everything in this strip is real, pulled straight off my NAS: notes, code and configs from projects I built by hand. Badly at first, then less badly.</p>
       </article>
       <article class="film"><p class="film-year">2017</p><h3>CCNP, the hard way</h3><p>GNS3 labs on a home PC, the official cert guides and a lot of late nights. Passed SWITCH with an 835 (790 to pass), and the CCNP R&amp;S landed in January 2018.</p><p class="film-file">CCNP Pass 001.jpg</p></article>
@@ -547,6 +547,7 @@ int PumpCutOffTime = 15;</code></pre><p class="film-file">Plant Waterer v1.txt</
 <!-- ===================================================== GARDEN -->
 <section class="garden" id="garden" data-progress data-chapter="One garden a year" data-guide="garden">
   <div class="garden-sticky">
+    <div class="garden-sun" aria-hidden="true"></div>
     <div class="wrap garden-grid">
       <div class="garden-copy">
         <p class="eyebrow">06 · Why I build</p>
@@ -564,8 +565,8 @@ int PumpCutOffTime = 15;</code></pre><p class="film-file">Plant Waterer v1.txt</
 </section>
 
 <div class="diptych" aria-label="January and August in the garden">
-  <figure><img src="assets/img/art/winter_window.webp" alt="AI-generated art: a frosted window in January with seed packets and a garden plan on a laptop" loading="lazy" width="1376" height="768"><figcaption>January: planning</figcaption></figure>
-  <figure><img src="assets/img/art/garden_dawn.webp" alt="AI-generated art: a southern Wisconsin garden in August, overflowing with hot peppers, a red barn and cornfield behind" loading="lazy" width="1376" height="768"><figcaption>August: regretting nothing (much)</figcaption></figure>
+  <figure><img decoding="async" src="assets/img/art/winter_window.webp" alt="AI-generated art: a frosted window in January with seed packets and a garden plan on a laptop" loading="lazy" width="1376" height="768"><figcaption>January: planning</figcaption></figure>
+  <figure><img decoding="async" src="assets/img/art/garden_dawn.webp" alt="AI-generated art: a southern Wisconsin garden in August, overflowing with hot peppers, a red barn and cornfield behind" loading="lazy" width="1376" height="768"><figcaption>August: regretting nothing (much)</figcaption></figure>
 </div>
 
 <!-- ===================================================== HOW I WORK -->
@@ -633,7 +634,7 @@ int PumpCutOffTime = 15;</code></pre><p class="film-file">Plant Waterer v1.txt</
 
 <!-- ===================================================== CONTACT -->
 <section class="contact" id="contact" data-chapter="Contact" data-guide="contact">
-  <img class="contact-art" src="assets/img/art/desk_studio.webp" alt="" loading="lazy" aria-hidden="true">
+  <img decoding="async" class="contact-art" src="assets/img/art/desk_studio.webp" alt="" loading="lazy" aria-hidden="true">
   <div class="wrap contact-inner">
     <p class="eyebrow reveal">10 · Destination reached</p>
     <h2 class="contact-title reveal"><span class="gummy-text">Okay, cool.</span><br>Let's talk.</h2>

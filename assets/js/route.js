@@ -206,7 +206,12 @@ const esc = (v) => String(v).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;
 
 export function initRoute(root, { chapters, reduceMotion = false } = {}) {
   const canvas = root.querySelector('canvas');
-  const ctx = canvas.getContext('2d');
+  const main = canvas.getContext('2d');
+  // The network itself only changes when the packet reaches a new router, so it's painted
+  // into two cached layers (under and over the trail). A scroll frame just stacks them around
+  // the trail and the packet instead of re-stroking every link.
+  const under = document.createElement('canvas'), over = document.createElement('canvas');
+  let ctx = main, layerKey = '', prefix = [], drawnHop = -1, noteTf = '';
   const note = root.querySelector('.route-note');
   const pduEl = note.querySelector('.route-pdu'), msgEl = note.querySelector('.route-msg'), whyEl = note.querySelector('.route-why');
   const map = root.querySelector('.route-map');
@@ -244,12 +249,17 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
   }
   function layout() {
     const r = root.getBoundingClientRect();
+    const d = Math.min(window.devicePixelRatio || 1, 2);
+    if (r.width === W && r.height === H && d === dpr && W >= 10) return true;
     W = r.width; H = r.height;
-    if (W < 10 || H < 10) return false;
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (W < 10 || H < 10) { W = 0; return false; }
+    dpr = d;
+    for (const c of [canvas, under, over]) {
+      c.width = Math.round(W * dpr); c.height = Math.round(H * dpr);
+      c.getContext('2d').setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
     sprites.clear();
+    layerKey = '';
     horiz = W > H;
     root.classList.toggle('is-horiz', horiz);
     step = (horiz ? W : H) / LAYERS;
@@ -312,11 +322,10 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
   const horizon = (k) => (k >= 2 && k < 7 ? 7 : k + 1);
 
   // ------------------------------------------------------------ frame
-  function draw(now) {
-    ctx.clearRect(0, 0, W, H);
-    const k = Math.min(LAYERS - 1, Math.floor(hop + 1e-6)), f = hop - k;
+  function paintLayers(k) {
     const labels = horiz ? H >= 26 : step >= 34;
-
+    ctx = under.getContext('2d');
+    ctx.clearRect(0, 0, W, H);
     // autonomous systems
     ctx.font = `500 ${horiz ? 6.5 : 7.5}px "Geist Mono", ui-monospace, monospace`;
     ctx.textBaseline = 'alphabetic';
@@ -360,30 +369,9 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
     }
     ctx.setLineDash([]);
 
-    // transient flashes under the trail
-    ctx.globalCompositeOperation = 'lighter';
-    for (const e of fx) {
-      if (e.kind !== 'flash') continue;
-      const u = (now - e.t0) / e.dur;
-      if (u < 0 || u > 1) continue;
-      ctx.lineWidth = e.width || 1.6;
-      ctx.strokeStyle = rgba(e.c, (1 - u) * (e.a || 0.9));
-      strokePts(e.pts);
-    }
 
-    // the trail: everything the packet has crossed, in gummy
-    const trail = [];
-    for (let i = 0; i < k; i++) trail.push(...partial(linkOn(route.path[i], route.path[i + 1]), nodes.get(route.path[i]), 1));
-    if (k < LAYERS - 1) trail.push(...partial(linkOn(route.path[k], route.path[k + 1]), nodes.get(route.path[k]), f));
-    if (!trail.length) trail.push([nodes.get('you').x, nodes.get('you').y]);
-    const grad = horiz ? ctx.createLinearGradient(0, 0, W, 0) : ctx.createLinearGradient(0, 0, 0, H);
-    GUMMY.forEach((c, i) => grad.addColorStop(i / (GUMMY.length - 1), rgba(c, 1)));
-    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-    ctx.strokeStyle = grad;
-    ctx.globalAlpha = 0.22; ctx.lineWidth = 7; strokePts(trail);
-    ctx.globalAlpha = 1; ctx.lineWidth = 2.2; strokePts(trail);
-    ctx.globalCompositeOperation = 'source-over';
-
+    ctx = over.getContext('2d');
+    ctx.clearRect(0, 0, W, H);
     // routers
     for (const n of nodes.values()) {
       const lit = onPath(n) && n.L <= k;
@@ -398,7 +386,7 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
       } else if (n.kind === 'sat') {
         ctx.beginPath(); ctx.moveTo(n.x, n.y - 3); ctx.lineTo(n.x + 3, n.y); ctx.lineTo(n.x, n.y + 3); ctx.lineTo(n.x - 3, n.y); ctx.closePath(); ctx.fill();
       } else if (n.kind === 'mike') {
-        drawWorm(n.x, n.y, hop >= LAYERS - 1 - 1e-6);
+        drawWorm(n.x, n.y, k >= LAYERS - 1);
       } else {
         ctx.beginPath(); ctx.arc(n.x, n.y, n.kind === 'ghost' ? 1.5 : n.kind === 'host' ? 2.8 : 2.2, 0, Math.PI * 2); ctx.fill();
         if (n.kind === 'host') { ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(n.x, n.y, 5, 0, Math.PI * 2); ctx.globalAlpha = 0.5; ctx.stroke(); ctx.globalAlpha = 1; }
@@ -408,6 +396,44 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
         ctx.beginPath(); ctx.arc(n.x, n.y, horiz ? 4.5 : 6.5, 0, Math.PI * 2); ctx.stroke();
       }
     }
+
+    ctx = main;
+    // the trail up to the current router never changes within a hop either
+    prefix = [];
+    for (let i = 0; i < k; i++) prefix.push(...partial(linkOn(route.path[i], route.path[i + 1]), nodes.get(route.path[i]), 1));
+  }
+
+  function draw(now) {
+    const k = Math.min(LAYERS - 1, Math.floor(hop + 1e-6)), f = hop - k;
+    const key = [k, route.path.join(), visitor.colo, visitor.family, W, H, dpr, fontsReady].join('|');
+    if (key !== layerKey) { paintLayers(k); layerKey = key; }
+    ctx.clearRect(0, 0, W, H);
+    ctx.drawImage(under, 0, 0, W, H);
+
+    // transient flashes under the trail
+    ctx.globalCompositeOperation = 'lighter';
+    for (const e of fx) {
+      if (e.kind !== 'flash') continue;
+      const u = (now - e.t0) / e.dur;
+      if (u < 0 || u > 1) continue;
+      ctx.lineWidth = e.width || 1.6;
+      ctx.strokeStyle = rgba(e.c, (1 - u) * (e.a || 0.9));
+      strokePts(e.pts);
+    }
+
+    // the trail: everything the packet has crossed, in gummy
+    const trail = prefix.slice();
+    if (k < LAYERS - 1) trail.push(...partial(linkOn(route.path[k], route.path[k + 1]), nodes.get(route.path[k]), f));
+    if (!trail.length) trail.push([nodes.get('you').x, nodes.get('you').y]);
+    const grad = horiz ? ctx.createLinearGradient(0, 0, W, 0) : ctx.createLinearGradient(0, 0, 0, H);
+    GUMMY.forEach((c, i) => grad.addColorStop(i / (GUMMY.length - 1), rgba(c, 1)));
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.strokeStyle = grad;
+    ctx.globalAlpha = 0.22; ctx.lineWidth = 7; strokePts(trail);
+    ctx.globalAlpha = 1; ctx.lineWidth = 2.2; strokePts(trail);
+    ctx.globalCompositeOperation = 'source-over';
+
+    ctx.drawImage(over, 0, 0, W, H);
 
     // probes, ripples and shed headers
     ctx.globalCompositeOperation = 'lighter';
@@ -582,10 +608,12 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
   // ------------------------------------------------------------ scroll
   function frame(now) {
     raf = 0;
+    drawnHop = hop;
     draw(now);
     if (fx.length) raf = requestAnimationFrame(frame);
   }
   const kick = () => { if (!raf && W) raf = requestAnimationFrame(frame); };
+  const kickIfMoved = () => { if (fx.length || Math.abs(hop - drawnHop) > 0.0004) kick(); };
 
   function measure() {
     if (!layout()) return;
@@ -624,10 +652,13 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
       writeNote(k);
     }
     const [x, y] = currentPos();
-    note.style.transform = horiz
+    const tf = horiz
       ? `translate3d(${Math.round(Math.min(W - noteW - 8, Math.max(8, x - noteW / 2)))}px, 0, 0)`
       : `translate3d(0, ${Math.round(Math.min(H - 70, Math.max(0, y - 22)))}px, 0)`;
-    kick();
+    // only move the card while it's showing: a transform write re-runs layout for the rail's overflow
+    const shown = root.classList.contains('is-noting') || root.classList.contains('is-roomy');
+    if (shown && tf !== noteTf) note.style.transform = noteTf = tf;
+    kickIfMoved();
   }
   function currentPos() {
     const k = Math.min(LAYERS - 1, Math.floor(hop + 1e-6));
@@ -636,7 +667,8 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
   }
 
   buildMap();
-  (document.fonts?.ready || Promise.resolve()).then(kick);
+  let fontsReady = false;
+  (document.fonts?.ready || Promise.resolve()).then(() => { fontsReady = true; kick(); });
 
   return {
     measure,

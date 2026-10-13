@@ -214,7 +214,13 @@ export function initHero(canvas, { reduceMotion = false } = {}) {
   });
 
   return {
-    setFade(v) { fade = v; if (!running) draw(); },
+    // called on every scroll frame: only repaint when the fade really changed and the hero is on screen
+    setFade(v) {
+      if (Math.abs(v - fade) < 0.004 && v !== 0 && v !== 1) return;
+      if (v === fade) return;
+      fade = v;
+      if (!running && visible) draw();
+    },
   };
 }
 

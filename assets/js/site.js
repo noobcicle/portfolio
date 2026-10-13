@@ -135,6 +135,7 @@ function sizeBefore() {
 const sixty = $('#sixty');
 const sixtyN = $('#sixty-n');
 const garden = $('#garden');
+const sun = $('.garden-sun', garden);
 const PALETTE = [0, 4, 3, 2, 1, 4, 0, 3, 4, 2];
 sixty.innerHTML = Array.from({ length: 60 }, (_, i) => `<i class="c${PALETTE[i % PALETTE.length]}"></i>`).join('');
 const squares = [...sixty.children];
@@ -145,73 +146,86 @@ function setGardens(n) {
   squares.forEach((sq, i) => { sq.classList.toggle('on', i < n); sq.classList.toggle('now', i === n - 1); });
   sixtyN.textContent = n;
 }
-if (reduce || innerWidth <= 860) { setGardens(60); garden.classList.add('day'); garden.style.setProperty('--g', 1); }
+if (reduce || innerWidth <= 860) { setGardens(60); garden.classList.add('day'); sun.style.clipPath = 'none'; }
 
 // ------------------------------------------------------------------ marquee (speeds up with scroll)
 const marquee = $('#marquee-track');
 marquee.innerHTML += marquee.innerHTML;
-let mx = 0, mlast = 0, vel = 0, lastY = scrollY;
+let mx = 0, mlast = 0, vel = 0, lastY = scrollY, mhalf = 1, mraf = 0, mOn = false;
 
 // ------------------------------------------------------------------ scroll progress: a packet routed to me
 const chapters = $$('[data-chapter]');
 const route = initRoute($('#route'), { chapters, reduceMotion: reduce });
 let docH = 1;
+// Everything the scroll loop needs is measured here, on load and resize, so a scroll
+// frame never reads layout. Reading after a style write forces a synchronous layout
+// of the whole page, and that is what made scrolling stutter on phones.
+const bands = $$('.chapter-band');
+const bandArt = bands.map(b => $('.chapter-band-art', b));
+let geo = null;
 function measure() {
   sizeBefore();
   docH = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+  const box = (el) => { const r = el.getBoundingClientRect(); return { top: r.top + scrollY, h: r.height }; };
+  geo = {
+    thesis: box(thesis), before: box(before), garden: box(garden), hero: box(hero),
+    bands: bands.map(box),
+    nav: [...linkFor.keys()].map(id => document.getElementById(id)).filter(Boolean).map(el => ({ id: el.id, ...box(el) })),
+    travel: Math.max(0, track.scrollWidth - innerWidth),
+  };
+  mhalf = marquee.scrollWidth / 2;
   route.measure();
 }
 
 // ------------------------------------------------------------------ the one scroll loop
-const bands = $$('.chapter-band');
 let ticking = false, scrolled = false;
-function progressOf(el) {
-  const r = el.getBoundingClientRect();
-  return { p: clamp(-r.top / Math.max(1, r.height - innerHeight)), r };
-}
+const last = { scrolled: null, lit: -1, track: null, g: -1, day: null, bands: [], active: undefined };
+const near = (b, y, vh) => y + vh > b.top && y < b.top + b.h;
+const prog = (b, y, vh) => clamp((y - b.top) / Math.max(1, b.h - vh));
 function update() {
   ticking = false;
-  const y = scrollY;
-  // read
-  const tp = progressOf(thesis).p;
-  const bp = progressOf(before).p;
-  const gp = progressOf(garden).p;
-  const hr = hero.getBoundingClientRect();
-  const bandTops = bands.map(b => b.getBoundingClientRect().top);
-  // write
-  nav.classList.toggle('scrolled', y > 20);
-  heroCtl.setFade(clamp(1 + hr.top / (hr.height * 0.9)));
+  if (!geo) return;
+  const y = scrollY, vh = innerHeight;
+  vel = y - lastY; lastY = y;
+  if (last.scrolled !== (y > 20)) nav.classList.toggle('scrolled', (last.scrolled = y > 20));
+  heroCtl.setFade(clamp(1 + (geo.hero.top - y) / (geo.hero.h * 0.9)));
 
-  if (!reduce) {
-    const lit = Math.floor(tp * 1.15 * (thesisWords.length + 1));
-    thesisWords.forEach((w, i) => w.classList.toggle('lit', i < lit));
+  if (!reduce && near(geo.thesis, y, vh)) {
+    const lit = Math.floor(prog(geo.thesis, y, vh) * 1.15 * (thesisWords.length + 1));
+    if (lit !== last.lit) { last.lit = lit; thesisWords.forEach((w, i) => w.classList.toggle('lit', i < lit)); }
   }
-  if (pinStrip()) track.style.transform = `translate3d(${-bp * Math.max(0, track.scrollWidth - innerWidth)}px,0,0)`;
-
-  if (!reduce && innerWidth > 860) {
-    const g = clamp((gp - 0.03) / 0.16);
-    garden.style.setProperty('--g', g.toFixed(3));
-    garden.classList.toggle('day', g > 0.62);
+  if (pinStrip() && near(geo.before, y, vh)) {
+    const tx = Math.round(-prog(geo.before, y, vh) * geo.travel);
+    if (tx !== last.track) { last.track = tx; track.style.transform = `translate3d(${tx}px,0,0)`; }
+  }
+  if (!reduce && innerWidth > 860 && near(geo.garden, y, vh)) {
+    const gp = prog(geo.garden, y, vh);
+    const g = Math.round(clamp((gp - 0.03) / 0.16) * 500) / 500;
+    if (g !== last.g) { last.g = g; sun.style.clipPath = `circle(${(g * 150).toFixed(1)}% at 74% 50%)`; }
+    if (last.day !== (g > 0.62)) garden.classList.toggle('day', (last.day = g > 0.62));
     setGardens(Math.round(clamp((gp - 0.12) / 0.72) * 60));
   }
-  bands.forEach((b, i) => b.style.setProperty('--p', clamp(1 - bandTops[i] / innerHeight, 0, 2).toFixed(3)));
+  geo.bands.forEach((b, i) => {
+    if (!near(b, y, vh)) return;
+    const p = Math.round(clamp(1 - (b.top - y) / vh, 0, 2) * 400) / 400;
+    if (p !== last.bands[i]) { last.bands[i] = p; if (bandArt[i]) bandArt[i].style.transform = `scale(${(1.12 - p * 0.12).toFixed(4)})`; }
+  });
 
-  const p = clamp(y / docH);
-  route.update(p, scrolled);
+  route.update(clamp(y / docH), scrolled);
   scrolled = false;
 
   // nav highlight by section
-  let activeId = null;
-  for (const id of linkFor.keys()) {
-    const el = document.getElementById(id);
-    if (!el) continue;
-    const r = el.getBoundingClientRect();
-    if (r.top <= innerHeight * 0.35 && r.bottom > innerHeight * 0.35) activeId = id;
+  const line = y + vh * 0.35;
+  const hit = geo.nav.findLast(b => b.top <= line && b.top + b.h > line);
+  const active = hit ? hit.id : null;
+  if (active !== last.active) {
+    last.active = active;
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + active));
   }
-  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + activeId));
 }
+// The scroll event only schedules a frame. Reading scrollY here would force a layout on
+// every scroll event; update() reads it once per frame instead.
 function onScroll() {
-  vel = scrollY - lastY; lastY = scrollY;
   scrolled = true;
   if (!ticking) { ticking = true; requestAnimationFrame(update); }
 }
@@ -220,15 +234,19 @@ addEventListener('resize', () => { measure(); update(); });
 new ResizeObserver(() => { measure(); update(); }).observe(document.body);
 
 function marqueeLoop(t) {
+  mraf = 0;
+  if (!mOn) return;
   const dt = Math.min(0.05, (t - (mlast || t)) / 1000); mlast = t;
-  const half = marquee.scrollWidth / 2;
   const speed = 46 + Math.min(600, Math.abs(vel) * 9);
   vel *= 0.9;
-  mx = (mx - speed * dt) % half;
+  mx = (mx - speed * dt) % mhalf;
   marquee.style.transform = `translate3d(${mx}px,0,0)`;
-  requestAnimationFrame(marqueeLoop);
+  mraf = requestAnimationFrame(marqueeLoop);
 }
-if (!reduce) requestAnimationFrame(marqueeLoop);
+if (!reduce) new IntersectionObserver(([en]) => {
+  mOn = en.isIntersecting;
+  if (mOn && !mraf) { mlast = 0; mraf = requestAnimationFrame(marqueeLoop); }
+}).observe(marquee.parentElement);
 
 measure(); update();
 addEventListener('load', () => { measure(); update(); });
@@ -308,6 +326,18 @@ setInterval(livePi, 60000);
 $('#copy-email').addEventListener('click', async () => {
   try { await navigator.clipboard.writeText(addr); toast(`Copied ${addr}`); }
   catch { toast(addr); }
+});
+
+// ------------------------------------------------------------------ warm the image cache
+// Once the page has settled, fetch the lazy images in page order during idle time, so a fast
+// scroll never waits on the network (1.3 MB in all). Skipped on data saver and 2G.
+const idle = (fn) => (window.requestIdleCallback ? requestIdleCallback(fn, { timeout: 2000 }) : setTimeout(fn, 200));
+addEventListener('load', () => {
+  const c = navigator.connection;
+  if (c && (c.saveData || /2g/.test(c.effectiveType || ''))) return;
+  const queue = $$('img[loading="lazy"]').filter(img => !img.complete && img.getClientRects().length);
+  const next = () => { const img = queue.shift(); if (!img) return; img.loading = 'eager'; idle(next); };
+  setTimeout(() => idle(next), 1200);
 });
 
 // ------------------------------------------------------------------ studio video: play only while on screen
