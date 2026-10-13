@@ -1,11 +1,13 @@
 // Sound for okay-cool.net. Nothing plays until the visitor asks.
 //  - soundtrack: an ACE-Step ambient bed, looped gaplessly from an AudioBuffer
-//  - tour: the wizard's narration per chapter, captions with a word-by-word sweep
+//  - tour: the narrator's reading of each chapter, captions with a word-by-word sweep
 //  - players: the theme song (with Lord Pemberton's intro)
+// Everything you hear was generated on the Mac Studio, and it says so where you hear it: a credit
+// tag for the soundtrack, one in the captions for the narrator, one on the player for the song.
 // Everything routes through Web Audio gain nodes, because iOS ignores
 // HTMLMediaElement.volume and we need fades and ducking.
 
-const AMBIENT_SRC = 'assets/audio/ambient.mp3';
+const AMBIENT_SRC = 'assets/audio/ambient.mp3?v=b54de415';
 const TOUR_SRC = 'assets/audio/tour.json';
 const AMBIENT_LEVEL = 0.34;
 const DUCKED_LEVEL = 0.07;
@@ -22,6 +24,9 @@ export function initAudio({ toast, onTourChange } = {}) {
   const soundLabel = soundBtn?.querySelector('.sound-label');
   const caps = document.getElementById('captions');
   const capsText = document.getElementById('captions-text');
+  const nowTag = document.getElementById('ai-now');
+  let nowTimer = 0;
+  nowTag?.addEventListener('click', () => nowTag.classList.toggle('min'));
 
   function ctx() {
     if (ac) return ac;
@@ -80,6 +85,14 @@ export function initAudio({ toast, onTourChange } = {}) {
     if (soundLabel) soundLabel.textContent = on ? 'Sound on' : 'Sound off';
     document.querySelectorAll('[data-sound-toggle]').forEach(b => (b.textContent = on ? 'Stop the soundtrack' : 'Play the soundtrack'));
     on ? startAmbient() : stopAmbient();
+    // the soundtrack's credit shows in full the moment it starts, folds to one line after a
+    // few seconds (hover, focus or a tap opens it again), and leaves when the music does
+    if (nowTag) {
+      nowTag.hidden = !on;
+      nowTag.classList.remove('min');
+      clearTimeout(nowTimer);
+      if (on) nowTimer = setTimeout(() => nowTag.classList.add('min'), 12000);
+    }
   }
 
   // ------------------------------------------------------------ tour
@@ -125,7 +138,7 @@ export function initAudio({ toast, onTourChange } = {}) {
   }
 
   // times: when each word starts (Whisper, from narrate.py), so the sweep waits out the
-  // wizard's pauses; without them it falls back to sweeping by character count
+  // narrator's pauses; without them it falls back to sweeping by character count
   function showCaptions(text, times) {
     caps.hidden = false;
     const words = text.split(/\s+/);
@@ -196,9 +209,13 @@ export function initAudio({ toast, onTourChange } = {}) {
     const bar = el.querySelector('.player-bar i');
     const now = el.querySelector('.player-now');
     const time = el.querySelector('.player-time');
+    // the credit names both until something plays, then whichever one you're hearing
+    const credit = el.parentElement.querySelector('.player-credit');
+    const bothCredits = credit?.textContent;
+    const showCredit = (i) => { if (credit) credit.textContent = i == null ? bothCredits : queue[i].credit || bothCredits; };
     const queue = [
-      el.dataset.intro && { src: el.dataset.intro, label: 'Lord Pemberton, on the mic' },
-      { src: el.dataset.src, label: '“Okay, Cool” · ACE-Step 1.5' },
+      el.dataset.intro && { src: el.dataset.intro, label: 'Lord Pemberton, on the mic', credit: el.dataset.introCredit },
+      { src: el.dataset.src, label: '“Okay, Cool” · ACE-Step 1.5', credit: el.dataset.credit },
     ].filter(Boolean);
     let idx = 0, a = null;
 
@@ -215,13 +232,14 @@ export function initAudio({ toast, onTourChange } = {}) {
           time.textContent = fmt(a.currentTime);
         });
         a.addEventListener('ended', () => {
-          if (idx + 1 < queue.length) { load(idx + 1); a.play(); }
+          if (idx + 1 < queue.length) { load(idx + 1); showCredit(idx); a.play(); }
           else { done(); load(0); }
         });
       }
       a.src = queue[i].src;
     }
     function done() {
+      showCredit(null);
       el.classList.remove('playing');
       if (activePlayer === el) activePlayer = null;
       reduck(); schedule(800);
@@ -237,7 +255,7 @@ export function initAudio({ toast, onTourChange } = {}) {
         if (voiceEl) voiceEl.pause();
         caps.hidden = true;
         reduck();
-        try { await a.play(); el.classList.add('playing'); } catch { done(); }
+        try { await a.play(); el.classList.add('playing'); showCredit(idx); } catch { done(); }
       } else {
         a.pause(); done();
       }

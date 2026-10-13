@@ -1,10 +1,10 @@
 """Render the audio tour and Lord Pemberton's intro on the Mac Studio.
 
-The narrator is an old wizard, performed by VoxCPM2 in the hub's Voice Studio from the voice
-profile "Grey Wizard HD (designed)". The voice was designed, not cloned: OmniVoice generated it
-from a description (male, elderly, low pitch, British accent), and VoxCPM2 re-recorded it at
-48 kHz with the direction "theatrical, warm, delighted". No real person's audio went into it.
-Lord Pemberton is a Kokoro preset (bm_lewis).
+The narrator is performed by VoxCPM2 in the hub's Voice Studio from the voice profile
+"Okay Cool Narrator (designed)". The voice was designed, not cloned: VoxCPM2 generated it from a
+text description (a woman in her mid thirties with a warm, natural, mid-pitched American voice,
+expressive and unhurried), and the chosen design take became the profile's reference. No real
+person's audio went into it. Lord Pemberton is a Kokoro preset (bm_lewis).
 
 VoxCPM2 isn't deterministic, so every chapter is a casting call:
 
@@ -14,9 +14,9 @@ VoxCPM2 isn't deterministic, so every chapter is a casting call:
     ~/apps/voicebox/.venv-mlx/bin/python tools/narrate.py pemberton
 
 Casting rules: Whisper has to hear the script back word for word, and WavLM has to hear the same
-wizard as the reference, at his usual pitch. Then Praat drops the raspiest takes (rasp reads as
-menace), the rushed ones, and any that crack into another register; the most animated of what's
-left gets the part. Takes live in tools/takes/, which isn't in git.
+narrator as the reference, at her usual pitch. Then Praat drops the raspiest takes, the rushed
+ones, and any that crack into another register; the most animated of what's left gets the part.
+Takes live in tools/takes/, which isn't in git.
 """
 import difflib
 import hashlib
@@ -46,7 +46,7 @@ WHISPER_WORDS = "mlx-community/whisper-large-v3-mlx"  # times the captions on th
 
 # Whisper writes numbers as digits and hears "Pi" as "pie"; compare like with like
 CANON = [(r"\btwo thousand\b", "2000"), (r"\bthirteen\b", "13"), (r"\bsixty\b", "60"), (r"\bsix\b", "6"),
-         (r"\bfive\b", "5"), (r"\bthree\b", "3"), (r"\bpie\b", "pi"), (r"\bgray\b", "grey"), (r"\bok\b", "okay"),
+         (r"\bfive\b", "5"), (r"\bthree\b", "3"), (r"\bpie\b", "pi"), (r"\bok\b", "okay"),
          (r"\bgrow year\b", "growyear"), (r"\bdevops\b", "dev ops"), (r"(\d),(\d)", r"\1\2")]
 
 
@@ -95,7 +95,7 @@ def judge(path, text, ref):
     said, got = words(text), words(heard)
     sm = difflib.SequenceMatcher(a=said, b=got, autojunk=False)
     hits = sum(block.size for block in sm.get_matching_blocks())
-    # Praat, not pyin: pyin slips an octave on an old man's gravel and calls it acting
+    # Praat, not pyin: pyin slips octaves on a gravelly or breathy voice and calls it acting
     snd = parselmouth.Sound(path)
     f0 = snd.to_pitch_ac(time_step=0.01, pitch_floor=60, pitch_ceiling=400).selected_array["frequency"]
     f0 = f0[f0 > 0]
@@ -113,12 +113,14 @@ def judge(path, text, ref):
     }
 
 
-def cast(takes, wizard):
-    """Right words and the same wizard first; then the clearest, unhurried, most animated take."""
+def cast(takes, voice):
+    """Right words and the same narrator first; then the clearest, unhurried, most animated take."""
     pool = [t for t in takes if t["match"] == 1 and t["extra"] == 0 and t["sim"] >= 0.93
-            and abs(12 * math.log2(t["f0"] / wizard["f0"])) <= 2.5]
-    for keep in (lambda t: t["hnr"] >= wizard["hnr"] - 0.5,  # not the raspiest
-                 lambda t: t["wpm"] <= 185,                   # not rushed
+            and abs(12 * math.log2(t["f0"] / voice["f0"])) <= 2.5]
+    # her livelier takes run a little breathier (lower HNR) without any rasp, so the clarity
+    # floor is loose; it only drops a take that's audibly rough next to her usual sound
+    for keep in (lambda t: t["hnr"] >= voice["hnr"] - 1.5,  # not the roughest
+                 lambda t: t["wpm"] <= 195,                   # not rushed
                  lambda t: t["range"] <= 18):                 # wider is a voice crack, not acting
         pool = [t for t in pool if keep(t)] or pool
     return max(pool, key=lambda t: t["range"]) if pool else None
@@ -230,15 +232,15 @@ def cmd_takes(script, only):
 
 def cmd_pick(script, only):
     rows = [json.loads(line) for line in open(os.path.join(TAKES, "scores.jsonl"))]
-    # the wizard's own voice, across every take: his speaking pitch and how clear he usually is
-    wizard = {k: float(np.median([r[k] for r in rows])) for k in ("f0", "hnr")}
+    # the narrator's own voice, across every take: her speaking pitch and how clear she usually is
+    voice = {k: float(np.median([r[k] for r in rows])) for k in ("f0", "hnr")}
     manifest_path = os.path.join(OUT, "tour.json")
     manifest = json.load(open(manifest_path)) if os.path.exists(manifest_path) else {"clips": {}}
     for key, clip in script["clips"].items():
         if only and key not in only:
             continue
         mine = [r for r in rows if r["key"] == key and os.path.exists(os.path.join(TAKES, r["file"]))]
-        best = cast(mine, wizard)
+        best = cast(mine, voice)
         if not best:
             sys.exit(f"{key}: no take passed (best match {max(r['match'] for r in mine):.2f}); run more takes")
         name = f"tour-{key}.mp3"

@@ -33,12 +33,15 @@ Everything that isn't code was generated on a Mac Studio, using the AI studios M
 | What | Model | How |
 |---|---|---|
 | Art | Qwen-Image 2.1 (Q8 GGUF) | ComfyUI on Apple Silicon, ~85 s per image; prompts in `tools/art_prompts.json` |
-| Theme song and soundtrack | ACE-Step 1.5 XL | ComfyUI, mastered to -14 LUFS; looped with `tools/finish_audio.py` |
-| Narrator (the wizard) | VoxCPM2 in the hub's Voice Studio; voice designed with OmniVoice | `tools/narrate.py takes`, then `pick`: six takes a chapter, best one kept; script and stage directions in `tools/tour_script.json` |
+| Theme song and soundtrack | ACE-Step 1.5 XL (SFT) | ComfyUI, mastered to -14 LUFS; looped with `tools/finish_audio.py`. The soundtrack's soft pad and gentle drum build are synthesized under it by `tools/layer_ambient.py` (original kept in `tools/backups/`) |
+| Narrator | VoxCPM2 in the hub's Voice Studio; voice designed with VoxCPM2 from a text description | `tools/narrate.py takes`, then `pick`: six takes a chapter, best one kept; script and stage directions in `tools/tour_script.json` |
 | Lord Pemberton | Kokoro-82M on MLX | `tools/narrate.py pemberton` |
 | Video | MiniMax H3 | image-to-video from the gummy-fiber art, 10 steps, 31 min of GPU time; looped with `tools/finish_video.py` |
 
-No real person's voice is cloned: the wizard was designed from a text description, and Pemberton is a Kokoro preset.
+No real person's voice is cloned: the narrator was designed from a text description, and Pemberton is a Kokoro preset.
+Every one of these says so on the page, where you meet it: a credit chip on each picture and on the video, a
+tag when the soundtrack starts, a line in the tour's captions, and a credit on the song's player, each naming
+the model and the settings that made it.
 
 ## Pieces
 
