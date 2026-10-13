@@ -153,7 +153,6 @@ marquee.innerHTML += marquee.innerHTML;
 let mx = 0, mlast = 0, vel = 0, lastY = scrollY;
 
 // ------------------------------------------------------------------ scroll progress: a packet routed to me
-const topFill = $('#topbar-fill');
 const chapters = $$('[data-chapter]');
 const route = initRoute($('#route'), { chapters, reduceMotion: reduce });
 let docH = 1;
@@ -198,7 +197,6 @@ function update() {
   bands.forEach((b, i) => b.style.setProperty('--p', clamp(1 - bandTops[i] / innerHeight, 0, 2).toFixed(3)));
 
   const p = clamp(y / docH);
-  topFill.style.transform = `scaleX(${p})`;
   route.update(p, scrolled);
   scrolled = false;
 

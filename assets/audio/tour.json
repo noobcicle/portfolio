@@ -27,8 +27,8 @@
   },
   "lab": {
    "src": "assets/audio/tour-lab.mp3",
-   "text": "This is the lab in his basement. A control room for all his AI, a house voice named Thaddeus who reads tornado warnings at three in the morning, monitoring that makes failures loud, and a garden planner called GrowYear. His family uses all of it. Some of them even like it.",
-   "seconds": 16.92
+   "text": "This is the lab in his basement. A control room for all his AI, a stock dashboard that pinned people's tweets right onto the price chart, a house voice named Thaddeus who reads tornado warnings at three in the morning, monitoring that makes failures loud, and a garden planner called GrowYear. His family uses most of it. Some of them even like it.",
+   "seconds": 20.85
   },
   "before": {
    "src": "assets/audio/tour-before.mp3",

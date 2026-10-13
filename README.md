@@ -43,9 +43,11 @@ All voices are synthetic presets; no real person's voice is cloned.
 
 - `index.html`: the whole story, chapter by chapter
 - `assets/js/hero.js`: the canvas network in the hero (packets are gummy worms of light)
-- `assets/js/route.js`: the scroll bar, a packet routed from the visitor to me with one router per section.
+- `assets/js/route.js`: the scroll bar, a packet routed from the visitor to me with one router per section
+  (a rail down the left on desktop, a strip under the nav on phones).
   IS-IS (Dijkstra) and BGP best-path selection really run; Cloudflare AS13335 and Starlink AS14593 are
-  real, while the ISP, the transit networks (RFC 5398 ASNs) and the metrics are made up. Hover it for the traceroute.
+  real, while the ISP, the transit networks (RFC 5398 ASNs) and the metrics are made up. Hover it (or tap the
+  strip) for the traceroute.
 - `assets/js/site.js`: one scroll loop for the pinned chapters, traceroute sync, the 60-gardens grid,
   and the live trip and server widgets
 - `assets/js/audio.js`: the opt-in soundtrack and narrated tour with live captions, all through Web Audio

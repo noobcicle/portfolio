@@ -220,15 +220,19 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
   const visitor = { colo: null, v6: false, ttl: /Windows/.test(navigator.userAgent) ? 128 : 64 };
   let route = computeRoute(satSlot());
   let notes = writeNotes(route, visitor);
-  let W = 0, H = 0, dpr = 1, step = 0, zones = [];
+  // a tall box is the desktop rail; a wide one is the phone strip under the nav
+  let W = 0, H = 0, dpr = 1, step = 0, zones = [], horiz = false, noteW = 0;
+  const at = (x, y) => (horiz ? x / W : y / H);
   let stops = [], hop = 0, lastK = -1, raf = 0, noteT = 0;
   const fx = [];
   const sprites = new Map();
 
   // ------------------------------------------------------------ layout
   function sample(l) {
-    const { a, b } = l, dy = b.y - a.y, n = a.L === b.L ? 1 : 22;
-    const c1 = [a.x, a.y + dy * 0.5], c2 = [b.x, b.y - dy * 0.5];
+    const { a, b } = l, n = a.L === b.L ? 1 : 22;
+    const dx = b.x - a.x, dy = b.y - a.y;
+    const c1 = horiz ? [a.x + dx * 0.5, a.y] : [a.x, a.y + dy * 0.5];
+    const c2 = horiz ? [b.x - dx * 0.5, b.y] : [b.x, b.y - dy * 0.5];
     l.pts = []; l.cum = [0];
     for (let i = 0; i <= n; i++) {
       const t = i / n, u = 1 - t;
@@ -246,11 +250,20 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
     canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     sprites.clear();
-    step = H / LAYERS;
-    const lanes = [W * 0.3, W * 0.58, W * 0.86];
-    for (const n of nodes.values()) { n.x = lanes[n.lane]; n.y = (n.L + 0.5) * step; }
+    horiz = W > H;
+    root.classList.toggle('is-horiz', horiz);
+    step = (horiz ? W : H) / LAYERS;
+    const c = (z) => mix((z.from + z.to + 1) / 2 / LAYERS);
+    if (horiz) {
+      const lanes = [H * 0.47, H * 0.67, H * 0.87];
+      for (const n of nodes.values()) { n.x = (n.L + 0.5) * step; n.y = lanes[n.lane]; }
+      zones = ZONES.map(z => ({ ...z, x0: z.from * step + 1.5, x1: (z.to + 1) * step - 1.5, y0: 1.5, y1: H - 1.5, c: c(z) }));
+    } else {
+      const lanes = [W * 0.3, W * 0.58, W * 0.86];
+      for (const n of nodes.values()) { n.x = lanes[n.lane]; n.y = (n.L + 0.5) * step; }
+      zones = ZONES.map(z => ({ ...z, x0: 1.5, x1: W - 1.5, y0: z.from * step + 2, y1: (z.to + 1) * step - 2, c: c(z) }));
+    }
     for (const l of links) sample(l);
-    zones = ZONES.map(z => ({ ...z, y0: z.from * step + 2, y1: (z.to + 1) * step - 2, c: mix((z.from + z.to + 1) / 2 / LAYERS) }));
     return true;
   }
 
@@ -302,15 +315,15 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
   function draw(now) {
     ctx.clearRect(0, 0, W, H);
     const k = Math.min(LAYERS - 1, Math.floor(hop + 1e-6)), f = hop - k;
-    const labels = step >= 34;
+    const labels = horiz ? H >= 26 : step >= 34;
 
     // autonomous systems
-    ctx.font = '500 7.5px "Geist Mono", ui-monospace, monospace';
+    ctx.font = `500 ${horiz ? 6.5 : 7.5}px "Geist Mono", ui-monospace, monospace`;
     ctx.textBaseline = 'alphabetic';
     for (const z of zones) {
       const on = k >= z.from && k <= z.to;
       ctx.beginPath();
-      ctx.roundRect ? ctx.roundRect(1.5, z.y0, W - 3, z.y1 - z.y0, 9) : ctx.rect(1.5, z.y0, W - 3, z.y1 - z.y0);
+      ctx.roundRect ? ctx.roundRect(z.x0, z.y0, z.x1 - z.x0, z.y1 - z.y0, horiz ? 7 : 9) : ctx.rect(z.x0, z.y0, z.x1 - z.x0, z.y1 - z.y0);
       ctx.fillStyle = on ? rgba(z.c, 0.075) : 'rgba(205,180,255,0.025)';
       ctx.fill();
       ctx.strokeStyle = on ? rgba(z.c, 0.5) : 'rgba(205,180,255,0.09)';
@@ -319,9 +332,11 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
       if (!labels) continue;
       ctx.fillStyle = on ? 'rgba(245,240,253,0.95)' : 'rgba(185,172,212,0.5)';
       ctx.textAlign = 'left';
-      ctx.fillText(z.label, 6, z.y0 + 11);
+      const wide = z.x1 - z.x0;
+      if (horiz && ctx.measureText(z.label).width > wide - 8) continue;
+      ctx.fillText(z.label, z.x0 + (horiz ? 4 : 4.5), z.y0 + (horiz ? 8 : 11));
       const right = z.label === 'LAN' ? (visitor.family || '') : z.label === 'AS13335' ? (visitor.colo || '') : z.right;
-      if (right) { ctx.textAlign = 'right'; ctx.fillText(right, W - 6, z.y0 + 11); }
+      if (right && ctx.measureText(z.label + right).width < wide - 14) { ctx.textAlign = 'right'; ctx.fillText(right, z.x1 - 4.5, z.y0 + (horiz ? 8 : 11)); }
     }
     ctx.textAlign = 'left';
 
@@ -333,7 +348,7 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
       ctx.setLineDash(l.kind === 'ebgp' ? [3, 3] : l.kind === 'space' ? [1, 3] : []);
       ctx.lineWidth = 1;
       if (onRoute && l.a.L >= k && l.b.L <= horizon(k)) {
-        ctx.strokeStyle = rgba(mix(l.b.y / H), 0.55);
+        ctx.strokeStyle = rgba(mix(at(l.b.x, l.b.y)), 0.55);
         ctx.setLineDash([2, 3]);
       } else if (decided && !onRoute) {
         ctx.strokeStyle = 'rgba(205,180,255,0.05)';
@@ -361,7 +376,7 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
     for (let i = 0; i < k; i++) trail.push(...partial(linkOn(route.path[i], route.path[i + 1]), nodes.get(route.path[i]), 1));
     if (k < LAYERS - 1) trail.push(...partial(linkOn(route.path[k], route.path[k + 1]), nodes.get(route.path[k]), f));
     if (!trail.length) trail.push([nodes.get('you').x, nodes.get('you').y]);
-    const grad = ctx.createLinearGradient(0, 0, 0, H);
+    const grad = horiz ? ctx.createLinearGradient(0, 0, W, 0) : ctx.createLinearGradient(0, 0, 0, H);
     GUMMY.forEach((c, i) => grad.addColorStop(i / (GUMMY.length - 1), rgba(c, 1)));
     ctx.lineCap = 'round'; ctx.lineJoin = 'round';
     ctx.strokeStyle = grad;
@@ -373,8 +388,8 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
     for (const n of nodes.values()) {
       const lit = onPath(n) && n.L <= k;
       const cur = onPath(n) && n.L === k;
-      const c = mix(n.y / H);
-      if (lit) blit(c, n.x, n.y, cur ? 13 : 8, cur ? 0.9 : 0.55);
+      const c = mix(at(n.x, n.y));
+      if (lit) blit(c, n.x, n.y, cur ? (horiz ? 9 : 13) : (horiz ? 6 : 8), cur ? 0.9 : 0.55);
       const dim = !onPath(n) && n.L < k ? 0.16 : n.kind === 'ghost' ? 0.2 : 0.42;
       ctx.fillStyle = lit ? '#fff' : `rgba(245,240,253,${dim})`;
       ctx.strokeStyle = ctx.fillStyle;
@@ -390,7 +405,7 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
       }
       if (cur && k < LAYERS - 1) {
         ctx.strokeStyle = rgba(c, 0.75); ctx.lineWidth = 1.2;
-        ctx.beginPath(); ctx.arc(n.x, n.y, 6.5, 0, Math.PI * 2); ctx.stroke();
+        ctx.beginPath(); ctx.arc(n.x, n.y, horiz ? 4.5 : 6.5, 0, Math.PI * 2); ctx.stroke();
       }
     }
 
@@ -422,20 +437,20 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
       const [x, y] = trail.at(-1);
       const prev = trail.length > 1 ? trail.at(-2) : [x, y - 1];
       const ang = Math.atan2(y - prev[1], x - prev[0]);
-      const c = mix(y / H);
+      const c = mix(at(x, y));
       if (k === 0) {
-        blit(GUMMY[0], x, y, 14, 0.9);
+        blit(GUMMY[0], x, y, horiz ? 10 : 14, 0.9);
         ctx.save(); ctx.translate(x, y); ctx.rotate(ang);
         ctx.fillStyle = '#ff5ca8';
         ctx.beginPath(); ctx.roundRect ? ctx.roundRect(-7, -2.8, 14, 5.6, 2.8) : ctx.rect(-7, -2.8, 14, 5.6); ctx.fill();
         ctx.fillStyle = '#fff'; ctx.fillRect(2.5, -2, 2.6, 4); // the header, out front
         ctx.restore();
       } else {
-        blit(c, x, y, 15, 1);
-        ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(x, y, 2.6, 0, Math.PI * 2); ctx.fill();
+        blit(c, x, y, horiz ? 10 : 15, 1);
+        ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(x, y, horiz ? 2.2 : 2.6, 0, Math.PI * 2); ctx.fill();
         if (k >= 8 && k < 11) { // wrapped in the tunnel
           ctx.strokeStyle = 'rgba(196,107,255,0.95)'; ctx.lineWidth = 1.3;
-          ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI * 2); ctx.stroke();
+          ctx.beginPath(); ctx.arc(x, y, horiz ? 4.6 : 6, 0, Math.PI * 2); ctx.stroke();
         }
       }
     }
@@ -456,7 +471,7 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
 
   const WORM = new Path2D('M6 20c6-10 12-10 18 0s12 10 18 0 12-10 16-2');
   function drawWorm(x, y, home) {
-    const s = 0.36;
+    const s = horiz ? 0.27 : 0.36;
     ctx.save();
     ctx.translate(x - 32 * s, y - 17 * s); ctx.scale(s, s);
     const g = ctx.createLinearGradient(0, 0, 64, 0);
@@ -472,7 +487,7 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
   // ------------------------------------------------------------ the choices, animated
   function arrive(k, now) {
     const id = route.path[k], n = nodes.get(id), pick = route.picks[k];
-    const c = mix(n.y / H);
+    const c = mix(at(n.x, n.y));
     const add = (e, delay = 0) => fx.push({ t0: now + delay, ...e });
     add({ kind: 'ripple', x: n.x, y: n.y, c, dur: 650 });
 
@@ -520,6 +535,7 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
     const n = notes[k];
     pduEl.textContent = n.pdu; msgEl.textContent = n.msg; whyEl.textContent = n.why;
     note.classList.toggle('is-frame', k === 0);
+    noteW = note.offsetWidth;
     for (const li of mapList.children) li.classList.toggle('is-here', +li.dataset.k === k);
   }
   function buildMap() {
@@ -537,18 +553,30 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
   }
   mapList.addEventListener('click', (e) => {
     const li = e.target.closest('li');
-    if (li) chapters[+li.dataset.k]?.scrollIntoView();
+    if (!li) return;
+    if (horiz) root.classList.remove('is-open');
+    chapters[+li.dataset.k]?.scrollIntoView();
   });
   let mapT = 0;
   root.addEventListener('pointerenter', (e) => {
     if (e.pointerType !== 'mouse') return;
     clearTimeout(mapT); mapT = setTimeout(() => root.classList.add('is-open'), 140);
   });
-  root.addEventListener('pointerleave', () => { clearTimeout(mapT); mapT = setTimeout(() => root.classList.remove('is-open'), 220); });
-  // it's still a scroll bar: click a router to go to its section
+  root.addEventListener('pointerleave', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    clearTimeout(mapT); mapT = setTimeout(() => root.classList.remove('is-open'), 220);
+  });
+  let lastPointer = 'mouse';
+  canvas.addEventListener('pointerdown', (e) => { lastPointer = e.pointerType; });
   canvas.addEventListener('click', (e) => {
-    const y = e.clientY - canvas.getBoundingClientRect().top;
-    chapters[Math.max(0, Math.min(LAYERS - 1, Math.floor(y / step)))]?.scrollIntoView();
+    if (lastPointer !== 'mouse') { root.classList.toggle('is-open'); return; }
+    // it's still a scroll bar: click a router to go to its section
+    const r = canvas.getBoundingClientRect();
+    const along = horiz ? e.clientX - r.left : e.clientY - r.top;
+    chapters[Math.max(0, Math.min(LAYERS - 1, Math.floor(along / step)))]?.scrollIntoView();
+  });
+  document.addEventListener('click', (e) => {
+    if (root.classList.contains('is-open') && !root.contains(e.target)) root.classList.remove('is-open');
   });
 
   // ------------------------------------------------------------ scroll
@@ -567,14 +595,14 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
     // on wide screens the card fits in the margin, so it can stay up
     const wrap = document.querySelector('main .wrap');
     const left = wrap ? wrap.getBoundingClientRect().left + parseFloat(getComputedStyle(wrap).paddingLeft) : 0;
-    root.classList.toggle('is-roomy', left - root.getBoundingClientRect().right > 330);
+    root.classList.toggle('is-roomy', !horiz && left - root.getBoundingClientRect().right > 330);
     kick();
   }
 
   function update(p, scrolling) {
     if (!W) return;
     // reading, not exploring: a scroll with the pointer parked on the rail closes the map
-    if (scrolling && root.classList.contains('is-open') && !map.matches(':hover')) { clearTimeout(mapT); root.classList.remove('is-open'); }
+    if (scrolling && root.classList.contains('is-open') && (horiz || !map.matches(':hover'))) { clearTimeout(mapT); root.classList.remove('is-open'); }
     if (stops.length === LAYERS) {
       let k = 0;
       while (k < LAYERS - 1 && p >= stops[k + 1]) k++;
@@ -595,15 +623,16 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
       lastK = k;
       writeNote(k);
     }
-    const y = currentY();
-    note.style.transform = `translate3d(0, ${Math.round(Math.min(H - 70, Math.max(0, y - 22)))}px, 0)`;
+    const [x, y] = currentPos();
+    note.style.transform = horiz
+      ? `translate3d(${Math.round(Math.min(W - noteW - 8, Math.max(8, x - noteW / 2)))}px, 0, 0)`
+      : `translate3d(0, ${Math.round(Math.min(H - 70, Math.max(0, y - 22)))}px, 0)`;
     kick();
   }
-  function currentY() {
+  function currentPos() {
     const k = Math.min(LAYERS - 1, Math.floor(hop + 1e-6));
-    if (k >= LAYERS - 1) return nodes.get('mike').y;
-    const pts = partial(linkOn(route.path[k], route.path[k + 1]), nodes.get(route.path[k]), hop - k);
-    return pts.at(-1)[1];
+    if (k >= LAYERS - 1) return [nodes.get('mike').x, nodes.get('mike').y];
+    return partial(linkOn(route.path[k], route.path[k + 1]), nodes.get(route.path[k]), hop - k).at(-1);
   }
 
   buildMap();

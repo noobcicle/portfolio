@@ -196,9 +196,16 @@ html.js .reveal.in { opacity: 1; transform: none; }
 .rm-msg { grid-column: 2 / -1; color: var(--ink-faint); font-size: 10px; margin-top: 1px; }
 .route-map-foot { margin: 10px 4px 0; padding-top: 10px; border-top: 1px solid var(--line); font: 400 11.5px/1.5 var(--font-sans); color: var(--ink-faint); }
 @media (max-width: 1279px) { .route { left: 10px; width: 56px; } }
-.topbar { position: fixed; left: 0; right: 0; top: var(--nav-h); height: 3px; z-index: 48; display: none; }
-.topbar-fill { height: 100%; background: var(--gummy); transform-origin: left; transform: scaleX(0); }
-@media (max-width: 1099px) { .route { display: none; } .topbar { display: block; } }
+/* phones and small tablets: the same network, sideways, in a strip under the nav */
+@media (max-width: 1099px) {
+  html { scroll-padding-top: calc(var(--nav-h) + 44px); }
+  /* no backdrop-filter here: it would make the strip the backdrop root, and the card and map could no longer blur the page behind them */
+  .route { left: 0; right: 0; top: var(--nav-h); bottom: auto; width: auto; height: 30px; background: rgba(11, 7, 22, .96); border-bottom: 1px solid var(--line); }
+  .route-canvas { pointer-events: auto; cursor: pointer; }
+  .route-note { left: 0; top: calc(100% + 6px); max-width: min(300px, calc(100vw - 16px)); background: rgba(11, 7, 22, .93); }
+  .route-map { left: 8px; right: 8px; top: calc(100% + 6px); width: auto; max-height: min(72vh, 620px); transform: translateY(-6px); }
+  .route-map li { grid-template-columns: 2.4ch minmax(0, 1fr) auto; padding: 8px; }
+}
 
 /* ---------------------------------------------------------------- hero */
 .hero { position: relative; min-height: 100vh; min-height: 100svh; display: grid; align-items: center; overflow: hidden; isolation: isolate; padding-top: var(--nav-h); }
@@ -630,7 +637,8 @@ figure.studio-neon img { aspect-ratio: 21 / 8; object-position: 50% 45%; }
 .written strong { color: var(--ink); }
 .written a { color: var(--blue-2); }
 .written-route { margin-top: 14px; }
-@media (max-width: 1099px) { .written-route { display: none; } }
+.if-touch { display: none; }
+@media (hover: none) { .if-hover { display: none; } .if-touch { display: inline; } }
 @media (prefers-reduced-motion: reduce) { .arch-link i { display: none; } }
 
 @media (max-width: 600px) {
