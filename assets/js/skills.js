@@ -29,11 +29,10 @@ const COLS = [
     { id: 'micro', name: 'Raspberry Pi + Arduino', lv: 4, note: 'Garage door, plant waterer, pepper sensors, ESP32 relays over MQTT, and now the servers this site runs on.' },
   ] },
   { title: 'Work, by hand', how: HAND, items: [
-    { id: 'w-circuit', name: 'Circuit builder', work: true, note: '~2016, Visual Basic. A spreadsheet that drove the order system and filled in every circuit.' },
     { id: 'w-juniper', name: 'Config generator + standards', work: true, note: '2016–2018. Juniper configs on demand, and one set of standards the whole team could share.' },
-    { id: 'w-audits', name: 'Weekly standards audits', work: true, note: '2020 on, Python. Standards pushed to roughly 500 multi-vendor core routers, every week.' },
+    { id: 'w-audits', name: 'Weekly standards audits', work: true, note: '2020 on, Python. Kept thousands of routers and other network devices across the region on standard, every week.' },
     { id: 'w-mop', name: 'Migration MOP generator', work: true, note: 'Python. Cut sheet in, full method of procedure out. Hundreds of hours saved per migration.' },
-    { id: 'w-rotate', name: 'Password-rotation modules', work: true, note: '2024–2026, Python. The vendor modules inside the team’s password-rotation platform.' },
+    { id: 'w-rotate', name: 'Inventory + security platform', work: true, note: '2023–2026, Python and SQL, on a team. Discovery filled a SQL inventory; security modules rotated and audited passwords on everything it found. I was a lead developer.' },
     { id: 'w-rs', name: 'RuneScape bot', work: true, note: '2019 on, Python. It read the screen, read the text, made decisions and traded. Honestly a game cheat.' },
     { id: 'w-garden', name: 'Garden gadgets', work: true, note: '2019–2020. The Arduino plant waterer and the Pepperpi sensors.' },
   ] },
@@ -49,7 +48,7 @@ const COLS = [
     { id: 'w-house', name: 'House platform', work: true, note: 'The family’s app on a Pi: weather alerts, the house voice, plugs, recipes, the baby log.' },
     { id: 'w-lab', name: 'Home Lab', work: true, note: 'Monitoring, patching and deploy checks for every machine in the house.' },
     { id: 'w-ticker', name: 'Tickerscope', work: true, note: 'My portfolio’s system of record, with a morning brief for my agents.' },
-    { id: 'w-grow', name: 'GrowYear', work: true, note: 'A garden planner. Running on its own Pi; public launch coming.' },
+    { id: 'w-grow', name: 'GrowYear', work: true, note: 'A garden planner, live at mygrowyear.com with Google sign-in, served from its own Pi.' },
     { id: 'w-site', name: 'This site', work: true, note: 'Self-hosted over Starlink, with art, music and voices from local AI.' },
     { id: 'flask', name: 'Flask', lv: 2, note: 'Every app in my house runs on it. Claude writes it; I can read it and steer it.' },
     { id: 'react', name: 'React + TypeScript', lv: 1, note: 'GrowYear’s front end. Claude’s work, start to finish.' },
@@ -62,7 +61,6 @@ const COLS = [
 // [a, b]: a used b, or they ran together
 const LINKS = [
   ['mpls', 'ce'], ['mpls', 'juniper'], ['mpls', 'cisco'], ['mpls', 'nokia'], ['mpls', 'bgp'], ['python', 'paramiko'],
-  ['w-circuit', 'vb'], ['w-circuit', 'ce'],
   ['w-juniper', 'js'], ['w-juniper', 'juniper'], ['w-juniper', 'confluence'],
   ['w-audits', 'python'], ['w-audits', 'paramiko'], ['w-audits', 'juniper'], ['w-audits', 'cisco'], ['w-audits', 'nokia'], ['w-audits', 'qos'],
   ['w-mop', 'python'], ['w-mop', 'paramiko'], ['w-mop', 'juniper'],

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mike Purpura · I build the tools that do the work</title>
+<title>Mike Purpura · 13 years on a carrier network, now building with AI</title>
 <meta name="description" content="Network engineer, then network DevOps, now an AI-first engineer. 13 years on Charter's fiber network, most of them spent automating it, and a basement full of self-hosted AI. This site is served from a Raspberry Pi in my house over Starlink.">
 <meta name="theme-color" content="#0b0716">
 <link rel="canonical" href="https://okay-cool.net/">
@@ -12,9 +12,9 @@
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://okay-cool.net/">
-<meta property="og:title" content="Mike Purpura · I build the tools that do the work">
+<meta property="og:title" content="Mike Purpura · 13 years on a carrier network, now building with AI">
 <meta property="og:description" content="13 years on a carrier network, a rule that nothing on a computer gets done by hand more than about three times, and a basement full of self-hosted AI. Served from a Raspberry Pi over Starlink.">
-<meta property="og:image" content="https://okay-cool.net/assets/img/og.png?v=bd0c04b8">
+<meta property="og:image" content="https://okay-cool.net/assets/img/og.png?v=368be95e">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -22,6 +22,8 @@
 <link rel="preload" href="assets/fonts/instrument-serif-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/geist-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
+<!-- the full traceroute sidebar is opt-in: route.js switches this media on when a visitor expands it -->
+<link rel="stylesheet" href="assets/css/sidebar.css" media="not all" id="side-css">
 <script>document.documentElement.classList.add("js")</script>
 
 <script type="application/ld+json">
@@ -49,10 +51,13 @@
 
 <!-- ===================================================== NAV -->
 <header class="nav" id="nav">
-  <a class="brand" href="#top" aria-label="Mike Purpura, back to top">
-    <svg class="brand-worm" viewBox="0 0 64 32" aria-hidden="true"><use href="#worm"/></svg>
-    <span class="brand-name">Mike Purpura</span>
-  </a>
+  <div class="nav-left">
+    <a class="brand" href="#top" aria-label="Mike Purpura, back to top">
+      <svg class="brand-worm" viewBox="0 0 64 32" aria-hidden="true"><use href="#worm"/></svg>
+      <span class="brand-name">Mike Purpura</span>
+    </a>
+    <p class="nav-status"><span class="dot-live" aria-hidden="true"></span> Open to work<span class="nav-where"> · Milton, Wisconsin</span></p>
+  </div>
   <nav class="nav-links" aria-label="Sections">
     <a href="#story">Story</a>
     <a href="#lab">Lab</a>
@@ -81,8 +86,9 @@
 </div>
 
 <!-- the home-hosting story, told as a traceroute of your own request (assets/js/route.js):
-     a sidebar on wide screens, a rail between 1100 and 1279 px, a strip under the nav on phones -->
+     a slim rail on wide screens that expands into a full sidebar, and a strip under the nav on phones -->
 <aside class="route" id="route" aria-label="How this page reached you">
+  <button class="route-toggle" id="route-toggle" type="button" aria-controls="route" aria-expanded="false"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5"/></svg><span class="rt-label">Trace<br class="rt-br">route <b class="rt-act">expand</b></span></button>
   <div class="route-live" id="route-live" hidden>
     <span class="live-dot" aria-hidden="true"></span>
     <span class="route-live-k">Live from my house</span>
@@ -111,17 +117,14 @@
   <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="hero-inner">
-    <div class="hero-top reveal">
-      <p class="kicker"><span class="dot-live" aria-hidden="true"></span> Open to work · Milton, Wisconsin</p>
-    </div>
     <p class="hero-hi reveal">Hi, I'm <strong>Mike Purpura</strong>. <span class="hero-path">Network engineer <i aria-hidden="true">&rarr;</i> network DevOps <i aria-hidden="true">&rarr;</i> AI-first engineer.</span></p>
     <h1 class="hero-title">
-      <span class="line"><span class="word">I build the tools</span></span>
-      <span class="line"><em class="word gummy-text">that do the work.</em></span>
+      <span class="line"><span class="word">13 years on a carrier network.</span></span>
+      <span class="line"><em class="word gummy-text">Now I build and ship with AI.</em></span>
     </h1>
     <p class="hero-pitch reveal">I find the work your engineers repeat and make a computer do it.</p>
     <p class="hero-tag reveal">First time, blame the network. Second time, blame me. <em>Third time, the computer does it.</em></p>
-    <p class="hero-lead reveal">Thirteen years on Charter's fiber network, from configs hand-built in Notepad to Python that kept hundreds of routers on standard every week. Now I build with AI every day, with guardrails so it doesn't do anything dumb while nobody's looking.</p>
+    <p class="hero-lead reveal">At Charter that meant configs hand-built in Notepad, then Python that kept thousands of routers and other network devices across the region on standard. I build with AI daily, with guardrails so it doesn't do anything dumb while nobody's looking, and my garden planner, <a href="#growyear">GrowYear</a>, is live on the internet.</p>
     <ul class="proof reveal" aria-label="Highlights">
       <li><strong>13 yrs</strong> carrier networking</li>
       <li>Juniper · Cisco · Nokia</li>
@@ -213,9 +216,9 @@
 <span class="term-line" data-hop="4"> 4  twc.merger.juniper   2016   <b>2 yr</b></span>
 <span class="term-line" data-hop="5"> 5  python.audit         2020   <b>weekly</b></span>
 <span class="term-line" data-hop="6"> 6  migration.mop        2020s  <b>press play</b></span>
-<span class="term-line" data-hop="7"> 7  devops.team          2024   <b>2 yr</b></span>
+<span class="term-line" data-hop="7"> 7  devops.team          2023   <b>2 yr</b></span>
 <span class="term-line" data-hop="8"> 8  amazon-q.kiro        2024   <b>AI at work</b></span>
-<span class="term-line" data-hop="9"> 9  basement.lab         2025   <b>daily</b></span>
+<span class="term-line" data-hop="9"> 9  basement.lab         2026   <b>daily</b></span>
 <span class="term-line" data-hop="10">10  busy.week            2026   <b>dad mode</b></span>
 <span class="term-line" data-hop="11">11  * * *  <span class="t-pink">your.team</span>   <b>?</b></span><span class="term-cursor"></span></pre>
         </div>
@@ -256,9 +259,10 @@
           <p class="hop-stat">Each migration saved <strong>hundreds of hours</strong>. Over thirteen years, <strong>thousands</strong> at least, because for most of a decade, making everything faster was basically the whole job.</p>
         </li>
         <li class="hop" data-hop="7">
-          <p class="hop-meta"><span class="hop-n">07</span> 2024–2026 · DevOps team</p>
+          <p class="hop-meta"><span class="hop-n">07</span> 2023–2026 · DevOps team</p>
           <h3>Tools for the whole engineering org</h3>
-          <p>Then I got pulled onto the DevOps team, building apps for the network engineering org. On our password-rotation platform (thousands of core routers, hundreds of thousands of customer devices) I wrote the multi-vendor modules: the home-grown Paramiko code that knows how to talk to each vendor's CLI, quirks and all. Secrets lived in HashiCorp Vault, and the code lived in GitLab.</p>
+          <p>Then I got pulled onto the DevOps team, building apps for the network engineering org. I was a lead developer on our network inventory and security platform: one product in two parts. Discovery crawled the network live over SSH, through PE routers, management VRFs and gateway interfaces, found each device, profiled its vendor, model and code, and stored it in a SQL inventory (MariaDB, later PostgreSQL). Security modules then ran against everything discovery found: password rotation and auditing, across hundreds of thousands of devices.</p>
+          <p>I built the inventory database and wrote the multi-vendor modules: the home-grown Paramiko code that knows how to talk to each vendor's CLI, quirks and all. Secrets lived in HashiCorp Vault, and the code shipped through GitLab.</p>
         </li>
         <li class="hop" data-hop="8">
           <p class="hop-meta"><span class="hop-n">08</span> 2024–2026 · AI at work</p>
@@ -266,9 +270,9 @@
           <p>Before AI took over my basement, it showed up on the job. Our team paired GitLab with Amazon Q in the IDE, and I was the one who hooked the two together. I also worked in Kiro, Amazon's AI for the terminal. That was enterprise AI: real code, and a real network on the other end. Everything I build at home builds on it.</p>
         </li>
         <li class="hop" data-hop="9">
-          <p class="hop-meta"><span class="hop-n">09</span> 2025 → now · The basement</p>
+          <p class="hop-meta"><span class="hop-n">09</span> 2026 → now · The basement</p>
           <h3>Then I brought it home</h3>
-          <p>In January 2025 I started vibe-coding a garden planner, mostly to find out what the hype was about. By spring 2026 there was a Mac Studio in my basement running AI models around the clock, and I was spending half my day in Claude Code. The garden got a planner. The house got a voice. It escalated.</p>
+          <p>In early 2026 I started vibe-coding a garden planner, mostly to find out what the hype was about. By spring there was a Mac Studio in my basement running AI models around the clock, and I was spending half my day in Claude Code. The garden got a planner, and the planner is now <a href="#growyear">live on the internet</a>. The house got a voice. It escalated.</p>
         </li>
         <li class="hop" data-hop="10">
           <p class="hop-meta"><span class="hop-n">10</span> June 2026 · The plot twist</p>
@@ -293,13 +297,13 @@
     <ol class="added-list">
       <li class="added-step reveal">
         <p class="added-k">Every week</p>
-        <h3>Roughly 500 routers, kept on standard</h3>
-        <p>Python pushed standards updates to roughly 500 multi-vendor core routers (Juniper, Cisco and Nokia) in regions from New York City to the Midwest. No copy-paste required.</p>
+        <h3>Thousands of routers, kept on standard</h3>
+        <p>Python kept thousands of routers and other network devices across the region on standard, Juniper, Cisco and Nokia alike, audited and updated every week. No copy-paste required.</p>
       </li>
       <li class="added-step reveal">
         <p class="added-k">Every device</p>
-        <h3>Hundreds of thousands of passwords, rotated</h3>
-        <p>Automated password rotation secured hundreds of thousands of customer devices and thousands of core routers. My part was teaching it to speak every vendor's CLI.</p>
+        <h3>Hundreds of thousands of devices, found and secured</h3>
+        <p>One platform in two parts: a live discovery crawl that found every device and filed it in a SQL inventory, and security modules that rotated and audited passwords on everything it found. A team build; I was one of its lead developers.</p>
       </li>
       <li class="added-step reveal">
         <p class="added-k">Every hour</p>
@@ -379,7 +383,7 @@
           <header><h4>Pi Green</h4><p>Raspberry Pi 4</p></header>
           <ul>
             <li class="sys-app" id="app-dnd"><b>D&amp;D Lab</b><span>dice, soundboard, campaign radio</span></li>
-            <li class="sys-app" id="app-grow"><b>GrowYear</b><span>garden planner, launch pending</span></li>
+            <li class="sys-app" id="app-grow"><b>GrowYear</b><span>garden planner, live at mygrowyear.com</span></li>
           </ul>
         </article>
         <article class="sys-host" data-col="4">
@@ -481,18 +485,73 @@
     <header class="section-head">
       <p class="eyebrow reveal">06 · Projects</p>
       <h2 class="display reveal">Built by hand. <em>Built with AI.</em></h2>
-      <p class="section-lede reveal">One card per project, in two piles: the code I wrote myself, and the things I built with Claude Code doing the typing. Swipe, scroll or use the arrows.</p>
+      <p class="section-lede reveal">First, the one that's live on the internet. Then the rest, in two piles: what I built by hand, and what I built with Claude Code doing the typing. Swipe, scroll or use the arrows.</p>
     </header>
+
+    <!-- the featured project: GrowYear, live on the internet, with how it's built and where it runs -->
+    <article class="feature reveal" id="growyear" aria-labelledby="gy-title">
+      <div class="feature-top">
+        <a class="feature-shot" href="https://mygrowyear.com" target="_blank" rel="noopener" aria-label="Open GrowYear at mygrowyear.com (new tab)">
+          <img src="assets/img/projects/growyear_shop.webp" alt="Screenshot of GrowYear's seed shop at mygrowyear.com: pepper varieties sorted into bell, sweet, hot and very hot, beside the crop's growing facts" loading="lazy" width="1280" height="800">
+        </a>
+        <div class="feature-text">
+          <p class="feature-k"><span class="feature-live"><span class="dot-live" aria-hidden="true"></span> Live</span> Featured project · built with AI</p>
+          <h3 class="feature-title" id="gy-title">GrowYear</h3>
+          <p class="feature-lede">A garden planner. Pick seeds from real seed companies, point at a bed, and it works out the spacing, the indoor starts and the calendar.</p>
+          <p class="feature-why">It's my proof of concept. I started it in early 2026 to learn AI coding, then rebuilt it with Claude Code doing the typing: real catalogs from a dozen seed companies, a planner that works out the dates, and everything it takes to run in public, from sign-in to backups. It went from an idea to a finished app, and it's live on the internet, served from my basement.</p>
+          <div class="feature-ctas">
+            <a class="btn btn-gummy" href="https://mygrowyear.com" target="_blank" rel="noopener">Open mygrowyear.com <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <p class="feature-note">Look around without an account. Sign in with Google to plan a garden.</p>
+          </div>
+        </div>
+      </div>
+
+      <h4 class="feature-h">How it works, and where it lives</h4>
+      <div class="arch arch-gy" aria-label="How a request reaches GrowYear">
+        <div class="arch-node"><span class="arch-ico" aria-hidden="true">🧑‍🌾</span><h3>You</h3><p>Any browser, phone or desktop</p></div>
+        <div class="arch-link" aria-hidden="true"><i></i></div>
+        <div class="arch-node"><span class="arch-ico" aria-hidden="true">☁️</span><h3>Cloudflare</h3><p>TLS 1.3 · HTTP/3 · caches the app's files, never the API</p></div>
+        <div class="arch-link arch-link-tunnel" aria-hidden="true"><i></i><span>encrypted tunnel</span></div>
+        <div class="arch-node"><span class="arch-ico" aria-hidden="true">🛰️</span><h3>Starlink</h3><p>No open ports at home: the Pi dials <em>out</em> to Cloudflare</p></div>
+        <div class="arch-link" aria-hidden="true"><i></i></div>
+        <div class="arch-node arch-home"><span class="arch-ico" aria-hidden="true">🍓</span><h3>Raspberry Pi 4</h3><p>nginx, plus Postgres, sign-in and the API in Docker, all on localhost</p></div>
+        <div class="arch-link arch-link-git" aria-hidden="true"><i></i><span>deploy.sh</span></div>
+        <div class="arch-node"><span class="arch-ico" aria-hidden="true">🖥️</span><h3>Mac Studio</h3><p>Tests, builds and ships it, and rolls back if a health check fails</p></div>
+      </div>
+
+      <dl class="feature-facts">
+        <div><dt>The app</dt><dd>React 18 and TypeScript, built with Vite: Tailwind, Radix UI (shadcn/ui), TanStack Query and Zustand. It's a static bundle that nginx serves.</dd></div>
+        <div><dt>The back end</dt><dd>Supabase, trimmed to the three parts it needs, in Docker: Postgres, GoTrue for sign-in and PostgREST for the API. About half a gigabyte of a 2 GB Pi.</dd></div>
+        <div><dt>Sign-in and data</dt><dd>Google sign-in only. Row-level security in Postgres decides every read and write: your garden is yours, and the seed catalog is read-only to everyone else.</dd></div>
+        <div><dt>Where it runs</dt><dd>My second Raspberry Pi, in the basement, at mygrowyear.com. A Cloudflare Tunnel carries the traffic, so nothing at home is open to the internet.</dd></div>
+        <div><dt>Shipping it</dt><dd>One command from the Mac Studio: typecheck, tests, build, database migrations, an atomic switch to the new release, then a health check that puts the old one back if anything fails.</dd></div>
+        <div><dt>Keeping it</dt><dd>Nightly database backups, copied to another machine in the house, and a monitor that checks its public address every two minutes.</dd></div>
+      </dl>
+    </article>
 
     <div class="pgroup reveal">
       <div class="pgroup-head">
-        <div><h3>Built by hand</h3><p>Every line mine, for better and for worse.</p></div>
-        <div class="pnav"><button class="pnav-btn" type="button" data-track="hand-track" data-dir="-1" aria-label="Previous hand-built project">&larr;</button><button class="pnav-btn" type="button" data-track="hand-track" data-dir="1" aria-label="Next hand-built project">&rarr;</button></div>
+        <div><h3>Built by hand</h3><p>Every line mine, for better and for worse. Two piles that never mix: personal projects you can see the proof of on this page, and work I did at Charter, which stayed at Charter.</p></div>
       </div>
-      <div class="ptrack" id="hand-track" tabindex="0" role="region" aria-label="Projects built by hand">
+
+      <div class="psub">
+        <p class="psub-k"><span class="psub-tag psub-proof">Proven</span> Personal projects, with the real evidence right here: the code, the files and the screenshots.</p>
+        <div class="pnav"><button class="pnav-btn" type="button" data-track="hand-track" data-dir="-1" aria-label="Previous proven project">&larr;</button><button class="pnav-btn" type="button" data-track="hand-track" data-dir="1" aria-label="Next proven project">&rarr;</button></div>
+      </div>
+      <div class="ptrack" id="hand-track" tabindex="0" role="region" aria-label="Personal projects built by hand, with evidence on this page">
 
         <article class="pcard">
-          <div class="pcard-img pcard-ph" aria-hidden="true"><svg viewBox="0 0 64 32"><use href="#worm"/></svg></div>
+          <figure class="pcard-proof">
+            <pre><code><span class="pc-k">def</span> real_click():
+    <span class="pc-s">'''This function clicks the mouse with
+    realistic errors:
+        occasional accidental right click
+        occasional double click
+        occasional no click'''</span>
+    <span class="pc-k">if</span> randint(1, 19) &gt; 3:
+        pyautogui.click()</code></pre>
+            <figcaption>screen_mouse_control.py, the bot's real code</figcaption>
+          </figure>
           <div class="pcard-body">
             <p class="pcard-when">2019 → · Python</p>
             <h4>The RuneScape bot</h4>
@@ -510,87 +569,134 @@
           </div>
         </article>
 
-        <article class="pcard">
-          <div class="pcard-img pcard-ph" aria-hidden="true"><svg viewBox="0 0 64 32"><use href="#worm"/></svg></div>
-          <div class="pcard-body">
-            <p class="pcard-when">~2016 · Visual Basic</p>
-            <h4>The circuit builder</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>Every circuit order meant the same clicks through the same screens.</dd></div>
-              <div><dt>Built</dt><dd>My first real program: no functions, mostly <em>if</em> statements, one giant script. The whole team ended up using it.</dd></div>
-              <div><dt>Status</dt><dd>Stayed at Charter, like all my work code.</dd></div>
-            </dl>
-            <p class="pcard-what">A spreadsheet that drove Charter's order system through a web browser and filled in each circuit for me.</p>
-            <dl class="pcard-specs">
-              <div><dt>Skills</dt><dd>Visual Basic, browser automation, circuit provisioning</dd></div>
-              <div><dt>Packages</dt><dd>Visual Basic in a spreadsheet, the order system's web pages, Visio</dd></div>
-              <div><dt>Hardware</dt><dd>A work PC, and the carrier network on the other end of every order</dd></div>
-            </dl>
-          </div>
-        </article>
+        <a class="pcard pcard-more" href="#before">
+          <span class="pcard-more-k">Ten more, with their code</span>
+          <span class="pcard-more-t">The garage door Pi, the HDMI remote, the plant waterer, the Pepperpi and the rest are in <em>Before AI</em>, just below. Each one comes straight off my NAS: notes, code and configs.</span>
+          <span class="pcard-more-go" aria-hidden="true">&darr;</span>
+        </a>
+      </div>
 
-        <article class="pcard">
-          <div class="pcard-img pcard-ph" aria-hidden="true"><svg viewBox="0 0 64 32"><use href="#worm"/></svg></div>
+      <div class="psub">
+        <p class="psub-k"><span class="psub-tag psub-desc">Described</span> Work at Charter, as I describe it. The code and the data were Charter's and stayed there, so there's no proof to show here, only my account of it.</p>
+        <div class="pnav"><button class="pnav-btn" type="button" data-track="work-track" data-dir="-1" aria-label="Previous Charter project">&larr;</button><button class="pnav-btn" type="button" data-track="work-track" data-dir="1" aria-label="Next Charter project">&rarr;</button></div>
+      </div>
+      <div class="ptrack ptrack-desc" id="work-track" tabindex="0" role="region" aria-label="Work at Charter, as described">
+
+        <article class="pcard pcard-desc">
           <div class="pcard-body">
+            <p class="pcard-tag">Described · stayed at Charter</p>
             <p class="pcard-when">2016 → 2018 · JavaScript</p>
             <h4>Juniper configs and circuit standards</h4>
             <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>After the merger, everybody kept their own Excel sheet, and no two matched.</dd></div>
-              <div><dt>Built</dt><dd>One standard the whole team could share, a tool that followed it, and a team-lead role keeping everyone informed.</dd></div>
+              <div><dt>Problem</dt><dd>After the Time Warner merger, everybody kept their own Excel sheet, and no two matched.</dd></div>
+              <div><dt>Built</dt><dd>One set of customer circuit standards the whole team could share in Confluence, and a JavaScript tool that generated Juniper MX configs that followed them.</dd></div>
               <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
             </dl>
-            <p class="pcard-what">A JavaScript tool that spit out MX960 and MX480 configs, and the customer circuit standards it followed, written down in Confluence.</p>
-            <dl class="pcard-specs">
-              <div><dt>Skills</dt><dd>JavaScript, Junos, technical writing, Confluence admin</dd></div>
-              <div><dt>Protocols</dt><dd>MPLS, BGP, IS-IS; internet, voice and WAN service standards</dd></div>
-              <div><dt>Hardware</dt><dd>Juniper MX960 and MX480</dd></div>
-            </dl>
+            <dl class="pcard-specs"><div><dt>Tools</dt><dd>JavaScript, Junos, Confluence (space admin)</dd></div></dl>
           </div>
         </article>
 
-        <article class="pcard">
-          <div class="pcard-img pcard-ph" aria-hidden="true"><svg viewBox="0 0 64 32"><use href="#worm"/></svg></div>
+        <article class="pcard pcard-desc">
           <div class="pcard-body">
-            <p class="pcard-when">2020 → 2024 · Python</p>
-            <h4>Network automation scripts</h4>
+            <p class="pcard-tag">Described · stayed at Charter</p>
+            <p class="pcard-when">2020 → 2023 · Python</p>
+            <h4>Standards audits and rollouts</h4>
             <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>New standards every week, and migration tasks that took an engineer hours by hand.</dd></div>
-              <div><dt>Built</dt><dd>Taught myself Python on the job. Every migration saved hundreds of hours.</dd></div>
+              <div><dt>Problem</dt><dd>New router standards landed every week, and each one meant touching every router.</dd></div>
+              <div><dt>Built</dt><dd>Self-taught Python that audited and updated thousands of routers and other network devices across the region every week. Region-wide changes ran as a loop: pre-check every router, change, post-check, and diff the two.</dd></div>
               <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
             </dl>
-            <p class="pcard-what">Weekly standards audits and fixes, the regional QoS rollout, and the migration script: cut sheet in, full method of procedure out.</p>
-            <dl class="pcard-specs">
-              <div><dt>Skills</dt><dd>Python, multi-vendor CLI, MPLS and QoS, change planning</dd></div>
-              <div><dt>Packages</dt><dd>Python, Paramiko over SSH, Excel cut sheets</dd></div>
-              <div><dt>Hardware</dt><dd>Juniper MX480 and MX960, Cisco ASR 9000, Nokia 7750 SR</dd></div>
-            </dl>
+            <dl class="pcard-specs"><div><dt>Tools</dt><dd>Python, Paramiko over SSH; Juniper, Cisco and Nokia</dd></div></dl>
           </div>
         </article>
 
-        <article class="pcard">
-          <div class="pcard-img pcard-ph" aria-hidden="true"><svg viewBox="0 0 64 32"><use href="#worm"/></svg></div>
+        <article class="pcard pcard-desc">
           <div class="pcard-body">
-            <p class="pcard-when">2024 → 2026 · Python, on a team</p>
-            <h4>Password-rotation vendor modules</h4>
+            <p class="pcard-tag">Described · stayed at Charter</p>
+            <p class="pcard-when">2020s · Python</p>
+            <h4>The migration MOP generator</h4>
             <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>Passwords on hundreds of thousands of customer devices and thousands of core routers.</dd></div>
-              <div><dt>Built</dt><dd>Home-grown Paramiko modules for every vendor, quirks and all, inside a platform the whole org used.</dd></div>
-              <div><dt>Status</dt><dd>In production at Charter. A team project; the vendor modules were mine.</dd></div>
+              <div><dt>Problem</dt><dd>Migrations across hundreds of sites, and a method of procedure (MOP) that took an engineer hours to write by hand.</dd></div>
+              <div><dt>Built</dt><dd>Send it the cut sheet: it connected to each device over SSH, pulled and analyzed the config, extracted the variables that mattered, and generated the full procedure and the destination config.</dd></div>
+              <div><dt>Status</dt><dd>Used by the engineering team. Stayed at Charter.</dd></div>
             </dl>
-            <p class="pcard-what">My piece of the DevOps team's password-rotation platform: the code that knows how to talk to each vendor's CLI.</p>
+            <dl class="pcard-specs"><div><dt>Tools</dt><dd>Python, Paramiko over SSH, Excel cut sheets</dd></div></dl>
+          </div>
+        </article>
+
+        <article class="pcard pcard-desc">
+          <div class="pcard-body">
+            <p class="pcard-tag">Described · stayed at Charter</p>
+            <p class="pcard-when">Network engineering · Splunk</p>
+            <h4>Change reports for management</h4>
+            <dl class="pcard-lines">
+              <div><dt>Problem</dt><dd>Management had no real numbers on change work.</dd></div>
+              <div><dt>Built</dt><dd>Splunk reports from TACACS+ and ISE command logs: commands, commits and hours per engineer, by device and maintenance window. Also used for command audits and for tracing an outage back to the change behind it.</dd></div>
+              <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
+            </dl>
+            <dl class="pcard-specs"><div><dt>Tools</dt><dd>Splunk and its Python module, TACACS+, Cisco ISE</dd></div></dl>
+          </div>
+        </article>
+
+        <article class="pcard pcard-desc">
+          <div class="pcard-body">
+            <p class="pcard-tag">Described · stayed at Charter</p>
+            <p class="pcard-when">Network engineering · Splunk, WebEx</p>
+            <h4>The maintenance-window handoff</h4>
+            <dl class="pcard-lines">
+              <div><dt>Problem</dt><dd>The day shift inherited the night's changes with no context.</dd></div>
+              <div><dt>Built</dt><dd>A summary of each maintenance window, posted to WebEx: which engineer worked on which routers, when, for how long, and under which change request.</dd></div>
+              <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
+            </dl>
+            <dl class="pcard-specs"><div><dt>Tools</dt><dd>Splunk, ISE command logs, WebEx</dd></div></dl>
+          </div>
+        </article>
+
+        <article class="pcard pcard-desc">
+          <div class="pcard-body">
+            <p class="pcard-tag">Described · stayed at Charter</p>
+            <p class="pcard-when">Network engineering · Python, WebEx</p>
+            <h4>The router ping bot</h4>
+            <dl class="pcard-lines">
+              <div><dt>Problem</dt><dd>Hearing about a dead router as early as possible.</dd></div>
+              <div><dt>Built</dt><dd>Before WebEx bots were common: a bot that pinged hundreds of regional routers on a schedule, retried three times, then posted an alert to the team. We were often the first to know.</dd></div>
+              <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
+            </dl>
+            <dl class="pcard-specs"><div><dt>Tools</dt><dd>Python, ping, the WebEx bot API</dd></div></dl>
+          </div>
+        </article>
+
+        <article class="pcard pcard-desc">
+          <div class="pcard-body">
+            <p class="pcard-tag">Described · stayed at Charter</p>
+            <p class="pcard-when">2023 → 2026 · Python and SQL, on a team</p>
+            <h4>The network inventory and security platform</h4>
+            <dl class="pcard-lines">
+              <div><dt>Problem</dt><dd>Find every device on a national enterprise network, then keep its passwords rotated and audited.</dd></div>
+              <div><dt>Built</dt><dd>One platform in two parts. Discovery crawled the network live over SSH and filed every device it found in a SQL inventory. Security modules then rotated and audited passwords on everything discovery found.</dd></div>
+              <div><dt>Status</dt><dd>In production when I left. A team build: I was a lead developer, and the inventory database and the multi-vendor modules were mine.</dd></div>
+            </dl>
+            <p class="pcard-what">Hundreds of thousands of devices across Charter's national enterprise footprint, from nine vendors.</p>
             <dl class="pcard-specs">
-              <div><dt>Skills</dt><dd>Python, Paramiko, multi-vendor CLI, building in a shared codebase</dd></div>
-              <div><dt>Packages</dt><dd>Python, Paramiko over SSH, HashiCorp Vault, GitLab</dd></div>
-              <div><dt>Hardware</dt><dd>Three regional Linux servers, and every router and customer device they reached</dd></div>
+              <div><dt>Tools</dt><dd>Python, Paramiko over SSH, MariaDB then PostgreSQL, HashiCorp Vault, GitLab CI/CD</dd></div>
+              <div><dt>Vendors</dt><dd>Juniper, Cisco, Nokia, Harmonic, RAD, Adva, Ciena, AudioCodes, Adtran</dd></div>
             </dl>
           </div>
         </article>
 
-        <a class="pcard pcard-more" href="#before">
-          <span class="pcard-more-k">More by hand</span>
-          <span class="pcard-more-t">The garage door Pi, the plant waterer, pepper sensors, radios and more are in <em>Before AI</em>, just below.</span>
-          <span class="pcard-more-go" aria-hidden="true">&darr;</span>
-        </a>
+        <article class="pcard pcard-desc">
+          <div class="pcard-body">
+            <p class="pcard-tag">Described · stayed at Charter</p>
+            <p class="pcard-when">DevOps team · Python, WebEx</p>
+            <h4>The morning report</h4>
+            <dl class="pcard-lines">
+              <div><dt>Problem</dt><dd>A pipeline can break quietly overnight.</dd></div>
+              <div><dt>Built</dt><dd>A post in a small WebEx space every morning: the platform's last 24 hours (devices rotated, failures, discovery counts), plus API and ping checks on every server. A zero where a number belonged meant something broke.</dd></div>
+              <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
+            </dl>
+            <dl class="pcard-specs"><div><dt>Tools</dt><dd>Python, SQL, WebEx</dd></div></dl>
+          </div>
+        </article>
       </div>
     </div>
 
@@ -640,7 +746,7 @@
         </article>
 
         <article class="pcard">
-          <div class="pcard-img pcard-ph" aria-hidden="true"><svg viewBox="0 0 64 32"><use href="#worm"/></svg></div>
+          <img class="pcard-img" src="assets/img/projects/dj.webp" alt="Screenshot of the DJ editor in the house app: Lord Pemberton's name, his music, his voice, and the persona prompt that sets how he talks on air" loading="lazy" width="1280" height="800">
           <div class="pcard-body">
             <p class="pcard-when">2026 → · Raspberry Pi + Mac Studio</p>
             <h4>The AI radio DJs</h4>
@@ -697,16 +803,16 @@
         </article>
 
         <article class="pcard">
-          <img class="pcard-img" src="assets/img/shots/growyear.webp" alt="Screenshot of the GrowYear home page" loading="lazy" style="object-position:50% 0%">
+          <img class="pcard-img" src="assets/img/shots/growyear.webp" alt="Screenshot of the GrowYear home page at mygrowyear.com" loading="lazy" style="object-position:50% 0%">
           <div class="pcard-body">
-            <p class="pcard-when">Jan 2025 → · Raspberry Pi</p>
+            <p class="pcard-when">2026 → · Raspberry Pi</p>
             <h4>GrowYear</h4>
             <dl class="pcard-lines">
               <div><dt>Problem</dt><dd>Planning a garden means spreadsheets, sketches and five seed catalogs.</dd></div>
               <div><dt>Built</dt><dd>Started on Lovable to learn AI coding; rebuilt with Claude Code this fall with real seed-company catalogs.</dd></div>
-              <div><dt>Status</dt><dd>In progress: running on its own Pi, public launch coming.</dd></div>
+              <div><dt>Status</dt><dd>Live at <a href="https://mygrowyear.com" target="_blank" rel="noopener">mygrowyear.com</a>, with Google sign-in.</dd></div>
             </dl>
-            <p class="pcard-what">A garden planner: pick a seed, point at a bed, and it works out the spacing, the indoor starts and the calendar. PC Part Picker, but for seeds.</p>
+            <p class="pcard-what">A garden planner: pick a seed, point at a bed, and it works out the spacing, the indoor starts and the calendar. PC Part Picker, but for seeds. <a href="#growyear">How it's hosted &uarr;</a></p>
             <dl class="pcard-specs">
               <div><dt>Skills</dt><dd>Product design, data modeling, full-stack web</dd></div>
               <div><dt>Packages</dt><dd>React, TypeScript, Vite, Tailwind, Radix UI, TanStack Query, Zustand, Supabase (Postgres) in Docker, nginx, Cloudflare Tunnel</dd></div>
@@ -735,7 +841,7 @@
         </article>
 
         <article class="pcard">
-          <div class="pcard-img pcard-ph" aria-hidden="true"><svg viewBox="0 0 64 32"><use href="#worm"/></svg></div>
+          <img class="pcard-img" src="assets/img/projects/paper_bot.webp" alt="Screenshot of the trading bot's dashboard on an Interactive Brokers paper account: account value, today's automatic steps, and performance against SPY and QQQ" loading="lazy" width="1280" height="800">
           <div class="pcard-body">
             <p class="pcard-when">Oct 2026 → · Mac Studio</p>
             <h4>The paper-trading bot</h4>
@@ -754,7 +860,7 @@
         </article>
 
         <article class="pcard">
-          <div class="pcard-img pcard-ph" aria-hidden="true"><svg viewBox="0 0 64 32"><use href="#worm"/></svg></div>
+          <img class="pcard-img" src="assets/img/projects/dnd_lab.webp" alt="Screenshot of the D&amp;D Lab soundboard: the shared sound library by folder and type, with the player bar along the bottom (the player's name is blurred)" loading="lazy" width="1280" height="800">
           <div class="pcard-body">
             <p class="pcard-when">2026 → · Raspberry Pi</p>
             <h4>D&amp;D Lab</h4>
@@ -773,7 +879,7 @@
         </article>
 
         <article class="pcard">
-          <div class="pcard-img pcard-ph" aria-hidden="true"><svg viewBox="0 0 64 32"><use href="#worm"/></svg></div>
+          <img class="pcard-img" src="assets/img/projects/nas.webp" alt="Screenshot of the NAS Library overview: space used on each share and what lives in each folder, with a private folder blurred" loading="lazy" width="1280" height="800">
           <div class="pcard-body">
             <p class="pcard-when">Sept 2026</p>
             <h4>The great NAS cleanup</h4>

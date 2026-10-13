@@ -3,6 +3,7 @@ import { initAudio } from './audio.js';
 import { initRoute } from './route.js';
 import { initSkills } from './skills.js';
 import { initSysmap } from './lab.js';
+import { initLightbox } from './lightbox.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -329,6 +330,9 @@ $$('.pnav-btn').forEach(btn => {
     trackEl.scrollBy({ left: +btn.dataset.dir * step, behavior: reduce ? 'auto' : 'smooth' });
   });
 });
+// project screenshots: a bigger preview on hover, the full size on click or tap
+initLightbox($$('.pcard img.pcard-img'));
+
 function syncPnav(trackEl) {
   const max = trackEl.scrollWidth - trackEl.clientWidth - 2;
   $$(`.pnav-btn[data-track="${trackEl.id}"]`).forEach(b => { b.disabled = +b.dataset.dir < 0 ? trackEl.scrollLeft <= 2 : trackEl.scrollLeft >= max; });

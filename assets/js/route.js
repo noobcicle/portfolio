@@ -241,6 +241,31 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
   const hopsEl = root.querySelector('.route-hops');
   const storyEl = root.querySelector('.route-story');
   let sideMode = false, curK = 0, live = null;
+  // The full sidebar is opt-in. Every rule for it lives in sidebar.css (linked with media="not all"),
+  // so the tab at the top of the rail only rewrites that stylesheet's media, and the choice is
+  // remembered. On phones the same tab opens the traceroute panel instead.
+  const sideCss = document.getElementById('side-css');
+  const toggle = root.querySelector('.route-toggle');
+  const toggleAct = toggle?.querySelector('.rt-act');
+  const SIDE_DEFAULT = sideCss ? sideCss.media : '';
+  const SIDE_KEY = 'okay-cool.sidebar';
+  const sideMedia = (pref) => (pref === 'open' ? '(min-width: 1100px)' : pref === 'closed' ? 'not all' : SIDE_DEFAULT);
+  if (sideCss) {
+    let pref = null;
+    try { pref = localStorage.getItem(SIDE_KEY); } catch { /* private mode: the default it is */ }
+    sideCss.media = sideMedia(pref);
+  }
+  function syncToggle() {
+    if (!toggle) return;
+    const strip = horiz;  // the phone strip under the nav
+    const open = strip ? root.classList.contains('is-open') : sideMode;
+    const label = strip ? (open ? 'Close the traceroute' : 'Open the traceroute')
+      : (open ? 'Collapse the traceroute sidebar' : 'Expand the traceroute sidebar');
+    if (toggle.getAttribute('aria-expanded') !== String(open)) toggle.setAttribute('aria-expanded', String(open));
+    if (toggle.getAttribute('aria-label') !== label) { toggle.setAttribute('aria-label', label); toggle.title = label; }
+    const act = open ? (strip ? 'close' : 'hide') : 'expand';
+    if (toggleAct && toggleAct.textContent !== act) toggleAct.textContent = act;
+  }
 
   const nodes = new Map(NODES.map(([id, L, lane, kind, name]) => [id, { id, L, lane, kind, name, x: 0, y: 0 }]));
   const links = LINKS.map(([a, b, m]) => ({ a: nodes.get(a), b: nodes.get(b), kind: typeof m === 'number' ? 'isis' : m, pts: [], cum: [] }));
@@ -275,6 +300,7 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
   function layout() {
     const r = canvas.getBoundingClientRect();
     sideMode = !!hopsEl && getComputedStyle(hopsEl).display !== 'none';
+    syncToggle();
     const d = Math.min(window.devicePixelRatio || 1, 2);
     if (r.width === W && r.height === H && d === dpr && W >= 10) return true;
     W = r.width; H = r.height;
@@ -652,8 +678,23 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
   });
   let mapT = 0;
   const openMap = () => { clearTimeout(mapT); mapT = setTimeout(() => root.classList.add('is-open'), 140); };
-  root.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse' && !sideMode) openMap(); });
-  canvas.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse' && sideMode) openMap(); });
+  root.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse' && !sideMode && !toggle?.matches(':hover')) openMap(); });
+  canvas.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') openMap(); });
+  // the tab: hovering it never opens the map, clicking it expands or collapses the sidebar
+  // (or, on the phone strip, opens and closes the traceroute panel)
+  toggle?.addEventListener('pointerenter', () => { clearTimeout(mapT); if (!horiz) root.classList.remove('is-open'); });
+  toggle?.addEventListener('click', () => {
+    clearTimeout(mapT);
+    if (horiz) { root.classList.toggle('is-open'); syncToggle(); return; }
+    root.classList.remove('is-open');
+    const pref = sideMode ? 'closed' : 'open';
+    try { localStorage.setItem(SIDE_KEY, pref); } catch { /* still works for this visit */ }
+    if (sideCss) sideCss.media = sideMedia(pref);
+    // the page reflows around it, so everything that measured the layout measures again
+    dispatchEvent(new Event('resize'));
+  });
+  // the panel opens and closes from several places (hover, taps, scrolling); keep the tab's state honest
+  new MutationObserver(syncToggle).observe(root, { attributes: true, attributeFilter: ['class'] });
   root.addEventListener('pointerleave', (e) => {
     if (e.pointerType !== 'mouse') return;
     clearTimeout(mapT); mapT = setTimeout(() => root.classList.remove('is-open'), 220);

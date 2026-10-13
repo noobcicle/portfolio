@@ -1,0 +1,50 @@
+/* The full traceroute sidebar: the home-hosting story, hop by hop (route.js).
+   It's opt-in. index.html links this file with media="not all", so every visitor starts with the
+   slim rail and its "traceroute · expand" tab (site.css). The tab switches this file's media to
+   1100px and up, the page reflows around the panel, and the choice is remembered. Every rule here
+   belongs to the open sidebar. */
+:root { --side-w: 268px; }
+.route { left: 10px; top: calc(var(--nav-h) + 10px); bottom: 14px; width: calc(var(--side-w) - 10px); display: flex; flex-direction: column; padding: 48px 10px 10px 4px; border-radius: 18px; background: linear-gradient(180deg, rgba(16, 10, 32, .96), rgba(11, 7, 22, .94)); border: 1px solid rgba(205, 180, 255, .1); box-shadow: 0 20px 50px -30px rgba(0, 0, 0, .9); pointer-events: auto; }
+.route-live { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 2px 9px; margin: 0 0 10px 6px; padding: 9px 10px; border-radius: 12px; background: rgba(255, 255, 255, .04); border: 1px solid var(--line-2); }
+.route-live .live-dot { grid-row: span 2; }
+.route-live-k { font: 600 12px/1.2 var(--font-sans); color: var(--ink); }
+.route-live-v { font: 500 10.5px/1.35 var(--font-mono); color: var(--ink-dim); }
+.route-head { display: block; margin: 0 0 6px 6px; font: 500 9.5px/1.2 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); }
+.route-body { position: relative; inset: auto; flex: 1; min-height: 0; }
+.route-canvas { inset: 0 auto 0 0; width: 52px; }
+.route-hops { display: block; position: absolute; left: 56px; right: 0; top: 0; bottom: 0; margin: 0; padding: 0; list-style: none; }
+.route-hops li { position: absolute; left: 0; right: 0; transform: translateY(-50%); display: grid; grid-template-columns: 1.3em minmax(0, 1fr); column-gap: 5px; padding: 3px 6px; border-radius: 8px; cursor: pointer; transition: opacity .35s, background-color .35s; }
+.route-hops li:hover { background: rgba(205, 180, 255, .07); }
+.rh-ico { grid-row: span 2; align-self: center; font-size: 13px; line-height: 1; }
+.rh-name { display: flex; align-items: center; gap: 5px; min-width: 0; font: 600 11.5px/1.3 var(--font-sans); color: var(--ink-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rh-sim { font-style: normal; font: 600 8px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); border: 1px solid var(--line-2); border-radius: 4px; padding: 2px 3px; flex: none; }
+/* a hop's message is too long for one line, so it shows in full, wrapped, for the hop you're on
+   (and the one under the pointer) instead of cut off with an ellipsis on every row */
+.rh-msg { display: none; font: 400 9.5px/1.35 var(--font-mono); color: var(--ink-faint); }
+.route-hops li.is-here, .route-hops li:hover { z-index: 1; }
+.route-hops li.is-here .rh-msg, .route-hops li:hover .rh-msg { display: block; }
+.route-hops li.is-here { background: #24163e; box-shadow: inset 2px 0 0 var(--pink), 0 8px 20px -10px rgba(0, 0, 0, .9); }
+.route-hops li:hover:not(.is-here) { background: #1a1230; }
+.route-hops li.is-here .rh-name { color: var(--ink); }
+.route-hops li.is-here .rh-msg { color: var(--ink-dim); }
+/* a traceroute hasn't heard from the hops ahead yet */
+.route-hops li.is-next { opacity: .32; }
+.route-hops li.is-next .rh-ico, .route-hops li.is-next .rh-name, .route-hops li.is-next .rh-msg { visibility: hidden; }
+.route-hops li.is-next::after { content: "* * *"; position: absolute; left: 6px; top: 50%; transform: translateY(-50%); font: 500 10px/1 var(--font-mono); color: var(--ink-faint); letter-spacing: .1em; }
+.route-story { display: block; min-height: 6.2em; margin: 8px 0 0 6px; padding: 10px 4px 0 4px; border-top: 1px solid var(--line); font: 400 12.5px/1.45 var(--font-sans); color: var(--ink); text-wrap: pretty; }
+.route-foot { display: block; margin: 8px 0 0 10px; font: 500 10.5px/1.35 var(--font-mono); color: var(--ink-faint); text-decoration: none; }
+.route-foot i { font-style: normal; border: 1px solid var(--line-2); border-radius: 4px; padding: 1px 3px; font-size: 8.5px; text-transform: uppercase; }
+.route-foot:hover { color: var(--ink); }
+.route-note { display: none; }
+
+/* open, the tab becomes a slim bar across the top of the panel */
+.route-toggle { left: 8px; right: 8px; top: 8px; width: auto; height: 30px; grid-auto-flow: column; justify-content: start; align-items: center; gap: 8px; padding: 0 10px; border-radius: 10px; }
+.route-toggle svg { transform: none; }
+.route-toggle:hover { transform: none; }
+.rt-label { font-size: 9.5px; }
+.rt-br { display: none; }
+.rt-label b { display: inline; margin-left: 4px; }
+
+/* keep the page clear of the sidebar */
+.wrap, .hero-inner { padding-left: max(calc(var(--gutter) + 26px), calc(var(--side-w) + 30px - (100vw - 1240px) / 2)); }
+.before-track { padding-left: calc(var(--side-w) + 30px); }
