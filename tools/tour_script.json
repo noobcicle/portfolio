@@ -62,7 +62,7 @@
         "voice": "bm_lewis",
         "lang_code": "b",
         "kspeed": 0.95,
-        "pitch": -2.5,
+        "pitch": 0.0,
         "clarity": false,
         "speed": 1.0
       },
