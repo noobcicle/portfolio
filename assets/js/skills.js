@@ -10,7 +10,7 @@ const COLS = [
     { id: 'ce', name: 'Carrier Ethernet', lv: 5, note: 'Thousands of circuits turned up: point-to-point, multipoint E-LAN, cell backhaul. MEF-CECP.' },
     { id: 'juniper', name: 'Juniper MX', lv: 5, note: 'My strongest vendor. I wrote the region’s Juniper standards and a config generator for the MX960 and MX480.' },
     { id: 'cisco', name: 'Cisco ASR 9000', lv: 4, note: 'Half the region’s PE routers. CCNP Routing & Switching.' },
-    { id: 'nokia', name: 'Nokia 7750 SR', lv: 3, note: 'Part of the Midwest region I implemented changes on, in overnight maintenance windows. Nokia NRS I.' },
+    { id: 'nokia', name: 'Nokia 7750 SR', lv: 3, note: 'Audited every week; I brought them up to standard in overnight maintenance windows. Nokia NRS I.' },
     { id: 'bgp', name: 'BGP + IS-IS', lv: 4, note: 'IS-IS was the IGP and BGP the peering. I changed route policies and IGP settings on production routers in overnight maintenance windows.' },
     { id: 'qos', name: 'QoS', lv: 4, note: 'Rewrote the regional QoS policy and rolled it out to every PE router.' },
     { id: 'testing', name: 'Turn-up testing', lv: 4, note: 'Every circuit tested before I called it done: EXFO, RFC 2544 and Y.1731.' },
@@ -31,7 +31,7 @@ const COLS = [
   { title: 'Work, by hand', how: HAND, items: [
     { id: 'w-tier4', name: 'Tier 4 escalations', work: true, note: 'Customer router outages at Charter, worked through to the fix: BGP, MPLS, QoS and hardware failures, with on-call rotations.' },
     { id: 'w-juniper', name: 'Config generator + standards', work: true, note: '2016–2018. Juniper configs on demand, and one set of standards the whole team could share.' },
-    { id: 'w-audits', name: 'Maintenance windows + audits', work: true, note: 'The Midwest region’s implementing engineer: several changes a week from our engineering department (new products, security updates, routing changes), made in overnight maintenance windows with a pre-check and post-check of every router. From 2020, my Python audits checked thousands of routers against the latest standards.' },
+    { id: 'w-audits', name: 'Audits + maintenance windows', work: true, note: '2020 on. My Python audits checked thousands of routers and other network devices against each week’s new standards, and I rolled the changes out in overnight maintenance windows: pre-check, change, post-check.' },
     { id: 'w-mop', name: 'Migration MOP generator', work: true, note: 'Python. Cut sheet in, full method of procedure out, for the whole engineering team.' },
     { id: 'w-rotate', name: 'Inventory + security platform', work: true, note: '2023–2026, Python and SQL, on a team. Discovery filled a SQL inventory; security modules rotated and audited passwords on everything it found. I was a lead developer.' },
     { id: 'w-rs', name: 'RuneScape bot', work: true, note: '2019 on, Python. It read the screen, read the text, made decisions and traded.' },
