@@ -1,7 +1,7 @@
 import { initHero } from './hero.js';
 import { initAudio } from './audio.js';
 import { initRoute } from './route.js';
-import { initSkills } from './skills.js';
+import { initSkills, initSkillTabs } from './skills.js';
 import { initSysmap } from './lab.js';
 import { initLightbox } from './lightbox.js';
 import { initPeppers } from './peppers.js';
@@ -126,6 +126,7 @@ if (vs && !reduce) new IntersectionObserver(([en]) => vs.classList.toggle('play'
 
 // ------------------------------------------------------------------ skills map and the lab's system map
 initSkills($('#skillmap'), { detail: $('#skillmap-detail'), table: $('#skill-table'), reduceMotion: reduce });
+initSkillTabs($('#skill-views'));
 initSysmap($('#sysmap'), { reduceMotion: reduce });
 
 // ------------------------------------------------------------------ scroll progress: a packet routed to me

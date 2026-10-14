@@ -301,17 +301,34 @@
   </div>
 </section>
 
-<!-- ===================================================== 03 SKILLS (the map is assets/js/skills.js; it folds away under the chips) -->
+<!-- ===================================================== 03 SKILLS (the map is assets/js/skills.js; it opens the section, with a list tab beside it) -->
 <section class="skills" id="skills" data-chapter="Skills" aria-labelledby="skills-title">
   <div class="wrap">
     <header class="section-head">
       <p class="eyebrow reveal">03 · Skills</p>
       <h2 class="display reveal" id="skills-title">What I know, <em>and how I know it.</em></h2>
     </header>
+    <div class="skill-views reveal" id="skill-views">
+      <div class="skill-tabs" role="tablist" aria-label="How to see my skills">
+        <button type="button" class="skill-tab" role="tab" id="skill-tab-map" aria-controls="skill-panel-map" aria-selected="true">Skill map</button>
+        <button type="button" class="skill-tab" role="tab" id="skill-tab-list" aria-controls="skill-panel-list" aria-selected="false" tabindex="-1">List</button>
+      </div>
+      <div class="skill-panel" id="skill-panel-map" role="tabpanel" aria-labelledby="skill-tab-map">
+        <p class="section-lede skill-lede">Every dot is a skill or a piece of real work, wired to what it used. <span class="sk-key sk-key-hand">Solid</span> is mine, by hand: things I know and code I wrote. <span class="sk-key sk-key-ai">Hollow</span> is what Claude Code wrote while I designed, directed and ran it. The bars are my own honest level, out of five.</p>
+        <div class="skillmap" id="skillmap">
+          <canvas class="skillmap-links" aria-hidden="true"></canvas>
+          <div class="skillmap-cols"></div>
+        </div>
+        <p class="skillmap-detail" id="skillmap-detail" aria-live="polite">Hover or tap a dot to see where it came from.</p>
+      </div>
+      <div class="skill-panel skill-table" id="skill-panel-list" role="tabpanel" aria-labelledby="skill-tab-list" hidden>
+        <div class="skill-table-body" id="skill-table"></div>
+      </div>
+    </div>
     <div class="tool-grid">
-      <div class="tool reveal"><h3>Networking</h3><p class="chips"><span class="hot">MPLS</span><span class="hot">BGP route policy</span><span>IS-IS</span><span>QoS</span><span>L2VPN / VPLS / LDP</span><span>Carrier Ethernet</span><span class="hot">Juniper MX</span><span>Cisco</span><span>Nokia 7750 SR</span><span>TACACS+</span><span>SNMP</span><span>IPv6</span></p></div>
-      <div class="tool reveal"><h3>Operations</h3><p class="chips"><span class="hot">Tier 4 escalations</span><span>On-call</span><span class="hot">Maintenance windows</span><span>Pre-check, change, post-check</span><span>MOPs</span><span>Turn-up testing (RFC 2544, Y.1731)</span><span>Splunk reporting</span><span>Confluence (space admin)</span><span>Jira workflows</span></p></div>
-      <div class="tool reveal"><h3>Automation and DevOps</h3><p class="chips"><span class="hot">Python</span><span class="hot">Paramiko / SSH</span><span>SQL: MariaDB, PostgreSQL</span><span>Git + GitLab</span><span>CI/CD pipelines</span><span>Merge requests + code review</span><span>Bash</span><span>Linux</span><span>Docker (beginner)</span></p></div>
+      <div class="tool reveal"><h3>Networking</h3><p class="chips"><span>MPLS</span><span>BGP route policy</span><span>IS-IS</span><span>QoS</span><span>L2VPN / VPLS / LDP</span><span>Carrier Ethernet</span><span>Juniper MX</span><span>Cisco</span><span>Nokia 7750 SR</span><span>TACACS+</span><span>SNMP</span><span>IPv6</span></p></div>
+      <div class="tool reveal"><h3>Operations</h3><p class="chips"><span>Tier 4 escalations</span><span>On-call</span><span>Maintenance windows</span><span>Pre-check, change, post-check</span><span>MOPs</span><span>Turn-up testing (RFC 2544, Y.1731)</span><span>Splunk reporting</span><span>Confluence (space admin)</span><span>Jira workflows</span></p></div>
+      <div class="tool reveal"><h3>Automation and DevOps</h3><p class="chips"><span>Python</span><span>Paramiko / SSH</span><span>SQL: MariaDB, PostgreSQL</span><span>Git + GitLab</span><span>CI/CD pipelines</span><span>Merge requests + code review</span><span>Bash</span><span>Linux</span><span>Docker (beginner)</span></p></div>
       <div class="tool reveal"><h3>On the side</h3><p class="chips"><span>Raspberry Pi + Arduino</span><span>Self-hosting: nginx, Cloudflare Tunnel</span><span>Claude Code</span><span>Amazon Q + Kiro (at work)</span><span>Local LLMs (Ollama)</span></p></div>
     </div>
     <div class="creds reveal">
@@ -324,21 +341,6 @@
       </ul>
       <p class="cred-note">All four have since lapsed.</p>
     </div>
-    <details class="skill-more reveal">
-      <summary><span>See every skill wired to the work where I used it</span></summary>
-      <div class="skill-more-body">
-        <p class="section-lede">Every dot is a skill or a piece of real work, wired to what it used. <span class="sk-key sk-key-hand">Solid</span> is mine, by hand: things I know and code I wrote. <span class="sk-key sk-key-ai">Hollow</span> is what Claude Code wrote while I designed, directed and ran it. The bars are my own honest level, out of five.</p>
-        <div class="skillmap" id="skillmap">
-          <canvas class="skillmap-links" aria-hidden="true"></canvas>
-          <div class="skillmap-cols"></div>
-        </div>
-        <p class="skillmap-detail" id="skillmap-detail" aria-live="polite">Hover or tap a dot to see where it came from.</p>
-        <details class="skill-table">
-          <summary>See it as a list</summary>
-          <div class="skill-table-body" id="skill-table"></div>
-        </details>
-      </div>
-    </details>
   </div>
 </section>
 

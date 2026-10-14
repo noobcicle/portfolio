@@ -16,7 +16,7 @@ const COLS = [
     { id: 'testing', name: 'Turn-up testing', lv: 4, note: 'Every circuit tested before I called it done: EXFO, RFC 2544 and Y.1731.' },
   ] },
   { title: 'Code', how: HAND, items: [
-    { id: 'python', name: 'Python', lv: 4, note: 'Self-taught in 2020. Weekly audits, pre-check and post-check scripts for maintenance windows, migration MOPs, password-rotation modules, the RuneScape bot.' },
+    { id: 'python', name: 'Python', lv: 4, note: 'Picked up in 2020. Weekly audits, pre-check and post-check scripts for maintenance windows, migration MOPs, password-rotation modules, the RuneScape bot.' },
     { id: 'paramiko', name: 'Paramiko / SSH', lv: 5, note: 'I wrote the multi-vendor modules: how to log in to each vendor’s CLI and drive it, quirks and all.' },
     { id: 'vb', name: 'Visual Basic', lv: 2, note: 'My first program, written like a first-timer: mostly if statements in one giant script. It worked anyway.' },
     { id: 'js', name: 'JavaScript', lv: 2, note: 'The Juniper config generator, the Pepperpi charts and the AskChef.ai front end.' },
@@ -31,7 +31,7 @@ const COLS = [
   { title: 'Work, by hand', how: HAND, items: [
     { id: 'w-tier4', name: 'Tier 4 escalations', work: true, note: 'Customer router outages at Charter, worked through to the fix: BGP, MPLS, QoS and hardware failures, with on-call rotations.' },
     { id: 'w-juniper', name: 'Config generator + standards', work: true, note: '2016–2018. Juniper configs on demand, and one set of standards the whole team could share.' },
-    { id: 'w-audits', name: 'Audits + maintenance windows', work: true, note: '2020 on. My Python audits found what was out of standard across thousands of routers and other network devices; I brought them up to standard myself, in overnight maintenance windows: pre-check, change, post-check.' },
+    { id: 'w-audits', name: 'Audits + maintenance windows', work: true, note: '2020 on. My Python audits found what was out of standard across thousands of routers and other network devices; I brought them up to standard in overnight maintenance windows: pre-check, change, post-check.' },
     { id: 'w-mop', name: 'Migration MOP generator', work: true, note: 'Python. Cut sheet in, full method of procedure out, for the whole engineering team.' },
     { id: 'w-rotate', name: 'Inventory + security platform', work: true, note: '2023–2026, Python and SQL, on a team. Discovery filled a SQL inventory; security modules rotated and audited passwords on everything it found. I was a lead developer.' },
     { id: 'w-rs', name: 'RuneScape bot', work: true, note: '2019 on, Python. It read the screen, read the text, made decisions and traded.' },
@@ -98,9 +98,28 @@ export function initSkills(root, { detail, table, reduceMotion = false } = {}) {
       `</button></li>`).join('') + '</ul></div>').join('');
 
   if (table) {
-    table.innerHTML = '<table><thead><tr><th>Skill or work</th><th>How</th><th>Level</th><th>Where it came from</th></tr></thead><tbody>' +
-      COLS.flatMap(col => col.items.map(it => `<tr><td>${esc(it.name)}</td><td>${col.how === HAND ? 'By hand' : 'Claude Code, directed by me'}</td>` +
-        `<td>${it.lv ? `${it.lv} / 5` : 'work'}</td><td>${esc(it.note)}</td></tr>`)).join('') + '</tbody></table>';
+    // the list: each skill or piece of work and where it came from. Both columns sort;
+    // until a header is clicked, it keeps the map's order
+    const rows = COLS.flatMap(col => col.items.map(it => ({ name: it.name, note: it.note })));
+    let sortKey = null, dir = 1;
+    const head = (k, label) => {
+      const on = sortKey === k;
+      return `<th aria-sort="${on ? (dir > 0 ? 'ascending' : 'descending') : 'none'}"><button type="button" data-k="${k}">${label}` +
+        `<i aria-hidden="true">${on ? (dir > 0 ? '▲' : '▼') : ''}</i></button></th>`;
+    };
+    const render = () => {
+      const list = sortKey ? [...rows].sort((a, b) => dir * a[sortKey].localeCompare(b[sortKey])) : rows;
+      table.innerHTML = `<table><thead><tr>${head('name', 'Skill or work')}${head('note', 'Where it came from')}</tr></thead><tbody>` +
+        list.map(r => `<tr><td>${esc(r.name)}</td><td>${esc(r.note)}</td></tr>`).join('') + '</tbody></table>';
+    };
+    table.addEventListener('click', (e) => {
+      const b = e.target.closest('th button');
+      if (!b) return;
+      dir = sortKey === b.dataset.k ? -dir : 1;
+      sortKey = b.dataset.k;
+      render();
+    });
+    render();
   }
 
   const buttons = [...colsEl.querySelectorAll('.sk')];
@@ -223,4 +242,28 @@ export function initSkills(root, { detail, table, reduceMotion = false } = {}) {
 
   new ResizeObserver(measure).observe(root);
   (document.fonts?.ready || Promise.resolve()).then(measure);
+}
+
+// The map and the list are two tabs over one spot: one view at a time. Arrow keys move
+// between the tabs, the way tab lists do.
+export function initSkillTabs(root) {
+  if (!root) return;
+  const tabs = [...root.querySelectorAll('[role="tab"]')];
+  const pick = (tab, focus = false) => {
+    for (const t of tabs) {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    }
+    if (focus) tab.focus();
+  };
+  root.addEventListener('click', (e) => { const t = e.target.closest('[role="tab"]'); if (t) pick(t); });
+  root.addEventListener('keydown', (e) => {
+    const i = tabs.indexOf(document.activeElement);
+    if (i < 0 || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+    e.preventDefault();
+    const n = e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : (i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+    pick(tabs[n], true);
+  });
 }
