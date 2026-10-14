@@ -1,0 +1,3 @@
+# The résumé downloads are generated (tools/resume_build.py): never diff or merge them as text
+*.pdf binary
+*.docx binary

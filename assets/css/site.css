@@ -1197,3 +1197,12 @@ html.lb-open { overflow: hidden; }
   .mc *, .mc *::before, .mc *::after { animation: none !important; transition: none !important; }
   .mc.ge2 .mc-wave { transform: none; opacity: .35; }
 }
+
+/* ===================================================== RÉSUMÉ: the two versions, side by side (cards and buttons reuse .bring-card and .brief-actions) */
+.resume-pick { padding: clamp(60px, 9vw, 110px) 0; border-top: 1px solid var(--line); }
+.resume-pick .section-head { margin-bottom: clamp(26px, 4vw, 44px); }
+.resume-pick .display { font-size: clamp(2.4rem, 5vw, 4.6rem); }
+.resume-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.resume-cards .brief-actions { margin-top: auto; }
+.resume-files { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+@media (max-width: 760px) { .resume-cards { grid-template-columns: minmax(0, 1fr); } }

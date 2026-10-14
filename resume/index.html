@@ -12,9 +12,11 @@
 <meta property="og:description" content="Network Engineer III: 13 years in carrier networking at Charter Communications, automation and DevOps with Python and CI/CD.">
 <meta property="og:image" content="https://okay-cool.net/assets/img/og.png">
 <link rel="stylesheet" href="/assets/css/fonts.css">
-<!-- The content is the AmFam résumé of Oct 13 2026, word for word, minus the phone number:
-     the site has never shown a phone or a street address. The PDF next to this page is printed
-     from it (two letter pages). -->
+<!-- The words of the résumé live here and only here: the AmFam résumé of Oct 13 2026 minus the phone
+     number (the site has never shown a phone or a street address), with Mike's edits of Oct 14.
+     Designed / Plain restyles these same words in place. tools/resume_build.py copies them into
+     plain/index.html and the four downloads (designed and plain, PDF and DOCX), checks every word and
+     keeps each PDF at two letter pages: edit here, then rerun it. -->
 <style>
   :root { --bg: #0b0716; --ink: #1b1328; --dim: #574a6b; --faint: #8a7ea0; --line: #ebe4f3; --wash: #faf7fd; --pink: #d92f78; --violet: #8a4fe0; --blue: #2f6fe0; --gummy: linear-gradient(100deg, #ff5ca8, #c46bff 48%, #4c8dff); }
   * { box-sizing: border-box; }
@@ -39,7 +41,6 @@
   .contact i { font-style: normal; color: var(--violet); margin-right: 6px; }
   .qr { margin: 0; display: grid; justify-items: center; gap: 4px; }
   .qr img { width: 104px; height: 104px; display: block; }
-  .qr figcaption { font: 600 9.5px/1 "Geist Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
 
   h2 { display: flex; align-items: center; gap: 10px; font: 600 11.5px/1 "Geist Mono", monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--blue); margin: 22px 0 10px; }
   h2::after { content: ""; flex: 1; height: 2px; border-radius: 2px; background: linear-gradient(90deg, rgba(76,141,255,.45), rgba(196,107,255,.25) 40%, transparent); }
@@ -87,7 +88,6 @@
     .contact { font-size: 9.2pt; }
     .contact a { border: 0; }
     .qr img { width: 0.95in; height: 0.95in; }
-    .qr figcaption { font-size: 6.6pt; }
     h2 { font-size: 8.2pt; margin: 12pt 0 5pt; break-after: avoid; }
     .summary { font-size: 9.8pt; line-height: 1.45; }
     .skills { font-size: 9.2pt; gap: 3pt 12pt; grid-template-columns: 112pt minmax(0, 1fr); }
@@ -99,13 +99,105 @@
     .edu, .edu-lines { font-size: 9.4pt; }
     .certs li { font-size: 9pt; padding: 3pt 8pt; }
   }
+
+  /* Designed / Plain: one copy of the words, two looks. The radios switch it with CSS alone
+     (resume.js only keeps #plain in the address bar), and the downloads sit under either view. */
+  .views { display: inline-flex; padding: 3px; border-radius: 999px; border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.06); }
+  .views label { position: relative; display: inline-flex; align-items: center; height: 32px; padding: 0 15px; border-radius: 999px; color: rgba(245,240,253,.8); font: 600 13.5px/1 Geist, ui-sans-serif, system-ui, sans-serif; cursor: pointer; user-select: none; }
+  .views input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+  .views label:hover { color: #fff; }
+  .views label:has(:checked) { background: var(--gummy); color: #fff; box-shadow: inset 0 1px 0 rgba(255,255,255,.45); }
+  .views label:has(:focus-visible) { outline: 2px solid #fff; outline-offset: 2px; }
+  .downloads { max-width: 880px; margin: -34px auto 60px; padding: 0 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .downloads .dl-k { margin-right: 6px; font: 600 11px/1 "Geist Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,253,.7); }
+  .downloads a { display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.08); color: #fff; font: 600 13.5px/1 Geist, ui-sans-serif, system-ui, sans-serif; text-decoration: none; }
+  .downloads a:hover { background: rgba(255,255,255,.15); }
+  .downloads svg { width: 15px; height: 15px; flex: none; }
+  @media (max-width: 680px) {
+    .downloads { margin-top: 20px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .downloads .dl-k { grid-column: 1 / -1; margin: 0 0 2px; }
+    .downloads a { justify-content: center; }
+  }
+
+  /* The plain view: the same elements, restyled to match plain/index.html. */
+  :root:has(#view-plain:checked) { color-scheme: light dark; --p-bg: #fff; --p-ink: #111; --p-dim: #3b3b3b; --p-line: #c9c9c9; --p-link: #0b4fb3; --p-font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  @media (prefers-color-scheme: dark) { :root:has(#view-plain:checked) { --p-bg: #121212; --p-ink: #f2f2f2; --p-dim: #d0d0d0; --p-line: #4d4d4d; --p-link: #9cc3ff; } }
+  :root:has(#view-plain:checked) {
+    & body { background: var(--p-bg); color: var(--p-ink); font: 18px/1.6 var(--p-font); }
+    & a { color: var(--p-link); text-underline-offset: 2px; }
+    & .bar { max-width: 46rem; padding: 14px 20px; border-bottom: 1px solid var(--p-line); color: var(--p-ink); }
+    & .bar a.home { color: var(--p-link); font-weight: 400; font-size: 16px; text-decoration: underline; }
+    & .bar a.home svg { display: none; }
+    & .btn { height: 36px; padding: 0 14px; border: 1px solid currentColor; border-radius: 6px; background: var(--p-bg); color: var(--p-ink); box-shadow: none; font: 16px/1 var(--p-font); }
+    & .views { padding: 2px; border-color: var(--p-ink); border-radius: 8px; background: none; }
+    & .views label { height: 30px; padding: 0 13px; border-radius: 6px; color: var(--p-ink); font: 16px/1 var(--p-font); }
+    & .views label:has(:checked) { background: var(--p-ink); color: var(--p-bg); box-shadow: none; }
+    & .views label:has(:focus-visible) { outline-color: var(--p-link); }
+    & .sheet { max-width: 46rem; margin: 0 auto; padding: 28px 20px 24px; background: none; color: inherit; border-radius: 0; box-shadow: none; overflow: visible; }
+    & .sheet::before, & .qr, & .contact i { display: none; }
+    & header.top { display: block; margin: 0; padding: 0; border: 0; }
+    & h1 { margin: 0 0 6px; font: 700 2rem/1.15 var(--p-font); letter-spacing: normal; }
+    & .title { margin: 0 0 12px; font-size: 18px; font-weight: 600; color: inherit; }
+    & .title span { color: inherit; }
+    & .contact { margin: 0 0 12px; gap: 2px 24px; font-size: 18px; color: inherit; }
+    & .contact a { color: var(--p-link); border: 0; text-decoration: underline; }
+    & h2 { display: block; margin: 34px 0 12px; padding-bottom: 4px; border-bottom: 2px solid var(--p-ink); font: 700 1.3rem/1.3 var(--p-font); letter-spacing: normal; text-transform: none; color: inherit; }
+    & h2::after { display: none; }
+    & p { margin: 0 0 12px; }
+    & .summary { font-size: 18px; line-height: 1.6; }
+    & .skills { display: block; margin: 0 0 12px; font-size: 18px; }
+    & .skills dt { color: inherit; font-weight: 700; }
+    & .skills dd { margin: 0 0 12px; color: inherit; }
+    & .role { margin: 24px 0 0; padding: 0; background: none; border: 0; border-radius: 0; }
+    & h2 + .role { margin-top: 0; }
+    & .role-head { display: block; }
+    & .role-head h3 { font-size: 1.1rem; line-height: 1.35; }
+    & .role-head span { display: block; font: inherit; color: var(--p-dim); white-space: normal; }
+    & .org { margin: 0 0 8px; font-size: 18px; color: var(--p-dim); }
+    & ul { margin: 0 0 12px; padding-left: 1.3em; }
+    & li { margin: 0 0 6px; font-size: 18px; line-height: 1.6; }
+    & li::marker { color: inherit; }
+    & .edu { display: block; font-weight: 400; }
+    & .edu span:first-child { display: block; font-size: 1.1rem; font-weight: 700; line-height: 1.35; }
+    & .edu-when { display: block; font: inherit; color: var(--p-dim); }
+    & .edu-lines { margin: 8px 0 12px; font-size: 18px; color: inherit; }
+    & .certs { display: block; padding-left: 1.3em; list-style: disc; }
+    & .certs li { padding: 0; border: 0; border-radius: 0; background: none; font-weight: 400; }
+    & .foot { display: block; margin-top: 40px; padding-top: 12px; border-top: 1px solid var(--p-line); font-size: 18px; color: var(--p-dim); }
+    & .foot span { display: block; margin: 0 0 4px; }
+    & .foot a { color: var(--p-link); }
+    & .downloads { max-width: 46rem; margin: 0 auto; padding: 0 20px 48px; gap: 8px 20px; }
+    & .downloads .dl-k { margin-right: 0; font: 700 16px/1.6 var(--p-font); letter-spacing: normal; text-transform: none; color: inherit; }
+    & .downloads a { height: auto; padding: 0; border: 0; border-radius: 0; background: none; color: var(--p-link); font: 16px/1.6 var(--p-font); text-decoration: underline; }
+    & .downloads svg { display: none; }
+    & .downloads a { justify-content: start; }
+  }
+  @media print {
+    :root:has(#view-plain:checked) { --p-bg: #fff; --p-ink: #000; --p-dim: #000; --p-line: #888; --p-link: #000; }
+    :root:has(#view-plain:checked) {
+      & body { font-size: 10.5pt; line-height: 1.4; }
+      & .sheet { max-width: none; margin: 0; padding: 0; }
+      & h1 { font-size: 20pt; }
+      & .title, & .contact, & .summary, & .skills, & .org, & li, & .edu-lines { font-size: 10.5pt; line-height: 1.4; }
+      & h2 { margin: 14pt 0 6pt; font-size: 12.5pt; break-after: avoid; }
+      & .role { margin-top: 10pt; }
+      & .role-head h3, & .edu span:first-child { font-size: 11pt; }
+      & .role-head, & .org, & .edu { break-after: avoid; }
+      & p, & ul, & .skills { margin-bottom: 8pt; }
+      & .skills dd { margin-bottom: 6pt; }
+      & li { margin-bottom: 3pt; break-inside: avoid; }
+    }
+  }
 </style>
 </head>
 <body>
 <div class="bar">
   <a class="home" href="../"><svg viewBox="0 0 64 32" aria-hidden="true"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ff5ca8"/><stop offset=".5" stop-color="#c46bff"/><stop offset="1" stop-color="#4c8dff"/></linearGradient></defs><path d="M6 20c6-10 12-10 18 0s12 10 18 0 12-10 16-2" fill="none" stroke="url(#g)" stroke-width="7" stroke-linecap="round"/></svg> Back to okay-cool.net</a>
   <span class="bar-actions">
-    <a class="btn" href="Mike_Purpura_Resume.pdf?v=d8184f97" download="Mike_Purpura_Resume.pdf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download the PDF</a>
+    <span class="views" role="radiogroup" aria-label="Résumé view">
+      <label><input type="radio" name="view" id="view-designed" value="designed" checked autocomplete="off">Designed</label>
+      <label><input type="radio" name="view" id="view-plain" value="plain" autocomplete="off">Plain</label>
+    </span>
     <button class="btn btn-ghost" type="button" id="print-btn">Print</button>
   </span>
 </div>
@@ -115,9 +207,9 @@
     <div>
       <h1>Michael Purpura</h1>
       <p class="title">Network Engineer III <span>(Automation and DevOps · Python · CI/CD · Platform Developer)</span></p>
-      <p class="contact"><span><i>◆</i>Milton, WI</span><span><i>◆</i><a id="em" href="#">email</a><noscript>mapurpura12 [at] gmail [dot] com</noscript></span><span><i>◆</i>Portfolio: <a href="https://okay-cool.net">https://okay-cool.net</a></span></p>
+      <p class="contact"><span><i aria-hidden="true">◆</i>Milton, WI</span><span><i aria-hidden="true">◆</i><a id="em" href="#">email</a><noscript>mapurpura12 [at] gmail [dot] com</noscript></span><span><i aria-hidden="true">◆</i>Portfolio: <a href="https://okay-cool.net">https://okay-cool.net</a></span></p>
     </div>
-    <figure class="qr"><img src="qr-okay-cool.png" alt="QR code that opens okay-cool.net" width="480" height="480"><figcaption>okay-cool.net</figcaption></figure>
+    <figure class="qr"><img src="qr-okay-cool.png" alt="QR code that opens okay-cool.net" width="480" height="480"></figure>
   </header>
 
   <h2>Summary</h2>
@@ -169,6 +261,13 @@
 
   <div class="foot no-print"><span>Projects, stories and live demos at <a href="../">okay-cool.net</a></span><span>References available on request</span></div>
 </main>
+<nav class="downloads no-print" aria-label="Download the résumé">
+  <span class="dl-k">Download</span>
+  <a href="Mike_Purpura_Resume.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Designed PDF</a>
+  <a href="Mike_Purpura_Resume.docx" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Designed DOCX</a>
+  <a href="Mike_Purpura_Resume_Plain.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Plain PDF</a>
+  <a href="Mike_Purpura_Resume_Plain.docx" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Plain DOCX</a>
+</nav>
 <script src="../assets/js/resume.js" defer></script>
 </body>
 </html>
