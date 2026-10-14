@@ -635,6 +635,9 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
       `<li data-k="${k}" title="${esc(chapters[k]?.dataset.chapter || '')}"><span class="rh-ico">${HOP_ICONS[k]}</span>` +
       `<span class="rh-name">${esc(hopName(k))}${SIMULATED(k) ? '<i class="rh-sim">sim</i>' : ''}</span>` +
       `<span class="rh-msg">${esc(n.pdu)} · ${esc(n.why)}</span></li>`).join('');
+    // Every hop's story sits in the box at once, stacked in one grid cell, and only the current one
+    // shows: the box is always as tall as the longest story, so the rail above it never changes size.
+    if (storyEl) storyEl.innerHTML = notes.map((n, k) => `<span data-k="${k}">${esc(storyText(k))}</span>`).join('');
     placeHops();
     markHops(curK);
   }
@@ -643,7 +646,7 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
     [...hopsEl.children].forEach((li, k) => { li.style.top = `${((k + 0.5) * step).toFixed(1)}px`; });
   }
   function markHops(k) {
-    if (storyEl) storyEl.textContent = storyText(k);
+    if (storyEl) for (const s of storyEl.children) s.classList.toggle('is-here', +s.dataset.k === k);
     if (!hopsEl) return;
     for (const li of hopsEl.children) {
       const i = +li.dataset.k;
@@ -774,6 +777,9 @@ export function initRoute(root, { chapters, reduceMotion = false } = {}) {
   }
 
   buildMap();
+  // The rail's box can change size while the window doesn't (the sidebar's live line showing up, say).
+  // Lay it out again whenever it does, so the drawing never stretches out of line with the hop rows.
+  new ResizeObserver(() => { if (layout()) kick(); }).observe(canvas);
   let fontsReady = false;
   (document.fonts?.ready || Promise.resolve()).then(() => { fontsReady = true; kick(); });
 
