@@ -78,12 +78,12 @@
       <svg class="i-stop" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10H7z" fill="currentColor"/></svg>
       <span class="tour-label">Audio tour</span>
     </button>
-    <a class="pill-btn pill-solid" href="resume/">Résumé</a>
+    <a class="pill-btn pill-solid" href="#resume">Résumé</a>
     <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu"><span></span><span></span></button>
   </div>
 </header>
 <div class="mobile-menu" id="mobile-menu" hidden>
-  <a href="#tldr">About</a><a href="#story">Story</a><a href="#skills">Skills</a><a href="#contact">Contact</a><a href="#projects">Projects</a><a href="#before">Early projects</a><a href="#hub">Hub</a><a href="#lab">Lab</a><a href="#made">How it's made</a><a href="resume/">Résumé</a>
+  <a href="#tldr">About</a><a href="#story">Story</a><a href="#skills">Skills</a><a href="#resume">Résumé</a><a href="#contact">Contact</a><a href="#projects">Projects</a><a href="#before">Early projects</a><a href="#hub">Hub</a><a href="#lab">Lab</a><a href="#made">How it's made</a>
 </div>
 
 <!-- the home-hosting story, told as a traceroute of your own request (assets/js/route.js):
@@ -340,6 +340,59 @@
         <li><span class="cred-name"><strong>MEF-CECP</strong> Carrier Ethernet Certified Professional</span><span class="cred-meta">Earned December 2017 · #25547X2</span></li>
       </ul>
       <p class="cred-note">All four have since lapsed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== RÉSUMÉ: the designed one or the plain text version (same words), each as a page, a PDF or a DOCX -->
+<section class="resume-pick" id="resume" aria-labelledby="resume-title">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="eyebrow reveal">Résumé</p>
+      <h2 class="display reveal" id="resume-title">The résumé, <em>two ways.</em></h2>
+      <p class="section-lede reveal">Same words in both. Read it here, or download it as a PDF or a Word file.</p>
+    </header>
+    <div class="resume-cards">
+      <article class="bring-card reveal">
+        <h3>Designed résumé</h3>
+        <p>Laid out to read on screen or print.</p>
+        <div class="brief-actions">
+          <a class="btn btn-gummy" href="resume/">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            Open the designed résumé
+          </a>
+        </div>
+        <div class="resume-files">
+          <a class="btn btn-ghost btn-small" href="resume/Mike_Purpura_Resume.pdf" download>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Designed PDF
+          </a>
+          <a class="btn btn-ghost btn-small" href="resume/Mike_Purpura_Resume.docx" download>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Designed DOCX
+          </a>
+        </div>
+      </article>
+      <article class="bring-card reveal">
+        <h3>Plain text version</h3>
+        <p>No design, just the words: high contrast, easy to read on a phone, and simple to print or copy.</p>
+        <div class="brief-actions">
+          <a class="btn btn-gummy" href="resume/plain/">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 10h14M5 14h14M5 18h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Open the plain text version
+          </a>
+        </div>
+        <div class="resume-files">
+          <a class="btn btn-ghost btn-small" href="resume/Mike_Purpura_Resume_Plain.pdf" download>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Plain PDF
+          </a>
+          <a class="btn btn-ghost btn-small" href="resume/Mike_Purpura_Resume_Plain.docx" download>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Plain DOCX
+          </a>
+        </div>
+      </article>
     </div>
   </div>
 </section>
