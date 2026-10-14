@@ -12,7 +12,7 @@ export function initHero(canvas, { reduceMotion = false } = {}) {
   let w = 0, h = 0, dpr = 1;
   let nodes = [], edges = [], adj = [], packets = [], pings = [];
   let pointer = { x: -9999, y: -9999, active: false };
-  let running = false, visible = true, raf = 0, last = 0, drawn = 0, fade = 1, slow = 0;
+  let running = false, visible = true, raf = 0, last = 0, drawn = 0, fade = 1, slow = 0, shown = false;
   const sprites = new Map(), tails = new Map();
   const FRAME = 1000 / 30;   // a background doesn't need 60 (or a ProMotion 120) frames a second
   const LEVELS = 6;          // links are stroked in this many brightness buckets, not one by one
@@ -199,6 +199,8 @@ export function initHero(canvas, { reduceMotion = false } = {}) {
       ctx.beginPath(); ctx.arc(g.x, g.y, g.r, 0, Math.PI * 2); ctx.stroke();
     }
     ctx.globalAlpha = 1;
+    // the canvas fades in (site.css) once there's a network on it, rather than popping in
+    if (!shown) { shown = true; canvas.classList.add('on'); }
   }
 
   function frame(t) {

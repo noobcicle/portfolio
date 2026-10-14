@@ -26,11 +26,13 @@ function toast(msg) {
 // ------------------------------------------------------------------ hero
 const hero = $('#hero');
 const heroCtl = initHero($('#hero-canvas'), { reduceMotion: reduce });
-const ready = () => hero.classList.add('ready');
-(document.fonts?.ready || Promise.resolve()).then(() => requestAnimationFrame(ready));
-setTimeout(ready, 900);
 
 // ------------------------------------------------------------------ nav
+// Links on the page scroll smoothly, but only after the first click or key press. Before that,
+// the only scroll is the browser putting a reloaded page back where you were, and that should be
+// instant, not a flight down from the top.
+const smoothScroll = () => document.documentElement.classList.add('smooth-scroll');
+for (const type of ['pointerdown', 'keydown']) addEventListener(type, smoothScroll, { once: true, capture: true });
 const nav = $('#nav');
 const menuBtn = $('#menu-btn');
 const menu = $('#mobile-menu');
@@ -45,10 +47,16 @@ const navLinks = $$('.nav-links a');
 const linkFor = new Map(navLinks.map(a => [a.getAttribute('href').slice(1), a]));
 
 // ------------------------------------------------------------------ reveal on scroll
+// Only what's still below the screen gets hidden to slide in later. Everything on screen or above
+// it (a reload keeps your place) stays as it was painted: hiding it until this script ran made the
+// whole page blank out and fade back in on every load.
 const revealIO = new IntersectionObserver((entries) => {
   for (const en of entries) if (en.isIntersecting) { en.target.classList.add('in'); revealIO.unobserve(en.target); }
 }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-$$('.reveal').forEach(el => revealIO.observe(el));
+const reveals = $$('.reveal');
+for (const el of reveals) if (el.getBoundingClientRect().top < innerHeight) el.classList.add('in');
+document.documentElement.classList.add('reveal-on');
+reveals.forEach(el => { if (!el.classList.contains('in')) revealIO.observe(el); });
 
 // ------------------------------------------------------------------ counters
 const countIO = new IntersectionObserver((entries) => {

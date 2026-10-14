@@ -1,12 +1,14 @@
 /* Self-hosted: Geist + Geist Mono (OFL, Vercel) and Instrument Serif (OFL). No third-party font requests. */
+/* The serif waits for its own face (block) instead of swapping in after a fallback: it sets the hero
+   title and every heading, and a swap there reads as the page flashing. It's preloaded, so the wait is short. */
 @font-face { font-family: 'Geist'; font-style: normal; font-weight: 300 800; font-display: swap; src: url('../fonts/geist-normal-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 @font-face { font-family: 'Geist'; font-style: normal; font-weight: 300 800; font-display: swap; src: url('../fonts/geist-normal-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: 'Geist Mono'; font-style: normal; font-weight: 400 600; font-display: swap; src: url('../fonts/geist-mono-normal-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 @font-face { font-family: 'Geist Mono'; font-style: normal; font-weight: 400 600; font-display: swap; src: url('../fonts/geist-mono-normal-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url('../fonts/instrument-serif-italic-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
-@font-face { font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url('../fonts/instrument-serif-italic-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; font-display: swap; src: url('../fonts/instrument-serif-normal-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
-@font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; font-display: swap; src: url('../fonts/instrument-serif-normal-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; font-display: block; src: url('../fonts/instrument-serif-italic-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; font-display: block; src: url('../fonts/instrument-serif-italic-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; font-display: block; src: url('../fonts/instrument-serif-normal-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; font-display: block; src: url('../fonts/instrument-serif-normal-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 
 /* okay-cool.net: Mike Purpura
    Palette: sour gummy worm. Hot pink → violet → electric blue on midnight candy. */
@@ -44,7 +46,9 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-h) + 12px); }
-@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+/* smooth only once the visitor has clicked or pressed a key (site.js): on from the start, it also animated
+   the browser restoring your place on a reload, so the page loaded at the top and flew down to it */
+@media (prefers-reduced-motion: no-preference) { html.smooth-scroll { scroll-behavior: smooth; } }
 body {
   margin: 0;
   background: var(--bg);
@@ -92,9 +96,12 @@ a { color: inherit; }
 .section-head { margin-bottom: clamp(40px, 7vw, 88px); max-width: 900px; }
 .section-lede { color: var(--ink-dim); font-size: clamp(1.05rem, 1.5vw, 1.25rem); max-width: 60ch; margin: 0; }
 
-/* ---------------------------------------------------------------- reveal */
-html.js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
-html.js .reveal.in { opacity: 1; transform: none; }
+/* ---------------------------------------------------------------- reveal
+   Only what's below the screen when the page loads slides in. site.js marks everything already
+   on screen (or above it) .in before it turns this on, so a load or a reload never blanks the
+   page and fades it back in. */
+html.reveal-on .reveal { opacity: 0; transform: translateY(26px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
+html.reveal-on .reveal.in { opacity: 1; transform: none; }
 
 /* ---------------------------------------------------------------- buttons */
 .btn {
@@ -247,7 +254,8 @@ html.js .reveal.in { opacity: 1; transform: none; }
 
 /* ---------------------------------------------------------------- hero */
 .hero { position: relative; min-height: 100vh; min-height: 100svh; display: grid; align-items: center; overflow: hidden; isolation: isolate; padding-top: var(--nav-h); }
-.hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; }
+.hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; opacity: 0; transition: opacity 1.2s var(--ease); }
+.hero-canvas.on { opacity: 1; }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg, rgba(11,7,22,.82) 0%, rgba(11,7,22,.6) 38%, rgba(11,7,22,.12) 66%, transparent 80%); }
 @media (max-width: 760px) { .hero::after { background: linear-gradient(180deg, rgba(11,7,22,.35), rgba(11,7,22,.72) 40%, rgba(11,7,22,.5)); } }
 .hero-glow { position: absolute; inset: -20%; z-index: -3; background:
@@ -264,11 +272,6 @@ html.js .reveal.in { opacity: 1; transform: none; }
 .hero-title { font-family: var(--font-display); font-weight: 400; margin: 0 0 22px; font-size: clamp(2.9rem, min(8.4vw, 13vh), 8.2rem); line-height: .92; letter-spacing: -.025em; }
 .hero-title .line { display: block; }
 .hero-title .word { display: inline-block; }
-html.js .hero-title .word { opacity: 0; transform: translateY(.35em) rotate(2deg); filter: blur(8px); transition: opacity 1.1s var(--ease), transform 1.1s var(--ease), filter 1.1s var(--ease); }
-html.js .hero.ready .hero-title .word { opacity: 1; transform: none; filter: none; }
-.hero.ready .hero-title .word:nth-child(2) { transition-delay: .08s; }
-.hero.ready .hero-title .line:nth-child(2) .word:nth-child(1) { transition-delay: .18s; }
-.hero.ready .hero-title .line:nth-child(2) .word:nth-child(2) { transition-delay: .3s; }
 .hero-title em { padding-right: .08em; }
 .hero-pitch { position: relative; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 2.5vw, 2.1rem); line-height: 1.18; letter-spacing: -.005em; color: var(--ink); max-width: 46ch; margin: 0 0 20px; padding-left: 18px; --d: .25s; }
 .hero-pitch::before { content: ""; position: absolute; left: 0; top: .2em; bottom: .15em; width: 3px; border-radius: 3px; background: linear-gradient(180deg, var(--pink), #c46bff, var(--blue)); }
@@ -524,7 +527,7 @@ figure.studio-neon img { aspect-ratio: 21 / 8; object-position: 50% 45%; }
 /* ---------------------------------------------------------------- reduced motion: everything visible, no sunrise */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
-  html.js .reveal, html.js .hero-title .word { opacity: 1 !important; transform: none !important; filter: none !important; }
+  html.reveal-on .reveal { opacity: 1 !important; transform: none !important; }
   .garden-sun { clip-path: none !important; }
 }
 

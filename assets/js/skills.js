@@ -91,11 +91,20 @@ export function initSkills(root, { detail, table, reduceMotion = false } = {}) {
 
   const byId = new Map();
   COLS.forEach(col => col.items.forEach(it => byId.set(it.id, { ...it, how: col.how })));
-  colsEl.innerHTML = COLS.map(col => `<div class="sk-col" data-how="${col.how}"><h3>${esc(col.title)}</h3><ul>` +
+  const colsHtml = COLS.map(col => `<div class="sk-col" data-how="${col.how}"><h3>${esc(col.title)}</h3><ul>` +
     col.items.map(it => `<li><button type="button" class="sk${it.work ? ' sk-work' : ''}" data-id="${it.id}" data-how="${col.how}"${it.lv ? ` style="--lv:${it.lv}"` : ''}>` +
       `<i class="sk-dot" aria-hidden="true"></i><span class="sk-name">${esc(it.name)}</span>` +
       (it.lv ? `<span class="sk-lv" role="img" aria-label="level ${it.lv} of 5">${bars(it.lv)}</span>` : '<span></span>') +
       `</button></li>`).join('') + '</ul></div>').join('');
+  // index.html carries a copy of this markup so the section is full height before this script
+  // runs. After changing COLS, paste the new markup over that copy (this says when it's stale).
+  const fresh = document.createElement('div');
+  fresh.innerHTML = colsHtml;
+  const words = (el) => el.textContent.replace(/\s+/g, '');
+  if (words(colsEl) !== words(fresh) || colsEl.querySelectorAll('.sk-lv i.on').length !== fresh.querySelectorAll('.sk-lv i.on').length) {
+    console.warn('skills.js: the skill map copy in index.html is out of date; paste document.querySelector(".skillmap-cols").innerHTML over it');
+  }
+  colsEl.innerHTML = colsHtml;
 
   if (table) {
     // the list: each skill or piece of work and where it came from. Both columns sort;
