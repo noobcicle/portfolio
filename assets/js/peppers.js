@@ -2,8 +2,10 @@
 // They grow up from the bottom of the screen, set fruit, and the peppers swell and ripen from
 // green to red. Keep scrolling and the season ends: the plants slump and wilt, everything goes
 // brown, and then it snows. Scrolling back up runs the year backwards.
-// It is one small SVG, and a frame only rewrites transforms, opacities and a few gradient stops,
-// and only when the scroll position moved enough to show.
+// A sun comes up behind them as they grow and stands high and warm while the peppers ripen. In the
+// fall it sinks and reddens, and it goes down pale behind the snow.
+// It is one small SVG plus the sun, and a frame only rewrites transforms, opacities and a few
+// gradient stops, and only when the scroll position moved enough to show.
 
 const NS = 'http://www.w3.org/2000/svg';
 const W = 640, H = 230;
@@ -25,6 +27,10 @@ const WILT = [1.12, 0.32];   // [start, length]: the plants slump and the leaves
 const BROWN = [1.3, 0.3];    // leaves, stems and fruit go brown
 const SNOW = [1.55, 0.45];   // snow falls and settles
 const FLAKES = 70;
+// the sun, in drawing units: its radius, how high it climbs above the soil, and where it rises, stands
+// at its highest and sets (x). It rises as the plants grow and sets as the snow comes.
+const SUN = { r: 34, high: 340, x: [580, 545, 470], rise: [0.04, 0.7], set: [1.12, 0.62], pale: [1.48, 0.16] };
+const SUNLIT = [0xd2, 0xf0, 0x7e];   // the light side of a leaf in full sun
 const mix = (a, b, t) => a.map((v, i) => Math.round(v + (b[i] - v) * t));
 const hex = (c) => '#' + c.map(v => v.toString(16).padStart(2, '0')).join('');
 const LEAF_LIVE = [[0x86, 0xe2, 0x9a], [0x2e, 0x8c, 0x50]], LEAF_DEAD = [[0xb8, 0x8f, 0x52], [0x6b, 0x4a, 0x2a]];
@@ -57,7 +63,7 @@ const plant = (p) =>
   `<g class="pp-plant" transform="translate(${p.x} ${H}) scale(0)"><path class="pp-stem" d="${STEM}"/>${BRANCHES.map(d => `<path class="pp-branch" d="${d}"/>`).join('')}${LEAVES.map(leaf).join('')}${FRUIT.map(fruit).join('')}</g>`;
 
 export function initPeppers(el, { reduceMotion = false } = {}) {
-  if (!el) return { update() {} };
+  if (!el) return { update() {}, measure() {} };
   const svg = document.createElementNS(NS, 'svg');
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
   svg.setAttribute('preserveAspectRatio', 'xMidYMax meet');
@@ -73,6 +79,19 @@ export function initPeppers(el, { reduceMotion = false } = {}) {
     `<g class="pp-snow" transform="translate(0 ${H}) scale(1 0)"><path d="M-20 0V-9C40-15 90-6 150-11S260-16 330-9 450-14 520-10 610-13 660-9V0Z"/></g>` +
     '<g class="pp-flakes" opacity="0">' + Array.from({ length: FLAKES }, () => '<circle r="1"/>').join('') + '</g>';
   el.append(svg);
+  // The sun is its own element just before the patch, behind the plants: its glow can spill over the
+  // section, and moving it is a compositor transform rather than a repaint. Its rays turn only while
+  // the garden is on screen.
+  const sun = document.createElement('div');
+  sun.className = 'pp-sun';
+  sun.setAttribute('aria-hidden', 'true');
+  sun.innerHTML = '<i class="pp-sun-glow"></i><i class="pp-sun-rays"></i><i class="pp-sun-disc"></i><i class="pp-sun-disc pp-sun-red"></i><i class="pp-sun-disc pp-sun-pale"></i>';
+  el.before(sun);
+  const [glow, rays, gold, red, pale] = sun.children;
+  if (!reduceMotion) new IntersectionObserver(([en]) => sun.classList.toggle('play', en.isIntersecting)).observe(el.parentElement);
+  let sky = null;
+  const was = {};
+  const put = (k, node, prop, v) => { if (was[k] !== v) { was[k] = v; node.style[prop] = v; } };
   const leafA = svg.querySelector('#pp-leaf-a'), leafB = svg.querySelector('#pp-leaf-b');
   const snow = svg.querySelector('.pp-snow'), flakeG = svg.querySelector('.pp-flakes');
   // each flake: where it falls, how fast, how big, and where in its fall it starts
@@ -90,7 +109,7 @@ export function initPeppers(el, { reduceMotion = false } = {}) {
     fruit: [...g.querySelectorAll('.pp-fruit')].map(f => ({ f, amber: f.children[2], red: f.children[3], rot: f.children[4], s: -1, r: -1, d: -1 })),
   }));
 
-  let lastQ = -1, lastBrown = -1, lastSnow = -1;
+  let lastQ = -1, lastBrown = -1, lastSnow = -1, lastLit = -1;
   const ease = (v) => v * v * (3 - 2 * v);
   function update(p) {
     const q = Math.round(clamp(p, 0, SNOW[0] + SNOW[1]) * 400) / 400;
@@ -100,6 +119,12 @@ export function initPeppers(el, { reduceMotion = false } = {}) {
     const wilt = ease(clamp((q - WILT[0]) / WILT[1]));
     const brown = ease(clamp((q - BROWN[0]) / BROWN[1]));
     const snowy = clamp((q - SNOW[0]) / SNOW[1]);
+    // the sun climbs fast and slows near the top, and sets slowly and then quicker; alt 1 is as high as it goes
+    const up = 1 - (1 - clamp((q - SUN.rise[0]) / SUN.rise[1])) ** 2;
+    const down = ease(clamp((q - SUN.set[0]) / SUN.set[1]));
+    const alt = up - down;
+    const winter = ease(clamp((q - SUN.pale[0]) / SUN.pale[1]));
+    const lit = clamp(alt * 1.4);   // how much of its warmth reaches the garden
     for (const pl of plants) {
       const g = clamp((ripe - pl.at) / GROW);
       const e = 1 - (1 - g) ** 3;
@@ -126,15 +151,16 @@ export function initPeppers(el, { reduceMotion = false } = {}) {
         if (d !== fr.d) { fr.d = d; fr.rot.setAttribute('opacity', d); }
       });
     }
-    // brown: every leaf shares one gradient, and stems and caps read their color from the svg
-    const b = Math.round(brown * 60) / 60, n = Math.round(snowy * 200) / 200;
-    if (b !== lastBrown || n !== lastSnow) {
+    // brown: every leaf shares one gradient, and stems and caps read their color from the svg.
+    // In full sun the light side of the leaves warms toward yellow.
+    const b = Math.round(brown * 60) / 60, n = Math.round(snowy * 200) / 200, l = Math.round(lit * 40) / 40;
+    if (b !== lastBrown || n !== lastSnow || l !== lastLit) {
       const frost = clamp(n * 1.6);
-      const a = mix(mix(LEAF_LIVE[0], LEAF_DEAD[0], b), LEAF_SNOWY[0], frost), z = mix(mix(LEAF_LIVE[1], LEAF_DEAD[1], b), LEAF_SNOWY[1], frost * 0.5);
+      const a = mix(mix(mix(LEAF_LIVE[0], SUNLIT, l * 0.45), LEAF_DEAD[0], b), LEAF_SNOWY[0], frost), z = mix(mix(LEAF_LIVE[1], LEAF_DEAD[1], b), LEAF_SNOWY[1], frost * 0.5);
       leafA.setAttribute('stop-color', hex(a)); leafB.setAttribute('stop-color', hex(z));
       svg.style.setProperty('--pp-stem', hex(mix(STEM_LIVE, STEM_DEAD, b)));
       svg.style.setProperty('--pp-cap', hex(mix(CAP_LIVE, CAP_DEAD, b)));
-      lastBrown = b;
+      lastBrown = b; lastLit = l;
     }
     // snow: flakes fall as you scroll, and the ground fills in white
     if (n !== lastSnow) {
@@ -147,7 +173,28 @@ export function initPeppers(el, { reduceMotion = false } = {}) {
         f.c.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
       }
     }
+    // the sun: orange while it's low at dawn and again in the fall, gold up high, pale in the snow
+    if (sky) {
+      const x = sky.x0 + sky.k * (SUN.x[0] + (SUN.x[1] - SUN.x[0]) * up + (SUN.x[2] - SUN.x[1]) * down);
+      const y = sky.soil + sky.r + 4 - (sky.high + sky.r + 4) * alt;
+      put('at', sun, 'transform', `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`);
+      put('on', sun, 'visibility', 'visible');
+      put('glow', glow, 'opacity', (lit * (1 - 0.7 * winter)).toFixed(2));
+      put('rays', rays, 'opacity', (clamp((alt - 0.55) / 0.3) * (1 - brown)).toFixed(2));
+      put('gold', gold, 'opacity', (1 - winter).toFixed(2));
+      put('red', red, 'opacity', (Math.max(1 - clamp((up - 0.3) / 0.5), brown) * (1 - winter)).toFixed(2));
+      put('pale', pale, 'opacity', winter.toFixed(2));
+    }
+  }
+  // Where the sun can go, in px from the section's top left: the patch's box, and ceil, the bottom of
+  // whatever stands above it. The drawing is scaled to fit the patch and centered along its bottom.
+  function measure({ left, top, w, h, ceil }) {
+    const k = Math.min(w / W, h / H), r = Math.round(SUN.r * k);
+    sky = { k, r, x0: left + (w - W * k) / 2, soil: top + h, high: Math.max(2 * r, Math.min(SUN.high * k, top + h - ceil - r - 16)) };
+    sun.style.setProperty('--r', `${r}px`);
+    lastQ = -1;
+    if (reduceMotion) update(1);
   }
   if (reduceMotion) update(1);
-  return { update };
+  return { update, measure };
 }

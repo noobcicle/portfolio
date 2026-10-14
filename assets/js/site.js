@@ -108,13 +108,14 @@ initMission($('#mc'), { reduceMotion: reduce });
 initWidgets($('#before'), { reduceMotion: reduce });
 
 // ------------------------------------------------------------------ garden: 60 plots, one per garden year
-// Nothing here pins the page. The sun comes up as the section rises into view, the plots sprout
-// row by row as the grid climbs the screen, and the peppers grow as their strip rises from the
-// bottom of the screen to just past the middle.
+// Nothing here pins the page. Daylight comes up as the section rises into view, the plots sprout
+// row by row as the grid climbs the screen, and the peppers grow (with their sun) as their strip
+// rises from the bottom of the screen to just past the middle.
 const sixty = $('#sixty');
 const sixtyN = $('#sixty-n');
 const garden = $('#garden');
-const sun = $('.garden-sun', garden);
+const daylight = $('.garden-daylight', garden);
+const gardenViz = $('.garden-viz', garden);
 const PALETTE = [0, 4, 3, 2, 1, 4, 0, 3, 4, 2];
 sixty.innerHTML = Array.from({ length: 60 }, (_, i) => `<i class="c${PALETTE[i % PALETTE.length]}"></i>`).join('');
 const squares = [...sixty.children];
@@ -125,7 +126,7 @@ function setGardens(n) {
   squares.forEach((sq, i) => { sq.classList.toggle('on', i < n); sq.classList.toggle('now', i === n - 1); });
   sixtyN.textContent = n;
 }
-if (reduce) { setGardens(60); garden.classList.add('day'); sun.style.clipPath = 'none'; }
+if (reduce) { setGardens(60); garden.classList.add('day'); daylight.style.clipPath = 'none'; }
 const patch = $('#garden-patch');
 const peppers = initPeppers(patch, { reduceMotion: reduce });
 // the router-versus-pepper loop plays only while it's on screen
@@ -155,6 +156,9 @@ function measure() {
     bands: bands.map(box),
     nav: [...linkFor.keys()].map(id => document.getElementById(id)).filter(Boolean).map(el => ({ id: el.id, ...box(el) })),
   };
+  // the peppers' sun: the patch, and the bottom of the 60 plots above it, from the section's top left
+  const gr = garden.getBoundingClientRect(), pr = patch.getBoundingClientRect();
+  peppers.measure({ left: pr.left - gr.left, top: pr.top - gr.top, w: pr.width, h: pr.height, ceil: gardenViz.getBoundingClientRect().bottom - gr.top });
   route.measure();
 }
 
@@ -171,7 +175,7 @@ function update() {
 
   if (!reduce && near(geo.garden, y, vh)) {
     const g = Math.round(clamp((y + vh - geo.garden.top) / (vh * 0.75)) * 500) / 500;
-    if (g !== last.g) { last.g = g; sun.style.clipPath = `circle(${(g * 150).toFixed(1)}% at 74% 50%)`; }
+    if (g !== last.g) { last.g = g; daylight.style.clipPath = `circle(${(g * 150).toFixed(1)}% at 74% 50%)`; }
     if (last.day !== (g > 0.62)) garden.classList.toggle('day', (last.day = g > 0.62));
     setGardens(Math.round(clamp((y + vh * 0.92 - geo.sixty.top) / Math.max(1, geo.sixty.h + vh * 0.3)) * 60));
     peppers.update((y + vh - geo.patch.top) / (vh * 0.55));

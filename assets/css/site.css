@@ -396,7 +396,7 @@ html.reveal-on .reveal.in { opacity: 1; transform: none; }
 /* ---------------------------------------------------------------- garden (dark → daylight as it scrolls up the screen; nothing pinned) */
 .garden { position: relative; overflow: hidden; isolation: isolate; padding: clamp(80px, 10vw, 130px) 0 calc(min(30vh, 280px) + 24px); }
 /* daylight rises out of the 60-gardens grid like a sunrise */
-.garden-sun { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(55% 50% at 72% 46%, rgba(255, 150, 120, .2), transparent 70%), radial-gradient(60% 55% at 22% 88%, rgba(89, 195, 122, .13), transparent 70%), radial-gradient(80% 70% at 60% 0%, rgba(196, 107, 255, .12), transparent 70%), linear-gradient(180deg, #170f2b, #21132f 60%, #1b112a); clip-path: circle(0% at 74% 50%); }
+.garden-daylight { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(55% 50% at 72% 46%, rgba(255, 150, 120, .2), transparent 70%), radial-gradient(60% 55% at 22% 88%, rgba(89, 195, 122, .13), transparent 70%), radial-gradient(80% 70% at 60% 0%, rgba(196, 107, 255, .12), transparent 70%), linear-gradient(180deg, #170f2b, #21132f 60%, #1b112a); clip-path: circle(0% at 74% 50%); }
 .garden-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(30px, 6vw, 90px); align-items: center; }
 /* pepper plants (peppers.js) grow up from the bottom of the section; their own layer, so a frame
    that rewrites them never repaints the rest of the garden */
@@ -412,6 +412,21 @@ html.reveal-on .reveal.in { opacity: 1; transform: none; }
 .garden-patch .pp-cap { fill: var(--pp-cap, #2f7d45); }
 .garden-patch .pp-snow { fill: #eef1ff; }
 .garden-patch .pp-flakes { fill: #fff; }
+/* the sun over the peppers (peppers.js moves it and sets the opacities): up behind them as they grow, high and
+   warm while they ripen, lower and redder as they wilt, pale as it sets in the snow. --r is its radius */
+.pp-sun { position: absolute; z-index: 0; left: 0; top: 0; visibility: hidden; pointer-events: none; will-change: transform; --r: 38px; }
+.pp-sun i { position: absolute; left: 0; top: 0; border-radius: 50%; }
+.pp-sun-glow { width: calc(var(--r) * 20); height: calc(var(--r) * 20); margin: calc(var(--r) * -10); background: radial-gradient(closest-side, rgba(255, 206, 118, .34), rgba(255, 168, 96, .17) 26%, rgba(255, 132, 84, .07) 55%, transparent); }
+.pp-sun-rays { width: calc(var(--r) * 9); height: calc(var(--r) * 9); margin: calc(var(--r) * -4.5); background: repeating-conic-gradient(rgba(255, 222, 150, .42) 0deg, rgba(255, 222, 150, 0) 7deg 23deg, rgba(255, 222, 150, .42) 30deg); -webkit-mask: radial-gradient(closest-side, transparent 22%, #000 30%, rgba(0, 0, 0, .35) 62%, transparent); mask: radial-gradient(closest-side, transparent 22%, #000 30%, rgba(0, 0, 0, .35) 62%, transparent); }
+.pp-sun-disc { width: calc(var(--r) * 2); height: calc(var(--r) * 2); margin: calc(var(--r) * -1); background: radial-gradient(circle at 42% 40%, #fffdf0 0 22%, #ffe58f 50%, #ffc14d 78%, #ffa53a); box-shadow: 0 0 calc(var(--r) * .7) calc(var(--r) * .1) rgba(255, 200, 100, .6); }
+.pp-sun-red { background: radial-gradient(circle at 42% 40%, #ffe2b8 0 18%, #ffa65c 52%, #f26b3c 82%, #d94a32); box-shadow: 0 0 calc(var(--r) * .7) calc(var(--r) * .1) rgba(255, 120, 70, .55); }
+.pp-sun-pale { background: radial-gradient(circle at 42% 40%, #fff 0 30%, #f3f1ea 62%, #d9def0); box-shadow: 0 0 calc(var(--r) * .5) rgba(225, 232, 255, .45); }
+@media (prefers-reduced-motion: no-preference) {
+  .pp-sun.play .pp-sun-rays { animation: pp-sun-turn 90s linear infinite; }
+  .pp-sun.play .pp-sun-glow { animation: pp-sun-breathe 7s ease-in-out infinite alternate; }
+}
+@keyframes pp-sun-turn { to { transform: rotate(1turn); } }
+@keyframes pp-sun-breathe { to { transform: scale(1.06); } }
 .garden-copy p { color: var(--ink-dim); font-size: clamp(1.05rem, 1.4vw, 1.2rem); max-width: 46ch; transition: color .6s; }
 .garden-copy .eyebrow { transition: color .6s; }
 .garden-copy .display { transition: color .6s; }
@@ -430,7 +445,7 @@ html.reveal-on .reveal.in { opacity: 1; transform: none; }
 .sixty-cap { font: 500 13px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); margin: 18px 0 0; text-align: right; transition: color .6s; }
 .garden.day .sixty-cap { color: var(--ink-dim); }
 @media (max-width: 860px) {
-  .garden { padding-bottom: 190px; }
+  .garden { padding-bottom: 260px; }
   .garden-grid { grid-template-columns: minmax(0, 1fr); }
   .garden-patch { left: 0; height: 160px; }
   .garden-copy p { color: #d8cde8; }
@@ -528,7 +543,7 @@ figure.studio-neon img { aspect-ratio: 21 / 8; object-position: 50% 45%; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
   html.reveal-on .reveal { opacity: 1 !important; transform: none !important; }
-  .garden-sun { clip-path: none !important; }
+  .garden-daylight { clip-path: none !important; }
 }
 
 /* ---------------------------------------------------------------- hero: the pitch has to land on first load */
@@ -1200,12 +1215,3 @@ html.lb-open { overflow: hidden; }
   .mc *, .mc *::before, .mc *::after { animation: none !important; transition: none !important; }
   .mc.ge2 .mc-wave { transform: none; opacity: .35; }
 }
-
-/* ===================================================== RÉSUMÉ: the two versions, side by side (cards and buttons reuse .bring-card and .brief-actions) */
-.resume-pick { padding: clamp(60px, 9vw, 110px) 0; border-top: 1px solid var(--line); }
-.resume-pick .section-head { margin-bottom: clamp(26px, 4vw, 44px); }
-.resume-pick .display { font-size: clamp(2.4rem, 5vw, 4.6rem); }
-.resume-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.resume-cards .brief-actions { margin-top: auto; }
-.resume-files { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-@media (max-width: 760px) { .resume-cards { grid-template-columns: minmax(0, 1fr); } }

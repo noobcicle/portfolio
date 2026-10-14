@@ -5,7 +5,7 @@
 //   Résumé download  one of the four files: file, from (the page it was on)
 //   Résumé switch    Designed / ATS-friendly on /resume/: version (the one switched to)
 //   Résumé print     the Print button: version (the one on screen)
-// Names are escaped (é is é) so they match the Plausible goals whatever charset the file is served with.
+// The names are UTF-8 (nginx serves .js with charset=utf-8), so the é matches the Plausible goals.
 (function () {
   var FILES = {
     'Mike_Purpura_Resume.pdf': 'Designed PDF',
@@ -13,7 +13,7 @@
     'Mike_Purpura_Resume_Plain.pdf': 'ATS-friendly PDF',
     'Mike_Purpura_Resume_Plain.docx': 'ATS-friendly DOCX'
   };
-  var PLACES = { hero: 'Hero', tldr: 'Short version', resume: 'Résumé section', contact: 'Contact' };
+  var PLACES = { hero: 'Hero', tldr: 'Short version', contact: 'Contact' };
 
   function send(name, props) {
     if (typeof window.plausible === 'function') window.plausible('Résumé ' + name, { props: props });
