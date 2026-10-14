@@ -369,49 +369,8 @@
     <header class="section-head">
       <p class="eyebrow reveal">05 · Projects</p>
       <h2 class="display reveal">At work, <em>and at home.</em></h2>
-      <p class="section-lede reveal">First, the one that's live on the internet. Then the rest, in two piles: the work I did at Charter, and the projects I run at home. Swipe, scroll or use the arrows.</p>
+      <p class="section-lede reveal">By hand first: the work I did at Charter, then the projects I built at home. Then how I work with AI today, and what I&rsquo;ve built with it. Swipe, scroll or use the arrows.</p>
     </header>
-
-    <!-- the featured project: GrowYear, live on the internet, with how it's built and where it runs -->
-    <article class="feature reveal" id="growyear" aria-labelledby="gy-title">
-      <div class="feature-top">
-        <a class="feature-shot" href="https://mygrowyear.com" target="_blank" rel="noopener" aria-label="Open GrowYear at mygrowyear.com (new tab)">
-          <img src="assets/img/projects/growyear_shop.webp" alt="Screenshot of GrowYear's seed shop at mygrowyear.com: pepper varieties sorted into bell, sweet, hot and very hot, beside the crop's growing facts" loading="lazy" width="1280" height="800">
-        </a>
-        <div class="feature-text">
-          <p class="feature-k"><span class="feature-live"><span class="dot-live" aria-hidden="true"></span> Live</span> Featured project</p>
-          <h3 class="feature-title" id="gy-title">GrowYear</h3>
-          <p class="feature-lede">A garden planner. Pick seeds from real seed companies, point at a bed, and it works out the spacing, the indoor starts and the calendar.</p>
-          <p class="feature-why">I took it from an idea to a finished app that runs in public: real catalogs from a dozen seed companies, a planner that works out the dates, and everything a live service needs, from sign-in and data security to deploys, backups and monitoring. I designed it, built it with Claude Code, and serve it from my basement.</p>
-          <div class="feature-ctas">
-            <a class="btn btn-gummy" href="https://mygrowyear.com" target="_blank" rel="noopener">Open mygrowyear.com <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            <p class="feature-note">Look around without an account. Sign in with Google to plan a garden.</p>
-          </div>
-        </div>
-      </div>
-
-      <h4 class="feature-h">How it works, and where it lives</h4>
-      <div class="arch arch-gy" aria-label="How a request reaches GrowYear">
-        <div class="arch-node"><span class="arch-ico" aria-hidden="true">🧑‍🌾</span><h3>You</h3><p>Any browser, phone or desktop</p></div>
-        <div class="arch-link" aria-hidden="true"><i></i></div>
-        <div class="arch-node"><span class="arch-ico" aria-hidden="true">☁️</span><h3>Cloudflare</h3><p>TLS 1.3 · HTTP/3 · caches the app's files, never the API</p></div>
-        <div class="arch-link arch-link-tunnel" aria-hidden="true"><i></i><span>encrypted tunnel</span></div>
-        <div class="arch-node"><span class="arch-ico" aria-hidden="true">🛰️</span><h3>Starlink</h3><p>No open ports at home: the Pi dials <em>out</em> to Cloudflare</p></div>
-        <div class="arch-link" aria-hidden="true"><i></i></div>
-        <div class="arch-node arch-home"><span class="arch-ico" aria-hidden="true">🍓</span><h3>Raspberry Pi 4</h3><p>nginx, plus Postgres, sign-in and the API in Docker, all on localhost</p></div>
-        <div class="arch-link arch-link-git" aria-hidden="true"><i></i><span>deploy.sh</span></div>
-        <div class="arch-node"><span class="arch-ico" aria-hidden="true">🖥️</span><h3>Mac Studio</h3><p>Tests, builds and ships it, and rolls back if a health check fails</p></div>
-      </div>
-
-      <dl class="feature-facts">
-        <div><dt>The app</dt><dd>React 18 and TypeScript, built with Vite: Tailwind, Radix UI (shadcn/ui), TanStack Query and Zustand. It's a static bundle that nginx serves.</dd></div>
-        <div><dt>The back end</dt><dd>Supabase, trimmed to the three parts it needs, in Docker: Postgres, GoTrue for sign-in and PostgREST for the API. About half a gigabyte of a 2 GB Pi.</dd></div>
-        <div><dt>Sign-in and data</dt><dd>Google sign-in only. Row-level security in Postgres decides every read and write: your garden is yours, and the seed catalog is read-only to everyone else.</dd></div>
-        <div><dt>Where it runs</dt><dd>My second Raspberry Pi, in the basement, at mygrowyear.com. A Cloudflare Tunnel carries the traffic, so nothing at home is open to the internet.</dd></div>
-        <div><dt>Shipping it</dt><dd>One command from the Mac Studio: typecheck, tests, build, database migrations, an atomic switch to the new release, then a health check that puts the old one back if anything fails.</dd></div>
-        <div><dt>Keeping it</dt><dd>Nightly database backups, copied to another machine in the house, and a monitor that checks its public address every two minutes.</dd></div>
-      </dl>
-    </article>
 
     <div class="pgroup reveal" id="at-work" data-chapter="At Charter">
       <div class="pgroup-head">
@@ -538,9 +497,192 @@
       </div>
     </div>
 
-    <div class="pgroup reveal" id="at-home" data-chapter="At home">
+  </div>
+</section>
+
+<!-- ===================================================== 06 EARLY PROJECTS: a swipeable strip (it used to pin the page while it scrolled sideways) -->
+<section class="before" id="before" data-chapter="Early projects" data-guide="before">
+  <div class="wrap before-head">
+    <div>
+      <p class="eyebrow reveal">06 · Early projects</p>
+      <h2 class="display reveal">I was automating my house <em>long before it was easy.</em></h2>
+    </div>
+    <div class="pnav"><button class="pnav-btn" type="button" data-track="before-track" data-dir="-1" aria-label="Previous project">&larr;</button><button class="pnav-btn" type="button" data-track="before-track" data-dir="1" aria-label="Next project">&rarr;</button></div>
+  </div>
+  <div class="before-track" id="before-track" tabindex="0" role="region" aria-label="Early projects, each with a working model">
+    <article class="film film-intro">
+      <img decoding="async" src="assets/img/art/workbench.webp" alt="AI-generated art: an electronics workbench with an Arduino, Raspberry Pi, soil sensors and pink and blue wires" loading="lazy"><span class="ai-chip ai-chip-film"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>Qwen-Image 2.1 (Q8_0 GGUF) · 1248×832 · 25 steps · CFG 1 · seed 2467715383</span></span>
+      <p>Everything in this strip is real, pulled straight off my NAS: notes, code and configs from projects I built by hand. Each card has a small working model of what the code did; play with it. It&rsquo;s all simulated, so nothing in my house moves.</p>
+    </article>
+    <article class="film"><p class="film-year">2017</p><h3>CCNP, the hard way</h3><p>GNS3 labs on a home PC, the official cert guides and a lot of late nights. The CCNP R&amp;S landed in January 2018.</p><div class="wdg" data-widget="gns3"></div><p class="film-file">CCNP Pass Photo</p></article>
+    <article class="film"><p class="film-year">2019</p><h3>The garage door Pi</h3><p>A door sensor on a Raspberry Pi pin, a web button to open it, and a cron job that closes it when somebody (not me) leaves it open.</p><div class="wdg" data-widget="garage"></div><p class="film-file">Garage Door Monitor Script</p></article>
+    <article class="film"><p class="film-year">2019</p><h3>HDMI switch remote</h3><p>A web page that flips our HDMI switch over RS-232 through a USB-serial adapter. The original remote is still missing.</p><div class="wdg" data-widget="hdmi"></div><p class="film-file">HDMI Switch Web Controls</p></article>
+    <article class="film film-code"><p class="film-year">2019</p><h3>The RuneScape bot</h3><p>A bot that played Old School RuneScape: it read the screen with computer vision and OCR, decided what to do, and traded on the Grand Exchange. Retired, and still the most fun I&rsquo;ve had writing code. Its clicks even came with human mistakes:</p>
+<pre><code>def real_click():
+    '''This function clicks the mouse with
+    realistic errors:
+        occasional accidental right click
+        occasional double click
+        occasional no click'''
+    if randint(1, 19) &gt; 3:
+        pyautogui.click()</code></pre><p class="film-file">screen_mouse_control.py</p></article>
+    <article class="film film-code"><p class="film-year">2019 → 2020</p><h3>Plant waterer v1 → v3.1</h3><p>Arduino, three soil sensors, three pumps and status LEDs. Even v1 had guardrails:</p>
+<pre><code>int PumpFrequencyLimiter = 14400; //TIME PERIOD FOR
+  // EACH WATERING 14400 = 4 hours // PUMP WILL ONLY
+  // RUN ONCE PER TIME PERIOD
+int PumpCutOffTime = 15;</code></pre><div class="wdg" data-widget="waterer"></div><p class="film-file">Plant Waterer, Version 1</p></article>
+    <article class="film"><p class="film-year">2020</p><h3>Purpura Peppers</h3><p>The &ldquo;Pepperpi&rdquo;: a Raspberry Pi with temperature, humidity and soil sensors, charted live in a browser. Plus the &ldquo;Pepperduino&rdquo; for the far end of the garden. The peppers did not care.</p><div class="wdg" data-widget="pepperpi"></div><p class="film-file">Soil Sensor Logger</p></article>
+    <article class="film"><p class="film-year">2020</p><h3>Pi security camera</h3><p>Recording and archiving IP camera streams on a Raspberry Pi, with scripts to record and convert the footage.</p><div class="wdg" data-widget="camera"></div><p class="film-file">Camera Recording Script</p></article>
+    <article class="film"><p class="film-year">2022</p><h3>ESP32 + MQTT</h3><p>Relays switched over MQTT from MicroPython on ESP32 boards. Smart plugs, the hard way.</p><div class="wdg" data-widget="mqtt"></div><p class="film-file">Relay Control Notes</p></article>
+    <article class="film"><p class="film-year">2023</p><h3>AskChef.ai</h3><p>My first AI app: a chatbot on OpenAI that only talked food and answered in strict JSON (recipe, timing, ingredients, allergens), in Docker behind nginx. Ask it about anything else and it politely changed the subject.</p><div class="wdg" data-widget="askchef"></div><p class="film-file">AskChef Backend Service</p></article>
+    <article class="film"><p class="film-year">2023</p><h3>Portable network test rig</h3><p>A Kali live USB plus EVE-NG with virtual Cisco routers, and Python traffic generators for MTU and MAC-table testing. A carrier lab in a backpack.</p><div class="wdg" data-widget="rig"></div><p class="film-file">Network Test Rig Guide</p></article>
+    <article class="film"><p class="film-year">2024</p><h3>Radios</h3><p>Got my GMRS license, flashed custom firmware onto cheap handhelds and programmed them with CHIRP. Because of course I did.</p><div class="wdg" data-widget="radio"></div><p class="film-file">FCC GMRS License</p></article>
+    <article class="film film-outro"><p class="film-year">2025</p><h3>Then the bottleneck moved.</h3><p>Same habit, better tools. It used to be my typing speed. Now it's how clearly I can explain what I want.</p></article>
+  </div>
+</section>
+
+<!-- ===================================================== 07 THE HUB -->
+<section class="hub" id="hub" data-chapter="The Hub">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="eyebrow reveal">07 · How I work with AI today</p>
+      <h2 class="display reveal">Mission control, <em>with one rule.</em></h2>
+      <p class="section-lede reveal">The web app I designed to run the tools in my house, from Claude Code sessions to local models. The rule: when a bot wants to make a change that matters, it waits for a person to say yes. Here's one real request, start to finish: the one that made GrowYear the featured project.</p>
+    </header>
+    <!-- the whole pipeline, played step by step (mission.js). The Hub's own pieces are rebuilt here
+         from its stylesheet: the gold "prompt waiting" flag, the amber candidate dot, the review
+         dialog and the terminal's colors. The spinner frames and colors are Claude Code's own. -->
+    <div class="mc reveal" id="mc" data-step="0">
+      <ol class="mc-steps" aria-label="The steps">
+        <li><button type="button" data-step="0"><span>01</span>Mike talks to Get A Job Bot</button></li>
+        <li><button type="button" data-step="1"><span>02</span>The bot hears a waveform</button></li>
+        <li><button type="button" data-step="2"><span>03</span>The waveform flows into Grok</button></li>
+        <li><button type="button" data-step="3"><span>04</span>Grok writes the prompt</button></li>
+        <li><button type="button" data-step="4"><span>05</span>The text goes to the Mac Studio</button></li>
+        <li><button type="button" data-step="5"><span>06</span>Into the session's terminal</button></li>
+        <li><button type="button" data-step="6"><span>07</span>It lands as a golden flag</button></li>
+        <li><button type="button" data-step="7"><span>08</span>The flag is a candidate prompt</button></li>
+        <li><button type="button" data-step="8"><span>09</span>A human approves it</button></li>
+        <li><button type="button" data-step="9"><span>10</span>It hands off to Claude</button></li>
+        <li><button type="button" data-step="10"><span>11</span>Claude thinks</button></li>
+      </ol>
+
+      <div class="mc-stage">
+        <div class="mc-scene" aria-hidden="true">
+          <!-- left: Mike and Get A Job Bot, which runs on Grok -->
+          <div class="mc-grok">
+            <div class="mc-mike"><span class="mc-mic"><svg viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM6 11a6 6 0 0 0 12 0M12 17v4M8 21h8"/></svg></span><b>Mike</b><small>talking it through</small></div>
+            <div class="mc-wave"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i><i style="--i:12"></i><i style="--i:13"></i><i style="--i:14"></i><i style="--i:15"></i><i style="--i:16"></i><i style="--i:17"></i><i style="--i:18"></i><i style="--i:19"></i><i style="--i:20"></i><i style="--i:21"></i><i style="--i:22"></i><i style="--i:23"></i><i style="--i:24"></i><i style="--i:25"></i><i style="--i:26"></i><i style="--i:27"></i></div>
+            <div class="mc-bot"><img class="mc-grok-logo" src="assets/img/logos/grok.png" alt="" width="100" height="100"><div><b>Get A Job Bot</b><small>runs on Grok</small></div></div>
+            <div class="mc-text"><p class="mc-k">Grok&rsquo;s prompt</p><p class="mc-prompt" id="mc-prompt">GrowYear is now a finished, live product at https://mygrowyear.com (Google sign-in). Update Mike&rsquo;s portfolio: (1) Make GrowYear more prominent, ideally the featured or top project. Mark it as live, and give it a clear, clickable link that opens https://mygrowyear.com.</p></div>
+          </div>
+          <!-- the wire to the Studio -->
+          <div class="mc-wire"><i class="mc-pkt"></i><span>the Hub&rsquo;s API, with the bot&rsquo;s own key</span></div>
+          <!-- right: the Mac Studio, the Hub, one Claude Code session -->
+          <div class="mc-studio">
+            <p class="mc-k mc-host">Mac Studio · the Hub</p>
+            <div class="mc-rail"><span class="mc-rail-item"><span class="cc-pending-dot"></span><span class="mc-rail-title">okay-cool.net</span><span class="rail-pending-tag">waiting</span><span class="rail-pulse"></span></span></div>
+            <div class="mc-pane">
+              <div class="mc-pane-head"><span class="mc-pty">PTY</span>Claude Code · okay-cool.net</div>
+              <div class="cc-pane-pending"><span class="dot"></span><span class="label">Prompt waiting for review</span><span class="meta">1,002 chars · Get A Job Bot</span><span class="chev">&rsaquo;</span></div>
+              <pre class="mc-term"><span class="mc-t-dim">╭──────────────────────────────╮
+│ ✻ Welcome to Claude Code     │
+╰──────────────────────────────╯</span>
+<span class="mc-t-in"><span class="mc-t-p">&gt;</span> <span class="mc-t-typed" id="mc-typed"></span><span class="mc-cursor"></span></span>
+<span class="mc-spin"><span class="mc-glyph" id="mc-glyph">✻</span> <span class="mc-verb" id="mc-verb">Clauding…</span> <span class="mc-t-dim">(esc to interrupt)</span></span></pre>
+              <div class="mc-modal">
+                <div class="mc-modal-head"><h4>◆ Prompt waiting for review</h4><span class="mc-x">×</span></div>
+                <p class="cc-pending-meta"><span>from <b>Get A Job Bot</b></span><span><b>1,002</b> chars</span></p>
+                <div class="cc-pending-toolbar"><span class="cc-pending-seg"><span class="on">Preview</span><span>Raw</span></span><span class="spacer"></span><span class="cc-pending-live"><span class="pip"></span>live — updates if Grokbot revises it</span></div>
+                <div class="cc-pending-text">GrowYear is now a finished, live product at https://mygrowyear.com (Google sign-in). Update Mike&rsquo;s portfolio…</div>
+                <div class="mc-modal-foot"><span class="mc-btn mc-btn-ghost">No — discard</span><span class="mc-btn mc-btn-yes">Yes — send to Claude</span><span class="mc-hand"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="mc-cap" id="mc-cap" aria-live="polite"></p>
+        <div class="mc-ctl">
+          <button class="mc-ctl-btn" type="button" id="mc-prev" aria-label="Previous step">&lsaquo;</button>
+          <button class="mc-ctl-btn mc-play" type="button" id="mc-play" aria-label="Pause" aria-pressed="true"><span class="i-pause"></span></button>
+          <button class="mc-ctl-btn" type="button" id="mc-next" aria-label="Next step">&rsaquo;</button>
+          <span class="mc-count" id="mc-count"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hub-grid">
+      <div class="hub-features">
+        <article class="hub-f reveal">
+          <h3>Every Claude Code session, one page</h3>
+          <p>Live terminals for every session, side by side, from any screen in the house. I can resume an old conversation, watch one read-only, or take it over from my phone, and whichever screen I last typed on owns the terminal size.</p>
+        </article>
+        <article class="hub-f reveal">
+          <h3>Bots propose. I approve.</h3>
+          <p>My voice assistant can spin up a fresh session and draft its instructions, but the prompt parks in an approval queue until I send it. Each bot gets its own token and its own branch of sessions, and can't touch anything outside it.</p>
+        </article>
+        <article class="hub-f reveal">
+          <h3>A front door for agents</h3>
+          <p>An agent API with a live catalog, a shared board where my agents leave notes and hand-offs for each other, and a household policy every agent checks before it acts: no spending money, no deleting personal data, no touching network security.</p>
+        </article>
+      </div>
+    </div>
+    <p class="chips hub-chips reveal"><span>Flask</span><span>gunicorn + gevent</span><span>WebSockets</span><span>PTYs</span><span>Server-sent events</span><span>SQLite</span><span>Ollama</span><span>ComfyUI</span><span>MLX</span><span>Claude Code</span></p>
+  </div>
+</section>
+
+<!-- ===================================================== 08 BUILT WITH AI: GrowYear first, then the rest of what runs at home -->
+<section class="projects projects-ai" id="built-ai" data-chapter="Built with AI" data-guide="ai">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="eyebrow reveal">08 · Built with AI</p>
+      <h2 class="display reveal">What I&rsquo;ve built <em>with it.</em></h2>
+      <p class="section-lede reveal">The newer projects: I design them, direct the work and run them, and Claude Code writes the code. GrowYear first, because it&rsquo;s live on the internet.</p>
+    </header>
+
+    <!-- the featured project: GrowYear, live on the internet, with how it's built and where it runs -->
+    <article class="feature reveal" id="growyear" aria-labelledby="gy-title">
+      <div class="feature-top">
+        <a class="feature-shot" href="https://mygrowyear.com" target="_blank" rel="noopener" aria-label="Open GrowYear at mygrowyear.com (new tab)">
+          <img src="assets/img/projects/growyear_shop.webp" alt="Screenshot of GrowYear's seed shop at mygrowyear.com: pepper varieties sorted into bell, sweet, hot and very hot, beside the crop's growing facts" loading="lazy" width="1280" height="800">
+        </a>
+        <div class="feature-text">
+          <p class="feature-k"><span class="feature-live"><span class="dot-live" aria-hidden="true"></span> Live</span> Featured project</p>
+          <h3 class="feature-title" id="gy-title">GrowYear</h3>
+          <p class="feature-lede">A garden planner. Pick seeds from real seed companies, point at a bed, and it works out the spacing, the indoor starts and the calendar.</p>
+          <p class="feature-why">I took it from an idea to a finished app that runs in public: real catalogs from a dozen seed companies, a planner that works out the dates, and everything a live service needs, from sign-in and data security to deploys, backups and monitoring. I designed it, built it with Claude Code, and serve it from my basement.</p>
+          <div class="feature-ctas">
+            <a class="btn btn-gummy" href="https://mygrowyear.com" target="_blank" rel="noopener">Open mygrowyear.com <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <p class="feature-note">Look around without an account. Sign in with Google to plan a garden.</p>
+          </div>
+        </div>
+      </div>
+
+      <h4 class="feature-h">How it works, and where it lives</h4>
+      <div class="arch arch-gy" aria-label="How a request reaches GrowYear">
+        <div class="arch-node"><span class="arch-ico" aria-hidden="true">🧑‍🌾</span><h3>You</h3><p>Any browser, phone or desktop</p></div>
+        <div class="arch-link" aria-hidden="true"><i></i></div>
+        <div class="arch-node"><span class="arch-ico" aria-hidden="true">☁️</span><h3>Cloudflare</h3><p>TLS 1.3 · HTTP/3 · caches the app's files, never the API</p></div>
+        <div class="arch-link arch-link-tunnel" aria-hidden="true"><i></i><span>encrypted tunnel</span></div>
+        <div class="arch-node"><span class="arch-ico" aria-hidden="true">🛰️</span><h3>Starlink</h3><p>No open ports at home: the Pi dials <em>out</em> to Cloudflare</p></div>
+        <div class="arch-link" aria-hidden="true"><i></i></div>
+        <div class="arch-node arch-home"><span class="arch-ico" aria-hidden="true">🍓</span><h3>Raspberry Pi 4</h3><p>nginx, plus Postgres, sign-in and the API in Docker, all on localhost</p></div>
+        <div class="arch-link arch-link-git" aria-hidden="true"><i></i><span>deploy.sh</span></div>
+        <div class="arch-node"><span class="arch-ico" aria-hidden="true">🖥️</span><h3>Mac Studio</h3><p>Tests, builds and ships it, and rolls back if a health check fails</p></div>
+      </div>
+
+      <dl class="feature-facts">
+        <div><dt>The app</dt><dd>React 18 and TypeScript, built with Vite: Tailwind, Radix UI (shadcn/ui), TanStack Query and Zustand. It's a static bundle that nginx serves.</dd></div>
+        <div><dt>The back end</dt><dd>Supabase, trimmed to the three parts it needs, in Docker: Postgres, GoTrue for sign-in and PostgREST for the API. About half a gigabyte of a 2 GB Pi.</dd></div>
+        <div><dt>Sign-in and data</dt><dd>Google sign-in only. Row-level security in Postgres decides every read and write: your garden is yours, and the seed catalog is read-only to everyone else.</dd></div>
+        <div><dt>Where it runs</dt><dd>My second Raspberry Pi, in the basement, at mygrowyear.com. A Cloudflare Tunnel carries the traffic, so nothing at home is open to the internet.</dd></div>
+        <div><dt>Shipping it</dt><dd>One command from the Mac Studio: typecheck, tests, build, database migrations, an atomic switch to the new release, then a health check that puts the old one back if anything fails.</dd></div>
+        <div><dt>Keeping it</dt><dd>Nightly database backups, copied to another machine in the house, and a monitor that checks its public address every two minutes.</dd></div>
+      </dl>
+    </article>
+
+    <div class="pgroup reveal" id="at-home">
       <div class="pgroup-head">
-        <div><h3>At home</h3><p>Projects I design, build and run. The newer ones I built with Claude Code; the older ones I wrote by hand.</p></div>
+        <div><h3>At home</h3><p>What runs in my house today. I design and run each one, and Claude Code writes the code.</p></div>
         <div class="pnav"><button class="pnav-btn" type="button" data-track="home-track" data-dir="-1" aria-label="Previous home project">&larr;</button><button class="pnav-btn" type="button" data-track="home-track" data-dir="1" aria-label="Next home project">&rarr;</button></div>
       </div>
       <div class="ptrack" id="home-track" tabindex="0" role="region" aria-label="Projects at home">
@@ -555,7 +697,7 @@
               <div><dt>Built</dt><dd>One web app for all of it, built around one rule: nothing that matters happens until I approve it.</dd></div>
               <div><dt>Status</dt><dd>In progress, used daily.</dd></div>
             </dl>
-            <p class="pcard-what">Every Claude Code session, local model and generator in the house on one page, with an approval queue. <a href="#hub">More below &darr;</a></p>
+            <p class="pcard-what">Every Claude Code session, local model and generator in the house on one page, with an approval queue. <a href="#hub">How it works &uarr;</a></p>
             <details class="pcard-tech"><summary>Tools and hardware</summary>
               <dl class="pcard-specs">
               <div><dt>Skills</dt><dd>Approval workflows, human-in-the-loop safety, running big models locally</dd></div>
@@ -755,174 +897,18 @@
           </div>
         </article>
 
-        <article class="pcard">
-          <figure class="pcard-proof">
-            <pre><code><span class="pc-k">def</span> real_click():
-    <span class="pc-s">'''This function clicks the mouse with
-    realistic errors:
-        occasional accidental right click
-        occasional double click
-        occasional no click'''</span>
-    <span class="pc-k">if</span> randint(1, 19) &gt; 3:
-        pyautogui.click()</code></pre>
-            <figcaption>screen_mouse_control.py, the bot's real code</figcaption>
-          </figure>
-          <div class="pcard-body">
-            <p class="pcard-when">2019 → · Python</p>
-            <h4>The RuneScape bot</h4>
-            <dl class="pcard-lines">
-              <div><dt>Goal</dt><dd>Level up skills in RuneScape without hours of the same clicks.</dd></div>
-              <div><dt>Built</dt><dd>Computer vision, OCR and a decision loop, with mouse moves curved like a person's. A big undertaking, all by hand.</dd></div>
-              <div><dt>Status</dt><dd>Retired, and still the most fun I've had writing code.</dd></div>
-            </dl>
-            <p class="pcard-what">A bot that played Old School RuneScape for me: it read the screen, read the text, decided what to do, and traded on the Grand Exchange.</p>
-            <details class="pcard-tech"><summary>Tools and hardware</summary>
-              <dl class="pcard-specs">
-              <div><dt>Skills</dt><dd>Python, computer vision, OCR, state machines, price-spread math</dd></div>
-              <div><dt>Packages</dt><dd>OpenCV, PyAutoGUI, pyclick, Tesseract (pytesseract), pywin32, pywinauto, NumPy, pandas, SQLite, requests + the OSRS Wiki prices API</dd></div>
-              <div><dt>Hardware</dt><dd>A Windows gaming PC</dd></div>
-            </dl>
-            </details>
-          </div>
-        </article>
 
-        <a class="pcard pcard-more" href="#before">
-          <span class="pcard-more-k">Ten more, with their code</span>
-          <span class="pcard-more-t">The garage door Pi, the HDMI remote, the plant waterer, the Pepperpi and the rest are in <em>Early projects</em>, further down. Each one comes straight off my NAS, and each one has a small working model of what it did.</span>
-          <span class="pcard-more-go" aria-hidden="true">&darr;</span>
-        </a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================================================== 06 EARLY PROJECTS: a swipeable strip (it used to pin the page while it scrolled sideways) -->
-<section class="before" id="before" data-chapter="Early projects" data-guide="before">
-  <div class="wrap before-head">
-    <div>
-      <p class="eyebrow reveal">06 · Early projects</p>
-      <h2 class="display reveal">I was automating my house <em>long before it was easy.</em></h2>
-    </div>
-    <div class="pnav"><button class="pnav-btn" type="button" data-track="before-track" data-dir="-1" aria-label="Previous project">&larr;</button><button class="pnav-btn" type="button" data-track="before-track" data-dir="1" aria-label="Next project">&rarr;</button></div>
-  </div>
-  <div class="before-track" id="before-track" tabindex="0" role="region" aria-label="Early projects, each with a working model">
-    <article class="film film-intro">
-      <img decoding="async" src="assets/img/art/workbench.webp" alt="AI-generated art: an electronics workbench with an Arduino, Raspberry Pi, soil sensors and pink and blue wires" loading="lazy"><span class="ai-chip ai-chip-film"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>Qwen-Image 2.1 (Q8_0 GGUF) · 1248×832 · 25 steps · CFG 1 · seed 2467715383</span></span>
-      <p>Everything in this strip is real, pulled straight off my NAS: notes, code and configs from projects I built by hand. Each card has a small working model of what the code did; play with it. It&rsquo;s all simulated, so nothing in my house moves.</p>
-    </article>
-    <article class="film"><p class="film-year">2017</p><h3>CCNP, the hard way</h3><p>GNS3 labs on a home PC, the official cert guides and a lot of late nights. The CCNP R&amp;S landed in January 2018.</p><div class="wdg" data-widget="gns3"></div><p class="film-file">CCNP Pass Photo</p></article>
-    <article class="film"><p class="film-year">2019</p><h3>The garage door Pi</h3><p>A door sensor on a Raspberry Pi pin, a web button to open it, and a cron job that closes it when somebody (not me) leaves it open.</p><div class="wdg" data-widget="garage"></div><p class="film-file">Garage Door Monitor Script</p></article>
-    <article class="film"><p class="film-year">2019</p><h3>HDMI switch remote</h3><p>A web page that flips our HDMI switch over RS-232 through a USB-serial adapter. The original remote is still missing.</p><div class="wdg" data-widget="hdmi"></div><p class="film-file">HDMI Switch Web Controls</p></article>
-    <article class="film film-code"><p class="film-year">2019 → 2020</p><h3>Plant waterer v1 → v3.1</h3><p>Arduino, three soil sensors, three pumps and status LEDs. Even v1 had guardrails:</p>
-<pre><code>int PumpFrequencyLimiter = 14400; //TIME PERIOD FOR
-  // EACH WATERING 14400 = 4 hours // PUMP WILL ONLY
-  // RUN ONCE PER TIME PERIOD
-int PumpCutOffTime = 15;</code></pre><div class="wdg" data-widget="waterer"></div><p class="film-file">Plant Waterer, Version 1</p></article>
-    <article class="film"><p class="film-year">2020</p><h3>Purpura Peppers</h3><p>The &ldquo;Pepperpi&rdquo;: a Raspberry Pi with temperature, humidity and soil sensors, charted live in a browser. Plus the &ldquo;Pepperduino&rdquo; for the far end of the garden. The peppers did not care.</p><div class="wdg" data-widget="pepperpi"></div><p class="film-file">Soil Sensor Logger</p></article>
-    <article class="film"><p class="film-year">2020</p><h3>Pi security camera</h3><p>Recording and archiving IP camera streams on a Raspberry Pi, with scripts to record and convert the footage.</p><div class="wdg" data-widget="camera"></div><p class="film-file">Camera Recording Script</p></article>
-    <article class="film"><p class="film-year">2022</p><h3>ESP32 + MQTT</h3><p>Relays switched over MQTT from MicroPython on ESP32 boards. Smart plugs, the hard way.</p><div class="wdg" data-widget="mqtt"></div><p class="film-file">Relay Control Notes</p></article>
-    <article class="film"><p class="film-year">2023</p><h3>AskChef.ai</h3><p>My first AI app: a chatbot on OpenAI that only talked food and answered in strict JSON (recipe, timing, ingredients, allergens), in Docker behind nginx. Ask it about anything else and it politely changed the subject.</p><div class="wdg" data-widget="askchef"></div><p class="film-file">AskChef Backend Service</p></article>
-    <article class="film"><p class="film-year">2023</p><h3>Portable network test rig</h3><p>A Kali live USB plus EVE-NG with virtual Cisco routers, and Python traffic generators for MTU and MAC-table testing. A carrier lab in a backpack.</p><div class="wdg" data-widget="rig"></div><p class="film-file">Network Test Rig Guide</p></article>
-    <article class="film"><p class="film-year">2024</p><h3>Radios</h3><p>Got my GMRS license, flashed custom firmware onto cheap handhelds and programmed them with CHIRP. Because of course I did.</p><div class="wdg" data-widget="radio"></div><p class="film-file">FCC GMRS License</p></article>
-    <article class="film film-outro"><p class="film-year">2025</p><h3>Then the bottleneck moved.</h3><p>Same habit, better tools. It used to be my typing speed. Now it's how clearly I can explain what I want.</p></article>
-  </div>
-</section>
-
-<!-- ===================================================== 07 THE HUB -->
-<section class="hub" id="hub" data-chapter="The Hub">
-  <div class="wrap">
-    <header class="section-head">
-      <p class="eyebrow reveal">07 · The Hub</p>
-      <h2 class="display reveal">Mission control, <em>with one rule.</em></h2>
-      <p class="section-lede reveal">The web app I designed to run the tools in my house, from Claude Code sessions to local models. The rule: when a bot wants to make a change that matters, it waits for a person to say yes. Here's one real request, start to finish: the one that made GrowYear the featured project.</p>
-    </header>
-    <!-- the whole pipeline, played step by step (mission.js). The Hub's own pieces are rebuilt here
-         from its stylesheet: the gold "prompt waiting" flag, the amber candidate dot, the review
-         dialog and the terminal's colors. The spinner frames and colors are Claude Code's own. -->
-    <div class="mc reveal" id="mc" data-step="0">
-      <ol class="mc-steps" aria-label="The steps">
-        <li><button type="button" data-step="0"><span>01</span>Mike talks to Get A Job Bot</button></li>
-        <li><button type="button" data-step="1"><span>02</span>The bot hears a waveform</button></li>
-        <li><button type="button" data-step="2"><span>03</span>The waveform flows into Grok</button></li>
-        <li><button type="button" data-step="3"><span>04</span>Grok writes the prompt</button></li>
-        <li><button type="button" data-step="4"><span>05</span>The text goes to the Mac Studio</button></li>
-        <li><button type="button" data-step="5"><span>06</span>Into the session's terminal</button></li>
-        <li><button type="button" data-step="6"><span>07</span>It lands as a golden flag</button></li>
-        <li><button type="button" data-step="7"><span>08</span>The flag is a candidate prompt</button></li>
-        <li><button type="button" data-step="8"><span>09</span>A human approves it</button></li>
-        <li><button type="button" data-step="9"><span>10</span>It hands off to Claude</button></li>
-        <li><button type="button" data-step="10"><span>11</span>Claude thinks</button></li>
-      </ol>
-
-      <div class="mc-stage">
-        <div class="mc-scene" aria-hidden="true">
-          <!-- left: Mike and Get A Job Bot, which runs on Grok -->
-          <div class="mc-grok">
-            <div class="mc-mike"><span class="mc-mic"><svg viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM6 11a6 6 0 0 0 12 0M12 17v4M8 21h8"/></svg></span><b>Mike</b><small>talking it through</small></div>
-            <div class="mc-wave"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i><i style="--i:12"></i><i style="--i:13"></i><i style="--i:14"></i><i style="--i:15"></i><i style="--i:16"></i><i style="--i:17"></i><i style="--i:18"></i><i style="--i:19"></i><i style="--i:20"></i><i style="--i:21"></i><i style="--i:22"></i><i style="--i:23"></i><i style="--i:24"></i><i style="--i:25"></i><i style="--i:26"></i><i style="--i:27"></i></div>
-            <div class="mc-bot"><img class="mc-grok-logo" src="assets/img/logos/grok.png" alt="" width="100" height="100"><div><b>Get A Job Bot</b><small>runs on Grok</small></div></div>
-            <div class="mc-text"><p class="mc-k">Grok&rsquo;s prompt</p><p class="mc-prompt" id="mc-prompt">GrowYear is now a finished, live product at https://mygrowyear.com (Google sign-in). Update Mike&rsquo;s portfolio: (1) Make GrowYear more prominent, ideally the featured or top project. Mark it as live, and give it a clear, clickable link that opens https://mygrowyear.com.</p></div>
-          </div>
-          <!-- the wire to the Studio -->
-          <div class="mc-wire"><i class="mc-pkt"></i><span>the Hub&rsquo;s API, with the bot&rsquo;s own key</span></div>
-          <!-- right: the Mac Studio, the Hub, one Claude Code session -->
-          <div class="mc-studio">
-            <p class="mc-k mc-host">Mac Studio · the Hub</p>
-            <div class="mc-rail"><span class="mc-rail-item"><span class="cc-pending-dot"></span><span class="mc-rail-title">okay-cool.net</span><span class="rail-pending-tag">waiting</span><span class="rail-pulse"></span></span></div>
-            <div class="mc-pane">
-              <div class="mc-pane-head"><span class="mc-pty">PTY</span>Claude Code · okay-cool.net</div>
-              <div class="cc-pane-pending"><span class="dot"></span><span class="label">Prompt waiting for review</span><span class="meta">1,002 chars · Get A Job Bot</span><span class="chev">&rsaquo;</span></div>
-              <pre class="mc-term"><span class="mc-t-dim">╭──────────────────────────────╮
-│ ✻ Welcome to Claude Code     │
-╰──────────────────────────────╯</span>
-<span class="mc-t-in"><span class="mc-t-p">&gt;</span> <span class="mc-t-typed" id="mc-typed"></span><span class="mc-cursor"></span></span>
-<span class="mc-spin"><span class="mc-glyph" id="mc-glyph">✻</span> <span class="mc-verb" id="mc-verb">Clauding…</span> <span class="mc-t-dim">(esc to interrupt)</span></span></pre>
-              <div class="mc-modal">
-                <div class="mc-modal-head"><h4>◆ Prompt waiting for review</h4><span class="mc-x">×</span></div>
-                <p class="cc-pending-meta"><span>from <b>Get A Job Bot</b></span><span><b>1,002</b> chars</span></p>
-                <div class="cc-pending-toolbar"><span class="cc-pending-seg"><span class="on">Preview</span><span>Raw</span></span><span class="spacer"></span><span class="cc-pending-live"><span class="pip"></span>live — updates if Grokbot revises it</span></div>
-                <div class="cc-pending-text">GrowYear is now a finished, live product at https://mygrowyear.com (Google sign-in). Update Mike&rsquo;s portfolio…</div>
-                <div class="mc-modal-foot"><span class="mc-btn mc-btn-ghost">No — discard</span><span class="mc-btn mc-btn-yes">Yes — send to Claude</span><span class="mc-hand"></span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <p class="mc-cap" id="mc-cap" aria-live="polite"></p>
-        <div class="mc-ctl">
-          <button class="mc-ctl-btn" type="button" id="mc-prev" aria-label="Previous step">&lsaquo;</button>
-          <button class="mc-ctl-btn mc-play" type="button" id="mc-play" aria-label="Pause" aria-pressed="true"><span class="i-pause"></span></button>
-          <button class="mc-ctl-btn" type="button" id="mc-next" aria-label="Next step">&rsaquo;</button>
-          <span class="mc-count" id="mc-count"></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="hub-grid">
-      <div class="hub-features">
-        <article class="hub-f reveal">
-          <h3>Every Claude Code session, one page</h3>
-          <p>Live terminals for every session, side by side, from any screen in the house. I can resume an old conversation, watch one read-only, or take it over from my phone, and whichever screen I last typed on owns the terminal size.</p>
-        </article>
-        <article class="hub-f reveal">
-          <h3>Bots propose. I approve.</h3>
-          <p>My voice assistant can spin up a fresh session and draft its instructions, but the prompt parks in an approval queue until I send it. Each bot gets its own token and its own branch of sessions, and can't touch anything outside it.</p>
-        </article>
-        <article class="hub-f reveal">
-          <h3>A front door for agents</h3>
-          <p>An agent API with a live catalog, a shared board where my agents leave notes and hand-offs for each other, and a household policy every agent checks before it acts: no spending money, no deleting personal data, no touching network security.</p>
-        </article>
-      </div>
-    </div>
-    <p class="chips hub-chips reveal"><span>Flask</span><span>gunicorn + gevent</span><span>WebSockets</span><span>PTYs</span><span>Server-sent events</span><span>SQLite</span><span>Ollama</span><span>ComfyUI</span><span>MLX</span><span>Claude Code</span></p>
-  </div>
-</section>
-
-<!-- ===================================================== 08 LAB -->
+<!-- ===================================================== 09 LAB -->
 <section class="lab" id="lab" data-chapter="The lab" data-guide="lab">
   <div class="lab-intro chapter-band">
     <img decoding="async" class="lab-intro-art chapter-band-art" src="assets/img/art/lab_night.webp" alt="AI-generated art: a home lab at night with a small desktop computer, Raspberry Pis and glowing pink and blue cables" loading="lazy" width="1376" height="768"><span class="ai-chip ai-chip-band"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>Qwen-Image 2.1 (Q8_0 GGUF) · 1376×768 · 25 steps · CFG 1 · seed 3440170741</span></span>
     <div class="wrap lab-intro-text chapter-band-text">
-      <p class="eyebrow reveal">08 · What I build now</p>
+      <p class="eyebrow reveal">09 · What I build now</p>
       <h2 class="display reveal">The lab in my <em>basement.</em></h2>
       <p class="section-lede reveal">A Mac Studio, two Raspberry Pis, a media server and a NAS, all doing real jobs for real people (my family). It keeps growing, it's a lot of fun, and every piece of it maps to a job skill.</p>
     </div>
@@ -931,69 +917,106 @@ int PumpCutOffTime = 15;</code></pre><div class="wdg" data-widget="waterer"></di
   <div class="wrap">
     <h3 class="sys-title reveal">Everything that's running, and how it connects</h3>
     <div class="sysmap reveal" id="sysmap">
-      <svg class="sys-wires" aria-hidden="true"></svg>
-      <div class="sys-io-row sys-in" aria-label="What comes in">
-        <p class="sys-cap">In</p>
-        <span class="sys-io" data-col="1" id="io-voice"><b>🎙️ My voice</b><small>through Grokbot <span class="sys-to">&rarr; the Hub</span></small></span>
-        <span class="sys-io" data-col="1" id="io-keys"><b>⌨️ Me, at a keyboard</b><small>usually <span class="sys-to">&rarr; the Hub</span></small></span>
-        <span class="sys-io" data-col="1" id="io-market"><b>📈 Market data</b><small>prices and filings <span class="sys-to">&rarr; Tickerscope</span></small></span>
-        <span class="sys-io" data-col="2" id="io-nws"><b>🌪️ Weather alerts</b><small>National Weather Service <span class="sys-to">&rarr; house platform</span></small></span>
-        <span class="sys-io" data-col="2" id="io-you"><b>🌐 You</b><small>through Cloudflare <span class="sys-to">&rarr; this site</span></small></span>
-      </div>
-      <div class="sys-hosts">
-        <article class="sys-host sys-studio" data-col="1">
-          <header><h4>Mac Studio</h4><p>M3 Ultra · the brains</p></header>
-          <ul>
-            <li><a class="sys-app sys-app-hub" id="app-hub" href="#hub"><b>The Hub <i aria-hidden="true">&uarr;</i></b><span>Claude Code, approvals, studios</span></a></li>
-            <li class="sys-app" id="app-ollama"><b>Ollama</b><span>local LLMs, up to 235B parameters</span></li>
-            <li class="sys-app" id="app-comfy"><b>ComfyUI</b><span>images, music and video</span></li>
-            <li class="sys-app" id="app-voice"><b>Voice services</b><span>the house's voices</span></li>
-            <li class="sys-app" id="app-homelab"><b>Home Lab</b><span>monitoring, patching, deploy checks</span></li>
-            <li class="sys-app" id="app-ticker"><b>Tickerscope</b><span>stocks, taxes, a morning brief</span></li>
-            <li class="sys-app" id="app-paper"><b>Paper-trading bot</b><span>fake money, real rules</span></li>
+      <p class="sys-key"><span class="sys-key-dev">A machine in my basement</span><span class="sys-key-svc">A service it runs</span></p>
+      <div class="sys-devs">
+        <article class="sys-dev sys-dev-main">
+          <header class="sys-face"><span class="sys-leds" aria-hidden="true"><i></i><i></i><i></i></span><h4>Mac Studio</h4><p>Apple M3 Ultra · the brains</p></header>
+          <p class="sys-runs">Runs</p>
+          <ul class="sys-svcs" aria-label="Runs on Mac Studio">
+            <li><a class="sys-svc sys-svc-link" href="#hub"><b>The Hub <i aria-hidden="true">&uarr;</i></b><span>Claude Code, approvals, studios</span></a></li>
+            <li class="sys-svc"><b>Ollama</b><span>local LLMs, up to 235B parameters</span></li>
+            <li class="sys-svc"><b>ComfyUI</b><span>images, music and video</span></li>
+            <li class="sys-svc"><b>Voice services</b><span>the house&rsquo;s voices</span></li>
+            <li class="sys-svc"><b>Home Lab</b><span>monitoring, patching, deploy checks</span></li>
+            <li class="sys-svc"><b>Tickerscope</b><span>stocks, taxes, a morning brief</span></li>
+            <li class="sys-svc"><b>Paper-trading bot</b><span>fake money, real rules</span></li>
           </ul>
         </article>
-        <article class="sys-host" data-col="2">
-          <header><h4>Pi Black</h4><p>Raspberry Pi 4</p></header>
-          <ul>
-            <li class="sys-app" id="app-house"><b>House platform</b><span>weather alerts, plugs, recipes, baby log, agent API</span></li>
-            <li class="sys-app" id="app-thaddeus"><b>Thaddeus</b><span>the house voice</span></li>
-            <li class="sys-app" id="app-dj"><b>Radio DJs</b><span>sets written by a local LLM</span></li>
-            <li class="sys-app" id="app-site"><b>okay-cool.net</b><span>this page, through a tunnel</span></li>
+        <article class="sys-dev">
+          <header class="sys-face"><span class="sys-leds" aria-hidden="true"><i></i><i></i><i></i></span><h4>Pi Black</h4><p>Raspberry Pi 4</p></header>
+          <p class="sys-runs">Runs</p>
+          <ul class="sys-svcs" aria-label="Runs on Pi Black">
+            <li class="sys-svc"><b>House platform</b><span>weather alerts, plugs, recipes, baby log, agent API</span></li>
+            <li class="sys-svc"><b>Thaddeus</b><span>the house voice</span></li>
+            <li class="sys-svc"><b>Radio DJs</b><span>sets written by a local LLM</span></li>
+            <li class="sys-svc"><b>okay-cool.net</b><span>this page</span></li>
           </ul>
         </article>
-        <article class="sys-host" data-col="3">
-          <header><h4>Pi Green</h4><p>Raspberry Pi 4</p></header>
-          <ul>
-            <li class="sys-app" id="app-dnd"><b>D&amp;D Lab</b><span>dice, soundboard, campaign radio</span></li>
-            <li class="sys-app" id="app-grow"><b>GrowYear</b><span>garden planner, live at mygrowyear.com</span></li>
+        <article class="sys-dev">
+          <header class="sys-face"><span class="sys-leds" aria-hidden="true"><i></i><i></i><i></i></span><h4>Pi Green</h4><p>Raspberry Pi 4</p></header>
+          <p class="sys-runs">Runs</p>
+          <ul class="sys-svcs" aria-label="Runs on Pi Green">
+            <li class="sys-svc"><b>D&amp;D Lab</b><span>dice, soundboard, campaign radio</span></li>
+            <li class="sys-svc"><b>GrowYear</b><span>garden planner, live at mygrowyear.com</span></li>
           </ul>
         </article>
-        <article class="sys-host" data-col="4">
-          <header><h4>plex-media</h4><p>Acer mini PC</p></header>
-          <ul>
-            <li class="sys-app" id="app-plex"><b>Plex</b><span>the family's movies</span></li>
-            <li class="sys-app" id="app-medialab"><b>Media Lab</b><span>the library manager</span></li>
-            <li class="sys-app" id="app-forgejo"><b>Forgejo</b><span>a local copy of every repo</span></li>
+        <article class="sys-dev">
+          <header class="sys-face"><span class="sys-leds" aria-hidden="true"><i></i><i></i><i></i></span><h4>plex-media</h4><p>Acer mini PC</p></header>
+          <p class="sys-runs">Runs</p>
+          <ul class="sys-svcs" aria-label="Runs on plex-media">
+            <li class="sys-svc"><b>Plex</b><span>the family&rsquo;s movies</span></li>
+            <li class="sys-svc"><b>Media Lab</b><span>the library manager</span></li>
+            <li class="sys-svc"><b>Forgejo</b><span>a local copy of every repo</span></li>
           </ul>
         </article>
-        <article class="sys-host" data-col="5">
-          <header><h4>NAS</h4><p>TerraMaster, four bays</p></header>
-          <ul>
-            <li class="sys-app" id="app-files"><b>Family files</b><span>photos and documents, backed up to plex-media</span></li>
+        <article class="sys-dev">
+          <header class="sys-face"><span class="sys-leds" aria-hidden="true"><i></i><i></i><i></i></span><h4>NAS</h4><p>TerraMaster, four bays</p></header>
+          <p class="sys-runs">Runs</p>
+          <ul class="sys-svcs" aria-label="Runs on NAS">
+            <li class="sys-svc"><b>Family files</b><span>photos and documents, backed up to plex-media</span></li>
           </ul>
         </article>
       </div>
-      <div class="sys-io-row sys-out" aria-label="What comes out">
-        <p class="sys-cap">Out</p>
-        <span class="sys-io" data-col="2" id="io-sonos"><b>🔊 Sonos, every room</b><small><span class="sys-to">from Thaddeus and the DJs</span></small></span>
-        <span class="sys-io" data-col="2" id="io-phones"><b>📱 Phones</b><small><span class="sys-to">from the house platform</span></small></span>
-        <span class="sys-io" data-col="3" id="io-discord"><b>🎲 Discord</b><small><span class="sys-to">from D&amp;D Lab</span></small></span>
-        <span class="sys-io" data-col="4" id="io-tv"><b>📺 TVs</b><small><span class="sys-to">from Plex</span></small></span>
+
+      <div class="sys-flows">
+        <h4 class="sys-flows-h">How it connects: five real paths</h4>
+        <div class="sys-flow">
+          <p class="sys-flow-k">You open this page</p>
+          <ol>
+            <li><b>Your browser</b></li>
+            <li><b>Cloudflare</b><small>the edge</small></li>
+            <li><b>A tunnel</b><small>over Starlink</small></li>
+            <li class="on"><b>okay-cool.net</b><small>on Pi Black</small></li>
+          </ol>
+        </div>
+        <div class="sys-flow">
+          <p class="sys-flow-k">A tornado warning</p>
+          <ol>
+            <li><b>National Weather Service</b><small>the alert</small></li>
+            <li class="on"><b>House platform</b><small>on Pi Black</small></li>
+            <li class="on"><b>Thaddeus</b><small>on Pi Black</small></li>
+            <li><b>Sonos</b><small>every room</small></li>
+          </ol>
+        </div>
+        <div class="sys-flow">
+          <p class="sys-flow-k">I ask for a change by voice</p>
+          <ol>
+            <li><b>My voice</b><small>through Grokbot</small></li>
+            <li class="on"><b>The Hub</b><small>on the Mac Studio</small></li>
+            <li class="on"><b>Claude Code</b><small>on the Mac Studio</small></li>
+            <li><b>My yes</b><small>before anything that matters</small></li>
+          </ol>
+        </div>
+        <div class="sys-flow">
+          <p class="sys-flow-k">Movie night</p>
+          <ol>
+            <li class="on"><b>Media Lab</b><small>on plex-media</small></li>
+            <li class="on"><b>Plex</b><small>on plex-media</small></li>
+            <li><b>The TV</b></li>
+          </ol>
+        </div>
+        <div class="sys-flow">
+          <p class="sys-flow-k">I ship a change</p>
+          <ol>
+            <li class="on"><b>git push</b><small>from the Mac Studio</small></li>
+            <li><b>GitHub</b></li>
+            <li class="on"><b>Each Pi</b><small>pulls it within two minutes</small></li>
+            <li class="on"><b>Home Lab</b><small>checks it, on the Mac Studio</small></li>
+          </ol>
+        </div>
       </div>
       <ul class="sys-rails">
-        <li><b>🔁 Deploys</b> Push to GitHub, and every Pi updates itself within two minutes.</li>
-        <li><b>👀 Watching</b> Home Lab checks every host over SNMP and SSH, and fails loudly.</li>
+        <li><b>👀 Watching</b> Home Lab checks every machine over SNMP and SSH, and fails loudly.</li>
         <li><b>🔐 Getting in</b> Both Pis run Tailscale as a high-availability router pair.</li>
       </ul>
     </div>
@@ -1004,13 +1027,13 @@ int PumpCutOffTime = 15;</code></pre><div class="wdg" data-widget="waterer"></di
   </div>
 </section>
 
-<!-- ===================================================== 09 GARDEN: why I build (the plots sprout and the peppers grow as it scrolls by; nothing pinned) -->
+<!-- ===================================================== 10 GARDEN: why I build (the plots sprout and the peppers grow as it scrolls by; nothing pinned) -->
 <section class="garden" id="garden" data-chapter="One garden a year" data-guide="garden">
   <div class="garden-sun" aria-hidden="true"></div>
   <div class="garden-patch" id="garden-patch" aria-hidden="true"></div>
   <div class="wrap garden-grid">
     <div class="garden-copy">
-      <p class="eyebrow">09 · Why I build</p>
+      <p class="eyebrow">10 · Why I build</p>
       <h2 class="display">About <em>sixty</em> gardens.</h2>
       <!-- routers quit, peppers don't: a small loop for the paragraph below it (paused off screen; one still frame with reduced motion) -->
       <svg class="vs" id="garden-vs" viewBox="0 0 320 104" aria-hidden="true" focusable="false">
@@ -1055,153 +1078,205 @@ int PumpCutOffTime = 15;</code></pre><div class="wdg" data-widget="waterer"></di
   </div>
 </section>
 
-<!-- ===================================================== HOW THIS PAGE GOT HERE (the making-of, folded into one card) -->
-<section class="made" id="made" data-chapter="How it got here" data-guide="built" aria-labelledby="made-title">
+<!-- ===================================================== HOW I MADE IT: a how-to, open in the scroll (it used to be a folded card) -->
+<section class="made" id="made" data-chapter="How I made it" data-guide="built" aria-labelledby="made-title">
   <div class="wrap">
-    <details class="made-card" id="made-details">
-      <summary class="made-sum">
-        <span class="made-k">P.S. · How this page got to you</span>
-        <span class="made-title" id="made-title">This page came from my house.</span>
-        <span class="made-lede">No cloud server. A Raspberry Pi in my basement serves it over Starlink, through a Cloudflare tunnel, and every image, song and voice on it was made by AI on my own Mac Studio.</span>
-        <span class="made-live" id="made-live"></span>
-        <span class="made-btn" aria-hidden="true"></span>
-      </summary>
-      <div class="made-body">
-        <h2 class="made-h">Made in my basement. <em>Served from it, too.</em></h2>
-        <p class="section-lede">No cloud GPUs, no website builder, no stock photos, no trackers. The art, the music and the voices were all generated on my own Mac Studio, and the page itself is coming to you from a Raspberry Pi a few feet away, over Starlink.</p>
+    <header class="section-head">
+      <p class="eyebrow reveal">P.S. · How I made this</p>
+      <h2 class="display reveal" id="made-title">Make one <em>of your own.</em></h2>
+      <p class="section-lede reveal">This page lives on a Raspberry Pi in my basement, and everything on it was made on hardware in my house. Here&rsquo;s how I built it, step by step, so you can build yours.</p>
+      <p class="made-live reveal" id="made-live"></p>
+    </header>
 
-        <div class="arch" aria-label="How a request reaches this site">
-          <div class="arch-node"><span class="arch-ico" aria-hidden="true">🧑‍💻</span><h3>You</h3><p>IPv4 or IPv6, anywhere</p></div>
-          <div class="arch-link" aria-hidden="true"><i></i></div>
-          <div class="arch-node"><span class="arch-ico" aria-hidden="true">☁️</span><h3>Cloudflare</h3><p>TLS 1.3 · HTTP/3 · cache · DDoS shield</p><p class="arch-live" data-live="colo"></p></div>
-          <div class="arch-link arch-link-tunnel" aria-hidden="true"><i></i><span>encrypted tunnel</span></div>
-          <div class="arch-node"><span class="arch-ico" aria-hidden="true">🛰️</span><h3>Starlink</h3><p>No public IPv4 (carrier-grade NAT), so the Pi dials <em>out</em> over IPv6</p></div>
-          <div class="arch-link" aria-hidden="true"><i></i></div>
-          <div class="arch-node arch-home"><span class="arch-ico" aria-hidden="true">🍓</span><h3>Raspberry Pi 4</h3><p>nginx in my basement, reachable only through the tunnel</p><p class="arch-live" data-live="pi"></p></div>
-          <div class="arch-link arch-link-git" aria-hidden="true"><i></i><span>git push</span></div>
-          <div class="arch-node"><span class="arch-ico" aria-hidden="true">🖥️</span><h3>Mac Studio</h3><p>Where every asset was made · live within 2 min of a push</p></div>
+    <aside class="human-note reveal" aria-label="Who is behind this page">
+      <p class="human-k">Human-directed, every line</p>
+      <p>Every word on this page started with me: my stories, my notes and voice memos, and a lot of corrections. Claude Code did the typing and wrote the code; I decided what it says, read every change, and sent it back when it was wrong. Nothing here is an AI&rsquo;s idea of me. It&rsquo;s mine.</p>
+    </aside>
+
+    <ol class="howto">
+      <li class="howto-step reveal">
+        <p class="howto-n">01</p>
+        <div class="howto-body">
+          <h3>Say it out loud first</h3>
+          <p>I started by talking, not typing: a week of voice interviews with an AI agent about my career, my projects and what I want next. That became a written brief, and the page is built from the brief, not from a template.</p>
+          <p class="howto-tip"><b>Your turn</b> Record ten minutes answering &ldquo;what should a hiring manager know about me?&rdquo; Rambling is fine. It&rsquo;s raw material.</p>
         </div>
-
-        <div class="live-grid">
-          <article class="live-card">
-            <p class="studio-k">Your trip here, live</p>
-            <p class="live-big" id="trip-text">Your request went through Cloudflare, down a tunnel over Starlink, and into a Raspberry Pi in Milton, Wisconsin.</p>
-            <dl class="live-facts" id="trip-facts"></dl>
-          </article>
-          <article class="live-card">
-            <p class="studio-k">The server, right now</p>
-            <p class="live-big" id="pi-text">A Raspberry Pi 4 with 2&nbsp;GB of RAM, in my basement.</p>
-            <dl class="live-facts" id="pi-facts"></dl>
-          </article>
+      </li>
+      <li class="howto-step reveal">
+        <p class="howto-n">02</p>
+        <div class="howto-body">
+          <h3>Pick a coding agent, and stay the editor</h3>
+          <p>I describe what I want; Claude Code writes the code and a first draft of the words. I read every change before it ships, and when something&rsquo;s off (a claim that isn&rsquo;t quite true, a section that drags), I say so and it goes around again. This page took dozens of rounds.</p>
+          <p class="howto-tip"><b>Your turn</b> Write your rules down: what must never appear (for me, my phone number and home address) and what must always be true. The agent follows them, and you check that it did.</p>
         </div>
+      </li>
+      <li class="howto-step reveal">
+        <p class="howto-n">03</p>
+        <div class="howto-body">
+          <h3>Host it at home, with no open ports</h3>
+          <p>A Raspberry Pi 4 runs nginx, listening only on its own loopback address. My house sits behind Starlink&rsquo;s carrier-grade NAT, so nothing on the internet can dial in. Instead, cloudflared on the Pi dials <em>out</em> to Cloudflare and keeps an encrypted tunnel open, and your request rides it home.</p>
+          <pre class="howto-code"><code><span class="hc-c"># nginx on the Pi: loopback only, so the tunnel is the one way in</span>
+listen 127.0.0.1:8088;
 
-        <p class="written written-route"><strong>And the sidebar?</strong> It's a traceroute of your own request, told one hop per section. Your request really did reach Cloudflare (the data center is the one that answered you), then came down a tunnel over Starlink to the Pi. My house has no public IPv4 address: Starlink puts it behind carrier-grade NAT, so nothing on the internet can dial in. Instead, cloudflared on the Pi dials <em>out</em> to Cloudflare over IPv6 and holds four encrypted connections open, and your request rides one of them home. The first half of the trip is simulated: the ISP, the transit networks and every metric are made up, but IS-IS really runs Dijkstra and BGP really walks its best-path rules, right in your browser. <span class="if-hover">Hover over it</span><span class="if-touch">Tap the strip under the menu</span> for the full traceroute. Thirteen years in carrier networking will do that to a scroll bar.</p>
+<span class="hc-c"># the tunnel's routing, set through Cloudflare's API</span>
+okay-cool.net    &rarr;  http://127.0.0.1:8088
+anything else    &rarr;  404</code></pre>
+          <p class="howto-tip"><b>Your turn</b> A Cloudflare account, a domain and <code>cloudflared</code>. No port forwarding, and your home IP address never shows up anywhere.</p>
+        </div>
+        <div class="howto-wide">
+          <div class="arch" aria-label="How a request reaches this site">
+            <div class="arch-node"><span class="arch-ico" aria-hidden="true">🧑‍💻</span><h3>You</h3><p>IPv4 or IPv6, anywhere</p></div>
+            <div class="arch-link" aria-hidden="true"><i></i></div>
+            <div class="arch-node"><span class="arch-ico" aria-hidden="true">☁️</span><h3>Cloudflare</h3><p>TLS 1.3 · HTTP/3 · cache · DDoS shield</p><p class="arch-live" data-live="colo"></p></div>
+            <div class="arch-link arch-link-tunnel" aria-hidden="true"><i></i><span>encrypted tunnel</span></div>
+            <div class="arch-node"><span class="arch-ico" aria-hidden="true">🛰️</span><h3>Starlink</h3><p>No public IPv4 (carrier-grade NAT), so the Pi dials <em>out</em> over IPv6</p></div>
+            <div class="arch-link" aria-hidden="true"><i></i></div>
+            <div class="arch-node arch-home"><span class="arch-ico" aria-hidden="true">🍓</span><h3>Raspberry Pi 4</h3><p>nginx in my basement, reachable only through the tunnel</p><p class="arch-live" data-live="pi"></p></div>
+            <div class="arch-link arch-link-git" aria-hidden="true"><i></i><span>git push</span></div>
+            <div class="arch-node"><span class="arch-ico" aria-hidden="true">🖥️</span><h3>Mac Studio</h3><p>Where every asset was made · live within 2 min of a push</p></div>
+          </div>
+          <div class="live-grid">
+            <article class="live-card">
+              <p class="studio-k">Your trip here, live</p>
+              <p class="live-big" id="trip-text">Your request went through Cloudflare, down a tunnel over Starlink, and into a Raspberry Pi in Milton, Wisconsin.</p>
+              <dl class="live-facts" id="trip-facts"></dl>
+            </article>
+            <article class="live-card">
+              <p class="studio-k">The server, right now</p>
+              <p class="live-big" id="pi-text">A Raspberry Pi 4 with 2&nbsp;GB of RAM, in my basement.</p>
+              <dl class="live-facts" id="pi-facts"></dl>
+            </article>
+          </div>
+          <p class="written written-route"><strong>And the sidebar?</strong> It's a traceroute of your own request, told one hop per section. Your request really did reach Cloudflare (the data center is the one that answered you), then came down a tunnel over Starlink to the Pi. My house has no public IPv4 address: Starlink puts it behind carrier-grade NAT, so nothing on the internet can dial in. Instead, cloudflared on the Pi dials <em>out</em> to Cloudflare over IPv6 and holds four encrypted connections open, and your request rides one of them home. The first half of the trip is simulated: the ISP, the transit networks and every metric are made up, but IS-IS really runs Dijkstra and BGP really walks its best-path rules, right in your browser. <span class="if-hover">Hover over it</span><span class="if-touch">Tap the strip under the menu</span> for the full traceroute. Thirteen years in carrier networking will do that to a scroll bar.</p>
+        </div>
+      </li>
+      <li class="howto-step reveal">
+        <p class="howto-n">04</p>
+        <div class="howto-body">
+          <h3>Ship with git</h3>
+          <p>The source is <a href="https://github.com/noobcicle/portfolio">on GitHub</a>. A cron job on the Pi pulls it every two minutes, so a push is live before I&rsquo;ve switched windows. My Home Lab monitor checks the live site every two minutes, too, and it fails loudly if the site goes down.</p>
+          <pre class="howto-code"><code><span class="hc-c"># /etc/cron.d/okay-cool on the Pi</span>
+*/2 * * * *  thaddeus  /opt/okay-cool/repo/ops/pi/deploy.sh</code></pre>
+        </div>
+      </li>
+      <li class="howto-step reveal">
+        <p class="howto-n">05</p>
+        <div class="howto-body">
+          <h3>Make the art, music and voices yourself</h3>
+          <p>Everything you see and hear here was generated on my Mac Studio: the pictures with Qwen-Image, the theme song and soundtrack with ACE-Step, the tour guide&rsquo;s voice with VoxCPM2 and Lord Pemberton&rsquo;s with Kokoro. Generate a lot and keep the best: every picture and every narration chapter was picked from several takes. Each one carries a small credit with its model and settings, so you can make your own.</p>
+          <p class="howto-tip"><b>Your turn</b> You don&rsquo;t need a Mac Studio to start. Kokoro voices run on a laptop, and the image and music models run on a gaming PC with a good graphics card.</p>
+        </div>
+        <div class="howto-wide">
+          <div class="studio-grid">
+            <figure class="studio-card studio-art">
+              <video class="studio-video" id="studio-video" muted loop playsinline preload="none" poster="assets/img/art/gummy_fiber.webp" aria-label="AI-generated video: the gummy-worm fiber art brought to life, light pulses racing through the strands">
+                <source src="assets/video/gummy_fiber.mp4" type="video/mp4">
+              </video><span class="ai-chip ai-chip-card"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>MiniMax H3, image to video · 1344×768 · 124 frames · 10 steps · seed 3838365876 · 31 min of GPU time</span><span>From a Qwen-Image 2.1 still (Q8_0 GGUF · 25 steps · CFG 1 · seed 169754718)</span></span>
+              <figcaption><span class="studio-k">Art → video</span> Qwen-Image 2.1 painted the still on my Mac Studio in about a minute. Then MiniMax H3 animated it: five seconds of video for 31 minutes of local GPU time. Gummy worms as fiber: the whole site's look in one shot.</figcaption>
+            </figure>
 
-        <h3 class="made-title-2">Made here, on my own hardware</h3>
-        <div class="studio-grid">
-          <figure class="studio-card studio-art">
-            <video class="studio-video" id="studio-video" muted loop playsinline preload="none" poster="assets/img/art/gummy_fiber.webp" aria-label="AI-generated video: the gummy-worm fiber art brought to life, light pulses racing through the strands">
-              <source src="assets/video/gummy_fiber.mp4" type="video/mp4">
-            </video><span class="ai-chip ai-chip-card"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>MiniMax H3, image to video · 1344×768 · 124 frames · 10 steps · seed 3838365876 · 31 min of GPU time</span><span>From a Qwen-Image 2.1 still (Q8_0 GGUF · 25 steps · CFG 1 · seed 169754718)</span></span>
-            <figcaption><span class="studio-k">Art → video</span> Qwen-Image 2.1 painted the still on my Mac Studio in about a minute. Then MiniMax H3 animated it: five seconds of video for 31 minutes of local GPU time. Gummy worms as fiber: the whole site's look in one shot.</figcaption>
-          </figure>
-
-          <article class="studio-card studio-song">
-            <p class="studio-k">Theme song</p>
-            <h3>&ldquo;Okay, Cool&rdquo;</h3>
-            <p>Yes, this site has a theme song: a sugar-rush pop number about a tiny website in a basement and the robots who do its chores. Rendered locally with ACE-Step 1.5 XL and mastered to −14 LUFS. It's introduced by Lord Pemberton, my AI radio DJ, who does not approve.</p>
-            <div class="player" data-player data-src="assets/audio/theme.mp3?v=e4cf4d31" data-intro="assets/audio/pemberton.mp3?v=5b6f97c8"
-                 data-intro-credit="Kokoro-82M on MLX · voice bm_lewis · speed 0.95 · natural pitch"
-                 data-credit="ACE-Step 1.5 XL (SFT) · 4B language model · 50 steps · CFG 5 · 124 BPM, A major · seed 20261012 · mastered to −14 LUFS">
-              <button class="player-btn" type="button" aria-label="Play the theme song">
-                <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
-                <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>
-              </button>
-              <div class="player-body">
-                <p class="player-now">Lord Pemberton, then the song</p>
-                <div class="player-bar"><i></i></div>
+            <article class="studio-card studio-song">
+              <p class="studio-k">Theme song</p>
+              <h3>&ldquo;Okay, Cool&rdquo;</h3>
+              <p>Yes, this site has a theme song: a sugar-rush pop number about a tiny website in a basement and the robots who do its chores. Rendered locally with ACE-Step 1.5 XL and mastered to −14 LUFS. It's introduced by Lord Pemberton, my AI radio DJ, who does not approve.</p>
+              <div class="player" data-player data-src="assets/audio/theme.mp3?v=e4cf4d31" data-intro="assets/audio/pemberton.mp3?v=5b6f97c8"
+                   data-intro-credit="Kokoro-82M on MLX · voice bm_lewis · speed 0.95 · natural pitch"
+                   data-credit="ACE-Step 1.5 XL (SFT) · 4B language model · 50 steps · CFG 5 · 124 BPM, A major · seed 20261012 · mastered to −14 LUFS">
+                <button class="player-btn" type="button" aria-label="Play the theme song">
+                  <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+                  <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>
+                </button>
+                <div class="player-body">
+                  <p class="player-now">Lord Pemberton, then the song</p>
+                  <div class="player-bar"><i></i></div>
+                </div>
+                <span class="player-time">0:00</span>
               </div>
-              <span class="player-time">0:00</span>
-            </div>
-            <p class="ai-line player-ai"><b>Generated locally on Mike&rsquo;s Mac Studio</b> <span class="player-credit">Lord Pemberton: Kokoro-82M on MLX · voice bm_lewis · speed 0.95 · natural pitch. The song: ACE-Step 1.5 XL (SFT) · 4B language model · 50 steps · CFG 5 · 124 BPM, A major · seed 20261012 · mastered to −14 LUFS</span></p>
-            <details class="lyrics"><summary>Lyrics</summary>
-<pre>[intro]
-Ooh, ooh, okay, cool
+              <p class="ai-line player-ai"><b>Generated locally on Mike&rsquo;s Mac Studio</b> <span class="player-credit">Lord Pemberton: Kokoro-82M on MLX · voice bm_lewis · speed 0.95 · natural pitch. The song: ACE-Step 1.5 XL (SFT) · 4B language model · 50 steps · CFG 5 · 124 BPM, A major · seed 20261012 · mastered to −14 LUFS</span></p>
+              <details class="lyrics"><summary>Lyrics</summary>
+  <pre>[intro]
+  Ooh, ooh, okay, cool
 
-[verse]
-Down in a basement where the winters are long
-A little Raspberry Pi hums a happy song
-A packet came a-knocking, pink and blue and bright
-It rode up to a satellite and back down tonight
+  [verse]
+  Down in a basement where the winters are long
+  A little Raspberry Pi hums a happy song
+  A packet came a-knocking, pink and blue and bright
+  It rode up to a satellite and back down tonight
 
-[pre-chorus]
-And all the little robots say, we've got this one
-They do the boring stuff, so the people have fun
+  [pre-chorus]
+  And all the little robots say, we've got this one
+  They do the boring stuff, so the people have fun
 
-[chorus]
-Okay, cool! Okay, cool!
-Gummy worms and fiber light, everything's alright
-Okay, cool! Okay, cool!
-Do it once, do it twice, then the robots get it right
-Okay, cool!
+  [chorus]
+  Okay, cool! Okay, cool!
+  Gummy worms and fiber light, everything's alright
+  Okay, cool! Okay, cool!
+  Do it once, do it twice, then the robots get it right
+  Okay, cool!
 
-[verse]
-A computer's dreaming up a picture and a tune
-It paints a little garden and a candy-colored moon
-No clouds were rented, nobody's watching you here
-Just a tiny little server, glad you came, my dear
+  [verse]
+  A computer's dreaming up a picture and a tune
+  It paints a little garden and a candy-colored moon
+  No clouds were rented, nobody's watching you here
+  Just a tiny little server, glad you came, my dear
 
-[bridge]
-Ping, ping, the packet sings
-Hop by hop on gummy wings
-Frame to packet, packet to you
-Pink to violet, violet to blue
+  [bridge]
+  Ping, ping, the packet sings
+  Hop by hop on gummy wings
+  Frame to packet, packet to you
+  Pink to violet, violet to blue
 
-[chorus]
-Okay, cool! Okay, cool!
-Gummy worms and fiber light, everything's alright
-Okay, cool! Okay, cool!
-Do it once, do it twice, then the robots get it right
-Okay, cool!
+  [chorus]
+  Okay, cool! Okay, cool!
+  Gummy worms and fiber light, everything's alright
+  Okay, cool! Okay, cool!
+  Do it once, do it twice, then the robots get it right
+  Okay, cool!
 
-[outro]
-Okay, cool</pre>
-            </details>
-          </article>
+  [outro]
+  Okay, cool</pre>
+              </details>
+            </article>
 
-          <article class="studio-card studio-voice">
-            <p class="studio-k">Narrator</p>
-            <h3>The audio tour</h3>
-            <p>Your guide's voice was designed, not cloned: VoxCPM2 made her from a text description (a woman in her mid thirties with a warm, natural, mid-pitched American voice, expressive and unhurried), and she performs each chapter on the Mac Studio with its own stage direction. Every chapter was cast from six takes: Whisper had to hear every word, and the liveliest take that still sounded like her got the part. Nobody's real voice was used. Turn it on and each chapter gets read to you as you scroll, with captions. The soundtrack ducks under her automatically.</p>
-            <p class="ai-line"><b>Generated locally on Mike&rsquo;s Mac Studio</b> VoxCPM2 · a voice designed from a text description · a stage direction per chapter · best of 6 takes · 48 kHz</p>
-            <button class="btn btn-small btn-gummy" type="button" data-tour-toggle>Start the tour</button>
-          </article>
+            <article class="studio-card studio-voice">
+              <p class="studio-k">Narrator</p>
+              <h3>The audio tour</h3>
+              <p>Your guide&rsquo;s voice was designed, not cloned: VoxCPM2 made him from a text description (a deep, calm older man, slow and warm, like a wise storyteller), and he reads each chapter on the Mac Studio with its own stage direction. Every chapter was cast from six takes: Whisper had to hear every word, and the most unhurried take that still sounded like him got the part. Nobody&rsquo;s real voice was used. Turn it on and each chapter is read to you as you scroll, with captions. The soundtrack ducks under him automatically.</p>
+              <p class="ai-line"><b>Generated locally on Mike&rsquo;s Mac Studio</b> VoxCPM2 · a voice designed from a text description · a stage direction per chapter · best of 6 takes · 48 kHz</p>
+              <button class="btn btn-small btn-gummy" type="button" data-tour-toggle>Start the tour</button>
+            </article>
 
-          <article class="studio-card studio-sound">
-            <p class="studio-k">Soundtrack</p>
-            <h3>&ldquo;Fiber Light&rdquo;</h3>
-            <p>An instrumental bed made locally with ACE-Step 1.5, with a soft synth pad and a gentle drum build layered under it, looped so you can't hear the seam. It stays off until you ask for it.</p>
-            <p class="ai-line"><b>Generated locally on Mike&rsquo;s Mac Studio</b> ACE-Step 1.5 XL (SFT) · 50 steps · CFG 5 · 84 BPM, D major · seed 1624439884 · pad and drums synthesized in Python</p>
-            <button class="btn btn-small btn-ghost" type="button" data-sound-toggle>Play the soundtrack</button>
-          </article>
+            <article class="studio-card studio-sound">
+              <p class="studio-k">Soundtrack</p>
+              <h3>&ldquo;Fiber Light&rdquo;</h3>
+              <p>An instrumental bed made locally with ACE-Step 1.5, with a soft synth pad and a gentle drum build layered under it, looped so you can't hear the seam. It stays off until you ask for it.</p>
+              <p class="ai-line"><b>Generated locally on Mike&rsquo;s Mac Studio</b> ACE-Step 1.5 XL (SFT) · 50 steps · CFG 5 · 84 BPM, D major · seed 1624439884 · pad and drums synthesized in Python</p>
+              <button class="btn btn-small btn-ghost" type="button" data-sound-toggle>Play the soundtrack</button>
+            </article>
 
-          <figure class="studio-card studio-making">
-            <img decoding="async" src="assets/img/shots/hub_render.webp" alt="Screenshot: the Hub's Image Studio rendering the gummy robot picture, live preview at diffusion step 8 of 25" loading="lazy" width="1097" height="599">
-            <figcaption><span class="studio-k">Making of</span> My Image Studio, mid-render on the picture next to it: live preview at step 8 of 25, with four more of this page's images queued behind it.</figcaption>
-          </figure>
-          <figure class="studio-card studio-agents">
-            <img decoding="async" src="assets/img/art/agents.webp" alt="AI-generated art: tiny gummy-candy robots queueing with notes for a human to stamp" loading="lazy"><span class="ai-chip ai-chip-card"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>Qwen-Image 2.1 (Q8_0 GGUF) · 1376×768 · 25 steps · CFG 1 · seed 2123152175</span></span>
-            <figcaption><span class="studio-k">The idea, illustrated</span> The robots line up with their requests. A human holds the stamp.</figcaption>
-          </figure>
-          <figure class="studio-card studio-neon">
-            <img decoding="async" src="assets/img/art/neon_sign.webp" alt="AI-generated art: a pink and blue neon sign reading okay, cool. on a brick wall" loading="lazy"><span class="ai-chip ai-chip-card"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>Qwen-Image 2.1 (Q8_0 GGUF) · 1376×768 · 25 steps · CFG 1 · seed 2463045056</span></span>
-            <figcaption><span class="studio-k">Text rendering</span> Yes, the same local model can spell. First take, too.</figcaption>
-          </figure>
+            <figure class="studio-card studio-making">
+              <img decoding="async" src="assets/img/shots/hub_render.webp" alt="Screenshot: the Hub's Image Studio rendering the gummy robot picture, live preview at diffusion step 8 of 25" loading="lazy" width="1097" height="599">
+              <figcaption><span class="studio-k">Making of</span> My Image Studio, mid-render on the picture next to it: live preview at step 8 of 25, with four more of this page's images queued behind it.</figcaption>
+            </figure>
+            <figure class="studio-card studio-agents">
+              <img decoding="async" src="assets/img/art/agents.webp" alt="AI-generated art: tiny gummy-candy robots queueing with notes for a human to stamp" loading="lazy"><span class="ai-chip ai-chip-card"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>Qwen-Image 2.1 (Q8_0 GGUF) · 1376×768 · 25 steps · CFG 1 · seed 2123152175</span></span>
+              <figcaption><span class="studio-k">The idea, illustrated</span> The robots line up with their requests. A human holds the stamp.</figcaption>
+            </figure>
+            <figure class="studio-card studio-neon">
+              <img decoding="async" src="assets/img/art/neon_sign.webp" alt="AI-generated art: a pink and blue neon sign reading okay, cool. on a brick wall" loading="lazy"><span class="ai-chip ai-chip-card"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>Qwen-Image 2.1 (Q8_0 GGUF) · 1376×768 · 25 steps · CFG 1 · seed 2463045056</span></span>
+              <figcaption><span class="studio-k">Text rendering</span> Yes, the same local model can spell. First take, too.</figcaption>
+            </figure>
+          </div>
         </div>
-
-        <p class="written"><strong>And the words?</strong> They started as a week of voice interviews with an AI agent and got shaped with Claude Code. The opinions are all mine. The source is <a href="https://github.com/noobcicle/portfolio">on GitHub</a>, and every push to it is live on the Pi within two minutes.</p>
-      </div>
-    </details>
+      </li>
+      <li class="howto-step reveal">
+        <p class="howto-n">06</p>
+        <div class="howto-body">
+          <h3>Keep it light, and keep it private</h3>
+          <p>One page, no framework, no trackers and no third-party requests. A strict Content Security Policy blocks anything that isn&rsquo;t mine, and Cloudflare handles the TLS and the caching. Your visit is between you and a Raspberry Pi.</p>
+        </div>
+      </li>
+    </ol>
   </div>
 </section>
 

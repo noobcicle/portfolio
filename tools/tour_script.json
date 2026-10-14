@@ -1,60 +1,67 @@
 {
- "voice": {
-  "engine": "voxcpm2",
-  "studio_profile": "ffcfd4dd",
-  "name": "Okay Cool Narrator (designed)",
-  "design": "VoxCPM2 voice design from a text description only (a woman in her mid thirties; warm, natural, mid-pitched American voice; expressive, unhurried; design seed 15), saved as a Voice Studio profile. No real person's audio.",
-  "takes": 6
- },
- "clips": {
-  "intro": {
-   "text": "Hi! Welcome in. I'll be your guide for this little tour. Quick confession: I'm an AI voice, made on Mike's Mac Studio, down in his basement. Mike spent thirteen years on a carrier network, taking the hard tickets and making the changes that had to go right. Scroll at your own pace. I'll keep up.",
-   "mood": "warm, bright and playful, welcoming a guest"
+  "voice": {
+    "engine": "voxcpm2",
+    "studio_profile": "bb820848",
+    "name": "Okay Cool Guide (designed, deep)",
+    "design": "VoxCPM2 voice design from a text description only (a deep, calm older man; slow, unhurried and warm; low resonant voice; gentle British accent; like a wise storyteller). Seed 3 of six on that description, picked from 18 candidates for depth, calm, age and clarity, and saved as a Voice Studio profile. No real person's audio.",
+    "takes": 6,
+    "prefer": "unhurried",
+    "pause_extra": 0.8,
+    "pause_cap": 0.45
   },
-  "tldr": {
-   "text": "Okay, the short version, for the busy ones. Thirteen years at Charter. Circuits, escalations, and overnight maintenance on production routers, from BGP policy to quality of service. Then the dev-ops team, on a platform that found and secured hundreds of thousands of devices. Next? A small team, anywhere from Madison to Milwaukee.",
-   "mood": "brisk, confident and warm"
+  "clips": {
+    "intro": {
+      "text": "Ah, welcome. I'll be your guide for this little tour. A quick confession: I'm an AI voice, made on Mike's Mac Studio, down in his basement. Mike spent thirteen years on a carrier network, taking the hard tickets and making the changes that had to go right. Take your time. I'll keep up.",
+      "mood": "slow, calm and warm, a deep unhurried welcome"
+    },
+    "tldr": {
+      "text": "The short version, for the busy ones. Thirteen years at Charter: circuits, escalations, and overnight maintenance on production routers, from BGP policy to quality of service. Then the dev-ops team, on a platform that found and secured hundreds of thousands of devices. Next? A small team, anywhere from Madison to Milwaukee.",
+      "mood": "calm and measured, unhurried"
+    },
+    "story": {
+      "text": "So. How he got here. Tech school. Then Charter, in 2013, turning up fiber circuits for business customers. A spreadsheet tool the whole team ended up using. A new set of standards after a big merger. Then Python, overnight maintenance windows, and a spot on the dev-ops team.",
+      "mood": "slow and warm, telling a story by the fire"
+    },
+    "contact": {
+      "text": "Want to talk? His email is right here, and he really does reply quickly. Okay, cool. Now, on to what he's built.",
+      "mood": "warm and calm, a gentle invitation"
+    },
+    "projects": {
+      "text": "First, the work he did by hand. At Charter, that meant tools for the network and dev-ops teams: config generators, standards audits, migration procedures, and a morning report on the night's changes. The code stayed at Charter, so these are described rather than shown.",
+      "mood": "calm and measured, quietly proud"
+    },
+    "before": {
+      "text": "And at home, where it all started. Years before any of the rest, Mike was wiring up garage doors, plant waterers, and pepper sensors, all by hand. Even a bot that played a video game for him. Tinkerers are a stubborn bunch.",
+      "mood": "slow and fond, a little amused"
+    },
+    "ai": {
+      "text": "And these days? He works with AI. It does the typing. He decides what gets built, and nothing that matters happens without his yes. Here is what that has built. GrowYear first: a garden planner that went from an idea to a finished app, live on the internet.",
+      "mood": "calm and wise, unhurried"
+    },
+    "lab": {
+      "text": "Now, the workshop beneath the house. Watch your head. Five machines, each with its own jobs. A control room for the AI. A house voice named Thaddeus, who reads tornado warnings at three in the morning. Monitoring that makes failures loud. His family uses most of it. Some of them even like it.",
+      "mood": "slow and warm, giving a quiet tour"
+    },
+    "garden": {
+      "text": "A gardener who starts young gets about sixty gardens in a lifetime. Sixty. That's not very many, is it? That's why Mike builds these tools: so the computers take more of the chores, and his family gets more of him.",
+      "mood": "very slow, gentle and tender"
+    },
+    "built": {
+      "text": "Last stop: how he made this page, so you can make one too. Every word on it started with him. The pictures, the music, and, yes, me: all made on his Mac Studio. And the page comes to you from a Raspberry Pi in his basement, by way of a satellite. That's the tour. Thanks for stopping by.",
+      "mood": "warm and calm, then a gentle goodbye"
+    }
   },
-  "contact": {
-   "text": "Want to talk? His email is right here, and he really does reply quickly. Okay, cool. Now, on to what he's built.",
-   "mood": "warm, a cheerful invitation"
-  },
-  "projects": {
-   "text": "First up, GrowYear: a garden planner he took from an idea to a finished app, live on the internet. Then the work itself: the tools he built at Charter, and the projects he runs at home.",
-   "mood": "bright and curious, showing it off a little"
-  },
-  "story": {
-   "text": "So here's how he got here. Tech school. Then Charter, in 2013, turning up fiber circuits for business customers. A spreadsheet tool the whole team ended up using. A new set of standards after a big merger. Then Python, overnight maintenance windows, and a spot on the dev-ops team.",
-   "mood": "warm and fond, telling a story"
-  },
-  "before": {
-   "text": "Now, where it all started. Years before any of the rest, Mike was wiring up garage doors, plant waterers, and pepper sensors, all by hand. Tinkerers are a stubborn bunch.",
-   "mood": "fond, a little teasing"
-  },
-  "lab": {
-   "text": "And now, the workshop beneath the house. Watch your head. A control room where nothing important happens without his okay. A stock dashboard that pinned people's tweets right onto the price chart. A house voice named Thaddeus, who reads tornado warnings at three in the morning. Monitoring that makes failures loud. And a garden planner called GrowYear, which is live on the internet now. His family uses most of it. Some of them even like it.",
-   "mood": "proud and playful, giving a tour"
-  },
-  "garden": {
-   "text": "A gardener who starts young gets about sixty gardens in a lifetime. Sixty. That's not very many, is it? That's why Mike builds these tools: so the computers take more of the chores, and his family gets more of him.",
-   "mood": "gentle and tender"
-  },
-  "built": {
-   "text": "Okay, this part is fun. The pictures, the music, and, yes, me: all made on Mike's Mac Studio. And the page itself comes to you from a Raspberry Pi in his basement, by way of a satellite. That's the tour! Thanks for stopping by.",
-   "mood": "excited and full of wonder, then a cheerful goodbye"
+  "extras": {
+    "pemberton": {
+      "voice": {
+        "voice": "bm_lewis",
+        "lang_code": "b",
+        "kspeed": 0.95,
+        "pitch": 0.0,
+        "clarity": false,
+        "speed": 1.0
+      },
+      "text": "Good evening, and welcome back to Okay Cool Radio. I am Lord Pemberton, and I am obliged by contract to introduce the following number. It was composed entirely by machine, in a basement in Milton, Wisconsin, about a tiny website and its little robots. I am told it is cute. I remain unconvinced. Here it is. Okay, Cool."
+    }
   }
- },
- "extras": {
-  "pemberton": {
-   "voice": {
-    "voice": "bm_lewis",
-    "lang_code": "b",
-    "kspeed": 0.95,
-    "pitch": 0.0,
-    "clarity": false,
-    "speed": 1.0
-   },
-   "text": "Good evening, and welcome back to Okay Cool Radio. I am Lord Pemberton, and I am obliged by contract to introduce the following number. It was composed entirely by machine, in a basement in Milton, Wisconsin, about a tiny website and its little robots. I am told it is cute. I remain unconvinced. Here it is. Okay, Cool."
-  }
- }
 }

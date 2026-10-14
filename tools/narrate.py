@@ -1,9 +1,9 @@
 """Render the audio tour and Lord Pemberton's intro on the Mac Studio.
 
-The narrator is performed by VoxCPM2 in the hub's Voice Studio from the voice profile
-"Okay Cool Narrator (designed)". The voice was designed, not cloned: VoxCPM2 generated it from a
-text description (a woman in her mid thirties with a warm, natural, mid-pitched American voice,
-expressive and unhurried), and the chosen design take became the profile's reference. No real
+The guide is performed by VoxCPM2 in the hub's Voice Studio from the voice profile named in
+tour_script.json ("Okay Cool Guide (designed, deep)"). The voice was designed, not cloned: VoxCPM2
+generated candidates from a text description (a deep, calm older man, slow and warm, like a wise
+storyteller), the deepest, calmest and clearest of 18 became the profile's reference, and no real
 person's audio went into it. Lord Pemberton is a Kokoro preset (bm_lewis).
 
 VoxCPM2 isn't deterministic, so every chapter is a casting call:
@@ -14,8 +14,9 @@ VoxCPM2 isn't deterministic, so every chapter is a casting call:
     ~/apps/voicebox/.venv-mlx/bin/python tools/narrate.py pemberton
 
 Casting rules: Whisper has to hear the script back word for word, and WavLM has to hear the same
-narrator as the reference, at her usual pitch. Then Praat drops the raspiest takes, the rushed
-ones, and any that crack into another register; the most animated of what's left gets the part.
+narrator as the reference, at his usual pitch. Then Praat drops the raspiest takes, the rushed
+ones, and any that crack into another register. Of what's left, the voice's "prefer" setting picks:
+the most animated take, or (for the guide) the most unhurried one.
 Takes live in tools/takes/, which isn't in git.
 """
 import difflib
@@ -113,17 +114,22 @@ def judge(path, text, ref):
     }
 
 
-def cast(takes, voice):
-    """Right words and the same narrator first; then the clearest, unhurried, most animated take."""
+def cast(takes, voice, prefer="animated"):
+    """Right words and the same narrator first; then the clearest, unhurried take, the most
+    animated (or, with prefer="unhurried", the slowest) of them."""
     pool = [t for t in takes if t["match"] == 1 and t["extra"] == 0 and t["sim"] >= 0.93
             and abs(12 * math.log2(t["f0"] / voice["f0"])) <= 2.5]
-    # her livelier takes run a little breathier (lower HNR) without any rasp, so the clarity
-    # floor is loose; it only drops a take that's audibly rough next to her usual sound
+    # livelier takes run a little breathier (lower HNR) without any rasp, so the clarity
+    # floor is loose; it only drops a take that's audibly rough next to the usual sound
     for keep in (lambda t: t["hnr"] >= voice["hnr"] - 1.5,  # not the roughest
                  lambda t: t["wpm"] <= 195,                   # not rushed
                  lambda t: t["range"] <= 18):                 # wider is a voice crack, not acting
         pool = [t for t in pool if keep(t)] or pool
-    return max(pool, key=lambda t: t["range"]) if pool else None
+    if not pool:
+        return None
+    if prefer == "unhurried":
+        return min(pool, key=lambda t: (t["wpm"], -t["range"]))
+    return max(pool, key=lambda t: t["range"])
 
 
 # ---- finishing --------------------------------------------------------------------------------
@@ -149,11 +155,11 @@ def stretch_pauses(y, sr, extra=0.5, cap=0.3, lead=0.12, tail=0.45):
     return np.concatenate(pieces)
 
 
-def master(take, dest):
+def master(take, dest, extra=0.5, cap=0.3):
     y, sr = sf.read(take, dtype="float32")
     with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as fh:
         tmp = fh.name
-    sf.write(tmp, stretch_pauses(y, sr), sr)
+    sf.write(tmp, stretch_pauses(y, sr, extra=extra, cap=cap), sr)
     # two-pass, linear loudness: the whole clip moves to -16 LUFS without squashing the theatrics
     probe = subprocess.run([FFMPEG, "-hide_banner", "-i", tmp, "-af",
                             "highpass=f=60,loudnorm=I=-16:TP=-1.5:LRA=20:print_format=json", "-f", "null", "-"],
@@ -232,7 +238,7 @@ def cmd_takes(script, only):
 
 def cmd_pick(script, only):
     rows = [json.loads(line) for line in open(os.path.join(TAKES, "scores.jsonl"))]
-    # the narrator's own voice, across every take: her speaking pitch and how clear she usually is
+    # the narrator's own voice, across every take: the usual speaking pitch and how clear it is
     voice = {k: float(np.median([r[k] for r in rows])) for k in ("f0", "hnr")}
     manifest_path = os.path.join(OUT, "tour.json")
     manifest = json.load(open(manifest_path)) if os.path.exists(manifest_path) else {"clips": {}}
@@ -240,12 +246,13 @@ def cmd_pick(script, only):
         if only and key not in only:
             continue
         mine = [r for r in rows if r["key"] == key and os.path.exists(os.path.join(TAKES, r["file"]))]
-        best = cast(mine, voice)
+        best = cast(mine, voice, script["voice"].get("prefer", "animated"))
         if not best:
             sys.exit(f"{key}: no take passed (best match {max(r['match'] for r in mine):.2f}); run more takes")
         name = f"tour-{key}.mp3"
         dest = os.path.join(OUT, name)
-        master(os.path.join(TAKES, best["file"]), dest)
+        master(os.path.join(TAKES, best["file"]), dest,
+               extra=script["voice"].get("pause_extra", 0.5), cap=script["voice"].get("pause_cap", 0.3))
         # mp3s are cached for a week at Cloudflare's edge and in browsers, so the URL carries
         # a content hash: a re-rendered clip is a new URL, and nobody hears the old one
         ver = hashlib.sha1(open(dest, "rb").read()).hexdigest()[:8]

@@ -314,12 +314,6 @@ $$('.ptrack, .before-track').forEach(t => {
   new ResizeObserver(() => syncPnav(t)).observe(t);
 });
 
-// ------------------------------------------------------------------ the making-of card opens itself when a link points at it
-const madeDetails = $('#made-details');
-function openMade() { if (madeDetails && !madeDetails.open) madeDetails.open = true; }
-document.addEventListener('click', (e) => { if (e.target.closest('a[href="#made"]')) openMade(); });
-if (location.hash === '#made') openMade();
-
 // ------------------------------------------------------------------ studio video: play only while on screen
 const video = $('#studio-video');
 if (video && !reduce) {
