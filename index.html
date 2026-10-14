@@ -82,12 +82,12 @@
       <svg class="i-stop" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10H7z" fill="currentColor"/></svg>
       <span class="tour-label">Audio tour</span>
     </button>
-    <a class="pill-btn pill-solid" href="#resume">Résumé</a>
+    <a class="pill-btn pill-solid" href="resume/">Résumé</a>
     <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu"><span></span><span></span></button>
   </div>
 </header>
 <div class="mobile-menu" id="mobile-menu" hidden>
-  <a href="#tldr">About</a><a href="#story">Story</a><a href="#skills">Skills</a><a href="#resume">Résumé</a><a href="#contact">Contact</a><a href="#projects">Projects</a><a href="#before">Early projects</a><a href="#hub">Hub</a><a href="#lab">Lab</a><a href="#made">How it's made</a>
+  <a href="#tldr">About</a><a href="#story">Story</a><a href="#skills">Skills</a><a href="resume/">Résumé</a><a href="#contact">Contact</a><a href="#projects">Projects</a><a href="#before">Early projects</a><a href="#hub">Hub</a><a href="#lab">Lab</a><a href="#made">How it's made</a>
 </div>
 
 <!-- the home-hosting story, told as a traceroute of your own request (assets/js/route.js):
@@ -357,7 +357,7 @@
   </div>
 </section>
 
-<!-- ===================================================== RÉSUMÉ: the designed one or the plain text version (same words), each as a page, a PDF or a DOCX -->
+<!-- ===================================================== RÉSUMÉ: the designed one or the ATS-friendly one (same words), each as a page, a PDF or a DOCX -->
 <section class="resume-pick" id="resume" aria-labelledby="resume-title">
   <div class="wrap">
     <header class="section-head">
@@ -387,22 +387,22 @@
         </div>
       </article>
       <article class="bring-card reveal">
-        <h3>Plain text version</h3>
-        <p>No design, just the words: high contrast, easy to read on a phone, and simple to print or copy.</p>
+        <h3>ATS-friendly version</h3>
+        <p>The same words with simpler formatting, so applicant tracking systems like Workday can read it.</p>
         <div class="brief-actions">
-          <a class="btn btn-gummy" href="resume/plain/">
+          <a class="btn btn-gummy" href="resume/#plain">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 10h14M5 14h14M5 18h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            Open the plain text version
+            Open the ATS-friendly version
           </a>
         </div>
         <div class="resume-files">
           <a class="btn btn-ghost btn-small" href="resume/Mike_Purpura_Resume_Plain.pdf" download>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Plain PDF
+            ATS-friendly PDF
           </a>
           <a class="btn btn-ghost btn-small" href="resume/Mike_Purpura_Resume_Plain.docx" download>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Plain DOCX
+            ATS-friendly DOCX
           </a>
         </div>
       </article>
@@ -1381,5 +1381,6 @@ anything else    &rarr;  404</code></pre>
 </svg>
 
 <script type="module" src="assets/js/site.js"></script>
+<script src="assets/js/track.js" defer></script>
 </body>
 </html>

@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Build every other form of the résumé from resume/index.html, word for word.
 
-resume/index.html is the only place the words live. Its Designed / Plain switch restyles those
+resume/index.html is the only place the words live. Its Designed / ATS-friendly switch restyles those
 same words in place, and this tool copies them into five files:
 
-    resume/plain/index.html               the plain text page
+    resume/plain/index.html               the ATS-friendly page
     resume/Mike_Purpura_Resume.pdf        the designed view, printed (two letter pages)
-    resume/Mike_Purpura_Resume_Plain.pdf  the plain view, printed (two letter pages)
+    resume/Mike_Purpura_Resume_Plain.pdf  the ATS-friendly view, printed (two letter pages)
     resume/Mike_Purpura_Resume.docx       Word, laid out like the designed view
-    resume/Mike_Purpura_Resume_Plain.docx Word, plain: one column, real headings and lists
+    resume/Mike_Purpura_Resume_Plain.docx Word, ATS-friendly: one column, real headings and lists
 
 Then it reads every file back and stops if a single word differs from resume/index.html or a PDF
 isn't exactly two pages. It stops on markup it doesn't know instead of guessing, so a new kind of
@@ -18,7 +18,7 @@ block in the résumé needs a line here too. Edit resume/index.html, then rerun:
     ... tools/resume_build.py --check    # change nothing; exit 1 if any file is out of date
 
 The PDFs are printed by headless Brave (or Chrome) from a throwaway local server. Only the QR code
-and the diamond bullets stay out of the plain forms, because they're pictures, not words; the two
+and the diamond bullets stay out of the ATS-friendly forms, because they're pictures, not words; the two
 lines at the foot of the page are screen-only, so the printed forms leave them out too.
 """
 import argparse
@@ -63,7 +63,7 @@ VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "met
 BLOCK = {"address", "article", "br", "dd", "div", "dl", "dt", "figcaption", "figure", "footer", "h1", "h2", "h3",
          "h4", "header", "li", "main", "nav", "ol", "p", "section", "ul"}
 DOWNLOADS = [("Designed PDF", DESIGNED_PDF), ("Designed DOCX", DESIGNED_DOCX),
-             ("Plain PDF", PLAIN_PDF), ("Plain DOCX", PLAIN_DOCX)]
+             ("ATS-friendly PDF", PLAIN_PDF), ("ATS-friendly DOCX", PLAIN_DOCX)]
 
 
 # ------------------------------------------------------------------ reading resume/index.html
@@ -193,7 +193,7 @@ def read_source(text):
     return src, sheet, email
 
 
-# ------------------------------------------------------------------ the plain text page
+# ------------------------------------------------------------------ the ATS-friendly page
 
 CSS = """\
 :root { color-scheme: light dark; --bg: #fff; --ink: #111; --dim: #3b3b3b; --line: #c9c9c9; --link: #0b4fb3; }
@@ -252,7 +252,7 @@ PAGE = """\
 <meta name="color-scheme" content="light dark">
 <link rel="canonical" href="https://okay-cool.net/resume/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<!-- The plain text version of the résumé, word for word from ../index.html (where the words live).
+<!-- The ATS-friendly version of the résumé, word for word from ../index.html (where the words live).
      Built by tools/resume_build.py: edit ../index.html, then rerun it. Don't edit this file by hand. -->
 <style>
 @CSS@
@@ -272,6 +272,7 @@ PAGE = """\
 @DOWNLOADS@
 </nav>
 <script src="/assets/js/resume.js" defer></script>
+<script src="/assets/js/track.js" defer></script>
 </body>
 </html>
 """
@@ -442,17 +443,17 @@ def _plain_body(sheet):
 
 
 def plain_page(source_html):
-    """The plain text page for this résumé. Raises if any word would change."""
+    """The ATS-friendly page for this résumé. Raises if any word would change."""
     src, sheet, _ = read_source(source_html)
     title = words(the_one(src, lambda n: n.tag == "title", "<title>"))
     desc = the_one(src, lambda n: n.is_("meta") and n.attrs.get("name") == "description", "meta description")
     downloads = "\n".join('  <a href="/%s" download>%s</a>' % (path, label) for label, path in DOWNLOADS)
-    page = (PAGE.replace("@TITLE@", esc(title + " · Plain text"))
+    page = (PAGE.replace("@TITLE@", esc(title + " · ATS-friendly"))
                 .replace("@DESCRIPTION@", html.escape(desc.attrs.get("content") or ""))
                 .replace("@CSS@", CSS)
                 .replace("@DOWNLOADS@", downloads)
                 .replace("@MAIN@", "\n".join(_plain_body(sheet))))
-    same_words("the plain text page", words(sheet),
+    same_words("the ATS-friendly page", words(sheet),
                words(the_one(Tree(page).root, lambda n: n.tag == "main", "<main> in the plain page")))
     return page
 
@@ -1007,7 +1008,7 @@ def plain_docx(m):
             elif kind == "list":
                 for x in b[1]:
                     w.bullet(d, dots, x, 10.5, "000000", after=2)
-    return w.finish(m["name"] + " · Résumé (plain)")
+    return w.finish(m["name"] + " · Résumé (ATS-friendly)")
 
 
 def docx_words(data):
@@ -1206,7 +1207,7 @@ def main():
     if not args.no_pdf:
         printed = print_pdfs(root, find_browser(args.browser))
         built[DESIGNED_PDF] = label_pdf(printed[DESIGNED_PDF], m["name"] + " · Résumé")
-        built[PLAIN_PDF] = label_pdf(printed[PLAIN_PDF], m["name"] + " · Résumé (plain)")
+        built[PLAIN_PDF] = label_pdf(printed[PLAIN_PDF], m["name"] + " · Résumé (ATS-friendly)")
     problems = check_files(root, want, built)
     if problems:
         print("Nothing written:\n" + "\n".join(problems), file=sys.stderr)
