@@ -1,6 +1,9 @@
 // Hero canvas: a small network whose packets are gummy worms of light.
 // Nodes are routers, edges are links, packets hop node to node along them.
 // Pointer pushes the mesh a little; a click pings the nearest router.
+// It's a background, so it's kept cheap: at most 30 frames a second at 1.5x resolution, links
+// batched into a few strokes, packet tails drawn from pre-made sprites, and it stops entirely
+// once you've scrolled away.
 
 const COLORS = ['#ff5ca8', '#c46bff', '#4c8dff', '#8fd3ff', '#ff9fd0'];
 
@@ -9,8 +12,10 @@ export function initHero(canvas, { reduceMotion = false } = {}) {
   let w = 0, h = 0, dpr = 1;
   let nodes = [], edges = [], adj = [], packets = [], pings = [];
   let pointer = { x: -9999, y: -9999, active: false };
-  let running = false, visible = true, raf = 0, last = 0, fade = 1, slow = 0;
-  const sprites = new Map();
+  let running = false, visible = true, raf = 0, last = 0, drawn = 0, fade = 1, slow = 0;
+  const sprites = new Map(), tails = new Map();
+  const FRAME = 1000 / 30;   // a background doesn't need 60 (or a ProMotion 120) frames a second
+  const LEVELS = 6;          // links are stroked in this many brightness buckets, not one by one
 
   function sprite(color) {
     if (sprites.has(color)) return sprites.get(color);
@@ -29,16 +34,30 @@ export function initHero(canvas, { reduceMotion = false } = {}) {
     return s;
   }
 
+  // a packet's tail: a short streak that fades out behind it, drawn once per color
+  function tail(color) {
+    if (tails.has(color)) return tails.get(color);
+    const s = document.createElement('canvas');
+    s.width = Math.round(26 * dpr); s.height = Math.round(6 * dpr);
+    const g = s.getContext('2d');
+    const grad = g.createLinearGradient(0, 0, s.width, 0);
+    grad.addColorStop(0, hexA(color, 0)); grad.addColorStop(1, hexA(color, 0.95));
+    g.strokeStyle = grad; g.lineWidth = 3.2 * dpr; g.lineCap = 'round';
+    g.beginPath(); g.moveTo(1.6 * dpr, s.height / 2); g.lineTo(s.width - 1.6 * dpr, s.height / 2); g.stroke();
+    tails.set(color, s);
+    return s;
+  }
+
   function build() {
     const rect = canvas.getBoundingClientRect();
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     w = Math.max(1, rect.width); h = Math.max(1, rect.height);
     canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    sprites.clear();
+    sprites.clear(); tails.clear();
 
     const area = w * h;
-    const target = Math.round(Math.min(110, Math.max(34, area / 15000)));
+    const target = Math.round(Math.min(90, Math.max(30, area / 16000)));
     const minD = Math.sqrt(area / target) * 0.62;
     nodes = [];
     let tries = 0;
@@ -65,7 +84,7 @@ export function initHero(canvas, { reduceMotion = false } = {}) {
         edges.push(e);
       }
     });
-    const pc = Math.round(nodes.length * (w < 700 ? 0.45 : 0.7));
+    const pc = Math.round(nodes.length * (w < 700 ? 0.4 : 0.6));
     packets = Array.from({ length: pc }, () => newPacket());
   }
 
@@ -120,28 +139,42 @@ export function initHero(canvas, { reduceMotion = false } = {}) {
     pings = pings.filter(g => g.a > 0);
   }
 
+  const buckets = Array.from({ length: LEVELS }, () => []);
   function draw() {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, w, h);
     ctx.globalAlpha = fade;
-    // links
-    ctx.lineWidth = 1;
+    // links, in a few brightness buckets
+    for (const b of buckets) b.length = 0;
     for (const e of edges) {
       const a = nodes[e.a], b = nodes[e.b];
       const lit = Math.max(e.heat * 0.5, (a.glow + b.glow) * 0.5);
-      ctx.strokeStyle = `rgba(205,180,255,${0.07 + lit * 0.22})`;
-      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      buckets[Math.min(LEVELS - 1, Math.round(lit * (LEVELS - 1)))].push(e);
     }
-    // routers
+    ctx.lineWidth = 1;
+    buckets.forEach((list, i) => {
+      if (!list.length) return;
+      ctx.strokeStyle = `rgba(205,180,255,${(0.07 + (i / (LEVELS - 1)) * 0.22).toFixed(3)})`;
+      ctx.beginPath();
+      for (const e of list) { const a = nodes[e.a], b = nodes[e.b]; ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); }
+      ctx.stroke();
+    });
+    // routers: the quiet ones in one path, the lit and big ones on their own
+    ctx.fillStyle = 'rgba(245,240,253,0.35)';
+    ctx.beginPath();
+    for (const n of nodes) if (!n.big && n.glow < 0.02) { ctx.moveTo(n.x + 1.7, n.y); ctx.arc(n.x, n.y, 1.7, 0, Math.PI * 2); }
+    ctx.fill();
     for (const n of nodes) {
+      if (!n.big && n.glow < 0.02) continue;
       const r = n.big ? 3.2 : 1.7;
-      ctx.fillStyle = `rgba(245,240,253,${0.35 + n.glow * 0.6})`;
+      ctx.fillStyle = `rgba(245,240,253,${(0.35 + n.glow * 0.6).toFixed(3)})`;
       ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, Math.PI * 2); ctx.fill();
       if (n.big) {
-        ctx.strokeStyle = `rgba(143,211,255,${0.25 + n.glow * 0.5})`;
+        ctx.strokeStyle = `rgba(143,211,255,${(0.25 + n.glow * 0.5).toFixed(3)})`;
         ctx.beginPath(); ctx.arc(n.x, n.y, r + 5 + n.glow * 4, 0, Math.PI * 2); ctx.stroke();
       }
     }
-    // packets: a soft glow plus a short gummy body along the link
+    // packets: a soft glow plus a short gummy tail along the link
     ctx.globalCompositeOperation = 'lighter';
     for (const p of packets) {
       const a = nodes[p.from], b = nodes[p.to];
@@ -149,14 +182,16 @@ export function initHero(canvas, { reduceMotion = false } = {}) {
       const x = a.x + (b.x - a.x) * p.t, y = a.y + (b.y - a.y) * p.t;
       const L = Math.hypot(b.x - a.x, b.y - a.y) || 1;
       const ux = (b.x - a.x) / L, uy = (b.y - a.y) / L;
-      const s = sprite(p.color), sz = 22;
-      ctx.drawImage(s, x - sz / 2, y - sz / 2, sz, sz);
-      const tail = Math.min(p.len, p.t * L);
-      const grad = ctx.createLinearGradient(x, y, x - ux * tail, y - uy * tail);
-      grad.addColorStop(0, hexA(p.color, 0.95)); grad.addColorStop(1, hexA(p.color, 0));
-      ctx.strokeStyle = grad; ctx.lineWidth = 3.2; ctx.lineCap = 'round';
-      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - ux * tail, y - uy * tail); ctx.stroke();
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.drawImage(sprite(p.color), x - 11, y - 11, 22, 22);
+      const len = Math.min(p.len, p.t * L);
+      if (len > 1) {
+        // rotate onto the link, so the tail's bright end sits on the packet
+        ctx.setTransform(dpr * ux, dpr * uy, -dpr * uy, dpr * ux, dpr * x, dpr * y);
+        ctx.drawImage(tail(p.color), -len, -3, len, 6);
+      }
     }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.globalCompositeOperation = 'source-over';
     for (const g of pings) {
       ctx.strokeStyle = `rgba(255,159,208,${Math.max(0, g.a)})`;
@@ -169,18 +204,19 @@ export function initHero(canvas, { reduceMotion = false } = {}) {
   function frame(t) {
     raf = 0;
     if (!running) return;
+    raf = requestAnimationFrame(frame);
+    if (drawn && t - drawn < FRAME - 2) return;   // hold to ~30 frames a second
     const dt = Math.min(0.05, (t - (last || t)) / 1000);
-    last = t;
-    // shed load on slow machines
-    if (dt > 0.03) { slow++; if (slow > 40 && packets.length > 20) { packets.length = Math.floor(packets.length * 0.75); slow = 0; } }
+    last = t; drawn = t;
+    // shed load on machines that can't keep up even at 30
+    if (dt > 0.045) { slow++; if (slow > 30 && packets.length > 20) { packets.length = Math.floor(packets.length * 0.75); slow = 0; } }
     else slow = Math.max(0, slow - 1);
     step(dt); draw();
-    raf = requestAnimationFrame(frame);
   }
 
   function start() {
-    if (running || reduceMotion || !visible || document.hidden) return;
-    running = true; last = 0; raf = requestAnimationFrame(frame);
+    if (running || reduceMotion || !visible || document.hidden || fade < 0.04) return;
+    running = true; last = 0; drawn = 0; raf = requestAnimationFrame(frame);
   }
   function stop() { running = false; if (raf) cancelAnimationFrame(raf); raf = 0; }
 
@@ -219,7 +255,9 @@ export function initHero(canvas, { reduceMotion = false } = {}) {
       if (Math.abs(v - fade) < 0.004 && v !== 0 && v !== 1) return;
       if (v === fade) return;
       fade = v;
-      if (!running && visible) draw();
+      // nearly faded out: stop drawing a canvas nobody can see; back near the top, start again
+      if (fade < 0.04) { if (running) { stop(); draw(); } }
+      else if (!running) { start(); if (!running && visible) draw(); }
     },
   };
 }

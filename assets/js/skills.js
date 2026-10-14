@@ -195,9 +195,13 @@ export function initSkills(root, { detail, table, reduceMotion = false } = {}) {
     }
     ctx.globalCompositeOperation = 'source-over';
   }
+  let lastDraw = 0;
   function frame(now) {
     raf = 0;
     if (!visible || !W) return;
+    // 30 frames a second is plenty for two slow light pulses
+    if (now - lastDraw < 31) { raf = requestAnimationFrame(frame); return; }
+    lastDraw = now;
     if (now >= nextAt && pulses.length < 2) {
       const pool = active ? LINKS.filter(([a, b]) => a === active || b === active) : LINKS;
       const [a, b] = pool[Math.floor(Math.random() * pool.length)];
