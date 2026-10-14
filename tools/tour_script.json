@@ -8,52 +8,40 @@
  },
  "clips": {
   "intro": {
-   "text": "Hi! Welcome in. I'll be your guide for this little tour. Quick confession: I'm an AI voice. I was made on Mike's Mac Studio, down in his basement, same as everything else on this website. Mike spent thirteen years keeping a carrier network running, and he really doesn't like doing anything twice. Scroll at your own pace. I'll keep up.",
+   "text": "Hi! Welcome in. I'll be your guide for this little tour. Quick confession: I'm an AI voice, made on Mike's Mac Studio, down in his basement. Mike spent thirteen years on a carrier network, taking the hard tickets and making the changes that had to go right. Scroll at your own pace. I'll keep up.",
    "mood": "warm, bright and playful, welcoming a guest"
   },
   "tldr": {
-   "text": "Okay, the short version, for the busy ones. Thirteen years as a network engineer at Charter. Python automation since 2020. Then two years on a dev-ops team. And now? AI tools, built and run on his own hardware. That's it. Short and sweet.",
-   "mood": "brisk, upbeat and amused"
+   "text": "Okay, the short version, for the busy ones. Thirteen years at Charter. Circuits, escalations, and overnight maintenance on production routers, from BGP policy to quality of service. Then the dev-ops team, on a platform that found and secured hundreds of thousands of devices. Next? A small team, anywhere from Madison to Milwaukee.",
+   "mood": "brisk, confident and warm"
   },
-  "built": {
-   "text": "Okay, this part is fun. Everything you see and hear on this page was made by AI models running on Mike's Mac Studio. The pictures, the music, and, yes, me. And the page itself? It comes to you from a Raspberry Pi in his basement, through a tunnel, by way of a satellite. Pretty cool, right?",
-   "mood": "excited, full of wonder"
+  "contact": {
+   "text": "Want to talk? His email is right here, and he really does reply quickly. Okay, cool. Now, on to what he's built.",
+   "mood": "warm, a cheerful invitation"
   },
-  "thesis": {
-   "text": "Mike lives by one rule, and honestly, it's a good one. Do it once, by hand. Do it twice, and grumble about it. The third time? A computer does it. The tools keep changing. The rule doesn't.",
-   "mood": "warm, knowing and amused"
+  "projects": {
+   "text": "First up, GrowYear: a garden planner he took from an idea to a finished app, live on the internet. Then the work itself: the tools he built at Charter, and the projects he runs at home.",
+   "mood": "bright and curious, showing it off a little"
   },
   "story": {
-   "text": "So here's how he got here. Tech school. Then Charter, in 2013, turning up fiber circuits by the thousand. A spreadsheet that turned an hour of work into five minutes. Then Python. Then a dev-ops team. And in June of 2026, one very big week: a new baby on Tuesday, and a closed office on Friday. Talk about a plot twist.",
+   "text": "So here's how he got here. Tech school. Then Charter, in 2013, turning up fiber circuits for business customers. A spreadsheet tool the whole team ended up using. A new set of standards after a big merger. Then Python, overnight maintenance windows, and a spot on the dev-ops team.",
    "mood": "warm and fond, telling a story"
   },
-  "numbers": {
-   "text": "So what did all those scripts actually add up to? Thousands of routers and other network devices, kept on standard, week after week. Hundreds of thousands of devices, found, inventoried and kept secure. And the hours nobody had to spend doing it all by hand? Honestly, too many to count.",
-   "mood": "impressed, a little amused"
+  "before": {
+   "text": "Now, where it all started. Years before any of the rest, Mike was wiring up garage doors, plant waterers, and pepper sensors, all by hand. Tinkerers are a stubborn bunch.",
+   "mood": "fond, a little teasing"
   },
   "lab": {
-   "text": "And now, the workshop beneath the house. Watch your head. A control room for all his AI. A stock dashboard that pinned people's tweets right onto the price chart. A house voice named Thaddeus, who reads tornado warnings at three in the morning. Monitoring that makes failures loud. And a garden planner called GrowYear, which is live on the internet now. His family uses most of it. Some of them even like it.",
+   "text": "And now, the workshop beneath the house. Watch your head. A control room where nothing important happens without his okay. A stock dashboard that pinned people's tweets right onto the price chart. A house voice named Thaddeus, who reads tornado warnings at three in the morning. Monitoring that makes failures loud. And a garden planner called GrowYear, which is live on the internet now. His family uses most of it. Some of them even like it.",
    "mood": "proud and playful, giving a tour"
-  },
-  "before": {
-   "text": "None of this started with AI. Long before any of it, Mike was wiring up garage doors, plant waterers, and pepper sensors, by hand. Tinkerers are a stubborn bunch. The AI just made him faster.",
-   "mood": "fond, a little teasing"
   },
   "garden": {
    "text": "A gardener who starts young gets about sixty gardens in a lifetime. Sixty. That's not very many, is it? That's why Mike builds these tools: so the computers take more of the chores, and his family gets more of him.",
    "mood": "gentle and tender"
   },
-  "how": {
-   "text": "How he works. Do it twice, then script it. Be the first one in. Make failures loud. And let the AI ask before it does anything that matters. Good rules, if you ask me.",
-   "mood": "warm and knowing"
-  },
-  "next": {
-   "text": "So, what's he looking for? A small team that wants the boring stuff gone. Anywhere from Madison to Milwaukee, hybrid if he can get it. If that sounds like your team, you're in the right place.",
-   "mood": "sincere and warm"
-  },
-  "contact": {
-   "text": "And that's the tour! If any of this sounds like your team, his email is right there. Go on, write to him. Okay, cool. Thanks for stopping by!",
-   "mood": "warm, a cheerful goodbye"
+  "built": {
+   "text": "Okay, this part is fun. The pictures, the music, and, yes, me: all made on Mike's Mac Studio. And the page itself comes to you from a Raspberry Pi in his basement, by way of a satellite. That's the tour! Thanks for stopping by.",
+   "mood": "excited and full of wonder, then a cheerful goodbye"
   }
  },
  "extras": {

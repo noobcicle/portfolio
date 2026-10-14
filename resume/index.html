@@ -4,146 +4,170 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mike Purpura · Résumé</title>
-<meta name="description" content="Résumé of Mike Purpura: network and AI automation engineer in Milton, Wisconsin. 13 years at Charter / Spectrum Enterprise, Python and GitLab automation, AI tooling.">
+<meta name="description" content="Résumé of Michael Purpura: Network Engineer III with 13 years in carrier networking at Charter Communications, automation and DevOps, Python, CI/CD. Milton, Wisconsin.">
 <meta name="theme-color" content="#0b0716">
 <link rel="canonical" href="https://okay-cool.net/resume/">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="Mike Purpura · Résumé">
-<meta property="og:description" content="Network engineer, then network DevOps, now an AI-first engineer. 13 years on a carrier network, Python automation since 2020, AI tools every day.">
+<meta property="og:description" content="Network Engineer III: 13 years in carrier networking at Charter Communications, automation and DevOps with Python and CI/CD.">
 <meta property="og:image" content="https://okay-cool.net/assets/img/og.png">
 <link rel="stylesheet" href="/assets/css/fonts.css">
+<!-- The content is the AmFam résumé of Oct 13 2026, word for word, minus the phone number:
+     the site has never shown a phone or a street address. The PDF next to this page is printed
+     from it (two letter pages). -->
 <style>
-  :root { --bg: #0b0716; --ink: #1d1428; --dim: #5d5070; --line: #e7e0ef; --pink: #e0367f; --blue: #2f6fe0; --gummy: linear-gradient(100deg, #ff5ca8, #c46bff 48%, #4c8dff); }
+  :root { --bg: #0b0716; --ink: #1b1328; --dim: #574a6b; --faint: #8a7ea0; --line: #ebe4f3; --wash: #faf7fd; --pink: #d92f78; --violet: #8a4fe0; --blue: #2f6fe0; --gummy: linear-gradient(100deg, #ff5ca8, #c46bff 48%, #4c8dff); }
   * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
   body { margin: 0; background: radial-gradient(60% 40% at 15% 0%, rgba(255,92,168,.18), transparent 70%), radial-gradient(60% 40% at 90% 10%, rgba(76,141,255,.18), transparent 70%), var(--bg); font: 15px/1.55 Geist, ui-sans-serif, system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
-  .bar { max-width: 860px; margin: 0 auto; padding: 22px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; color: #f5f0fd; }
-  .bar a { color: #f5f0fd; text-decoration: none; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
+  .bar { max-width: 880px; margin: 0 auto; padding: 22px 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; color: #f5f0fd; }
+  .bar a.home { color: #f5f0fd; text-decoration: none; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
   .bar svg { width: 34px; height: 17px; }
-  .btn { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.22); background: var(--gummy); color: #fff; font: 600 14px/1 Geist, sans-serif; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 8px 22px -10px rgba(255,92,168,.7); }
-  .sheet { max-width: 860px; margin: 0 auto 60px; background: #fff; border-radius: 18px; padding: 52px 56px; box-shadow: 0 40px 100px -40px rgba(255,92,168,.45), 0 30px 80px -40px rgba(76,141,255,.5); position: relative; overflow: hidden; }
-  .sheet::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 6px; background: var(--gummy); }
-  header.top { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: 18px; margin-bottom: 18px; }
-  h1 { font: 400 46px/1 "Instrument Serif", Georgia, serif; margin: 0 0 6px; letter-spacing: -.01em; }
-  .role { margin: 0; font-weight: 600; color: var(--pink); }
-  .contact { text-align: right; font-size: 13.5px; color: var(--dim); line-height: 1.7; }
-  .contact a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
-  h2 { font: 600 11.5px/1 "Geist Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--blue); margin: 22px 0 10px; }
+  .bar-actions { display: flex; gap: 8px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.22); background: var(--gummy); color: #fff; font: 600 14px/1 Geist, sans-serif; text-decoration: none; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 8px 22px -10px rgba(255,92,168,.7); }
+  .btn svg { width: 16px; height: 16px; }
+  .btn-ghost { background: rgba(255,255,255,.08); box-shadow: none; }
+  .sheet { max-width: 880px; margin: 0 auto 60px; background: #fff; border-radius: 18px; padding: 50px 56px 44px; box-shadow: 0 40px 100px -40px rgba(255,92,168,.45), 0 30px 80px -40px rgba(76,141,255,.5); position: relative; overflow: hidden; }
+  .sheet::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 7px; background: var(--gummy); }
+
+  header.top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: center; padding-bottom: 18px; margin-bottom: 6px; border-bottom: 1px solid var(--line); }
+  h1 { font: 400 50px/1 "Instrument Serif", Georgia, serif; margin: 0 0 8px; letter-spacing: -.01em; }
+  .title { margin: 0 0 10px; font-weight: 600; font-size: 15px; color: var(--ink); }
+  .title span { color: var(--pink); }
+  .contact { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 0; font-size: 13.5px; color: var(--dim); }
+  .contact a { color: var(--ink); text-decoration: none; border-bottom: 1px solid #d9cfe6; }
+  .contact i { font-style: normal; color: var(--violet); margin-right: 6px; }
+  .qr { margin: 0; display: grid; justify-items: center; gap: 4px; }
+  .qr img { width: 104px; height: 104px; display: block; }
+  .qr figcaption { font: 600 9.5px/1 "Geist Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
+
+  h2 { display: flex; align-items: center; gap: 10px; font: 600 11.5px/1 "Geist Mono", monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--blue); margin: 22px 0 10px; }
+  h2::after { content: ""; flex: 1; height: 2px; border-radius: 2px; background: linear-gradient(90deg, rgba(76,141,255,.45), rgba(196,107,255,.25) 40%, transparent); }
   p { margin: 0 0 8px; }
-  .summary { font-size: 15.5px; }
-  .skills { display: grid; grid-template-columns: 150px 1fr; gap: 6px 16px; font-size: 14px; }
-  .skills dt { font-weight: 650; }
-  .skills dd { margin: 0; color: #3b304a; }
-  .job { margin-bottom: 6px; }
-  .job-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-weight: 650; }
-  .job-sub { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--dim); font-size: 14px; margin-bottom: 6px; }
-  h3 { font-size: 13.5px; margin: 12px 0 4px; color: var(--ink); font-weight: 650; }
-  ul { margin: 0 0 6px; padding-left: 18px; }
-  li { margin: 0 0 4px; font-size: 14.2px; }
+  .summary { font-size: 15px; line-height: 1.6; }
+  .skills { display: grid; grid-template-columns: 158px minmax(0, 1fr); gap: 7px 16px; margin: 0; font-size: 14px; }
+  .skills dt { font-weight: 650; color: var(--violet); }
+  .skills dd { margin: 0; color: #3a2f49; }
+  .role { margin: 16px 0 0; padding: 14px 16px 10px; border-radius: 12px; background: var(--wash); border: 1px solid var(--line); }
+  .role + .role { margin-top: 12px; }
+  .role-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .role-head h3 { margin: 0; font-size: 15.5px; font-weight: 700; }
+  .role-head span { font: 600 12px/1.2 "Geist Mono", monospace; color: var(--pink); white-space: nowrap; }
+  .org { margin: 2px 0 8px; font-size: 13.5px; color: var(--dim); }
+  ul { margin: 0; padding-left: 18px; }
+  li { margin: 0 0 5px; font-size: 14px; line-height: 1.5; }
   li::marker { color: var(--pink); }
-  .projects li strong { font-weight: 650; }
-  .foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 13px; color: var(--dim); }
-  @media (max-width: 640px) {
-    .sheet { padding: 36px 22px; border-radius: 0; }
-    .contact { text-align: left; }
-    .skills { grid-template-columns: 1fr; gap: 2px; }
+  .edu { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-weight: 650; }
+  .edu-when { font: 600 12px/1.2 "Geist Mono", monospace; color: var(--pink); }
+  .edu-lines { margin: 4px 0 0; color: #3a2f49; font-size: 14px; }
+  .certs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+  .certs li { margin: 0; padding: 5px 11px; border-radius: 999px; font-size: 13px; font-weight: 600; background: var(--wash); border: 1px solid var(--line); }
+  .foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 13px; color: var(--dim); }
+  .foot a { color: var(--blue); }
+  @media (max-width: 680px) {
+    .sheet { padding: 36px 22px 30px; border-radius: 0; }
+    header.top { grid-template-columns: minmax(0, 1fr); }
+    .qr { justify-items: start; grid-auto-flow: column; align-items: center; gap: 10px; }
+    .qr img { width: 76px; height: 76px; }
+    h1 { font-size: 40px; }
+    .skills { grid-template-columns: minmax(0, 1fr); gap: 2px; }
     .skills dd { margin-bottom: 8px; }
-    h1 { font-size: 38px; }
+    .role { padding: 12px 12px 8px; }
   }
   @media print {
-    @page { size: letter; margin: 0.32in 0.45in 0.3in; }
-    body { background: #fff; font-size: 9.3pt; line-height: 1.31; }
-    .bar, .no-print { display: none; }
-    .sheet { box-shadow: none; padding: 0; margin: 0; max-width: none; border-radius: 0; }
-    .sheet::before { display: none; }
-    header.top { padding-bottom: 7pt; margin-bottom: 4pt; }
-    h1 { font-size: 25pt; margin-bottom: 2pt; }
-    .role { font-size: 10pt; }
-    .contact { font-size: 8.8pt; line-height: 1.5; }
-    h2 { font-size: 7.8pt; margin: 7pt 0 3pt; }
-    p, .summary { font-size: 9.3pt; margin-bottom: 3pt; }
-    .skills { font-size: 8.9pt; gap: 1.5pt 10pt; grid-template-columns: 100pt 1fr; }
-    .job-head { font-size: 9.6pt; }
-    .job-sub { font-size: 9pt; margin-bottom: 2pt; }
-    h3 { font-size: 9.1pt; margin: 6pt 0 2pt; }
-    ul { margin-bottom: 2pt; padding-left: 13pt; }
-    li { font-size: 8.95pt; margin-bottom: 1pt; }
-    a { color: inherit; border: 0 !important; }
+    @page { size: letter; margin: 0.42in 0.5in 0.4in; }
+    html, body { background: #fff; }
+    body { font-size: 9.6pt; line-height: 1.38; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .bar, .no-print { display: none !important; }
+    .sheet { box-shadow: none; padding: 10pt 0 0; margin: 0; max-width: none; border-radius: 0; overflow: visible; }
+    .sheet::before { height: 4pt; }
+    header.top { gap: 14pt; padding-bottom: 9pt; }
+    h1 { font-size: 30pt; margin-bottom: 4pt; }
+    .title { font-size: 10.4pt; margin-bottom: 5pt; }
+    .contact { font-size: 9.2pt; }
+    .contact a { border: 0; }
+    .qr img { width: 0.95in; height: 0.95in; }
+    .qr figcaption { font-size: 6.6pt; }
+    h2 { font-size: 8.2pt; margin: 12pt 0 5pt; break-after: avoid; }
+    .summary { font-size: 9.8pt; line-height: 1.45; }
+    .skills { font-size: 9.2pt; gap: 3pt 12pt; grid-template-columns: 112pt minmax(0, 1fr); }
+    .role { margin-top: 8pt; padding: 8pt 10pt 5pt; break-inside: auto; }
+    .role-head h3 { font-size: 10.2pt; }
+    .role-head span { font-size: 8.6pt; }
+    .org { font-size: 9.2pt; margin-bottom: 4pt; }
+    li { font-size: 9.4pt; line-height: 1.4; margin-bottom: 2.6pt; break-inside: avoid; }
+    .edu, .edu-lines { font-size: 9.4pt; }
+    .certs li { font-size: 9pt; padding: 3pt 8pt; }
   }
 </style>
 </head>
 <body>
 <div class="bar">
-  <a href="../"><svg viewBox="0 0 64 32" aria-hidden="true"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ff5ca8"/><stop offset=".5" stop-color="#c46bff"/><stop offset="1" stop-color="#4c8dff"/></linearGradient></defs><path d="M6 20c6-10 12-10 18 0s12 10 18 0 12-10 16-2" fill="none" stroke="url(#g)" stroke-width="7" stroke-linecap="round"/></svg> Back to okay-cool.net</a>
-  <button class="btn" type="button" id="print-btn">Save as PDF</button>
+  <a class="home" href="../"><svg viewBox="0 0 64 32" aria-hidden="true"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ff5ca8"/><stop offset=".5" stop-color="#c46bff"/><stop offset="1" stop-color="#4c8dff"/></linearGradient></defs><path d="M6 20c6-10 12-10 18 0s12 10 18 0 12-10 16-2" fill="none" stroke="url(#g)" stroke-width="7" stroke-linecap="round"/></svg> Back to okay-cool.net</a>
+  <span class="bar-actions">
+    <a class="btn" href="Mike_Purpura_Resume.pdf?v=d8184f97" download="Mike_Purpura_Resume.pdf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download the PDF</a>
+    <button class="btn btn-ghost" type="button" id="print-btn">Print</button>
+  </span>
 </div>
 
 <main class="sheet">
   <header class="top">
     <div>
-      <h1>Michael &ldquo;Mike&rdquo; Purpura</h1>
-      <p class="role">Network &amp; AI Automation Engineer</p>
+      <h1>Michael Purpura</h1>
+      <p class="title">Network Engineer III <span>(Automation and DevOps · Python · CI/CD · Platform Developer)</span></p>
+      <p class="contact"><span><i>◆</i>Milton, WI</span><span><i>◆</i><a id="em" href="#">email</a><noscript>mapurpura12 [at] gmail [dot] com</noscript></span><span><i>◆</i>Portfolio: <a href="https://okay-cool.net">https://okay-cool.net</a></span></p>
     </div>
-    <div class="contact">
-      Milton, WI · Madison–Milwaukee, hybrid<br>
-      <a id="em" href="#">email</a><noscript>mapurpura12 [at] gmail [dot] com</noscript><br>
-      <a href="https://okay-cool.net">okay-cool.net</a>
-    </div>
+    <figure class="qr"><img src="qr-okay-cool.png" alt="QR code that opens okay-cool.net" width="480" height="480"><figcaption>okay-cool.net</figcaption></figure>
   </header>
 
   <h2>Summary</h2>
-  <p class="summary">Network engineer with 13 years at Charter Communications / Spectrum Enterprise running a multi-vendor carrier network, the last two on a DevOps team building tools for network engineers. I find the work engineers repeat and make a computer do it, first with Python and now with AI every day: Amazon Q and Kiro at work, Claude Code and local LLMs at home, and agents that ask before they act. I'm looking for AI and automation, DevOps or NetDevOps work on a small team.</p>
+  <p class="summary">Network engineer with 13 years in carrier networking at Charter Communications across multiple teams: turning up customer circuits, handling tier four escalations for BGP, MPLS, QoS, and hardware outages, and serving as the team's documentation lead for about 10 years. Automated standards rollouts across thousands of Juniper, Cisco, and Nokia routers with self-taught Python, then joined Charter's DevOps team as a lead developer on an in-house network inventory and security password management system. Uses AI and LLM orchestration to build tools, including a home lab AI hub running local LLMs (Ollama) for agent experiments and a Raspberry Pi fleet manager with SSH automation and SNMP monitoring.</p>
 
   <h2>Skills</h2>
   <dl class="skills">
-    <dt>AI</dt><dd>Claude Code (daily), Amazon Q with GitLab, Kiro, human-approval agent workflows, Ollama and local LLMs, RAG with evaluation suites, structured JSON output, ComfyUI, TTS (Kokoro, Piper)</dd>
-    <dt>Code, by hand</dt><dd>Python, Paramiko, JavaScript, Bash, FastAPI, SQLite, OpenCV + Tesseract OCR, Visual Basic</dd>
-    <dt>Built with AI</dt><dd>Flask, React/TypeScript, Supabase/Postgres, REST/OpenAPI (Claude Code writes it; I direct and run it)</dd>
-    <dt>DevOps</dt><dd>Git, GitLab, GitHub, HashiCorp Vault, Linux, nginx, systemd, Docker (beginner), Confluence (admin)</dd>
-    <dt>Networking</dt><dd>Juniper MX480/MX960, Cisco ASR 9000, Nokia 7750; MPLS, IS-IS, BGP, L2VPN/VPLS/LDP, QoS, BFD, TACACS+, SNMP; Carrier Ethernet; IPv6; Cloudflare; EXFO RFC 2544 / Y.1731</dd>
-    <dt>IoT</dt><dd>Raspberry Pi, Arduino, ESP32/ESP8266, MicroPython, MQTT, ESPHome</dd>
+    <dt>Automation</dt><dd>Python, Paramiko (SSH), Flask, SQL (MariaDB, PostgreSQL), custom reporting, Splunk, network automation, configuration management (standards, rollouts, audits), web form building (JavaScript, HTML), Visual Basic</dd>
+    <dt>DevOps &amp; AI</dt><dd>CI/CD pipelines, Git, GitLab (merge requests, code review), production deployments and release verification, Linux servers, Docker (beginner), HashiCorp Vault (front-end use); AI / artificial intelligence, LLM orchestration, Amazon Q</dd>
+    <dt>Routing &amp; Networking</dt><dd>BGP, MPLS, IS-IS, LDP, VPLS, L2VPN, E-LAN, Carrier Ethernet, cell backhaul, WAN, QoS, TACACS+, SNMP</dd>
+    <dt>Platforms &amp; Vendors</dt><dd>Juniper MX and QFX, Nokia 7750; Cisco, Harmonic, RAD, Adva, Ciena, AudioCodes, Adtran; vendor management; EXFO circuit testing (RFC 2544, Y.1731)</dd>
+    <dt>Documentation</dt><dd>Confluence (space admin), Jira workflow building, documentation leadership, technical standards</dd>
   </dl>
 
   <h2>Experience</h2>
-  <div class="job">
-    <div class="job-head"><span>Charter Communications / Spectrum Enterprise</span><span>Sep 2013 – Jun 2026</span></div>
-    <div class="job-sub"><span>Network Engineer 3 (Automation &amp; DevOps)</span><span>Madison, WI</span></div>
-
-    <h3>DevOps team: network automation tools · 2024–2026</h3>
+  <section class="role">
+    <div class="role-head"><h3>Network Engineer III (DevOps Team)</h3><span>October 2023 – June 2026</span></div>
+    <p class="org">Charter Communications / Spectrum Enterprise, Madison, WI</p>
     <ul>
-      <li>A lead developer on the team's network inventory and security platform: live SSH discovery that profiled every device into a SQL inventory I built (MariaDB, later PostgreSQL), feeding password rotation and audit modules. All code in GitLab.</li>
-      <li>Wrote the multi-vendor Python/Paramiko modules (vendor interface code plus all CLI navigation and command logic) that audited configurations and rotated credentials over SSH across hundreds of thousands of devices from nine vendors, with secrets in HashiCorp Vault.</li>
-      <li>Used AI in the team's daily work: we paired GitLab with Amazon Q in the IDE (I connected the two), and I worked with Kiro, Amazon's AI for the terminal.</li>
+      <li>Earned a place on a dedicated DevOps team through automation work; was a lead developer on an in-house network inventory and security password management system for Charter's national enterprise footprint (hundreds of thousands of devices).</li>
+      <li>Built the platform's inventory management system (MariaDB, later PostgreSQL), fed by live SSH discovery through PE routers and used by its security modules; wrote daily SQL for custom reports, statistics, and IP audits; documented the team's queries.</li>
+      <li>Wrote multi-vendor Python/Paramiko modules to audit configurations and rotate device passwords over SSH across Juniper, Cisco, Nokia, Harmonic, RAD, Adva, Ciena, AudioCodes, and Adtran, with credentials in HashiCorp Vault.</li>
+      <li>Shipped code through GitLab merge requests and CI/CD pipelines to production.</li>
     </ul>
-
-    <h3>Network automation, design &amp; implementation</h3>
+  </section>
+  <section class="role">
+    <div class="role-head"><h3>Network Engineer III</h3><span>September 2013 – October 2023</span></div>
+    <p class="org">Charter Communications / Spectrum Enterprise, Madison, WI</p>
     <ul>
-      <li>From 2020, automated weekly standards updates in Python across thousands of routers and other network devices in the region (Juniper, Cisco, Nokia), including the regional QoS rewrite and rollout.</li>
-      <li>Wrote a migration script that turned an Excel cut sheet into a full method of procedure: pull and analyze each config over SSH, then build the destination config. Saved hundreds of hours per migration.</li>
-      <li>After the Time Warner Cable merger, replaced everyone's private Excel sheets with shared circuit standards in Confluence (as its admin), built a JavaScript config generator for MX960/MX480, and became team lead for documentation.</li>
+      <li>Served as a tier four escalation point for the NOC, troubleshooting customer router outages, including BGP, MPLS, QoS, and hardware failures; covered on-call rotations.</li>
+      <li>Built and turned up thousands of enterprise circuits, mostly customer internet and voice, plus Type 2 (off-net) circuits, cell backhaul, Carrier Ethernet, and MPLS L2VPN with LDP for MEF E-Line and E-LAN services; used VRFs and L3VPN in rare cases; performed turn-up testing with EXFO.</li>
+      <li>Selected to travel for key regional work, including serving as the engineer sent to support the network transition when Charter took over the Time Warner region; wrote the Cisco-to-Juniper configuration standards after the merger.</li>
+      <li>Self-taught in Python through hands-on automation; used it to manage configuration standards, rollouts, and audits across thousands of routers and other network devices.</li>
+      <li>Ran an automated pre-check, change, and post-check loop with diff checks on every router for potentially region-wide service-impacting changes, producing pre and post documentation for each device.</li>
+      <li>Built MOP (method of procedure) automation for the engineering team: tools that connected to devices over SSH, parsed site variables, and generated complete procedures for multi-hundred-site migrations instead of engineers writing MOPs by hand.</li>
+      <li>Built a WebEx bot that pinged hundreds of routers on a schedule and alerted the team to outages.</li>
+      <li>Built Splunk reports from TACACS+ and ISE command logs that gave management measurable engineering metrics: commands, router commits, and hours worked per engineer, by device and maintenance window.</li>
+      <li>Posted maintenance window summaries to WebEx, giving the day shift a clean handoff with device-level accountability.</li>
+      <li>Alongside the engineering work, also served as the team's documentation lead for about 10 years: Confluence space admin and Jira workflow builder; traveled to learn new products and standards and turned them into team documentation.</li>
     </ul>
+  </section>
 
-    <h3>Enterprise circuit build &amp; turn-up</h3>
-    <ul>
-      <li>Turned up thousands of enterprise circuits, every config hand-built at first: Carrier Ethernet point-to-point, large E-LAN multipoint networks, cell backhaul to carrier MTSOs and off-net Type 2 circuits; turn-up tested with EXFO.</li>
-      <li>Wrote my first automation in Visual Basic: a spreadsheet that drove the order system to assign circuit IDs, IPs and VLANs and draw the Visio diagram; the whole team adopted it.</li>
-      <li>Chosen repeatedly as lead engineer for travel assignments.</li>
-    </ul>
-  </div>
+  <h2>Education</h2>
+  <div class="edu"><span>North Central Technical College</span><span class="edu-when">December 2012</span></div>
+  <p class="edu-lines">Associate of Applied Science, IT Network Specialist, Unified Communications, GPA 3.8<br>Technical Certificate, IT Website Hardware and Software Administration</p>
 
-  <h2>Selected projects · self-hosted, built with AI (2025–2026)</h2>
-  <ul class="projects">
-    <li><strong>The Hub:</strong> AI control plane on a Mac Studio. Multiplexed Claude Code sessions, local LLMs via Ollama, image/video/music/voice generation through ComfyUI, and an approval queue for agent-proposed work.</li>
-    <li><strong>Household platform:</strong> Flask on a Raspberry Pi. NWS severe-weather alerts summarized by a local LLM and spoken on every Sonos speaker; smart plugs, recipes by dictation, and an agent API (OpenAPI, scoped tokens).</li>
-    <li><strong>Fleet ops:</strong> agentless SNMP/SSH monitoring and alerting, patch management, certificate-expiry checks, repo drift detection and GitOps auto-deploy across five hosts.</li>
-    <li><strong>okay-cool.net:</strong> this portfolio, self-hosted on a Raspberry Pi over Starlink via Cloudflare Tunnel; all media made with local AI.</li>
-    <li><strong>GrowYear:</strong> garden planner (React, TypeScript, Supabase) built on real seed-company catalogs.</li>
-  </ul>
+  <h2>Certifications</h2>
+  <ul class="certs"><li>Cisco CCNP Routing and Switching</li><li>Juniper JNCIA</li><li>Nokia NRS I</li><li>MEF-CECP</li></ul>
 
-  <h2>Certifications &amp; education</h2>
-  <p>Cisco CCNP Routing &amp; Switching (2018, #431094169024ISDH) · MEF-CECP Carrier Ethernet Certified Professional (2017, #25547X2) · Nokia NRS I (#10434)</p>
-  <p>Northcentral Technical College, 2012: AAS, IT Network Specialist (Unified Comms) · Technical Certificate, IT Web Admin</p>
-
-  <div class="foot no-print"><span>More detail, stories and demos at <a href="../">okay-cool.net</a></span><span>References available on request</span></div>
+  <div class="foot no-print"><span>Projects, stories and live demos at <a href="../">okay-cool.net</a></span><span>References available on request</span></div>
 </main>
 <script src="../assets/js/resume.js" defer></script>
 </body>

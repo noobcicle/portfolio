@@ -1,4 +1,4 @@
-// Before AI: a small working model of each project, built from what its real code did.
+// Early projects: a small working model of each project, built from what its real code did.
 // Every one is a simulation: nothing here talks to a device, a camera, a broker or anything in
 // the house. Loops only run while their card is on screen, and with reduced motion nothing moves
 // on its own (the buttons still work, they just skip the animation).

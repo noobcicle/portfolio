@@ -69,7 +69,7 @@ const STORY = [
   () => 'Down the tunnel to a Starlink ground station\u2026',
   () => '\u2026up to a satellite about 550 km overhead, and back down to my dish\u2026',
   () => '\u2026to a Raspberry Pi 4 in my basement. nginx hands it this page.',
-  () => 'Delivered. The whole story, and how the rest of this site was made, is at the bottom of the page.',
+  () => 'Delivered. How the rest of this page was made, and how it got to you, is right here.',
 ];
 
 // ---------------------------------------------------------------- routing, for real

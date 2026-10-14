@@ -72,16 +72,6 @@ const countIO = new IntersectionObserver((entries) => {
 }, { threshold: 0.6 });
 $$('[data-count-to]').forEach(el => countIO.observe(el));
 
-// ------------------------------------------------------------------ thesis: split into words
-const thesis = $('#thesis');
-const thesisText = $('#thesis-text');
-const KEYS = new Set(['hand', 'ai', 'doesnt']);
-thesisText.innerHTML = thesisText.textContent.trim().split(/\s+/).map(w => {
-  const bare = w.toLowerCase().replace(/[^a-z]/g, '');
-  return `<span class="w${KEYS.has(bare) ? ' key' : ''}">${w}</span>`;
-}).join(' ');
-const thesisWords = $$('.w', thesisText);
-
 // ------------------------------------------------------------------ traceroute sync
 const hops = $$('.hop');
 const termLines = $$('.term-line');
@@ -105,20 +95,14 @@ hops.forEach(h => hopIO.observe(h));
 // ------------------------------------------------------------------ the Hub: one real request, start to finish (mission.js)
 initMission($('#mc'), { reduceMotion: reduce });
 
-// ------------------------------------------------------------------ before AI: pinned horizontal strip
-const before = $('#before');
-const track = $('#before-track');
-const pinStrip = () => !reduce && innerWidth > 760;
-function sizeBefore() {
-  if (!pinStrip()) { before.style.height = ''; track.style.transform = ''; return; }
-  const travel = Math.max(0, track.scrollWidth - innerWidth);
-  before.style.height = (innerHeight + travel) + 'px';
-}
-
-// a small working model of each Before AI project
+// ------------------------------------------------------------------ early projects: a small working model of each project
+// (the strip itself is a plain scroller with arrow buttons, wired up with the project carousels below)
 initWidgets($('#before'), { reduceMotion: reduce });
 
 // ------------------------------------------------------------------ garden: 60 plots, one per garden year
+// Nothing here pins the page. The sun comes up as the section rises into view, the plots sprout
+// row by row as the grid climbs the screen, and the peppers grow as their strip rises from the
+// bottom of the screen to just past the middle.
 const sixty = $('#sixty');
 const sixtyN = $('#sixty-n');
 const garden = $('#garden');
@@ -133,7 +117,7 @@ function setGardens(n) {
   squares.forEach((sq, i) => { sq.classList.toggle('on', i < n); sq.classList.toggle('now', i === n - 1); });
   sixtyN.textContent = n;
 }
-if (reduce || innerWidth <= 860) { setGardens(60); garden.classList.add('day'); sun.style.clipPath = 'none'; }
+if (reduce) { setGardens(60); garden.classList.add('day'); sun.style.clipPath = 'none'; }
 const patch = $('#garden-patch');
 const peppers = initPeppers(patch, { reduceMotion: reduce });
 // the router-versus-pepper loop plays only while it's on screen
@@ -155,23 +139,20 @@ const bands = $$('.chapter-band');
 const bandArt = bands.map(b => $('.chapter-band-art', b));
 let geo = null;
 function measure() {
-  sizeBefore();
   docH = Math.max(1, document.documentElement.scrollHeight - innerHeight);
   const box = (el) => { const r = el.getBoundingClientRect(); return { top: r.top + scrollY, h: r.height }; };
   geo = {
-    thesis: box(thesis), before: box(before), garden: box(garden), patch: box(patch), hero: box(hero),
+    garden: box(garden), sixty: box(sixty), patch: box(patch), hero: box(hero),
     bands: bands.map(box),
     nav: [...linkFor.keys()].map(id => document.getElementById(id)).filter(Boolean).map(el => ({ id: el.id, ...box(el) })),
-    travel: Math.max(0, track.scrollWidth - innerWidth),
   };
   route.measure();
 }
 
 // ------------------------------------------------------------------ the one scroll loop
 let ticking = false, scrolled = false;
-const last = { scrolled: null, lit: -1, track: null, g: -1, day: null, bands: [], active: undefined };
+const last = { scrolled: null, g: -1, day: null, bands: [], active: undefined };
 const near = (b, y, vh) => y + vh > b.top && y < b.top + b.h;
-const prog = (b, y, vh) => clamp((y - b.top) / Math.max(1, b.h - vh));
 function update() {
   ticking = false;
   if (!geo) return;
@@ -179,24 +160,13 @@ function update() {
   if (last.scrolled !== (y > 20)) nav.classList.toggle('scrolled', (last.scrolled = y > 20));
   heroCtl.setFade(clamp(1 + (geo.hero.top - y) / (geo.hero.h * 0.9)));
 
-  if (!reduce && near(geo.thesis, y, vh)) {
-    const lit = Math.floor(prog(geo.thesis, y, vh) * 1.15 * (thesisWords.length + 1));
-    if (lit !== last.lit) { last.lit = lit; thesisWords.forEach((w, i) => w.classList.toggle('lit', i < lit)); }
-  }
-  if (pinStrip() && near(geo.before, y, vh)) {
-    const tx = Math.round(-prog(geo.before, y, vh) * geo.travel);
-    if (tx !== last.track) { last.track = tx; track.style.transform = `translate3d(${tx}px,0,0)`; }
-  }
-  if (!reduce && innerWidth > 860 && near(geo.garden, y, vh)) {
-    const gp = prog(geo.garden, y, vh);
-    const g = Math.round(clamp((gp - 0.03) / 0.16) * 500) / 500;
+  if (!reduce && near(geo.garden, y, vh)) {
+    const g = Math.round(clamp((y + vh - geo.garden.top) / (vh * 0.75)) * 500) / 500;
     if (g !== last.g) { last.g = g; sun.style.clipPath = `circle(${(g * 150).toFixed(1)}% at 74% 50%)`; }
     if (last.day !== (g > 0.62)) garden.classList.toggle('day', (last.day = g > 0.62));
-    setGardens(Math.round(clamp((gp - 0.12) / 0.72) * 60));
-    peppers.update(gp);
+    setGardens(Math.round(clamp((y + vh * 0.92 - geo.sixty.top) / Math.max(1, geo.sixty.h + vh * 0.3)) * 60));
+    peppers.update((y + vh - geo.patch.top) / (vh * 0.55));
   }
-  // unpinned on phones: the plants grow as their strip rises from the bottom of the screen to just past the middle
-  if (!reduce && innerWidth <= 860 && near(geo.patch, y, vh)) peppers.update((y + vh - geo.patch.top) / (vh * 0.55));
   geo.bands.forEach((b, i) => {
     if (!near(b, y, vh)) return;
     const p = Math.round(clamp(1 - (b.top - y) / vh, 0, 2) * 400) / 400;
@@ -325,7 +295,7 @@ $$('.pnav-btn').forEach(btn => {
   const trackEl = document.getElementById(btn.dataset.track);
   if (!trackEl) return;
   btn.addEventListener('click', () => {
-    const card = trackEl.querySelector('.pcard');
+    const card = trackEl.querySelector('.pcard, .film:not(.film-intro)');
     const step = card ? card.getBoundingClientRect().width + 16 : trackEl.clientWidth * 0.8;
     trackEl.scrollBy({ left: +btn.dataset.dir * step, behavior: reduce ? 'auto' : 'smooth' });
   });
@@ -337,7 +307,7 @@ function syncPnav(trackEl) {
   const max = trackEl.scrollWidth - trackEl.clientWidth - 2;
   $$(`.pnav-btn[data-track="${trackEl.id}"]`).forEach(b => { b.disabled = +b.dataset.dir < 0 ? trackEl.scrollLeft <= 2 : trackEl.scrollLeft >= max; });
 }
-$$('.ptrack').forEach(t => {
+$$('.ptrack, .before-track').forEach(t => {
   let raf = 0;
   t.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; syncPnav(t); }); }, { passive: true });
   new ResizeObserver(() => syncPnav(t)).observe(t);

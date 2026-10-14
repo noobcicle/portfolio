@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mike Purpura · 13 years on a carrier network, now building with AI</title>
-<meta name="description" content="Network engineer, then network DevOps, now an AI-first engineer. 13 years on Charter's fiber network, most of them spent automating it, and a basement full of self-hosted AI. This site is served from a Raspberry Pi in my house over Starlink.">
+<title>Mike Purpura · Network engineer, automation and DevOps</title>
+<meta name="description" content="Network engineer and DevOps platform developer: 13 years on Charter's carrier network, from circuit turn-ups and tier four escalations to overnight maintenance on production routers and a platform that found and secured hundreds of thousands of devices. Served from a Raspberry Pi in my house over Starlink.">
 <meta name="theme-color" content="#0b0716">
 <link rel="canonical" href="https://okay-cool.net/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -12,9 +12,9 @@
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://okay-cool.net/">
-<meta property="og:title" content="Mike Purpura · 13 years on a carrier network, now building with AI">
-<meta property="og:description" content="13 years on a carrier network, a rule that nothing on a computer gets done by hand more than about three times, and a basement full of self-hosted AI. Served from a Raspberry Pi over Starlink.">
-<meta property="og:image" content="https://okay-cool.net/assets/img/og.png?v=368be95e">
+<meta property="og:title" content="Mike Purpura · Network engineer, automation and DevOps">
+<meta property="og:description" content="13 years on a production carrier network: hard tickets, high-stakes changes, and the tools and standards the team worked from. Served from a Raspberry Pi over Starlink.">
+<meta property="og:image" content="https://okay-cool.net/assets/img/og.png?v=099febe8">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -38,10 +38,11 @@
   "alumniOf": {"@type": "CollegeOrUniversity", "name": "Northcentral Technical College"},
   "hasCredential": [
     {"@type": "EducationalOccupationalCredential", "name": "Cisco CCNP Routing and Switching", "credentialCategory": "certification"},
+    {"@type": "EducationalOccupationalCredential", "name": "Juniper Networks Certified Associate (JNCIA)", "credentialCategory": "certification"},
     {"@type": "EducationalOccupationalCredential", "name": "MEF Carrier Ethernet Certified Professional (MEF-CECP)", "credentialCategory": "certification"},
     {"@type": "EducationalOccupationalCredential", "name": "Nokia Network Routing Specialist I (NRS I)", "credentialCategory": "certification"}
   ],
-  "knowsAbout": ["Network automation", "Python", "Paramiko", "MPLS", "BGP", "GitLab", "Claude Code", "Self-hosted AI", "Large language models", "Linux"],
+  "knowsAbout": ["MPLS", "BGP", "IS-IS", "QoS", "Carrier Ethernet", "Network automation", "Python", "Paramiko", "SQL", "GitLab CI/CD", "Linux"],
   "sameAs": ["https://github.com/noobcicle"]
 }
 </script>
@@ -59,13 +60,13 @@
     <p class="nav-status"><span class="dot-live" aria-hidden="true"></span> Open to work<span class="nav-where"> · Milton, Wisconsin</span></p>
   </div>
   <nav class="nav-links" aria-label="Sections">
+    <a href="#tldr">About</a>
     <a href="#story">Story</a>
-    <a href="#lab">Lab</a>
-    <a href="#hub">Hub</a>
-    <a href="#projects">Projects</a>
-    <a href="#before">Before AI</a>
-    <a href="#how">How I work</a>
+    <a href="#skills">Skills</a>
     <a href="#contact">Contact</a>
+    <a href="#projects">Projects</a>
+    <a href="#hub">Hub</a>
+    <a href="#lab">Lab</a>
   </nav>
   <div class="nav-actions">
     <button class="pill-btn sound-btn" id="sound-btn" type="button" aria-pressed="false" title="Soundtrack (made locally with ACE-Step)">
@@ -82,7 +83,7 @@
   </div>
 </header>
 <div class="mobile-menu" id="mobile-menu" hidden>
-  <a href="#story">Story</a><a href="#lab">Lab</a><a href="#hub">Hub</a><a href="#projects">Projects</a><a href="#before">Before AI</a><a href="#how">How I work</a><a href="#contact">Contact</a><a href="#made">How it's made</a><a href="resume/">Résumé</a>
+  <a href="#tldr">About</a><a href="#story">Story</a><a href="#skills">Skills</a><a href="#contact">Contact</a><a href="#projects">Projects</a><a href="#before">Early projects</a><a href="#hub">Hub</a><a href="#lab">Lab</a><a href="#made">How it's made</a><a href="resume/">Résumé</a>
 </div>
 
 <!-- the home-hosting story, told as a traceroute of your own request (assets/js/route.js):
@@ -112,26 +113,25 @@
 
 <main id="top">
 
-<!-- ===================================================== HERO -->
+<!-- ===================================================== HERO: the pitch -->
 <section class="hero" id="hero" data-chapter="Hello" data-guide="intro">
   <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="hero-inner">
-    <p class="hero-hi reveal">Hi, I'm <strong>Mike Purpura</strong>. <span class="hero-path">Network engineer <i aria-hidden="true">&rarr;</i> network DevOps <i aria-hidden="true">&rarr;</i> AI-first engineer.</span></p>
+    <p class="hero-hi reveal">Hi, I'm <strong>Mike Purpura</strong>. <span class="hero-path">Network engineer <i aria-hidden="true">&rarr;</i> automation <i aria-hidden="true">&rarr;</i> DevOps.</span></p>
     <h1 class="hero-title">
-      <span class="line"><span class="word">13 years on a carrier network.</span></span>
-      <span class="line"><em class="word gummy-text">Now I build and ship with AI.</em></span>
+      <span class="line"><span class="word">13 years on a carrier network,</span></span>
+      <span class="line"><em class="word gummy-text">where every change mattered.</em></span>
     </h1>
-    <p class="hero-pitch reveal">I find the work your engineers repeat and make a computer do it.</p>
-    <p class="hero-tag reveal">First time, blame the network. Second time, blame me. <em>Third time, the computer does it.</em></p>
-    <p class="hero-lead reveal">At Charter that meant configs hand-built in Notepad, then Python that kept thousands of routers and other network devices across the region on standard. I build with AI daily, with guardrails so it doesn't do anything dumb while nobody's looking, and my garden planner, <a href="#growyear">GrowYear</a>, is live on the internet.</p>
+    <p class="hero-pitch reveal">On a team of engineers, I&rsquo;m usually the one who finds the <em>process gaps</em> and <em>automation opportunities</em>, then builds the tools that close them.</p>
+    <p class="hero-lead reveal">Thirteen years at Charter Communications / Spectrum Enterprise: circuit turn-ups, tier four escalations, and overnight maintenance I ran on my own, changing BGP route policies, the IGP, QoS and network management on production routers. Then the DevOps team, as one of the lead developers on a platform that found and secured hundreds of thousands of network devices.</p>
     <ul class="proof reveal" aria-label="Highlights">
       <li><strong>13 yrs</strong> carrier networking</li>
+      <li>BGP · IS-IS · MPLS · QoS</li>
       <li>Juniper · Cisco · Nokia</li>
-      <li>Python · Paramiko · GitLab</li>
+      <li>Python · SQL · GitLab CI/CD</li>
+      <li>Tier 4 escalations</li>
       <li>Claude Code · Amazon Q · Kiro</li>
-      <li>Self-hosted local AI</li>
-      <li>CCNP · MEF-CECP</li>
     </ul>
     <div class="hero-ctas reveal">
       <a class="btn btn-gummy" href="resume/">
@@ -150,57 +150,84 @@
   </a>
 </section>
 
-<!-- ===================================================== TL;DR -->
+
+<!-- ===================================================== 01 THE SHORT VERSION: what I bring, where I've been, what I'm after -->
 <section class="tldr" id="tldr" data-chapter="The short version" data-guide="tldr">
   <div class="wrap">
-    <p class="eyebrow reveal">00 · The 20-second version</p>
-    <div class="tldr-grid">
-      <article class="tldr-card reveal">
-        <p class="tldr-big"><span data-count-to="13">13</span> yrs</p>
-        <h2>Carrier networking</h2>
-        <p>Network Engineer 3 at Charter Communications / Spectrum Enterprise, 2013–2026. MPLS, BGP, IS-IS and Carrier Ethernet on Juniper, Cisco and Nokia: the stuff that keeps businesses and cell towers online.</p>
+    <header class="section-head">
+      <p class="eyebrow reveal">01 · The short version</p>
+      <h2 class="display reveal">What I bring <em>to a team.</em></h2>
+      <p class="section-lede reveal">Thirteen years at Charter Communications / Spectrum Enterprise, on a production carrier network and then on the DevOps team. Here's what I bring, and what I'm looking for next.</p>
+    </header>
+
+    <div class="bring">
+      <article class="bring-card reveal">
+        <p class="bring-k">On the team</p>
+        <h3>Built to be shared</h3>
+        <p>At Charter, most of what I built started as a way to make my team's day easier, and it was made for everyone to use.</p>
+        <ul>
+          <li>Wrote our customer circuit standards in Confluence and ran the space as its admin</li>
+          <li>Built tools the whole team used: circuit orders, migration procedures from a cut sheet, a morning summary of the night's changes</li>
+          <li>Traveled to learn new products and standards, and brought them back as team docs</li>
+        </ul>
       </article>
-      <article class="tldr-card reveal">
-        <p class="tldr-big">2020</p>
-        <h2>The year I quit doing it by hand</h2>
-        <p>Python and Paramiko against thousands of routers, then two years on the DevOps team building tools for the whole network engineering org, all of it in Git.</p>
+      <article class="bring-card reveal">
+        <p class="bring-k">When it breaks</p>
+        <h3>Glad to take the hard ticket</h3>
+        <p>As a tier four escalation engineer, I worked customer router outages through to the fix, on-call rotations included. Fix it now, then fix it right, and write down what happened.</p>
+        <ul>
+          <li>BGP, MPLS, QoS and hardware failures</li>
+          <li>A WebEx bot that alerted the team when a regional router stopped answering</li>
+          <li>Splunk reports that traced an outage back to the change behind it</li>
+        </ul>
       </article>
-      <article class="tldr-card reveal">
-        <p class="tldr-big">Now</p>
-        <h2>AI, at work and at home</h2>
-        <p>AI showed up at work first: Amazon Q wired into our GitLab, and Kiro in the terminal. At home it's Claude Code every day, local models on a Mac Studio, and tools my family actually uses. They complain about them, which is how I know.</p>
+      <article class="bring-card reveal">
+        <p class="bring-k">In the change window</p>
+        <h3>High-stakes changes, made carefully</h3>
+        <p>I audited the region's routers against our standards every week, then brought them up to standard myself in overnight maintenance windows: one engineer, on production routers carrying business customers and cell-tower backhaul.</p>
+        <ul>
+          <li>Potentially service-impacting changes to almost every section of the config: BGP route policies, the IGP, QoS policies and network management</li>
+          <li>A pre-check of every router before the changes and a post-check after, and I reviewed every one to make sure we were in the clear</li>
+          <li>Rewrote the regional QoS policy and rolled it out to every PE router</li>
+        </ul>
       </article>
-      <article class="tldr-card tldr-card-accent reveal">
-        <p class="tldr-big">Next</p>
-        <h2>What I'm after</h2>
-        <p>A small team that wants the boring stuff automated. AI and automation, DevOps or NetDevOps. Madison to Milwaukee, hybrid.</p>
-        <div class="tldr-actions">
-          <a class="btn btn-small btn-gummy" href="resume/">Résumé</a>
-          <a class="btn btn-small btn-ghost" href="#contact">Get in touch</a>
+    </div>
+
+    <div class="brief">
+      <div class="brief-col">
+        <h3 class="brief-h">Experience</h3>
+        <ol class="xp">
+          <li class="reveal"><p class="xp-when">2023 – 2026</p><div><h4>DevOps team · Charter Communications</h4><p>One of the lead developers on the network inventory and security platform: live discovery filled a SQL inventory, and security modules rotated and audited passwords across hundreds of thousands of devices. I built the inventory database and the multi-vendor modules, and we shipped through GitLab merge requests, code review and CI/CD.</p></div></li>
+          <li class="reveal"><p class="xp-when">2013 – 2023</p><div><h4>Network Engineer III · Charter Communications / Spectrum Enterprise</h4><p>Enterprise fiber on a production carrier network: circuit turn-ups, tier four escalations, the team's standards and documentation, and the overnight maintenance I ran to keep the region's Juniper, Cisco and Nokia routers on standard.</p></div></li>
+          <li class="reveal"><p class="xp-when">2019 →</p><div><h4>Home lab and side projects</h4><p>Raspberry Pis and Arduinos since 2019, a self-hosted home lab today, and <a href="#growyear">GrowYear</a>, a garden planner that's live at mygrowyear.com.</p></div></li>
+          <li class="reveal"><p class="xp-when">2012</p><div><h4>Northcentral Technical College</h4><p>AAS, IT Network Specialist (Unified Communications), plus a technical certificate.</p></div></li>
+        </ol>
+      </div>
+      <div class="brief-col">
+        <h3 class="brief-h">What I'm looking for</h3>
+        <div class="next-list">
+          <div class="next-row reveal"><span class="next-k">Roles</span><p>Network engineering and automation · DevOps / NetDevOps · infrastructure and internal tools</p></div>
+          <div class="next-row reveal"><span class="next-k">The fit</span><p>A small team that's always making things run a little better.</p></div>
+          <div class="next-row reveal"><span class="next-k">Where</span><p>Milton, Wisconsin. Anywhere from Madison to Milwaukee. Hybrid is my favorite, and remote within Wisconsin works too.</p></div>
+          <div class="next-row reveal"><span class="next-k">Bonus points</span><p>Ag-tech, manufacturing and OT, IoT. Arduinos and PLCs make me happy.</p></div>
         </div>
-      </article>
+        <div class="brief-actions reveal">
+          <a class="btn btn-gummy" href="resume/">See the résumé</a>
+          <a class="btn btn-ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ===================================================== THE RULE -->
-<section class="thesis" id="thesis" data-progress data-chapter="The rule" data-guide="thesis">
-  <div class="thesis-sticky">
-    <div class="wrap">
-      <p class="eyebrow">The rule</p>
-      <p class="thesis-text" id="thesis-text">Every tool I've built started the same way: I got tired of doing it by hand. Notepad, then Visual Basic, then Python, now AI. The tools keep changing. The rule doesn't.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===================================================== STORY / TRACEROUTE -->
+<!-- ===================================================== 02 STORY / TRACEROUTE: right after the short version, so the career is near the top -->
 <section class="story" id="story" data-chapter="The route here" data-guide="story">
   <div class="chapter-band">
     <img decoding="async" class="chapter-band-art" src="assets/img/art/central_office.webp" alt="AI-generated art: a long aisle of carrier network racks with glowing pink and blue fiber patch cables" loading="lazy" width="1376" height="768"><span class="ai-chip ai-chip-band"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>Qwen-Image 2.1 (Q8_0 GGUF) · 1376×768 · 25 steps · CFG 1 · seed 1465538147</span></span>
     <div class="wrap chapter-band-text">
-      <p class="eyebrow reveal">01 · The route here</p>
+      <p class="eyebrow reveal">02 · The route here</p>
       <h2 class="display reveal">A career, traced <em>hop by hop.</em></h2>
-      <p class="section-lede reveal">Thirteen years, one company, one network, and one rule: nothing on a computer should have to be done by hand more than about three times.</p>
+      <p class="section-lede reveal">Thirteen years at one company, across several teams, always trying to leave the work a little easier than I found it.</p>
     </div>
   </div>
   <div class="wrap">
@@ -209,18 +236,16 @@
         <div class="term">
           <div class="term-bar"><i></i><i></i><i></i><span>mike@studio: ~</span></div>
           <pre class="term-body"><span class="t-prompt">$</span> traceroute -q1 mike.purpura
-<span class="t-dim">traceroute to mike.purpura, 11 hops max</span>
+<span class="t-dim">traceroute to mike.purpura, 9 hops max</span>
 <span class="term-line" data-hop="1"> 1  ntc.edu              2010   <b>2 yr</b></span>
-<span class="term-line" data-hop="2"> 2  charter.circuits     2013   <b>by hand</b></span>
-<span class="term-line" data-hop="3"> 3  vb.first-script      2016   <b>all ifs</b></span>
-<span class="term-line" data-hop="4"> 4  twc.merger.juniper   2016   <b>2 yr</b></span>
-<span class="term-line" data-hop="5"> 5  python.audit         2020   <b>weekly</b></span>
-<span class="term-line" data-hop="6"> 6  migration.mop        2020s  <b>press play</b></span>
-<span class="term-line" data-hop="7"> 7  devops.team          2023   <b>2 yr</b></span>
-<span class="term-line" data-hop="8"> 8  amazon-q.kiro        2024   <b>AI at work</b></span>
-<span class="term-line" data-hop="9"> 9  basement.lab         2026   <b>daily</b></span>
-<span class="term-line" data-hop="10">10  busy.week            2026   <b>dad mode</b></span>
-<span class="term-line" data-hop="11">11  * * *  <span class="t-pink">your.team</span>   <b>?</b></span><span class="term-cursor"></span></pre>
+<span class="term-line" data-hop="2"> 2  charter.circuits     2013   <b>turn-ups</b></span>
+<span class="term-line" data-hop="3"> 3  vb.first-tool        2016   <b>whole team</b></span>
+<span class="term-line" data-hop="4"> 4  twc.merger.juniper   2016   <b>standards</b></span>
+<span class="term-line" data-hop="5"> 5  audits.maintenance   2020   <b>overnight</b></span>
+<span class="term-line" data-hop="6"> 6  migration.mop        2020s  <b>per site</b></span>
+<span class="term-line" data-hop="7"> 7  devops.team          2023   <b>platform</b></span>
+<span class="term-line" data-hop="8"> 8  home.lab             2026   <b>side work</b></span>
+<span class="term-line" data-hop="9"> 9  * * *  <span class="t-pink">next.team</span>   <b>?</b></span><span class="term-cursor"></span></pre>
         </div>
       </aside>
 
@@ -232,202 +257,583 @@
         </li>
         <li class="hop" data-hop="2">
           <p class="hop-meta"><span class="hop-n">02</span> 2013 · Charter Communications, Madison</p>
-          <h3>Turning up thousands of circuits</h3>
-          <p>My first real job in tech: Charter's enterprise fiber team. Point-to-point circuits, cell backhaul out to carrier switching offices, off-net circuits through other carriers, and sprawling multipoint networks for customers like a Fortune 500 insurer and a regional grocery chain. Every turn-up got tested before I'd call it done.</p>
-          <p class="hop-stat">At the start, every one was handcrafted: each config built by hand in a Notepad file. Copy, paste, edit, repeat. No automation at all. That's the <strong>before</strong>.</p>
+          <h3>Turning up circuits</h3>
+          <p>My first job in tech, on Charter's enterprise fiber team: point-to-point circuits, cell backhaul and large multipoint networks for business customers. I built each config by hand and tested every turn-up before calling it done, which is how I learned the network inside out.</p>
         </li>
         <li class="hop" data-hop="3">
-          <p class="hop-meta"><span class="hop-n">03</span> ~2016 · The first automation</p>
-          <h3>So I resorted to Visual Basic</h3>
-          <p>Copy and paste only scales so far. My first real program was a spreadsheet that drove our order system through a web browser and filled in circuit IDs, IPs, VLANs, device assignments, even the Visio diagram. I wrote it like a first-timer: no proper functions, no methods, mostly <em>if</em> statements, all in one giant, bloated script. It worked anyway. Before long the whole team was using it, and management mostly wanted to know why I was suddenly so fast.</p>
+          <p class="hop-meta"><span class="hop-n">03</span> ~2016 · The first tool</p>
+          <h3>A spreadsheet that did the typing</h3>
+          <p>My first program was a Visual Basic spreadsheet that filled in our order system: circuit IDs, IPs, VLANs, device assignments, even the Visio diagram. It was mostly <em>if</em> statements, the way first programs are, and before long the whole team was using it.</p>
         </li>
         <li class="hop" data-hop="4">
           <p class="hop-meta"><span class="hop-n">04</span> 2016–2018 · The Time Warner merger</p>
-          <h3>Nobody owned the standards, so I wrote them</h3>
-          <p>Charter bought Time Warner Cable and our all-Cisco region woke up multi-vendor. The standards were a mess: everybody kept their own Excel sheet, and no two matched. Somebody had to write it all down where the whole team could share it, so I did. I picked up JavaScript and built a tool that spit out Juniper MX960 and MX480 configs on demand, became our Confluence admin, and wrote the customer circuit standards for internet, voice and WAN.</p>
-          <p>That standards work turned into a team-lead role: documentation, and making sure everybody had the information they needed. Somewhere in there I also earned my CCNP.</p>
+          <h3>One set of standards for a bigger network</h3>
+          <p>When Charter and Time Warner Cable merged, our all-Cisco region went multi-vendor, and the team needed standards everyone could share. I wrote our customer circuit standards for internet, voice and WAN in Confluence, ran the space as its admin, and built a JavaScript tool that generated Juniper MX configs to match. I was also sent to help with the network transition in the new region, and along the way I earned my CCNP, JNCIA, Nokia NRS I and MEF-CECP.</p>
         </li>
         <li class="hop" data-hop="5">
-          <p class="hop-meta"><span class="hop-n">05</span> 2020 · Python</p>
-          <h3>Then I taught myself Python</h3>
-          <p>New router standards were landing a few times a week. I did them by hand until I couldn't stand it, then taught myself Python. My scripts audited and fixed the region's Cisco ASR 9000s, Juniper MXs and Nokia 7750s every week, and when the regional QoS policy needed rewriting on every PE router, I rewrote it and automated the rollout.</p>
+          <p class="hop-meta"><span class="hop-n">05</span> 2020 on · Python and maintenance windows</p>
+          <h3>Audit first, then change it at night</h3>
+          <p>New router standards were landing every week, so I taught myself Python and wrote audits that checked every router in the region against them. The audits found the gaps; closing them was on me. I ran the overnight maintenance windows on my own: a pre-check of every router, the potentially service-impacting changes, then a post-check of every router, and I reviewed every one to make sure we were in the clear. The before and after were saved for every router.</p>
+          <p class="hop-stat">Those changes touched almost every section of the config: <strong>BGP route policies</strong>, the <strong>IGP</strong>, <strong>QoS policies</strong> and <strong>network management</strong>, on production routers carrying business customers and cell-tower backhaul.</p>
+          <p>When the regional QoS policy needed rewriting, I rewrote it and rolled it out to every PE router.</p>
         </li>
         <li class="hop" data-hop="6">
           <p class="hop-meta"><span class="hop-n">06</span> 2020 on · Migrations</p>
-          <h3>Send me the cut sheet. Press play.</h3>
-          <p>Migrations were where the hours went: hundreds of sites, and tasks that took an engineer hours by hand. So they'd send me the cut sheet as an Excel file, and my script built the whole method of procedure: SSH into the device, pull the config, analyze it, pull out every variable that mattered, and build the config for the destination device. Basically, press play.</p>
-          <p class="hop-stat">Each migration saved <strong>hundreds of hours</strong>. Over thirteen years, <strong>thousands</strong> at least, because for most of a decade, making everything faster was basically the whole job.</p>
+          <h3>Send me the cut sheet.</h3>
+          <p>Migrations meant hundreds of sites, each needing a method of procedure that took hours to write by hand. So the team sent me the cut sheet, and my script logged in to each device, pulled the config, picked out every variable that mattered, and wrote the procedure and the new config. Basically, press play.</p>
         </li>
         <li class="hop" data-hop="7">
           <p class="hop-meta"><span class="hop-n">07</span> 2023–2026 · DevOps team</p>
-          <h3>Tools for the whole engineering org</h3>
-          <p>Then I got pulled onto the DevOps team, building apps for the network engineering org. I was a lead developer on our network inventory and security platform: one product in two parts. Discovery crawled the network live over SSH, through PE routers, management VRFs and gateway interfaces, found each device, profiled its vendor, model and code, and stored it in a SQL inventory (MariaDB, later PostgreSQL). Security modules then ran against everything discovery found: password rotation and auditing, across hundreds of thousands of devices.</p>
-          <p>I built the inventory database and wrote the multi-vendor modules: the home-grown Paramiko code that knows how to talk to each vendor's CLI, quirks and all. Secrets lived in HashiCorp Vault, and the code shipped through GitLab.</p>
+          <h3>A platform for the whole engineering org</h3>
+          <p>That automation work earned me a place on the DevOps team, building tools for network engineers. I was one of the lead developers on our network inventory and security platform: discovery crawled the network over SSH into a SQL inventory, and security modules rotated and audited passwords on everything it found, across hundreds of thousands of devices. I built the inventory database (MariaDB, later PostgreSQL) and the multi-vendor Paramiko modules, quirks and all, and we shipped through GitLab merge requests, code review and CI/CD.</p>
         </li>
         <li class="hop" data-hop="8">
-          <p class="hop-meta"><span class="hop-n">08</span> 2024–2026 · AI at work</p>
-          <h3>AI showed up at work first</h3>
-          <p>Before AI took over my basement, it showed up on the job. Our team paired GitLab with Amazon Q in the IDE, and I was the one who hooked the two together. I also worked in Kiro, Amazon's AI for the terminal. That was enterprise AI: real code, and a real network on the other end. Everything I build at home builds on it.</p>
+          <p class="hop-meta"><span class="hop-n">08</span> 2026 → now · The basement</p>
+          <h3>The home lab</h3>
+          <p>In early 2026 I started building a garden planner, mostly to see what AI coding could do. By spring there was a Mac Studio in my basement next to two Raspberry Pis, and the planner, <a href="#growyear">GrowYear</a>, is now live on the internet. The house got a voice, too. It escalated.</p>
         </li>
-        <li class="hop" data-hop="9">
-          <p class="hop-meta"><span class="hop-n">09</span> 2026 → now · The basement</p>
-          <h3>Then I brought it home</h3>
-          <p>In early 2026 I started vibe-coding a garden planner, mostly to find out what the hype was about. By spring there was a Mac Studio in my basement running AI models around the clock, and I was spending half my day in Claude Code. The garden got a planner, and the planner is now <a href="#growyear">live on the internet</a>. The house got a voice. It escalated.</p>
-        </li>
-        <li class="hop" data-hop="10">
-          <p class="hop-meta"><span class="hop-n">10</span> June 2026 · The plot twist</p>
-          <h3>Busy week</h3>
-          <p>Tuesday, my kid was born. Friday, Charter closed my office. I took some time to be a dad, then went back down to the basement and built most of what you're about to scroll through.</p>
-        </li>
-        <li class="hop hop-last" data-hop="11">
-          <p class="hop-meta"><span class="hop-n">11</span> Next hop</p>
+        <li class="hop hop-last" data-hop="9">
+          <p class="hop-meta"><span class="hop-n">09</span> Next hop</p>
           <h3><span class="mono">* * *</span> Request timed out.</h3>
-          <p>That's the part where you come in. <a href="#contact">Send a packet &rarr;</a></p>
+          <p>That's the part where you come in. <a href="#contact">Say hello &darr;</a></p>
         </li>
       </ol>
     </div>
   </div>
 </section>
 
-<!-- ===================================================== WHAT IT ADDED UP TO -->
-<section class="added" id="added-up" aria-labelledby="added-title">
-  <div class="wrap">
-    <p class="eyebrow reveal">02 · What it added up to</p>
-    <h2 class="display reveal" id="added-title">What the scripts <em>actually did.</em></h2>
-    <ol class="added-list">
-      <li class="added-step reveal">
-        <p class="added-k">Every week</p>
-        <h3>Thousands of routers, kept on standard</h3>
-        <p>Python kept thousands of routers and other network devices across the region on standard, Juniper, Cisco and Nokia alike, audited and updated every week. No copy-paste required.</p>
-      </li>
-      <li class="added-step reveal">
-        <p class="added-k">Every device</p>
-        <h3>Hundreds of thousands of devices, found and secured</h3>
-        <p>One platform in two parts: a live discovery crawl that found every device and filed it in a SQL inventory, and security modules that rotated and audited passwords on everything it found. A team build; I was one of its lead developers.</p>
-      </li>
-      <li class="added-step reveal">
-        <p class="added-k">Every hour</p>
-        <h3>The hours nobody had to spend</h3>
-        <p>Add up the migrations, the audits and the rotations, and it's more man-hours than I can count, for a team that would otherwise have done every bit of it by hand.</p>
-      </li>
-    </ol>
-  </div>
-</section>
-
-<!-- ===================================================== SKILLS MAP (assets/js/skills.js) -->
-<section class="skills" id="skills" aria-labelledby="skills-title">
+<!-- ===================================================== 03 SKILLS (the map is assets/js/skills.js; it folds away under the chips) -->
+<section class="skills" id="skills" data-chapter="Skills" aria-labelledby="skills-title">
   <div class="wrap">
     <header class="section-head">
-      <p class="eyebrow reveal">03 · Skills, wired together</p>
+      <p class="eyebrow reveal">03 · Skills</p>
       <h2 class="display reveal" id="skills-title">What I know, <em>and how I know it.</em></h2>
-      <p class="section-lede reveal">Every dot is a skill or a piece of real work, wired to what it used. <span class="sk-key sk-key-hand">Solid</span> is mine, by hand: things I know and code I wrote myself. <span class="sk-key sk-key-ai">Hollow</span> is what Claude Code wrote while I designed, directed and ran it. The bars are my own honest level, out of five.</p>
     </header>
-    <div class="skillmap reveal" id="skillmap">
-      <canvas class="skillmap-links" aria-hidden="true"></canvas>
-      <div class="skillmap-cols"></div>
+    <div class="tool-grid">
+      <div class="tool reveal"><h3>Networking</h3><p class="chips"><span class="hot">MPLS</span><span class="hot">BGP route policy</span><span>IS-IS</span><span>QoS</span><span>L2VPN / VPLS / LDP</span><span>Carrier Ethernet</span><span class="hot">Juniper MX</span><span>Cisco</span><span>Nokia 7750 SR</span><span>TACACS+</span><span>SNMP</span><span>IPv6</span></p></div>
+      <div class="tool reveal"><h3>Operations</h3><p class="chips"><span class="hot">Tier 4 escalations</span><span>On-call</span><span class="hot">Maintenance windows</span><span>Pre-check, change, post-check</span><span>MOPs</span><span>Turn-up testing (RFC 2544, Y.1731)</span><span>Splunk reporting</span><span>Confluence (space admin)</span><span>Jira workflows</span></p></div>
+      <div class="tool reveal"><h3>Automation and DevOps</h3><p class="chips"><span class="hot">Python</span><span class="hot">Paramiko / SSH</span><span>SQL: MariaDB, PostgreSQL</span><span>Git + GitLab</span><span>CI/CD pipelines</span><span>Merge requests + code review</span><span>Bash</span><span>Linux</span><span>Docker (beginner)</span></p></div>
+      <div class="tool reveal"><h3>On the side</h3><p class="chips"><span>Raspberry Pi + Arduino</span><span>Self-hosting: nginx, Cloudflare Tunnel</span><span>Claude Code</span><span>Amazon Q + Kiro (at work)</span><span>Local LLMs (Ollama)</span></p></div>
     </div>
-    <p class="skillmap-detail" id="skillmap-detail" aria-live="polite">Hover or tap a dot to see where it came from.</p>
-    <details class="skill-table">
-      <summary>See it as a list</summary>
-      <div class="skill-table-body" id="skill-table"></div>
+    <div class="creds reveal">
+      <h3>Certifications</h3>
+      <ul class="cred-list">
+        <li><span class="cred-name"><strong>Cisco CCNP</strong> Routing &amp; Switching</span><span class="cred-meta">Earned January 2018 · <a href="https://cp.certmetrics.com/cisco/en/public/verify/credential/431094169024ISDH" rel="noopener">verify #431094169024ISDH</a></span></li>
+        <li><span class="cred-name"><strong>Juniper JNCIA</strong> Juniper Networks Certified Associate</span></li>
+        <li><span class="cred-name"><strong>Nokia NRS I</strong> Network Routing Specialist I</span></li>
+        <li><span class="cred-name"><strong>MEF-CECP</strong> Carrier Ethernet Certified Professional</span><span class="cred-meta">Earned December 2017 · #25547X2</span></li>
+      </ul>
+      <p class="cred-note">All four have since lapsed.</p>
+    </div>
+    <details class="skill-more reveal">
+      <summary><span>See every skill wired to the work where I used it</span></summary>
+      <div class="skill-more-body">
+        <p class="section-lede">Every dot is a skill or a piece of real work, wired to what it used. <span class="sk-key sk-key-hand">Solid</span> is mine, by hand: things I know and code I wrote myself. <span class="sk-key sk-key-ai">Hollow</span> is what Claude Code wrote while I designed, directed and ran it. The bars are my own honest level, out of five.</p>
+        <div class="skillmap" id="skillmap">
+          <canvas class="skillmap-links" aria-hidden="true"></canvas>
+          <div class="skillmap-cols"></div>
+        </div>
+        <p class="skillmap-detail" id="skillmap-detail" aria-live="polite">Hover or tap a dot to see where it came from.</p>
+        <details class="skill-table">
+          <summary>See it as a list</summary>
+          <div class="skill-table-body" id="skill-table"></div>
+        </details>
+      </div>
     </details>
   </div>
 </section>
 
-<!-- ===================================================== LAB -->
-<section class="lab" id="lab" data-chapter="The lab" data-guide="lab">
-  <div class="lab-intro chapter-band">
-    <img decoding="async" class="lab-intro-art chapter-band-art" src="assets/img/art/lab_night.webp" alt="AI-generated art: a home lab at night with a small desktop computer, Raspberry Pis and glowing pink and blue cables" loading="lazy" width="1376" height="768"><span class="ai-chip ai-chip-band"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>Qwen-Image 2.1 (Q8_0 GGUF) · 1376×768 · 25 steps · CFG 1 · seed 3440170741</span></span>
-    <div class="wrap lab-intro-text chapter-band-text">
-      <p class="eyebrow reveal">04 · What I build now</p>
-      <h2 class="display reveal">The lab in my <em>basement.</em></h2>
-      <p class="section-lede reveal">A Mac Studio, two Raspberry Pis, a media server and a NAS, all doing real jobs for real people (my family). I work on it constantly, and it's never finished: something's always half-built, and something just broke. It isn't perfect. It is interesting, it's a lot of fun, and every piece of it maps to a job skill.</p>
+<!-- ===================================================== 04 CONTACT -->
+<section class="contact" id="contact" data-chapter="Contact" data-guide="contact">
+  <img decoding="async" class="contact-art" src="assets/img/art/desk_studio.webp" alt="" loading="lazy" aria-hidden="true"><span class="ai-chip ai-chip-contact"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>Qwen-Image 2.1 (Q8_0 GGUF) · 1376×768 · 25 steps · CFG 1 · seed 1645618556</span></span>
+  <div class="wrap contact-inner">
+    <p class="eyebrow reveal">04 · Get in touch</p>
+    <h2 class="contact-title reveal"><span class="gummy-text">Okay, cool.</span><br>Let's talk.</h2>
+    <p class="contact-lede reveal">Email is best. I can interview any day, any time (Central), and I reply faster than my 2019 plant waterer.</p>
+    <div class="contact-actions reveal">
+      <a class="btn btn-gummy btn-big js-email" id="email-link" href="#contact" data-u="mapurpura12" data-d="gmail.com">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4h13A2.5 2.5 0 0 1 21 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5zm2.2-.5L12 11l6.8-5z" fill="currentColor"/></svg>
+        <span>Email me</span>
+      </a>
+      <button class="btn btn-ghost btn-big" type="button" id="copy-email">Copy address</button>
+      <a class="btn btn-ghost btn-big" href="resume/">Résumé</a>
     </div>
+    <noscript><p class="contact-lede">mapurpura12 [at] gmail [dot] com</p></noscript>
   </div>
+</section>
 
+<!-- ===================================================== 05 PROJECTS: GrowYear, then the work at Charter, then the projects at home -->
+<section class="projects" id="projects" data-chapter="Projects" data-guide="projects">
   <div class="wrap">
-    <h3 class="sys-title reveal">Everything that's running, and how it connects</h3>
-    <div class="sysmap reveal" id="sysmap">
-      <svg class="sys-wires" aria-hidden="true"></svg>
-      <div class="sys-io-row sys-in" aria-label="What comes in">
-        <p class="sys-cap">In</p>
-        <span class="sys-io" data-col="1" id="io-voice"><b>🎙️ My voice</b><small>through Grokbot <span class="sys-to">&rarr; the Hub</span></small></span>
-        <span class="sys-io" data-col="1" id="io-keys"><b>⌨️ Me, at a keyboard</b><small>usually <span class="sys-to">&rarr; the Hub</span></small></span>
-        <span class="sys-io" data-col="1" id="io-market"><b>📈 Market data</b><small>prices and filings <span class="sys-to">&rarr; Tickerscope</span></small></span>
-        <span class="sys-io" data-col="2" id="io-nws"><b>🌪️ Weather alerts</b><small>National Weather Service <span class="sys-to">&rarr; house platform</span></small></span>
-        <span class="sys-io" data-col="2" id="io-you"><b>🌐 You</b><small>through Cloudflare <span class="sys-to">&rarr; this site</span></small></span>
+    <header class="section-head">
+      <p class="eyebrow reveal">05 · Projects</p>
+      <h2 class="display reveal">At work, <em>and at home.</em></h2>
+      <p class="section-lede reveal">First, the one that's live on the internet. Then the rest, in two piles: the work I did at Charter, and the projects I run at home. Swipe, scroll or use the arrows.</p>
+    </header>
+
+    <!-- the featured project: GrowYear, live on the internet, with how it's built and where it runs -->
+    <article class="feature reveal" id="growyear" aria-labelledby="gy-title">
+      <div class="feature-top">
+        <a class="feature-shot" href="https://mygrowyear.com" target="_blank" rel="noopener" aria-label="Open GrowYear at mygrowyear.com (new tab)">
+          <img src="assets/img/projects/growyear_shop.webp" alt="Screenshot of GrowYear's seed shop at mygrowyear.com: pepper varieties sorted into bell, sweet, hot and very hot, beside the crop's growing facts" loading="lazy" width="1280" height="800">
+        </a>
+        <div class="feature-text">
+          <p class="feature-k"><span class="feature-live"><span class="dot-live" aria-hidden="true"></span> Live</span> Featured project</p>
+          <h3 class="feature-title" id="gy-title">GrowYear</h3>
+          <p class="feature-lede">A garden planner. Pick seeds from real seed companies, point at a bed, and it works out the spacing, the indoor starts and the calendar.</p>
+          <p class="feature-why">I took it from an idea to a finished app that runs in public: real catalogs from a dozen seed companies, a planner that works out the dates, and everything a live service needs, from sign-in and data security to deploys, backups and monitoring. I designed it, built it with Claude Code, and serve it from my basement.</p>
+          <div class="feature-ctas">
+            <a class="btn btn-gummy" href="https://mygrowyear.com" target="_blank" rel="noopener">Open mygrowyear.com <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <p class="feature-note">Look around without an account. Sign in with Google to plan a garden.</p>
+          </div>
+        </div>
       </div>
-      <div class="sys-hosts">
-        <article class="sys-host sys-studio" data-col="1">
-          <header><h4>Mac Studio</h4><p>M3 Ultra · the brains</p></header>
-          <ul>
-            <li><a class="sys-app sys-app-hub" id="app-hub" href="#hub"><b>The Hub <i aria-hidden="true">&darr;</i></b><span>Claude Code, approvals, studios</span></a></li>
-            <li class="sys-app" id="app-ollama"><b>Ollama</b><span>local LLMs, up to 235B parameters</span></li>
-            <li class="sys-app" id="app-comfy"><b>ComfyUI</b><span>images, music and video</span></li>
-            <li class="sys-app" id="app-voice"><b>Voice services</b><span>the house's voices</span></li>
-            <li class="sys-app" id="app-homelab"><b>Home Lab</b><span>monitoring, patching, deploy checks</span></li>
-            <li class="sys-app" id="app-ticker"><b>Tickerscope</b><span>stocks, taxes, a morning brief</span></li>
-            <li class="sys-app" id="app-paper"><b>Paper-trading bot</b><span>fake money, real rules</span></li>
-          </ul>
+
+      <h4 class="feature-h">How it works, and where it lives</h4>
+      <div class="arch arch-gy" aria-label="How a request reaches GrowYear">
+        <div class="arch-node"><span class="arch-ico" aria-hidden="true">🧑‍🌾</span><h3>You</h3><p>Any browser, phone or desktop</p></div>
+        <div class="arch-link" aria-hidden="true"><i></i></div>
+        <div class="arch-node"><span class="arch-ico" aria-hidden="true">☁️</span><h3>Cloudflare</h3><p>TLS 1.3 · HTTP/3 · caches the app's files, never the API</p></div>
+        <div class="arch-link arch-link-tunnel" aria-hidden="true"><i></i><span>encrypted tunnel</span></div>
+        <div class="arch-node"><span class="arch-ico" aria-hidden="true">🛰️</span><h3>Starlink</h3><p>No open ports at home: the Pi dials <em>out</em> to Cloudflare</p></div>
+        <div class="arch-link" aria-hidden="true"><i></i></div>
+        <div class="arch-node arch-home"><span class="arch-ico" aria-hidden="true">🍓</span><h3>Raspberry Pi 4</h3><p>nginx, plus Postgres, sign-in and the API in Docker, all on localhost</p></div>
+        <div class="arch-link arch-link-git" aria-hidden="true"><i></i><span>deploy.sh</span></div>
+        <div class="arch-node"><span class="arch-ico" aria-hidden="true">🖥️</span><h3>Mac Studio</h3><p>Tests, builds and ships it, and rolls back if a health check fails</p></div>
+      </div>
+
+      <dl class="feature-facts">
+        <div><dt>The app</dt><dd>React 18 and TypeScript, built with Vite: Tailwind, Radix UI (shadcn/ui), TanStack Query and Zustand. It's a static bundle that nginx serves.</dd></div>
+        <div><dt>The back end</dt><dd>Supabase, trimmed to the three parts it needs, in Docker: Postgres, GoTrue for sign-in and PostgREST for the API. About half a gigabyte of a 2 GB Pi.</dd></div>
+        <div><dt>Sign-in and data</dt><dd>Google sign-in only. Row-level security in Postgres decides every read and write: your garden is yours, and the seed catalog is read-only to everyone else.</dd></div>
+        <div><dt>Where it runs</dt><dd>My second Raspberry Pi, in the basement, at mygrowyear.com. A Cloudflare Tunnel carries the traffic, so nothing at home is open to the internet.</dd></div>
+        <div><dt>Shipping it</dt><dd>One command from the Mac Studio: typecheck, tests, build, database migrations, an atomic switch to the new release, then a health check that puts the old one back if anything fails.</dd></div>
+        <div><dt>Keeping it</dt><dd>Nightly database backups, copied to another machine in the house, and a monitor that checks its public address every two minutes.</dd></div>
+      </dl>
+    </article>
+
+    <div class="pgroup reveal" id="at-work" data-chapter="At Charter">
+      <div class="pgroup-head">
+        <div><h3>At Charter</h3><p>Work for the network engineering and DevOps teams. The code and the data were Charter's and stayed there, so these are described rather than shown.</p></div>
+        <div class="pnav"><button class="pnav-btn" type="button" data-track="work-track" data-dir="-1" aria-label="Previous Charter project">&larr;</button><button class="pnav-btn" type="button" data-track="work-track" data-dir="1" aria-label="Next Charter project">&rarr;</button></div>
+      </div>
+      <div class="ptrack ptrack-desc" id="work-track" tabindex="0" role="region" aria-label="Work at Charter, as described">
+
+        <article class="pcard pcard-desc">
+          <div class="pcard-body">
+            <p class="pcard-tag">Described · stayed at Charter</p>
+            <p class="pcard-when">2016 → 2018 · JavaScript</p>
+            <h4>Juniper configs and circuit standards</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>One set of customer circuit standards the team could share after the Time Warner merger.</dd></div>
+              <div><dt>Built</dt><dd>Standards for internet, voice and WAN circuits in Confluence, and a JavaScript tool that generated Juniper MX configs to match them.</dd></div>
+              <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
+            </dl>
+            <dl class="pcard-specs"><div><dt>Tools</dt><dd>JavaScript, Junos, Confluence (space admin)</dd></div></dl>
+          </div>
         </article>
-        <article class="sys-host" data-col="2">
-          <header><h4>Pi Black</h4><p>Raspberry Pi 4</p></header>
-          <ul>
-            <li class="sys-app" id="app-house"><b>House platform</b><span>weather alerts, plugs, recipes, baby log, agent API</span></li>
-            <li class="sys-app" id="app-thaddeus"><b>Thaddeus</b><span>the house voice</span></li>
-            <li class="sys-app" id="app-dj"><b>AI radio DJs</b><span>sets written by a local LLM</span></li>
-            <li class="sys-app" id="app-site"><b>okay-cool.net</b><span>this page, through a tunnel</span></li>
-          </ul>
+
+        <article class="pcard pcard-desc">
+          <div class="pcard-body">
+            <p class="pcard-tag">Described · stayed at Charter</p>
+            <p class="pcard-when">2020 → 2023 · Python, production routers</p>
+            <h4>Standards audits and overnight maintenance</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>Keep every router in the region on the latest standard as new ones landed each week.</dd></div>
+              <div><dt>Built</dt><dd>Python audits that checked thousands of routers and other network devices against the standards.</dd></div>
+              <div><dt>Ran</dt><dd>The overnight maintenance that brought them up to standard, on my own: a pre-check of every router, the potentially service-impacting changes, then a post-check of every router, reviewed until we were in the clear.</dd></div>
+              <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
+            </dl>
+            <dl class="pcard-specs"><div><dt>Changed</dt><dd>Almost every section of the config: BGP route policies, the IGP, QoS policies and network management</dd></div><div><dt>Tools</dt><dd>Python, Paramiko over SSH; Juniper, Cisco and Nokia</dd></div></dl>
+          </div>
         </article>
-        <article class="sys-host" data-col="3">
-          <header><h4>Pi Green</h4><p>Raspberry Pi 4</p></header>
-          <ul>
-            <li class="sys-app" id="app-dnd"><b>D&amp;D Lab</b><span>dice, soundboard, campaign radio</span></li>
-            <li class="sys-app" id="app-grow"><b>GrowYear</b><span>garden planner, live at mygrowyear.com</span></li>
-          </ul>
+
+        <article class="pcard pcard-desc">
+          <div class="pcard-body">
+            <p class="pcard-tag">Described · stayed at Charter</p>
+            <p class="pcard-when">2020s · Python</p>
+            <h4>The migration MOP generator</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>A ready-to-run method of procedure (MOP) for every site in a migration of hundreds.</dd></div>
+              <div><dt>Built</dt><dd>Send it the cut sheet: it connected to each device over SSH, pulled and analyzed the config, extracted the variables that mattered, and generated the full procedure and the destination config.</dd></div>
+              <div><dt>Status</dt><dd>Used by the engineering team. Stayed at Charter.</dd></div>
+            </dl>
+            <dl class="pcard-specs"><div><dt>Tools</dt><dd>Python, Paramiko over SSH, Excel cut sheets</dd></div></dl>
+          </div>
         </article>
-        <article class="sys-host" data-col="4">
-          <header><h4>plex-media</h4><p>Acer mini PC</p></header>
-          <ul>
-            <li class="sys-app" id="app-plex"><b>Plex</b><span>the family's movies</span></li>
-            <li class="sys-app" id="app-medialab"><b>Media Lab</b><span>the library manager</span></li>
-            <li class="sys-app" id="app-forgejo"><b>Forgejo</b><span>a local copy of every repo</span></li>
-          </ul>
+
+        <article class="pcard pcard-desc">
+          <div class="pcard-body">
+            <p class="pcard-tag">Described · stayed at Charter</p>
+            <p class="pcard-when">Network engineering · Splunk</p>
+            <h4>Change reports for management</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>Give management real numbers on change work.</dd></div>
+              <div><dt>Built</dt><dd>Splunk reports from TACACS+ and ISE command logs: commands, commits and hours per engineer, by device and maintenance window. Also used for command audits and for tracing an outage back to the change behind it.</dd></div>
+              <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
+            </dl>
+            <dl class="pcard-specs"><div><dt>Tools</dt><dd>Splunk and its Python module, TACACS+, Cisco ISE</dd></div></dl>
+          </div>
         </article>
-        <article class="sys-host" data-col="5">
-          <header><h4>NAS</h4><p>TerraMaster, four bays</p></header>
-          <ul>
-            <li class="sys-app" id="app-files"><b>Family files</b><span>photos and documents, backed up to plex-media</span></li>
-          </ul>
+
+        <article class="pcard pcard-desc">
+          <div class="pcard-body">
+            <p class="pcard-tag">Described · stayed at Charter</p>
+            <p class="pcard-when">Network engineering · Splunk, WebEx</p>
+            <h4>The maintenance-window handoff</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>Give the morning shift the night's changes at a glance.</dd></div>
+              <div><dt>Built</dt><dd>A summary of each maintenance window, posted to WebEx: which engineer worked on which routers, when, for how long, and under which change request.</dd></div>
+              <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
+            </dl>
+            <dl class="pcard-specs"><div><dt>Tools</dt><dd>Splunk, ISE command logs, WebEx</dd></div></dl>
+          </div>
+        </article>
+
+        <article class="pcard pcard-desc">
+          <div class="pcard-body">
+            <p class="pcard-tag">Described · stayed at Charter</p>
+            <p class="pcard-when">Network engineering · Python, WebEx</p>
+            <h4>The router ping bot</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>Hear about a router outage as early as possible.</dd></div>
+              <div><dt>Built</dt><dd>Before WebEx bots were common: a bot that pinged hundreds of regional routers on a schedule, retried three times, then posted an alert to the team.</dd></div>
+              <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
+            </dl>
+            <dl class="pcard-specs"><div><dt>Tools</dt><dd>Python, ping, the WebEx bot API</dd></div></dl>
+          </div>
+        </article>
+
+        <article class="pcard pcard-desc">
+          <div class="pcard-body">
+            <p class="pcard-tag">Described · stayed at Charter</p>
+            <p class="pcard-when">2023 → 2026 · Python and SQL, on a team</p>
+            <h4>The network inventory and security platform</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>Find every device across Charter's national enterprise footprint, hundreds of thousands from nine vendors, then keep their passwords rotated and audited.</dd></div>
+              <div><dt>Built</dt><dd>One platform in two parts. Discovery crawled the network live over SSH and filed every device it found in a SQL inventory. Security modules then rotated and audited passwords on everything discovery found.</dd></div>
+              <div><dt>Status</dt><dd>In production. A team build: I was one of its lead developers, and the inventory database and the multi-vendor modules were my part.</dd></div>
+            </dl>
+            <dl class="pcard-specs">
+              <div><dt>Tools</dt><dd>Python, Paramiko over SSH, MariaDB then PostgreSQL, HashiCorp Vault, GitLab CI/CD</dd></div>
+              <div><dt>Vendors</dt><dd>Juniper, Cisco, Nokia, Harmonic, RAD, Adva, Ciena, AudioCodes, Adtran</dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="pcard pcard-desc">
+          <div class="pcard-body">
+            <p class="pcard-tag">Described · stayed at Charter</p>
+            <p class="pcard-when">DevOps team · Python, WebEx</p>
+            <h4>The morning report</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>Catch a quiet overnight failure before the workday starts.</dd></div>
+              <div><dt>Built</dt><dd>A post in a small WebEx space every morning: the platform's last 24 hours (devices rotated, failures, discovery counts), plus API and ping checks on every server. A zero where a number belonged meant something broke.</dd></div>
+              <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
+            </dl>
+            <dl class="pcard-specs"><div><dt>Tools</dt><dd>Python, SQL, WebEx</dd></div></dl>
+          </div>
         </article>
       </div>
-      <div class="sys-io-row sys-out" aria-label="What comes out">
-        <p class="sys-cap">Out</p>
-        <span class="sys-io" data-col="2" id="io-sonos"><b>🔊 Sonos, every room</b><small><span class="sys-to">from Thaddeus and the DJs</span></small></span>
-        <span class="sys-io" data-col="2" id="io-phones"><b>📱 Phones</b><small><span class="sys-to">from the house platform</span></small></span>
-        <span class="sys-io" data-col="3" id="io-discord"><b>🎲 Discord</b><small><span class="sys-to">from D&amp;D Lab</span></small></span>
-        <span class="sys-io" data-col="4" id="io-tv"><b>📺 TVs</b><small><span class="sys-to">from Plex</span></small></span>
-      </div>
-      <ul class="sys-rails">
-        <li><b>🔁 Deploys</b> Push to GitHub, and every Pi updates itself within two minutes.</li>
-        <li><b>👀 Watching</b> Home Lab checks every host over SNMP and SSH, and fails loudly.</li>
-        <li><b>🔐 Getting in</b> Both Pis run Tailscale as a high-availability router pair.</li>
-      </ul>
     </div>
-    <div class="maps-to reveal">
-      <p>What it maps to on the job:</p>
-      <p class="chips"><span>Monitoring &amp; alerting</span><span>GitOps deploys</span><span>APIs agents can use safely</span><span>Linux hardening</span><span>Local AI with guardrails</span><span>Documentation</span></p>
+
+    <div class="pgroup reveal" id="at-home" data-chapter="At home">
+      <div class="pgroup-head">
+        <div><h3>At home</h3><p>Projects I design, build and run myself. The newer ones I built with Claude Code; the older ones I wrote by hand.</p></div>
+        <div class="pnav"><button class="pnav-btn" type="button" data-track="home-track" data-dir="-1" aria-label="Previous home project">&larr;</button><button class="pnav-btn" type="button" data-track="home-track" data-dir="1" aria-label="Next home project">&rarr;</button></div>
+      </div>
+      <div class="ptrack" id="home-track" tabindex="0" role="region" aria-label="Projects at home">
+
+        <article class="pcard">
+          <img class="pcard-img" src="assets/img/projects/hub.webp" alt="Screenshot of the Hub" loading="lazy" width="1280" height="800">
+          <div class="pcard-body">
+            <p class="pcard-when">2026 → · daily driver</p>
+            <h4>The Hub</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>Run every AI tool in the house from one place.</dd></div>
+              <div><dt>Built</dt><dd>One web app for all of it, built around one rule: nothing that matters happens until I approve it.</dd></div>
+              <div><dt>Status</dt><dd>In progress, used daily.</dd></div>
+            </dl>
+            <p class="pcard-what">Every Claude Code session, local model and generator in the house on one page, with an approval queue. <a href="#hub">More below &darr;</a></p>
+            <details class="pcard-tech"><summary>Tools and hardware</summary>
+              <dl class="pcard-specs">
+              <div><dt>Skills</dt><dd>Approval workflows, human-in-the-loop safety, running big models locally</dd></div>
+              <div><dt>Packages</dt><dd>Flask, gunicorn + gevent, flask-sock WebSockets, PTYs, server-sent events, SQLite, Ollama, ComfyUI, MLX</dd></div>
+              <div><dt>Hardware</dt><dd>Mac Studio (M3 Ultra, 256 GB)</dd></div>
+            </dl>
+            </details>
+          </div>
+        </article>
+
+        <article class="pcard">
+          <img class="pcard-img" src="assets/img/shots/weather.webp" alt="Screenshot of the household weather page for Milton, Wisconsin" loading="lazy" style="object-position:30% 0%">
+          <div class="pcard-body">
+            <p class="pcard-when">2026 → · Raspberry Pi</p>
+            <h4>The house platform</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>Severe-weather alerts everyone hears, and one app for the household.</dd></div>
+              <div><dt>Built</dt><dd>One platform with shared building blocks: a voice service, a scheduler, and an API with scoped tokens.</dd></div>
+              <div><dt>Status</dt><dd>Live, used daily by my family, and always growing.</dd></div>
+            </dl>
+            <p class="pcard-what">The family's home app: severe-weather alerts read aloud by Thaddeus on every speaker, smart plugs, a recipe book you dictate to, and a baby tracker.</p>
+            <details class="pcard-tech"><summary>Tools and hardware</summary>
+              <dl class="pcard-specs">
+              <div><dt>Skills</dt><dd>Event-driven services, API design, reliability</dd></div>
+              <div><dt>Packages</dt><dd>Flask, Waitress, SQLite, nginx, SoCo (Sonos over UPnP), Piper and Voicebox voices, the ESPHome HTTP API, the National Weather Service API, OpenAPI</dd></div>
+              <div><dt>Hardware</dt><dd>Raspberry Pi 4, Sonos speakers, Kauf smart plugs</dd></div>
+            </dl>
+            </details>
+          </div>
+        </article>
+
+        <article class="pcard">
+          <img class="pcard-img" src="assets/img/projects/dj.webp" alt="Screenshot of the DJ editor in the house app: Lord Pemberton's name, his music, his voice, and the persona prompt that sets how he talks on air" loading="lazy" width="1280" height="800">
+          <div class="pcard-body">
+            <p class="pcard-when">2026 → · Raspberry Pi + Mac Studio</p>
+            <h4>The radio DJs</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>Fresh music on the house speakers without curating playlists.</dd></div>
+              <div><dt>Built</dt><dd>DJ personas with their own voices and weekly time slots, added without ever destabilizing the plain Sonos controller.</dd></div>
+              <div><dt>Status</dt><dd>Live, and still an experiment.</dd></div>
+            </dl>
+            <p class="pcard-what">Radio-style DJs that write their own sets. A local LLM picks songs for the weather and the time of day, and the DJ talks between them on the house speakers. Lord Pemberton hosts the classical slot, under protest.</p>
+            <details class="pcard-tech"><summary>Tools and hardware</summary>
+              <dl class="pcard-specs">
+              <div><dt>Skills</dt><dd>LLM prompting, scheduling, careful integration</dd></div>
+              <div><dt>Packages</dt><dd>Ollama (a 122B model), SoCo, the house voice service</dd></div>
+              <div><dt>Hardware</dt><dd>Mac Studio for the model, Raspberry Pi 4, Sonos speakers</dd></div>
+            </dl>
+            </details>
+          </div>
+        </article>
+
+        <article class="pcard">
+          <img class="pcard-img" src="assets/img/shots/tickerscope.webp" alt="Screenshot of Tickerscope: a candlestick chart with tweet pins" loading="lazy" style="object-position:56% 0%">
+          <div class="pcard-body">
+            <p class="pcard-when">2026 → · Mac Studio</p>
+            <h4>Tickerscope</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>See who called a move first, and what it means for my taxes.</dd></div>
+              <div><dt>Built</dt><dd>It started as an X firehose read by local AI. Tens of thousands of posts in, I cut the firehose and kept the portfolio.</dd></div>
+              <div><dt>Status</dt><dd>In progress, used every trading day.</dd></div>
+            </dl>
+            <p class="pcard-what">My portfolio's system of record: live-priced positions, a tax page that plans harvests around wash sales, and a morning brief my agents read before the bell.</p>
+            <details class="pcard-tech"><summary>Tools and hardware</summary>
+              <dl class="pcard-specs">
+              <div><dt>Skills</dt><dd>Event data on time series, tax-lot math, LLM triage</dd></div>
+              <div><dt>Packages</dt><dd>Flask, Waitress, yfinance, twikit, Lightweight Charts, SQLite, Ollama</dd></div>
+              <div><dt>Hardware</dt><dd>Mac Studio</dd></div>
+            </dl>
+            </details>
+          </div>
+        </article>
+
+        <article class="pcard">
+          <img class="pcard-img" src="assets/img/shots/monitor.webp" alt="Screenshot of the Home Lab monitor with live host metrics" loading="lazy" style="object-position:30% 0%">
+          <div class="pcard-body">
+            <p class="pcard-when">2026 → · the whole fleet</p>
+            <h4>Home Lab: fleet ops</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>Know about a problem in the house before the family does.</dd></div>
+              <div><dt>Built</dt><dd>SNMP and SSH checks with alerts people read, staggered patch reboots, certificate-expiry alarms, and a page that confirms the code matches everywhere.</dd></div>
+              <div><dt>Status</dt><dd>In progress, used daily.</dd></div>
+            </dl>
+            <p class="pcard-what">Agentless monitoring, patching and deploy checks for every machine in the house.</p>
+            <details class="pcard-tech"><summary>Tools and hardware</summary>
+              <dl class="pcard-specs">
+              <div><dt>Skills</dt><dd>Monitoring, Linux hardening, GitOps</dd></div>
+              <div><dt>Packages</dt><dd>Flask, Waitress, Paramiko, pysnmp (SNMP v2c), psutil, nftables, fail2ban, unattended-upgrades, Let's Encrypt, Tailscale, Forgejo</dd></div>
+              <div><dt>Hardware</dt><dd>Mac Studio, two Raspberry Pis, an Acer mini PC, a TerraMaster NAS</dd></div>
+            </dl>
+            </details>
+          </div>
+        </article>
+
+        <article class="pcard">
+          <img class="pcard-img" src="assets/img/shots/growyear.webp" alt="Screenshot of the GrowYear home page at mygrowyear.com" loading="lazy" style="object-position:50% 0%">
+          <div class="pcard-body">
+            <p class="pcard-when">2026 → · Raspberry Pi</p>
+            <h4>GrowYear</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>Plan a garden in one place instead of spreadsheets, sketches and five seed catalogs.</dd></div>
+              <div><dt>Built</dt><dd>Started on Lovable in early 2026; rebuilt this fall with real seed-company catalogs.</dd></div>
+              <div><dt>Status</dt><dd>Live at <a href="https://mygrowyear.com" target="_blank" rel="noopener">mygrowyear.com</a>, with Google sign-in.</dd></div>
+            </dl>
+            <p class="pcard-what">A garden planner: pick a seed, point at a bed, and it works out the spacing, the indoor starts and the calendar. PC Part Picker, but for seeds. <a href="#growyear">How it's hosted &uarr;</a></p>
+            <details class="pcard-tech"><summary>Tools and hardware</summary>
+              <dl class="pcard-specs">
+              <div><dt>Skills</dt><dd>Product design, data modeling, full-stack web</dd></div>
+              <div><dt>Packages</dt><dd>React, TypeScript, Vite, Tailwind, Radix UI, TanStack Query, Zustand, Supabase (Postgres) in Docker, nginx, Cloudflare Tunnel</dd></div>
+              <div><dt>Hardware</dt><dd>Raspberry Pi 4</dd></div>
+            </dl>
+            </details>
+          </div>
+        </article>
+
+        <article class="pcard">
+          <img class="pcard-img" src="assets/img/projects/okay_cool.webp" alt="Screenshot of the top of this site" loading="lazy" width="1280" height="800">
+          <div class="pcard-body">
+            <p class="pcard-when">Oct 2026 → · Raspberry Pi</p>
+            <h4>okay-cool.net</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>Show the work, not just list it.</dd></div>
+              <div><dt>Built</dt><dd>A tunnel out of carrier-grade NAT, a strict content security policy, live server vitals, and a sidebar that routes your packet with real IS-IS and BGP math.</dd></div>
+              <div><dt>Status</dt><dd>Live (you're on it), and updated constantly.</dd></div>
+            </dl>
+            <p class="pcard-what">This site: one long page, self-hosted on a Raspberry Pi over Starlink, with art, music and narration generated on my own Mac Studio.</p>
+            <details class="pcard-tech"><summary>Tools and hardware</summary>
+              <dl class="pcard-specs">
+              <div><dt>Skills</dt><dd>Web performance, security headers, self-hosting</dd></div>
+              <div><dt>Packages</dt><dd>HTML, CSS and JavaScript (no framework), canvas, Web Audio, nginx, cloudflared over IPv6, ComfyUI, ACE-Step, VoxCPM2, Kokoro</dd></div>
+              <div><dt>Hardware</dt><dd>Raspberry Pi 4 (2 GB), Mac Studio</dd></div>
+            </dl>
+            </details>
+          </div>
+        </article>
+
+        <article class="pcard">
+          <img class="pcard-img" src="assets/img/projects/paper_bot.webp" alt="Screenshot of the trading bot's dashboard on an Interactive Brokers paper account: account value, today's automatic steps, and performance against SPY and QQQ" loading="lazy" width="1280" height="800">
+          <div class="pcard-body">
+            <p class="pcard-when">Oct 2026 → · Mac Studio</p>
+            <h4>The paper-trading bot</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>Its one job: earn enough to cover my subscriptions.</dd></div>
+              <div><dt>Built</dt><dd>A strategy engine with strict risk limits and a live dashboard, proven on fake money first.</dd></div>
+              <div><dt>Status</dt><dd>In progress: paper money only, with a lot of humility.</dd></div>
+            </dl>
+            <p class="pcard-what">A trading engine on an Interactive Brokers paper account: core ETFs, a momentum sleeve and opening-range breakouts.</p>
+            <details class="pcard-tech"><summary>Tools and hardware</summary>
+              <dl class="pcard-specs">
+              <div><dt>Skills</dt><dd>Risk limits, backtesting, broker APIs</dd></div>
+              <div><dt>Packages</dt><dd>ib-insync (the IBKR API), IBC, pandas, NumPy, hmmlearn, yfinance, pytest</dd></div>
+              <div><dt>Hardware</dt><dd>Mac Studio</dd></div>
+            </dl>
+            </details>
+          </div>
+        </article>
+
+        <article class="pcard">
+          <img class="pcard-img" src="assets/img/projects/dnd_lab.webp" alt="Screenshot of the D&amp;D Lab soundboard: the shared sound library by folder and type, with the player bar along the bottom (the player's name is blurred)" loading="lazy" width="1280" height="800">
+          <div class="pcard-body">
+            <p class="pcard-when">2026 → · Raspberry Pi</p>
+            <h4>D&amp;D Lab</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>Dice, sound effects and music for game night, in one place.</dd></div>
+              <div><dt>Built</dt><dd>Player logins, a shared folder anyone can drop sounds into, and a bot that plays them in Discord voice.</dd></div>
+              <div><dt>Status</dt><dd>Live for game nights, and it grows every campaign.</dd></div>
+            </dl>
+            <p class="pcard-what">A game-night toolkit: live dice, a Discord soundboard bot, and a radio station with its own host for each campaign.</p>
+            <details class="pcard-tech"><summary>Tools and hardware</summary>
+              <dl class="pcard-specs">
+              <div><dt>Skills</dt><dd>Web security basics, bots, audio</dd></div>
+              <div><dt>Packages</dt><dd>Flask, Waitress, Flask-Login, bcrypt, discord.py (voice), PyNaCl, Samba, nginx, nftables</dd></div>
+              <div><dt>Hardware</dt><dd>Raspberry Pi 4</dd></div>
+            </dl>
+            </details>
+          </div>
+        </article>
+
+        <article class="pcard">
+          <img class="pcard-img" src="assets/img/projects/nas.webp" alt="Screenshot of the NAS Library overview: space used on each share and what lives in each folder, with a private folder blurred" loading="lazy" width="1280" height="800">
+          <div class="pcard-body">
+            <p class="pcard-when">Sept 2026</p>
+            <h4>The great NAS cleanup</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>Free up a full NAS without losing a single family photo.</dd></div>
+              <div><dt>Built</dt><dd>Hash-verified deletes (names and sizes lie), a reorganized photo library, and a backup to the media server.</dd></div>
+              <div><dt>Status</dt><dd>Done. Terabytes reclaimed, and a full second copy.</dd></div>
+            </dl>
+            <p class="pcard-what">Years of family files, untangled: duplicates found by content hash, photos reorganized by year and event, and a full second copy on another machine.</p>
+            <details class="pcard-tech"><summary>Tools and hardware</summary>
+              <dl class="pcard-specs">
+              <div><dt>Skills</dt><dd>Data forensics, careful deletes, backups</dd></div>
+              <div><dt>Protocols</dt><dd>SSH, SMB, rsync, SHA-256 hashing, Python</dd></div>
+              <div><dt>Hardware</dt><dd>TerraMaster F4-210 NAS, Acer mini PC</dd></div>
+            </dl>
+            </details>
+          </div>
+        </article>
+
+        <article class="pcard">
+          <figure class="pcard-proof">
+            <pre><code><span class="pc-k">def</span> real_click():
+    <span class="pc-s">'''This function clicks the mouse with
+    realistic errors:
+        occasional accidental right click
+        occasional double click
+        occasional no click'''</span>
+    <span class="pc-k">if</span> randint(1, 19) &gt; 3:
+        pyautogui.click()</code></pre>
+            <figcaption>screen_mouse_control.py, the bot's real code</figcaption>
+          </figure>
+          <div class="pcard-body">
+            <p class="pcard-when">2019 → · Python</p>
+            <h4>The RuneScape bot</h4>
+            <dl class="pcard-lines">
+              <div><dt>Goal</dt><dd>Level up skills in RuneScape without hours of the same clicks.</dd></div>
+              <div><dt>Built</dt><dd>Computer vision, OCR and a decision loop, with mouse moves curved like a person's. A big undertaking, all by hand.</dd></div>
+              <div><dt>Status</dt><dd>Retired, and still the most fun I've had writing code.</dd></div>
+            </dl>
+            <p class="pcard-what">A bot that played Old School RuneScape for me: it read the screen, read the text, decided what to do, and traded on the Grand Exchange.</p>
+            <details class="pcard-tech"><summary>Tools and hardware</summary>
+              <dl class="pcard-specs">
+              <div><dt>Skills</dt><dd>Python, computer vision, OCR, state machines, price-spread math</dd></div>
+              <div><dt>Packages</dt><dd>OpenCV, PyAutoGUI, pyclick, Tesseract (pytesseract), pywin32, pywinauto, NumPy, pandas, SQLite, requests + the OSRS Wiki prices API</dd></div>
+              <div><dt>Hardware</dt><dd>A Windows gaming PC</dd></div>
+            </dl>
+            </details>
+          </div>
+        </article>
+
+        <a class="pcard pcard-more" href="#before">
+          <span class="pcard-more-k">Ten more, with their code</span>
+          <span class="pcard-more-t">The garage door Pi, the HDMI remote, the plant waterer, the Pepperpi and the rest are in <em>Early projects</em>, further down. Each one comes straight off my NAS, and each one has a small working model of what it did.</span>
+          <span class="pcard-more-go" aria-hidden="true">&darr;</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ===================================================== THE HUB -->
+<!-- ===================================================== 06 EARLY PROJECTS: a swipeable strip (it used to pin the page while it scrolled sideways) -->
+<section class="before" id="before" data-chapter="Early projects" data-guide="before">
+  <div class="wrap before-head">
+    <div>
+      <p class="eyebrow reveal">06 · Early projects</p>
+      <h2 class="display reveal">I was automating my house <em>long before it was easy.</em></h2>
+    </div>
+    <div class="pnav"><button class="pnav-btn" type="button" data-track="before-track" data-dir="-1" aria-label="Previous project">&larr;</button><button class="pnav-btn" type="button" data-track="before-track" data-dir="1" aria-label="Next project">&rarr;</button></div>
+  </div>
+  <div class="before-track" id="before-track" tabindex="0" role="region" aria-label="Early projects, each with a working model">
+    <article class="film film-intro">
+      <img decoding="async" src="assets/img/art/workbench.webp" alt="AI-generated art: an electronics workbench with an Arduino, Raspberry Pi, soil sensors and pink and blue wires" loading="lazy"><span class="ai-chip ai-chip-film"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>Qwen-Image 2.1 (Q8_0 GGUF) · 1248×832 · 25 steps · CFG 1 · seed 2467715383</span></span>
+      <p>Everything in this strip is real, pulled straight off my NAS: notes, code and configs from projects I built by hand. Each card has a small working model of what the code did; play with it. It&rsquo;s all simulated, so nothing in my house moves.</p>
+    </article>
+    <article class="film"><p class="film-year">2017</p><h3>CCNP, the hard way</h3><p>GNS3 labs on a home PC, the official cert guides and a lot of late nights. The CCNP R&amp;S landed in January 2018.</p><div class="wdg" data-widget="gns3"></div><p class="film-file">CCNP Pass Photo</p></article>
+    <article class="film"><p class="film-year">2019</p><h3>The garage door Pi</h3><p>A door sensor on a Raspberry Pi pin, a web button to open it, and a cron job that closes it when somebody (not me) leaves it open.</p><div class="wdg" data-widget="garage"></div><p class="film-file">Garage Door Monitor Script</p></article>
+    <article class="film"><p class="film-year">2019</p><h3>HDMI switch remote</h3><p>A web page that flips our HDMI switch over RS-232 through a USB-serial adapter. The original remote is still missing.</p><div class="wdg" data-widget="hdmi"></div><p class="film-file">HDMI Switch Web Controls</p></article>
+    <article class="film film-code"><p class="film-year">2019 → 2020</p><h3>Plant waterer v1 → v3.1</h3><p>Arduino, three soil sensors, three pumps and status LEDs. Even v1 had guardrails:</p>
+<pre><code>int PumpFrequencyLimiter = 14400; //TIME PERIOD FOR
+  // EACH WATERING 14400 = 4 hours // PUMP WILL ONLY
+  // RUN ONCE PER TIME PERIOD
+int PumpCutOffTime = 15;</code></pre><div class="wdg" data-widget="waterer"></div><p class="film-file">Plant Waterer, Version 1</p></article>
+    <article class="film"><p class="film-year">2020</p><h3>Purpura Peppers</h3><p>The &ldquo;Pepperpi&rdquo;: a Raspberry Pi with temperature, humidity and soil sensors, charted live in a browser. Plus the &ldquo;Pepperduino&rdquo; for the far end of the garden. The peppers did not care.</p><div class="wdg" data-widget="pepperpi"></div><p class="film-file">Soil Sensor Logger</p></article>
+    <article class="film"><p class="film-year">2020</p><h3>Pi security camera</h3><p>Recording and archiving IP camera streams on a Raspberry Pi, with scripts to record and convert the footage.</p><div class="wdg" data-widget="camera"></div><p class="film-file">Camera Recording Script</p></article>
+    <article class="film"><p class="film-year">2022</p><h3>ESP32 + MQTT</h3><p>Relays switched over MQTT from MicroPython on ESP32 boards. Smart plugs, the hard way.</p><div class="wdg" data-widget="mqtt"></div><p class="film-file">Relay Control Notes</p></article>
+    <article class="film"><p class="film-year">2023</p><h3>AskChef.ai</h3><p>My first AI app: a chatbot on OpenAI that only talked food and answered in strict JSON (recipe, timing, ingredients, allergens), in Docker behind nginx. Ask it about anything else and it politely changed the subject.</p><div class="wdg" data-widget="askchef"></div><p class="film-file">AskChef Backend Service</p></article>
+    <article class="film"><p class="film-year">2023</p><h3>Portable network test rig</h3><p>A Kali live USB plus EVE-NG with virtual Cisco routers, and Python traffic generators for MTU and MAC-table testing. A carrier lab in a backpack.</p><div class="wdg" data-widget="rig"></div><p class="film-file">Network Test Rig Guide</p></article>
+    <article class="film"><p class="film-year">2024</p><h3>Radios</h3><p>Got my GMRS license, flashed custom firmware onto cheap handhelds and programmed them with CHIRP. Because of course I did.</p><div class="wdg" data-widget="radio"></div><p class="film-file">FCC GMRS License</p></article>
+    <article class="film film-outro"><p class="film-year">2025</p><h3>Then the bottleneck moved.</h3><p>Same habit, better tools. It used to be my typing speed. Now it's how clearly I can explain what I want.</p></article>
+  </div>
+</section>
+
+<!-- ===================================================== 07 THE HUB -->
 <section class="hub" id="hub" data-chapter="The Hub">
   <div class="wrap">
     <header class="section-head">
-      <p class="eyebrow reveal">05 · The Hub</p>
-      <h2 class="display reveal">Mission control <em>for my AI.</em></h2>
-      <p class="section-lede reveal">My daily driver: I'm in it about half of every day. It's one web app on the Mac Studio that runs every Claude Code session I have going, every local model and every generator in the house. It's built around one rule: when an AI wants to do something that matters, it waits for me. Here's one real request, start to finish: the one that put GrowYear at the top of this page.</p>
+      <p class="eyebrow reveal">07 · The Hub</p>
+      <h2 class="display reveal">Mission control, <em>with one rule.</em></h2>
+      <p class="section-lede reveal">The web app I designed to run the tools in my house, from Claude Code sessions to local models. The rule: when a bot wants to make a change that matters, it waits for a person to say yes. Here's one real request, start to finish: the one that made GrowYear the featured project.</p>
     </header>
     <!-- the whole pipeline, played step by step (mission.js). The Hub's own pieces are rebuilt here
          from its stylesheet: the gold "prompt waiting" flag, the amber candidate dot, the review
@@ -501,16 +907,8 @@
           <p>My voice assistant can spin up a fresh session and draft its instructions, but the prompt parks in an approval queue until I send it. Each bot gets its own token and its own branch of sessions, and can't touch anything outside it.</p>
         </article>
         <article class="hub-f reveal">
-          <h3>Local AI on tap</h3>
-          <p>Ollama for local language models (pull one, chat with it, see if it's any good), plus studios for images, music, video and voices, all on the Mac Studio's GPU. This site's art, songs and narrator came out of them.</p>
-        </article>
-        <article class="hub-f reveal">
           <h3>A front door for agents</h3>
           <p>An agent API with a live catalog, a shared board where my agents leave notes and hand-offs for each other, and a household policy every agent checks before it acts: no spending money, no deleting personal data, no touching network security.</p>
-        </article>
-        <article class="hub-f reveal">
-          <h3>Memory I can edit</h3>
-          <p>Claude Code's memory files, in an editor, so I can fix what my agents think they know.</p>
         </article>
       </div>
     </div>
@@ -518,602 +916,146 @@
   </div>
 </section>
 
-<!-- ===================================================== PROJECTS -->
-<section class="projects" id="projects" data-chapter="Projects">
+<!-- ===================================================== 08 LAB -->
+<section class="lab" id="lab" data-chapter="The lab" data-guide="lab">
+  <div class="lab-intro chapter-band">
+    <img decoding="async" class="lab-intro-art chapter-band-art" src="assets/img/art/lab_night.webp" alt="AI-generated art: a home lab at night with a small desktop computer, Raspberry Pis and glowing pink and blue cables" loading="lazy" width="1376" height="768"><span class="ai-chip ai-chip-band"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>Qwen-Image 2.1 (Q8_0 GGUF) · 1376×768 · 25 steps · CFG 1 · seed 3440170741</span></span>
+    <div class="wrap lab-intro-text chapter-band-text">
+      <p class="eyebrow reveal">08 · What I build now</p>
+      <h2 class="display reveal">The lab in my <em>basement.</em></h2>
+      <p class="section-lede reveal">A Mac Studio, two Raspberry Pis, a media server and a NAS, all doing real jobs for real people (my family). It keeps growing, it's a lot of fun, and every piece of it maps to a job skill.</p>
+    </div>
+  </div>
+
   <div class="wrap">
-    <header class="section-head">
-      <p class="eyebrow reveal">06 · Projects</p>
-      <h2 class="display reveal">Built by hand. <em>Built with AI.</em></h2>
-      <p class="section-lede reveal">First, the one that's live on the internet. Then the rest, in two piles: what I built by hand, and what I built with Claude Code doing the typing. Swipe, scroll or use the arrows.</p>
-    </header>
-
-    <!-- the featured project: GrowYear, live on the internet, with how it's built and where it runs -->
-    <article class="feature reveal" id="growyear" aria-labelledby="gy-title">
-      <div class="feature-top">
-        <a class="feature-shot" href="https://mygrowyear.com" target="_blank" rel="noopener" aria-label="Open GrowYear at mygrowyear.com (new tab)">
-          <img src="assets/img/projects/growyear_shop.webp" alt="Screenshot of GrowYear's seed shop at mygrowyear.com: pepper varieties sorted into bell, sweet, hot and very hot, beside the crop's growing facts" loading="lazy" width="1280" height="800">
-        </a>
-        <div class="feature-text">
-          <p class="feature-k"><span class="feature-live"><span class="dot-live" aria-hidden="true"></span> Live</span> Featured project · built with AI</p>
-          <h3 class="feature-title" id="gy-title">GrowYear</h3>
-          <p class="feature-lede">A garden planner. Pick seeds from real seed companies, point at a bed, and it works out the spacing, the indoor starts and the calendar.</p>
-          <p class="feature-why">It's my proof of concept. I started it in early 2026 to learn AI coding, then rebuilt it with Claude Code doing the typing: real catalogs from a dozen seed companies, a planner that works out the dates, and everything it takes to run in public, from sign-in to backups. It went from an idea to a finished app, and it's live on the internet, served from my basement.</p>
-          <div class="feature-ctas">
-            <a class="btn btn-gummy" href="https://mygrowyear.com" target="_blank" rel="noopener">Open mygrowyear.com <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            <p class="feature-note">Look around without an account. Sign in with Google to plan a garden.</p>
-          </div>
-        </div>
+    <h3 class="sys-title reveal">Everything that's running, and how it connects</h3>
+    <div class="sysmap reveal" id="sysmap">
+      <svg class="sys-wires" aria-hidden="true"></svg>
+      <div class="sys-io-row sys-in" aria-label="What comes in">
+        <p class="sys-cap">In</p>
+        <span class="sys-io" data-col="1" id="io-voice"><b>🎙️ My voice</b><small>through Grokbot <span class="sys-to">&rarr; the Hub</span></small></span>
+        <span class="sys-io" data-col="1" id="io-keys"><b>⌨️ Me, at a keyboard</b><small>usually <span class="sys-to">&rarr; the Hub</span></small></span>
+        <span class="sys-io" data-col="1" id="io-market"><b>📈 Market data</b><small>prices and filings <span class="sys-to">&rarr; Tickerscope</span></small></span>
+        <span class="sys-io" data-col="2" id="io-nws"><b>🌪️ Weather alerts</b><small>National Weather Service <span class="sys-to">&rarr; house platform</span></small></span>
+        <span class="sys-io" data-col="2" id="io-you"><b>🌐 You</b><small>through Cloudflare <span class="sys-to">&rarr; this site</span></small></span>
       </div>
-
-      <h4 class="feature-h">How it works, and where it lives</h4>
-      <div class="arch arch-gy" aria-label="How a request reaches GrowYear">
-        <div class="arch-node"><span class="arch-ico" aria-hidden="true">🧑‍🌾</span><h3>You</h3><p>Any browser, phone or desktop</p></div>
-        <div class="arch-link" aria-hidden="true"><i></i></div>
-        <div class="arch-node"><span class="arch-ico" aria-hidden="true">☁️</span><h3>Cloudflare</h3><p>TLS 1.3 · HTTP/3 · caches the app's files, never the API</p></div>
-        <div class="arch-link arch-link-tunnel" aria-hidden="true"><i></i><span>encrypted tunnel</span></div>
-        <div class="arch-node"><span class="arch-ico" aria-hidden="true">🛰️</span><h3>Starlink</h3><p>No open ports at home: the Pi dials <em>out</em> to Cloudflare</p></div>
-        <div class="arch-link" aria-hidden="true"><i></i></div>
-        <div class="arch-node arch-home"><span class="arch-ico" aria-hidden="true">🍓</span><h3>Raspberry Pi 4</h3><p>nginx, plus Postgres, sign-in and the API in Docker, all on localhost</p></div>
-        <div class="arch-link arch-link-git" aria-hidden="true"><i></i><span>deploy.sh</span></div>
-        <div class="arch-node"><span class="arch-ico" aria-hidden="true">🖥️</span><h3>Mac Studio</h3><p>Tests, builds and ships it, and rolls back if a health check fails</p></div>
-      </div>
-
-      <dl class="feature-facts">
-        <div><dt>The app</dt><dd>React 18 and TypeScript, built with Vite: Tailwind, Radix UI (shadcn/ui), TanStack Query and Zustand. It's a static bundle that nginx serves.</dd></div>
-        <div><dt>The back end</dt><dd>Supabase, trimmed to the three parts it needs, in Docker: Postgres, GoTrue for sign-in and PostgREST for the API. About half a gigabyte of a 2 GB Pi.</dd></div>
-        <div><dt>Sign-in and data</dt><dd>Google sign-in only. Row-level security in Postgres decides every read and write: your garden is yours, and the seed catalog is read-only to everyone else.</dd></div>
-        <div><dt>Where it runs</dt><dd>My second Raspberry Pi, in the basement, at mygrowyear.com. A Cloudflare Tunnel carries the traffic, so nothing at home is open to the internet.</dd></div>
-        <div><dt>Shipping it</dt><dd>One command from the Mac Studio: typecheck, tests, build, database migrations, an atomic switch to the new release, then a health check that puts the old one back if anything fails.</dd></div>
-        <div><dt>Keeping it</dt><dd>Nightly database backups, copied to another machine in the house, and a monitor that checks its public address every two minutes.</dd></div>
-      </dl>
-    </article>
-
-    <div class="pgroup reveal">
-      <div class="pgroup-head">
-        <div><h3>Built by hand</h3><p>Every line mine, for better and for worse. Two piles that never mix: personal projects you can see the proof of on this page, and work I did at Charter, which stayed at Charter.</p></div>
-      </div>
-
-      <div class="psub">
-        <p class="psub-k"><span class="psub-tag psub-proof">Proven</span> Personal projects, with the real evidence right here: the code, the files and the screenshots.</p>
-        <div class="pnav"><button class="pnav-btn" type="button" data-track="hand-track" data-dir="-1" aria-label="Previous proven project">&larr;</button><button class="pnav-btn" type="button" data-track="hand-track" data-dir="1" aria-label="Next proven project">&rarr;</button></div>
-      </div>
-      <div class="ptrack" id="hand-track" tabindex="0" role="region" aria-label="Personal projects built by hand, with evidence on this page">
-
-        <article class="pcard">
-          <figure class="pcard-proof">
-            <pre><code><span class="pc-k">def</span> real_click():
-    <span class="pc-s">'''This function clicks the mouse with
-    realistic errors:
-        occasional accidental right click
-        occasional double click
-        occasional no click'''</span>
-    <span class="pc-k">if</span> randint(1, 19) &gt; 3:
-        pyautogui.click()</code></pre>
-            <figcaption>screen_mouse_control.py, the bot's real code</figcaption>
-          </figure>
-          <div class="pcard-body">
-            <p class="pcard-when">2019 → · Python</p>
-            <h4>The RuneScape bot</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>Leveling skills in RuneScape is hours of the same clicks.</dd></div>
-              <div><dt>Built</dt><dd>Computer vision, OCR and a decision loop, with mouse moves curved like a person's. A big undertaking, all by hand.</dd></div>
-              <div><dt>Status</dt><dd>Retired. Honestly a game cheat, and honestly the most fun I've had writing code.</dd></div>
-            </dl>
-            <p class="pcard-what">A bot that played Old School RuneScape for me: it read the screen, read the text, decided what to do, and traded on the Grand Exchange.</p>
-            <dl class="pcard-specs">
-              <div><dt>Skills</dt><dd>Python, computer vision, OCR, state machines, price-spread math</dd></div>
-              <div><dt>Packages</dt><dd>OpenCV, PyAutoGUI, pyclick, Tesseract (pytesseract), pywin32, pywinauto, NumPy, pandas, SQLite, requests + the OSRS Wiki prices API</dd></div>
-              <div><dt>Hardware</dt><dd>A Windows gaming PC</dd></div>
-            </dl>
-          </div>
+      <div class="sys-hosts">
+        <article class="sys-host sys-studio" data-col="1">
+          <header><h4>Mac Studio</h4><p>M3 Ultra · the brains</p></header>
+          <ul>
+            <li><a class="sys-app sys-app-hub" id="app-hub" href="#hub"><b>The Hub <i aria-hidden="true">&uarr;</i></b><span>Claude Code, approvals, studios</span></a></li>
+            <li class="sys-app" id="app-ollama"><b>Ollama</b><span>local LLMs, up to 235B parameters</span></li>
+            <li class="sys-app" id="app-comfy"><b>ComfyUI</b><span>images, music and video</span></li>
+            <li class="sys-app" id="app-voice"><b>Voice services</b><span>the house's voices</span></li>
+            <li class="sys-app" id="app-homelab"><b>Home Lab</b><span>monitoring, patching, deploy checks</span></li>
+            <li class="sys-app" id="app-ticker"><b>Tickerscope</b><span>stocks, taxes, a morning brief</span></li>
+            <li class="sys-app" id="app-paper"><b>Paper-trading bot</b><span>fake money, real rules</span></li>
+          </ul>
         </article>
-
-        <a class="pcard pcard-more" href="#before">
-          <span class="pcard-more-k">Ten more, with their code</span>
-          <span class="pcard-more-t">The garage door Pi, the HDMI remote, the plant waterer, the Pepperpi and the rest are in <em>Before AI</em>, just below. Each one comes straight off my NAS, and each one has a small working model of what it did.</span>
-          <span class="pcard-more-go" aria-hidden="true">&darr;</span>
-        </a>
-      </div>
-
-      <div class="psub">
-        <p class="psub-k"><span class="psub-tag psub-desc">Described</span> Work at Charter, as I describe it. The code and the data were Charter's and stayed there, so there's no proof to show here, only my account of it.</p>
-        <div class="pnav"><button class="pnav-btn" type="button" data-track="work-track" data-dir="-1" aria-label="Previous Charter project">&larr;</button><button class="pnav-btn" type="button" data-track="work-track" data-dir="1" aria-label="Next Charter project">&rarr;</button></div>
-      </div>
-      <div class="ptrack ptrack-desc" id="work-track" tabindex="0" role="region" aria-label="Work at Charter, as described">
-
-        <article class="pcard pcard-desc">
-          <div class="pcard-body">
-            <p class="pcard-tag">Described · stayed at Charter</p>
-            <p class="pcard-when">2016 → 2018 · JavaScript</p>
-            <h4>Juniper configs and circuit standards</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>After the Time Warner merger, everybody kept their own Excel sheet, and no two matched.</dd></div>
-              <div><dt>Built</dt><dd>One set of customer circuit standards the whole team could share in Confluence, and a JavaScript tool that generated Juniper MX configs that followed them.</dd></div>
-              <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
-            </dl>
-            <dl class="pcard-specs"><div><dt>Tools</dt><dd>JavaScript, Junos, Confluence (space admin)</dd></div></dl>
-          </div>
+        <article class="sys-host" data-col="2">
+          <header><h4>Pi Black</h4><p>Raspberry Pi 4</p></header>
+          <ul>
+            <li class="sys-app" id="app-house"><b>House platform</b><span>weather alerts, plugs, recipes, baby log, agent API</span></li>
+            <li class="sys-app" id="app-thaddeus"><b>Thaddeus</b><span>the house voice</span></li>
+            <li class="sys-app" id="app-dj"><b>Radio DJs</b><span>sets written by a local LLM</span></li>
+            <li class="sys-app" id="app-site"><b>okay-cool.net</b><span>this page, through a tunnel</span></li>
+          </ul>
         </article>
-
-        <article class="pcard pcard-desc">
-          <div class="pcard-body">
-            <p class="pcard-tag">Described · stayed at Charter</p>
-            <p class="pcard-when">2020 → 2023 · Python</p>
-            <h4>Standards audits and rollouts</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>New router standards landed every week, and each one meant touching every router.</dd></div>
-              <div><dt>Built</dt><dd>Self-taught Python that audited and updated thousands of routers and other network devices across the region every week. Region-wide changes ran as a loop: pre-check every router, change, post-check, and diff the two.</dd></div>
-              <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
-            </dl>
-            <dl class="pcard-specs"><div><dt>Tools</dt><dd>Python, Paramiko over SSH; Juniper, Cisco and Nokia</dd></div></dl>
-          </div>
+        <article class="sys-host" data-col="3">
+          <header><h4>Pi Green</h4><p>Raspberry Pi 4</p></header>
+          <ul>
+            <li class="sys-app" id="app-dnd"><b>D&amp;D Lab</b><span>dice, soundboard, campaign radio</span></li>
+            <li class="sys-app" id="app-grow"><b>GrowYear</b><span>garden planner, live at mygrowyear.com</span></li>
+          </ul>
         </article>
-
-        <article class="pcard pcard-desc">
-          <div class="pcard-body">
-            <p class="pcard-tag">Described · stayed at Charter</p>
-            <p class="pcard-when">2020s · Python</p>
-            <h4>The migration MOP generator</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>Migrations across hundreds of sites, and a method of procedure (MOP) that took an engineer hours to write by hand.</dd></div>
-              <div><dt>Built</dt><dd>Send it the cut sheet: it connected to each device over SSH, pulled and analyzed the config, extracted the variables that mattered, and generated the full procedure and the destination config.</dd></div>
-              <div><dt>Status</dt><dd>Used by the engineering team. Stayed at Charter.</dd></div>
-            </dl>
-            <dl class="pcard-specs"><div><dt>Tools</dt><dd>Python, Paramiko over SSH, Excel cut sheets</dd></div></dl>
-          </div>
+        <article class="sys-host" data-col="4">
+          <header><h4>plex-media</h4><p>Acer mini PC</p></header>
+          <ul>
+            <li class="sys-app" id="app-plex"><b>Plex</b><span>the family's movies</span></li>
+            <li class="sys-app" id="app-medialab"><b>Media Lab</b><span>the library manager</span></li>
+            <li class="sys-app" id="app-forgejo"><b>Forgejo</b><span>a local copy of every repo</span></li>
+          </ul>
         </article>
-
-        <article class="pcard pcard-desc">
-          <div class="pcard-body">
-            <p class="pcard-tag">Described · stayed at Charter</p>
-            <p class="pcard-when">Network engineering · Splunk</p>
-            <h4>Change reports for management</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>Management had no real numbers on change work.</dd></div>
-              <div><dt>Built</dt><dd>Splunk reports from TACACS+ and ISE command logs: commands, commits and hours per engineer, by device and maintenance window. Also used for command audits and for tracing an outage back to the change behind it.</dd></div>
-              <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
-            </dl>
-            <dl class="pcard-specs"><div><dt>Tools</dt><dd>Splunk and its Python module, TACACS+, Cisco ISE</dd></div></dl>
-          </div>
-        </article>
-
-        <article class="pcard pcard-desc">
-          <div class="pcard-body">
-            <p class="pcard-tag">Described · stayed at Charter</p>
-            <p class="pcard-when">Network engineering · Splunk, WebEx</p>
-            <h4>The maintenance-window handoff</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>The day shift inherited the night's changes with no context.</dd></div>
-              <div><dt>Built</dt><dd>A summary of each maintenance window, posted to WebEx: which engineer worked on which routers, when, for how long, and under which change request.</dd></div>
-              <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
-            </dl>
-            <dl class="pcard-specs"><div><dt>Tools</dt><dd>Splunk, ISE command logs, WebEx</dd></div></dl>
-          </div>
-        </article>
-
-        <article class="pcard pcard-desc">
-          <div class="pcard-body">
-            <p class="pcard-tag">Described · stayed at Charter</p>
-            <p class="pcard-when">Network engineering · Python, WebEx</p>
-            <h4>The router ping bot</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>Hearing about a dead router as early as possible.</dd></div>
-              <div><dt>Built</dt><dd>Before WebEx bots were common: a bot that pinged hundreds of regional routers on a schedule, retried three times, then posted an alert to the team. We were often the first to know.</dd></div>
-              <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
-            </dl>
-            <dl class="pcard-specs"><div><dt>Tools</dt><dd>Python, ping, the WebEx bot API</dd></div></dl>
-          </div>
-        </article>
-
-        <article class="pcard pcard-desc">
-          <div class="pcard-body">
-            <p class="pcard-tag">Described · stayed at Charter</p>
-            <p class="pcard-when">2023 → 2026 · Python and SQL, on a team</p>
-            <h4>The network inventory and security platform</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>Find every device on a national enterprise network, then keep its passwords rotated and audited.</dd></div>
-              <div><dt>Built</dt><dd>One platform in two parts. Discovery crawled the network live over SSH and filed every device it found in a SQL inventory. Security modules then rotated and audited passwords on everything discovery found.</dd></div>
-              <div><dt>Status</dt><dd>In production when I left. A team build: I was a lead developer, and the inventory database and the multi-vendor modules were mine.</dd></div>
-            </dl>
-            <p class="pcard-what">Hundreds of thousands of devices across Charter's national enterprise footprint, from nine vendors.</p>
-            <dl class="pcard-specs">
-              <div><dt>Tools</dt><dd>Python, Paramiko over SSH, MariaDB then PostgreSQL, HashiCorp Vault, GitLab CI/CD</dd></div>
-              <div><dt>Vendors</dt><dd>Juniper, Cisco, Nokia, Harmonic, RAD, Adva, Ciena, AudioCodes, Adtran</dd></div>
-            </dl>
-          </div>
-        </article>
-
-        <article class="pcard pcard-desc">
-          <div class="pcard-body">
-            <p class="pcard-tag">Described · stayed at Charter</p>
-            <p class="pcard-when">DevOps team · Python, WebEx</p>
-            <h4>The morning report</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>A pipeline can break quietly overnight.</dd></div>
-              <div><dt>Built</dt><dd>A post in a small WebEx space every morning: the platform's last 24 hours (devices rotated, failures, discovery counts), plus API and ping checks on every server. A zero where a number belonged meant something broke.</dd></div>
-              <div><dt>Status</dt><dd>Stayed at Charter.</dd></div>
-            </dl>
-            <dl class="pcard-specs"><div><dt>Tools</dt><dd>Python, SQL, WebEx</dd></div></dl>
-          </div>
+        <article class="sys-host" data-col="5">
+          <header><h4>NAS</h4><p>TerraMaster, four bays</p></header>
+          <ul>
+            <li class="sys-app" id="app-files"><b>Family files</b><span>photos and documents, backed up to plex-media</span></li>
+          </ul>
         </article>
       </div>
-    </div>
-
-    <div class="pgroup reveal">
-      <div class="pgroup-head">
-        <div><h3>Built with AI</h3><p>Designed, directed and run by me. Typed by Claude Code.</p></div>
-        <div class="pnav"><button class="pnav-btn" type="button" data-track="ai-track" data-dir="-1" aria-label="Previous AI-built project">&larr;</button><button class="pnav-btn" type="button" data-track="ai-track" data-dir="1" aria-label="Next AI-built project">&rarr;</button></div>
+      <div class="sys-io-row sys-out" aria-label="What comes out">
+        <p class="sys-cap">Out</p>
+        <span class="sys-io" data-col="2" id="io-sonos"><b>🔊 Sonos, every room</b><small><span class="sys-to">from Thaddeus and the DJs</span></small></span>
+        <span class="sys-io" data-col="2" id="io-phones"><b>📱 Phones</b><small><span class="sys-to">from the house platform</span></small></span>
+        <span class="sys-io" data-col="3" id="io-discord"><b>🎲 Discord</b><small><span class="sys-to">from D&amp;D Lab</span></small></span>
+        <span class="sys-io" data-col="4" id="io-tv"><b>📺 TVs</b><small><span class="sys-to">from Plex</span></small></span>
       </div>
-      <div class="ptrack" id="ai-track" tabindex="0" role="region" aria-label="Projects built with AI">
-
-        <article class="pcard">
-          <img class="pcard-img" src="assets/img/projects/hub.webp" alt="Screenshot of the Hub" loading="lazy" width="1280" height="800">
-          <div class="pcard-body">
-            <p class="pcard-when">2026 → · daily driver</p>
-            <h4>The Hub</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>A dozen terminals and twenty browser tabs to run my AI.</dd></div>
-              <div><dt>Built</dt><dd>One web app for all of it, built around one rule: an AI that wants to act waits for me.</dd></div>
-              <div><dt>Status</dt><dd>In progress, used daily.</dd></div>
-            </dl>
-            <p class="pcard-what">Mission control for my AI: every Claude Code session, local model and generator in the house, with an approval queue. <a href="#hub">More above &uarr;</a></p>
-            <dl class="pcard-specs">
-              <div><dt>Skills</dt><dd>Agent workflow design, human-in-the-loop safety, running big models locally</dd></div>
-              <div><dt>Packages</dt><dd>Flask, gunicorn + gevent, flask-sock WebSockets, PTYs, server-sent events, SQLite, Ollama, ComfyUI, MLX</dd></div>
-              <div><dt>Hardware</dt><dd>Mac Studio (M3 Ultra, 256 GB)</dd></div>
-            </dl>
-          </div>
-        </article>
-
-        <article class="pcard">
-          <img class="pcard-img" src="assets/img/shots/weather.webp" alt="Screenshot of the household weather page for Milton, Wisconsin" loading="lazy" style="object-position:30% 0%">
-          <div class="pcard-body">
-            <p class="pcard-when">2026 → · Raspberry Pi</p>
-            <h4>The house platform</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>Tornado warnings nobody heard, and a different app for every chore.</dd></div>
-              <div><dt>Built</dt><dd>One platform with shared building blocks: a voice service, a scheduler, and an agent API with scoped tokens.</dd></div>
-              <div><dt>Status</dt><dd>Live, used daily by my family, and always growing.</dd></div>
-            </dl>
-            <p class="pcard-what">The family's home app: severe-weather alerts read aloud by Thaddeus on every speaker, smart plugs, a recipe book you dictate to, a baby tracker, and an API my agents can use.</p>
-            <dl class="pcard-specs">
-              <div><dt>Skills</dt><dd>Event-driven services, API design, reliability</dd></div>
-              <div><dt>Packages</dt><dd>Flask, Waitress, SQLite, nginx, SoCo (Sonos over UPnP), Piper and Voicebox voices, the ESPHome HTTP API, the National Weather Service API, OpenAPI</dd></div>
-              <div><dt>Hardware</dt><dd>Raspberry Pi 4, Sonos speakers, Kauf smart plugs</dd></div>
-            </dl>
-          </div>
-        </article>
-
-        <article class="pcard">
-          <img class="pcard-img" src="assets/img/projects/dj.webp" alt="Screenshot of the DJ editor in the house app: Lord Pemberton's name, his music, his voice, and the persona prompt that sets how he talks on air" loading="lazy" width="1280" height="800">
-          <div class="pcard-body">
-            <p class="pcard-when">2026 → · Raspberry Pi + Mac Studio</p>
-            <h4>The AI radio DJs</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>Playlists go stale and need constant curating.</dd></div>
-              <div><dt>Built</dt><dd>DJ personas with their own voices and weekly time slots, added without ever destabilizing the plain Sonos controller.</dd></div>
-              <div><dt>Status</dt><dd>Live, and still an experiment.</dd></div>
-            </dl>
-            <p class="pcard-what">Radio-style DJs that write their own sets. A local LLM picks songs for the weather and the time of day, and the DJ talks between them on the house speakers. Lord Pemberton hosts the classical slot, under protest.</p>
-            <dl class="pcard-specs">
-              <div><dt>Skills</dt><dd>LLM prompting, scheduling, careful integration</dd></div>
-              <div><dt>Packages</dt><dd>Ollama (a 122B model), SoCo, the house voice service</dd></div>
-              <div><dt>Hardware</dt><dd>Mac Studio for the model, Raspberry Pi 4, Sonos speakers</dd></div>
-            </dl>
-          </div>
-        </article>
-
-        <article class="pcard">
-          <img class="pcard-img" src="assets/img/shots/tickerscope.webp" alt="Screenshot of Tickerscope: a candlestick chart with tweet pins" loading="lazy" style="object-position:56% 0%">
-          <div class="pcard-body">
-            <p class="pcard-when">2026 → · Mac Studio</p>
-            <h4>Tickerscope</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>Who called the run, who was late, and what does it do to my taxes?</dd></div>
-              <div><dt>Built</dt><dd>It started as an X firehose read by local AI. Tens of thousands of posts in, I cut the firehose and kept the portfolio.</dd></div>
-              <div><dt>Status</dt><dd>In progress, used every trading day.</dd></div>
-            </dl>
-            <p class="pcard-what">My portfolio's system of record: live-priced positions, a tax page that plans harvests around wash sales, and a morning brief my agents read before the bell.</p>
-            <dl class="pcard-specs">
-              <div><dt>Skills</dt><dd>Event data on time series, tax-lot math, LLM triage</dd></div>
-              <div><dt>Packages</dt><dd>Flask, Waitress, yfinance, twikit, Lightweight Charts, SQLite, Ollama</dd></div>
-              <div><dt>Hardware</dt><dd>Mac Studio</dd></div>
-            </dl>
-          </div>
-        </article>
-
-        <article class="pcard">
-          <img class="pcard-img" src="assets/img/shots/monitor.webp" alt="Screenshot of the Home Lab monitor with live host metrics" loading="lazy" style="object-position:30% 0%">
-          <div class="pcard-body">
-            <p class="pcard-when">2026 → · the whole fleet</p>
-            <h4>Home Lab: fleet ops</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>Things in the house broke quietly.</dd></div>
-              <div><dt>Built</dt><dd>SNMP and SSH checks with alerts people read, staggered patch reboots, certificate-expiry alarms, and a page that confirms the code matches everywhere.</dd></div>
-              <div><dt>Status</dt><dd>In progress, used daily.</dd></div>
-            </dl>
-            <p class="pcard-what">Agentless monitoring, patching and deploy checks for every machine in the house. SolarWinds-grade visibility, minus the SolarWinds.</p>
-            <dl class="pcard-specs">
-              <div><dt>Skills</dt><dd>Monitoring, Linux hardening, GitOps</dd></div>
-              <div><dt>Packages</dt><dd>Flask, Waitress, Paramiko, pysnmp (SNMP v2c), psutil, nftables, fail2ban, unattended-upgrades, Let's Encrypt, Tailscale, Forgejo</dd></div>
-              <div><dt>Hardware</dt><dd>Mac Studio, two Raspberry Pis, an Acer mini PC, a TerraMaster NAS</dd></div>
-            </dl>
-          </div>
-        </article>
-
-        <article class="pcard">
-          <img class="pcard-img" src="assets/img/shots/growyear.webp" alt="Screenshot of the GrowYear home page at mygrowyear.com" loading="lazy" style="object-position:50% 0%">
-          <div class="pcard-body">
-            <p class="pcard-when">2026 → · Raspberry Pi</p>
-            <h4>GrowYear</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>Planning a garden means spreadsheets, sketches and five seed catalogs.</dd></div>
-              <div><dt>Built</dt><dd>Started on Lovable to learn AI coding; rebuilt with Claude Code this fall with real seed-company catalogs.</dd></div>
-              <div><dt>Status</dt><dd>Live at <a href="https://mygrowyear.com" target="_blank" rel="noopener">mygrowyear.com</a>, with Google sign-in.</dd></div>
-            </dl>
-            <p class="pcard-what">A garden planner: pick a seed, point at a bed, and it works out the spacing, the indoor starts and the calendar. PC Part Picker, but for seeds. <a href="#growyear">How it's hosted &uarr;</a></p>
-            <dl class="pcard-specs">
-              <div><dt>Skills</dt><dd>Product design, data modeling, full-stack web</dd></div>
-              <div><dt>Packages</dt><dd>React, TypeScript, Vite, Tailwind, Radix UI, TanStack Query, Zustand, Supabase (Postgres) in Docker, nginx, Cloudflare Tunnel</dd></div>
-              <div><dt>Hardware</dt><dd>Raspberry Pi 4</dd></div>
-            </dl>
-          </div>
-        </article>
-
-        <article class="pcard">
-          <img class="pcard-img" src="assets/img/projects/okay_cool.webp" alt="Screenshot of the top of this site" loading="lazy" width="1280" height="800">
-          <div class="pcard-body">
-            <p class="pcard-when">Oct 2026 → · Raspberry Pi</p>
-            <h4>okay-cool.net</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>A résumé lists the work. I wanted something that shows it.</dd></div>
-              <div><dt>Built</dt><dd>A tunnel out of carrier-grade NAT, a strict content security policy, live server vitals, and a sidebar that routes your packet with real IS-IS and BGP math.</dd></div>
-              <div><dt>Status</dt><dd>Live (you're on it), and updated constantly.</dd></div>
-            </dl>
-            <p class="pcard-what">This site: one long page, self-hosted on a Raspberry Pi over Starlink, with every image, song and voice made by local AI.</p>
-            <dl class="pcard-specs">
-              <div><dt>Skills</dt><dd>Web performance, security headers, self-hosting</dd></div>
-              <div><dt>Packages</dt><dd>HTML, CSS and JavaScript (no framework), canvas, Web Audio, nginx, cloudflared over IPv6, ComfyUI, ACE-Step, VoxCPM2, Kokoro</dd></div>
-              <div><dt>Hardware</dt><dd>Raspberry Pi 4 (2 GB), Mac Studio</dd></div>
-            </dl>
-          </div>
-        </article>
-
-        <article class="pcard">
-          <img class="pcard-img" src="assets/img/projects/paper_bot.webp" alt="Screenshot of the trading bot's dashboard on an Interactive Brokers paper account: account value, today's automatic steps, and performance against SPY and QQQ" loading="lazy" width="1280" height="800">
-          <div class="pcard-body">
-            <p class="pcard-when">Oct 2026 → · Mac Studio</p>
-            <h4>The paper-trading bot</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>Its one job: earn enough to cover my AI subscriptions.</dd></div>
-              <div><dt>Built</dt><dd>A strategy engine with strict risk limits and a live dashboard, proven on fake money first.</dd></div>
-              <div><dt>Status</dt><dd>In progress: paper money only, with a lot of humility.</dd></div>
-            </dl>
-            <p class="pcard-what">A trading engine on an Interactive Brokers paper account: core ETFs, a momentum sleeve and opening-range breakouts.</p>
-            <dl class="pcard-specs">
-              <div><dt>Skills</dt><dd>Risk limits, backtesting, broker APIs</dd></div>
-              <div><dt>Packages</dt><dd>ib-insync (the IBKR API), IBC, pandas, NumPy, hmmlearn, yfinance, pytest</dd></div>
-              <div><dt>Hardware</dt><dd>Mac Studio</dd></div>
-            </dl>
-          </div>
-        </article>
-
-        <article class="pcard">
-          <img class="pcard-img" src="assets/img/projects/dnd_lab.webp" alt="Screenshot of the D&amp;D Lab soundboard: the shared sound library by folder and type, with the player bar along the bottom (the player's name is blurred)" loading="lazy" width="1280" height="800">
-          <div class="pcard-body">
-            <p class="pcard-when">2026 → · Raspberry Pi</p>
-            <h4>D&amp;D Lab</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>Game night needed dice, sound effects and music without juggling three apps.</dd></div>
-              <div><dt>Built</dt><dd>Player logins, a shared folder anyone can drop sounds into, and a bot that plays them in Discord voice.</dd></div>
-              <div><dt>Status</dt><dd>Live for game nights, and it grows every campaign.</dd></div>
-            </dl>
-            <p class="pcard-what">A game-night toolkit: live dice, a Discord soundboard bot, and an AI-hosted radio station for each campaign.</p>
-            <dl class="pcard-specs">
-              <div><dt>Skills</dt><dd>Web security basics, bots, audio</dd></div>
-              <div><dt>Packages</dt><dd>Flask, Waitress, Flask-Login, bcrypt, discord.py (voice), PyNaCl, Samba, nginx, nftables</dd></div>
-              <div><dt>Hardware</dt><dd>Raspberry Pi 4</dd></div>
-            </dl>
-          </div>
-        </article>
-
-        <article class="pcard">
-          <img class="pcard-img" src="assets/img/projects/nas.webp" alt="Screenshot of the NAS Library overview: space used on each share and what lives in each folder, with a private folder blurred" loading="lazy" width="1280" height="800">
-          <div class="pcard-body">
-            <p class="pcard-when">Sept 2026</p>
-            <h4>The great NAS cleanup</h4>
-            <dl class="pcard-lines">
-              <div><dt>Problem</dt><dd>A full NAS, and a year of family photos that existed only in the backup.</dd></div>
-              <div><dt>Built</dt><dd>Hash-verified deletes (names and sizes lie), a reorganized photo library, and a backup to the media server.</dd></div>
-              <div><dt>Status</dt><dd>Done. Terabytes reclaimed, and a full second copy.</dd></div>
-            </dl>
-            <p class="pcard-what">Years of family files, untangled: duplicates found by content hash, photos reorganized by year and event, and a full second copy on another machine.</p>
-            <dl class="pcard-specs">
-              <div><dt>Skills</dt><dd>Data forensics, careful deletes, backups</dd></div>
-              <div><dt>Protocols</dt><dd>SSH, SMB, rsync, SHA-256 hashing, Python</dd></div>
-              <div><dt>Hardware</dt><dd>TerraMaster F4-210 NAS, Acer mini PC</dd></div>
-            </dl>
-          </div>
-        </article>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================================================== BEFORE AI -->
-<section class="before" id="before" data-progress data-chapter="Before AI" data-guide="before">
-  <div class="before-sticky">
-    <div class="before-head wrap">
-      <p class="eyebrow">07 · Before AI</p>
-      <h2 class="display">I was automating my house <em>long before AI could help.</em></h2>
-    </div>
-    <div class="before-track" id="before-track">
-      <article class="film film-intro">
-        <img decoding="async" src="assets/img/art/workbench.webp" alt="AI-generated art: an electronics workbench with an Arduino, Raspberry Pi, soil sensors and pink and blue wires" loading="lazy"><span class="ai-chip ai-chip-film"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>Qwen-Image 2.1 (Q8_0 GGUF) · 1248×832 · 25 steps · CFG 1 · seed 2467715383</span></span>
-        <p>Everything in this strip is real, pulled straight off my NAS: notes, code and configs from projects I built by hand. Badly at first, then less badly. Each card has a small model of what the code did; play with it. It&rsquo;s all simulated, so nothing in my house moves.</p>
-      </article>
-      <article class="film"><p class="film-year">2017</p><h3>CCNP, the hard way</h3><p>GNS3 labs on a home PC, the official cert guides and a lot of late nights. The CCNP R&amp;S landed in January 2018.</p><div class="wdg" data-widget="gns3"></div><p class="film-file">CCNP Pass 001.jpg</p></article>
-      <article class="film"><p class="film-year">2019</p><h3>The garage door Pi</h3><p>A door sensor on a Raspberry Pi pin, a web button to open it, and a cron job that closes it when somebody (not me) leaves it open.</p><div class="wdg" data-widget="garage"></div><p class="film-file">garagedoorcheck.py</p></article>
-      <article class="film"><p class="film-year">2019</p><h3>HDMI switch remote</h3><p>A web page that flips our HDMI switch over RS-232 through a USB-serial adapter. The original remote is still missing.</p><div class="wdg" data-widget="hdmi"></div><p class="film-file">port0R.php … poweroffR.php</p></article>
-      <article class="film film-code"><p class="film-year">2019 → 2020</p><h3>Plant waterer v1 → v3.1</h3><p>Arduino, three soil sensors, three pumps and status LEDs. Even v1 had guardrails, years before I'd say that word about AI:</p>
-<pre><code>int PumpFrequencyLimiter = 14400; //TIME PERIOD FOR
-  // EACH WATERING 14400 = 4 hours // PUMP WILL ONLY
-  // RUN ONCE PER TIME PERIOD
-int PumpCutOffTime = 15;</code></pre><div class="wdg" data-widget="waterer"></div><p class="film-file">Plant Waterer v1.txt</p></article>
-      <article class="film"><p class="film-year">2020</p><h3>Purpura Peppers</h3><p>The &ldquo;Pepperpi&rdquo;: a Raspberry Pi with temperature, humidity and soil sensors, charted live in a browser. Plus the &ldquo;Pepperduino&rdquo; for the far end of the garden. The peppers did not care.</p><div class="wdg" data-widget="pepperpi"></div><p class="film-file">soil_logging.py</p></article>
-      <article class="film"><p class="film-year">2020</p><h3>Pi security camera</h3><p>Recording and archiving IP camera streams on a Raspberry Pi, with scripts to record and convert the footage.</p><div class="wdg" data-widget="camera"></div><p class="film-file">recordCAM.sh</p></article>
-      <article class="film"><p class="film-year">2022</p><h3>ESP32 + MQTT</h3><p>Relays switched over MQTT from MicroPython on ESP32 boards. Smart plugs, the hard way.</p><div class="wdg" data-widget="mqtt"></div><p class="film-file">Turn Relay on-off.txt</p></article>
-      <article class="film"><p class="film-year">2023</p><h3>AskChef.ai</h3><p>My first AI app: a chatbot on OpenAI that only talked food and answered in strict JSON (recipe, timing, ingredients, allergens), in Docker behind nginx. Ask it about anything else and it politely changed the subject.</p><div class="wdg" data-widget="askchef"></div><p class="film-file">backend/app/main.py</p></article>
-      <article class="film"><p class="film-year">2023</p><h3>Portable network test rig</h3><p>A Kali live USB plus EVE-NG with virtual Cisco routers, and Python traffic generators for MTU and MAC-table testing. A carrier lab in a backpack.</p><div class="wdg" data-widget="rig"></div><p class="film-file">Network_Testing/README.txt</p></article>
-      <article class="film"><p class="film-year">2024</p><h3>Radios</h3><p>Got my GMRS license, flashed custom firmware onto cheap handhelds and programmed them with CHIRP. Because of course I did.</p><div class="wdg" data-widget="radio"></div><p class="film-file">FCC GMRS License.pdf</p></article>
-      <article class="film film-outro"><p class="film-year">2025</p><h3>Then the bottleneck moved.</h3><p>Same habit, better tools. It used to be my typing speed. Now it's how clearly I can explain what I want.</p></article>
-    </div>
-  </div>
-</section>
-
-<!-- ===================================================== GARDEN -->
-<section class="garden" id="garden" data-progress data-chapter="One garden a year" data-guide="garden">
-  <div class="garden-sticky">
-    <div class="garden-sun" aria-hidden="true"></div>
-    <div class="garden-patch" id="garden-patch" aria-hidden="true"></div>
-    <div class="wrap garden-grid">
-      <div class="garden-copy">
-        <p class="eyebrow">08 · Why I build</p>
-        <h2 class="display">About <em>sixty</em> gardens.</h2>
-        <!-- routers quit, peppers don't: a small loop for the paragraph below it (paused off screen; one still frame with reduced motion) -->
-        <svg class="vs" id="garden-vs" viewBox="0 0 320 104" aria-hidden="true" focusable="false">
-          <g class="vs-net">
-            <path class="vs-link vs-link-out" d="M4 62H38"/>
-            <path class="vs-link vs-link-in" d="M44 62H70"/>
-            <circle class="vs-pkt" cx="8" cy="62" r="2.6"/>
-            <path class="vs-spark" d="M41 54v4M41 66v4M35 62h-3M50 62h-3M37 57l-2-2M45 67l2 2M45 57l2-2M37 67l-2 2"/>
-            <g class="vs-router">
-              <path class="vs-ant" d="M84 50l-5-14M120 50l5-14"/>
-              <rect class="vs-box" x="70" y="48" width="64" height="28" rx="7"/>
-              <circle class="vs-led vs-led-1" cx="83" cy="62" r="3"/>
-              <circle class="vs-led vs-led-2" cx="95" cy="62" r="3"/>
-              <circle class="vs-led vs-led-3" cx="107" cy="62" r="3"/>
-              <circle class="vs-led vs-led-4" cx="119" cy="62" r="3"/>
-              <path class="vs-x" d="M128 36l8 8M136 36l-8 8"/>
-            </g>
-          </g>
-          <g class="vs-grow">
-            <path class="vs-pot" d="M226 82h52l-6 20h-40z"/>
-            <path class="vs-soil" d="M228 84h48"/>
-            <g class="vs-plant">
-              <path class="vs-stem" d="M252 84C251 70 254 58 252 40"/>
-              <path class="vs-leaf vs-leaf-1" d="M252 70c-10-1-16-6-18-14 9 0 16 5 18 14z"/>
-              <path class="vs-leaf vs-leaf-2" d="M253 62c9-2 15-8 16-16-9 1-15 7-16 16z"/>
-              <path class="vs-leaf vs-leaf-3" d="M252 48c-7-1-12-6-13-12 7 0 12 5 13 12z"/>
-              <path class="vs-leaf vs-leaf-4" d="M252 42c6-2 10-7 10-13-6 1-10 6-10 13z"/>
-              <g class="vs-pepper"><path class="vs-pepper-body" d="M259 52c-4 1-6 5-5 11 1 5 4 9 6 11 1 1 2 1 2 0 2-4 3-9 3-14 0-5-2-8-6-8z"/><path class="vs-pepper-cap" d="M256 52c2-2 6-2 8 0"/></g>
-            </g>
-            <path class="vs-sun" d="M296 18v6M296 40v6M282 32h6M304 32h6M286 22l4 4M302 38l4 4M306 22l-4 4M290 38l-4 4"/>
-          </g>
-        </svg>
-        <p>Plants want to succeed. Leave a router alone long enough and one day it just stops working. Give a pepper plant sun, water and a little tending, and it keeps on growing.</p>
-        <p>The garden is where I go to get out of my tech. Every January I plan the next one like it's the first, and by August it's a jungle.</p>
-        <p>None of it is meant to last. Each garden is here for a season, and that's the point. A gardener who starts young gets maybe sixty gardens in a lifetime. Not even a hundred.</p>
-        <p class="garden-punch">That's why I build tools: so the computers get more of the chores, and my family gets more of me.</p>
-      </div>
-      <div class="garden-viz" aria-label="Sixty garden plots, one for each garden in a gardening lifetime">
-        <div class="sixty" id="sixty"></div>
-        <p class="sixty-cap"><span id="sixty-n">0</span> / 60 gardens</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="diptych" aria-label="January and August in the garden">
-  <figure><img decoding="async" src="assets/img/art/winter_window.webp" alt="AI-generated art: a frosted window in January with seed packets and a garden plan on a laptop" loading="lazy" width="1376" height="768"><span class="ai-chip ai-chip-dip"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>Qwen-Image 2.1 (Q8_0 GGUF) · 1376×768 · 25 steps · CFG 1 · seed 3588577851</span></span><figcaption>January: planning</figcaption></figure>
-  <figure><img decoding="async" src="assets/img/art/garden_dawn.webp" alt="AI-generated art: a southern Wisconsin garden in August, overflowing with hot peppers, a red barn and cornfield behind" loading="lazy" width="1376" height="768"><span class="ai-chip ai-chip-dip"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>Qwen-Image 2.1 (Q8_0 GGUF) · 1376×768 · 25 steps · CFG 1 · seed 1664664847</span></span><figcaption>August: regretting nothing (much)</figcaption></figure>
-</div>
-
-<!-- ===================================================== HOW I WORK -->
-<section class="how" id="how" data-chapter="How I work" data-guide="how">
-  <div class="wrap">
-    <header class="section-head">
-      <p class="eyebrow reveal">09 · How I work</p>
-      <h2 class="display reveal">The 7 habits of a <em>mildly effective</em> engineer.</h2>
-    </header>
-    <div class="stack">
-      <article class="principle" style="--i:0"><p class="p-n">01</p><div><h3>Twice by hand. The third time, a script.</h3><p>I'm detail-oriented, but give me the same task every day and I'll automate it out of spite. I did things the hard way for about three years before I learned to code. It's been all systems go since.</p></div></article>
-      <article class="principle" style="--i:1"><p class="p-n">02</p><div><h3>First one in.</h3><p>A new device, a new process, the thing everybody's scared to touch: point me at it. I'd rather blaze the trail than babysit it.</p></div></article>
-      <article class="principle" style="--i:2"><p class="p-n">03</p><div><h3>Hammer and duct tape, then the real fix.</h3><p>When it's on fire, I fix it now. Then I come back with a plan, fix it right, and write down what happened so it doesn't happen again.</p></div></article>
-      <article class="principle" style="--i:3"><p class="p-n">04</p><div><h3>Make failures loud.</h3><p>Silent failures are the worst kind. Everything I run has a health check and an alarm, and a loud warning beats a quiet workaround every time.</p></div></article>
-      <article class="principle" style="--i:4"><p class="p-n">05</p><div><h3>The AI asks first.</h3><p>AI can write all day where mistakes are easy to undo. Anything that actually <em>does</em> something waits for a human to say yes. Fast where it's safe, careful where it counts.</p></div></article>
-      <article class="principle" style="--i:5"><p class="p-n">06</p><div><h3>Write it down for somebody else.</h3><p>I document everything because I forget everything. Writing for an audience makes it good. At Charter that turned into being the team's Confluence admin.</p></div></article>
-      <article class="principle" style="--i:6"><p class="p-n">07</p><div><h3>Small team, real conversations.</h3><p>I do my best work on a small team, with one-on-ones instead of forty-person calls and a manager who lets me run but notices good work. A &ldquo;nice job&rdquo; buys a lot of mileage with me.</p></div></article>
-    </div>
-  </div>
-</section>
-
-<!-- ===================================================== TOOLBOX -->
-<section class="toolbox" id="toolbox" data-chapter="Toolbox">
-  <div class="wrap">
-    <header class="section-head">
-      <p class="eyebrow reveal">10 · Toolbox</p>
-      <h2 class="display reveal">What I <em>reach for.</em></h2>
-    </header>
-    <div class="tool-grid">
-      <div class="tool reveal"><h3>Networking</h3><p class="chips"><span class="hot">Juniper MX</span><span>Cisco ASR 9000</span><span>Nokia 7750 SR</span><span class="hot">MPLS</span><span>IS-IS</span><span>BGP</span><span>L2VPN / VPLS / LDP</span><span>QoS</span><span>BFD</span><span>TACACS+</span><span>SNMP</span><span>Carrier Ethernet</span><span>EXFO RFC 2544 / Y.1731</span><span>IPv6</span><span>Tailscale</span><span>OPNsense</span><span>nftables</span><span>Cloudflare</span></p></div>
-      <div class="tool reveal"><h3>Code I write by hand</h3><p class="chips"><span class="hot">Python</span><span class="hot">Paramiko</span><span>JavaScript</span><span>Bash</span><span>PHP</span><span>Arduino (C++)</span><span>MicroPython</span><span>FastAPI</span><span>SQLite</span><span>OpenCV + Tesseract OCR</span><span>Git + GitLab</span><span>HashiCorp Vault</span><span>Linux, nginx</span><span>Docker (beginner)</span><span>Confluence</span><span>Visual Basic (the old days)</span></p></div>
-      <div class="tool reveal"><h3>AI I work with</h3><p class="chips"><span class="hot">Claude Code, daily</span><span>Amazon Q, wired into GitLab</span><span>Kiro, in the terminal</span><span>Ollama &amp; local LLMs</span><span>Human-approval workflows</span><span>RAG + evals</span><span>Structured JSON output</span><span>ComfyUI (image, music, video)</span><span>TTS: VoxCPM2, OmniVoice, Kokoro, Piper</span><span>MLX</span></p></div>
-      <div class="tool reveal"><h3>Built with Claude Code <small>(I design, direct and run it)</small></h3><p class="chips"><span>Flask</span><span>React + TypeScript + Vite</span><span>Supabase / Postgres</span><span>REST + OpenAPI</span><span>WebSockets + PTYs</span><span>systemd</span><span>Canvas + Web Audio</span></p></div>
-      <div class="tool reveal"><h3>Hardware &amp; IoT</h3><p class="chips"><span>Raspberry Pi</span><span>Arduino</span><span>ESP32 / ESP8266</span><span>MicroPython</span><span>MQTT</span><span>ESPHome</span><span>Sonos / UPnP</span></p></div>
-    </div>
-
-    <div class="creds reveal">
-      <h3>Certifications</h3>
-      <ul class="cred-list">
-        <li><span class="cred-name"><strong>Cisco CCNP</strong> Routing &amp; Switching</span><span class="cred-meta">Earned January 2018 · <a href="https://cp.certmetrics.com/cisco/en/public/verify/credential/431094169024ISDH" rel="noopener">verify #431094169024ISDH</a></span></li>
-        <li><span class="cred-name"><strong>MEF-CECP</strong> Carrier Ethernet Certified Professional</span><span class="cred-meta">Earned December 2017 · #25547X2</span></li>
-        <li><span class="cred-name"><strong>Nokia NRS I</strong> Network Routing Specialist I</span><span class="cred-meta">#10434</span></li>
+      <ul class="sys-rails">
+        <li><b>🔁 Deploys</b> Push to GitHub, and every Pi updates itself within two minutes.</li>
+        <li><b>👀 Watching</b> Home Lab checks every host over SNMP and SSH, and fails loudly.</li>
+        <li><b>🔐 Getting in</b> Both Pis run Tailscale as a high-availability router pair.</li>
       </ul>
-      <p class="cred-note">All three have lapsed. The knowledge didn't.</p>
-      <h3>School</h3>
-      <p>Northcentral Technical College, December 2012: AAS in IT Network Specialist (Unified Communications), plus a Technical Certificate in IT Website Hardware &amp; Software Administration.</p>
+    </div>
+    <div class="maps-to reveal">
+      <p>What it maps to on the job:</p>
+      <p class="chips"><span>Monitoring &amp; alerting</span><span>GitOps deploys</span><span>Token-scoped APIs</span><span>Linux hardening</span><span>Approval workflows</span><span>Documentation</span></p>
     </div>
   </div>
 </section>
 
-<!-- ===================================================== NEXT -->
-<section class="next" id="next" data-chapter="What's next" data-guide="next">
-  <div class="wrap next-grid">
-    <div>
-      <p class="eyebrow reveal">11 · What I'm looking for</p>
-      <h2 class="display reveal">A small team that wants the boring stuff <em>gone.</em></h2>
+<!-- ===================================================== 09 GARDEN: why I build (the plots sprout and the peppers grow as it scrolls by; nothing pinned) -->
+<section class="garden" id="garden" data-chapter="One garden a year" data-guide="garden">
+  <div class="garden-sun" aria-hidden="true"></div>
+  <div class="garden-patch" id="garden-patch" aria-hidden="true"></div>
+  <div class="wrap garden-grid">
+    <div class="garden-copy">
+      <p class="eyebrow">09 · Why I build</p>
+      <h2 class="display">About <em>sixty</em> gardens.</h2>
+      <!-- routers quit, peppers don't: a small loop for the paragraph below it (paused off screen; one still frame with reduced motion) -->
+      <svg class="vs" id="garden-vs" viewBox="0 0 320 104" aria-hidden="true" focusable="false">
+        <g class="vs-net">
+          <path class="vs-link vs-link-out" d="M4 62H38"/>
+          <path class="vs-link vs-link-in" d="M44 62H70"/>
+          <circle class="vs-pkt" cx="8" cy="62" r="2.6"/>
+          <path class="vs-spark" d="M41 54v4M41 66v4M35 62h-3M50 62h-3M37 57l-2-2M45 67l2 2M45 57l2-2M37 67l-2 2"/>
+          <g class="vs-router">
+            <path class="vs-ant" d="M84 50l-5-14M120 50l5-14"/>
+            <rect class="vs-box" x="70" y="48" width="64" height="28" rx="7"/>
+            <circle class="vs-led vs-led-1" cx="83" cy="62" r="3"/>
+            <circle class="vs-led vs-led-2" cx="95" cy="62" r="3"/>
+            <circle class="vs-led vs-led-3" cx="107" cy="62" r="3"/>
+            <circle class="vs-led vs-led-4" cx="119" cy="62" r="3"/>
+            <path class="vs-x" d="M128 36l8 8M136 36l-8 8"/>
+          </g>
+        </g>
+        <g class="vs-grow">
+          <path class="vs-pot" d="M226 82h52l-6 20h-40z"/>
+          <path class="vs-soil" d="M228 84h48"/>
+          <g class="vs-plant">
+            <path class="vs-stem" d="M252 84C251 70 254 58 252 40"/>
+            <path class="vs-leaf vs-leaf-1" d="M252 70c-10-1-16-6-18-14 9 0 16 5 18 14z"/>
+            <path class="vs-leaf vs-leaf-2" d="M253 62c9-2 15-8 16-16-9 1-15 7-16 16z"/>
+            <path class="vs-leaf vs-leaf-3" d="M252 48c-7-1-12-6-13-12 7 0 12 5 13 12z"/>
+            <path class="vs-leaf vs-leaf-4" d="M252 42c6-2 10-7 10-13-6 1-10 6-10 13z"/>
+            <g class="vs-pepper"><path class="vs-pepper-body" d="M259 52c-4 1-6 5-5 11 1 5 4 9 6 11 1 1 2 1 2 0 2-4 3-9 3-14 0-5-2-8-6-8z"/><path class="vs-pepper-cap" d="M256 52c2-2 6-2 8 0"/></g>
+          </g>
+          <path class="vs-sun" d="M296 18v6M296 40v6M282 32h6M304 32h6M286 22l4 4M302 38l4 4M306 22l-4 4M290 38l-4 4"/>
+        </g>
+      </svg>
+      <p>Plants want to succeed. Leave a router alone long enough and one day it just stops working. Give a pepper plant sun, water and a little tending, and it keeps on growing.</p>
+      <p>The garden is where I go to get out of my tech. Every January I plan the next one like it's the first, and by August it's a jungle.</p>
+      <p>None of it is meant to last. Each garden is here for a season, and that's the point. A gardener who starts young gets maybe sixty gardens in a lifetime. Not even a hundred.</p>
+      <p class="garden-punch">That's why I build tools: so the computers get more of the chores, and my family gets more of me.</p>
     </div>
-    <div class="next-list">
-      <div class="next-row reveal"><span class="next-k">Roles</span><p>AI and automation engineering · DevOps / NetDevOps · infrastructure and internal tools · network engineering, as long as I'm allowed to automate it</p></div>
-      <div class="next-row reveal"><span class="next-k">Where</span><p>Milton, Wisconsin. Anywhere from Madison to Milwaukee. Hybrid is my favorite, and remote within Wisconsin works too.</p></div>
-      <div class="next-row reveal"><span class="next-k">Bonus points</span><p>Ag-tech, manufacturing and OT, IoT. Arduinos and PLCs make me happy.</p></div>
-      <div class="next-row reveal"><span class="next-k">The deal</span><p>If you'll take a chance on me, I'll take a chance on you.</p></div>
+    <div class="garden-viz" aria-label="Sixty garden plots, one for each garden in a gardening lifetime">
+      <div class="sixty" id="sixty"></div>
+      <p class="sixty-cap"><span id="sixty-n">0</span> / 60 gardens</p>
     </div>
-  </div>
-</section>
-
-<!-- ===================================================== CONTACT -->
-<section class="contact" id="contact" data-chapter="Contact" data-guide="contact">
-  <img decoding="async" class="contact-art" src="assets/img/art/desk_studio.webp" alt="" loading="lazy" aria-hidden="true"><span class="ai-chip ai-chip-contact"><b>Generated locally on Mike&rsquo;s Mac Studio</b><span>Qwen-Image 2.1 (Q8_0 GGUF) · 1376×768 · 25 steps · CFG 1 · seed 1645618556</span></span>
-  <div class="wrap contact-inner">
-    <p class="eyebrow reveal">12 · Destination reached</p>
-    <h2 class="contact-title reveal"><span class="gummy-text">Okay, cool.</span><br>Let's talk.</h2>
-    <p class="contact-lede reveal">Email is best. I can interview any day, any time (Central), and I reply faster than my 2019 plant waterer.</p>
-    <div class="contact-actions reveal">
-      <a class="btn btn-gummy btn-big js-email" id="email-link" href="#contact" data-u="mapurpura12" data-d="gmail.com">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4h13A2.5 2.5 0 0 1 21 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5zm2.2-.5L12 11l6.8-5z" fill="currentColor"/></svg>
-        <span>Email me</span>
-      </a>
-      <button class="btn btn-ghost btn-big" type="button" id="copy-email">Copy address</button>
-      <a class="btn btn-ghost btn-big" href="resume/">Résumé</a>
-    </div>
-    <noscript><p class="contact-lede">mapurpura12 [at] gmail [dot] com</p></noscript>
   </div>
 </section>
 
 <!-- ===================================================== HOW THIS PAGE GOT HERE (the making-of, folded into one card) -->
-<section class="made" id="made" data-guide="built" aria-labelledby="made-title">
+<section class="made" id="made" data-chapter="How it got here" data-guide="built" aria-labelledby="made-title">
   <div class="wrap">
     <details class="made-card" id="made-details">
       <summary class="made-sum">
@@ -1125,7 +1067,7 @@ int PumpCutOffTime = 15;</code></pre><div class="wdg" data-widget="waterer"></di
       </summary>
       <div class="made-body">
         <h2 class="made-h">Made in my basement. <em>Served from it, too.</em></h2>
-        <p class="section-lede">No cloud GPUs, no website builder, no stock photos, no trackers. Every image, song and voice on this page was generated by AI models running on my own Mac Studio, and the page itself is coming to you from a Raspberry Pi a few feet away, over Starlink.</p>
+        <p class="section-lede">No cloud GPUs, no website builder, no stock photos, no trackers. The art, the music and the voices were all generated on my own Mac Studio, and the page itself is coming to you from a Raspberry Pi a few feet away, over Starlink.</p>
 
         <div class="arch" aria-label="How a request reaches this site">
           <div class="arch-node"><span class="arch-ico" aria-hidden="true">🧑‍💻</span><h3>You</h3><p>IPv4 or IPv6, anywhere</p></div>
@@ -1136,7 +1078,7 @@ int PumpCutOffTime = 15;</code></pre><div class="wdg" data-widget="waterer"></di
           <div class="arch-link" aria-hidden="true"><i></i></div>
           <div class="arch-node arch-home"><span class="arch-ico" aria-hidden="true">🍓</span><h3>Raspberry Pi 4</h3><p>nginx in my basement, reachable only through the tunnel</p><p class="arch-live" data-live="pi"></p></div>
           <div class="arch-link arch-link-git" aria-hidden="true"><i></i><span>git push</span></div>
-          <div class="arch-node"><span class="arch-ico" aria-hidden="true">🖥️</span><h3>Mac Studio</h3><p>Local AI made every asset · live within 2 min of a push</p></div>
+          <div class="arch-node"><span class="arch-ico" aria-hidden="true">🖥️</span><h3>Mac Studio</h3><p>Where every asset was made · live within 2 min of a push</p></div>
         </div>
 
         <div class="live-grid">
@@ -1266,7 +1208,7 @@ Okay, cool</pre>
 
 <footer class="footer">
   <div class="wrap footer-inner">
-    <p>© 2026 Mike Purpura · Milton, Wisconsin</p>
+    <p>© 2026 Mike Purpura · Milton, Wisconsin · <a class="js-email" href="#contact">Email me</a> · <a href="resume/">Résumé</a></p>
     <p>Served from a Raspberry Pi in my basement over Starlink. Art, music and voices made locally on a Mac Studio. No trackers, no cloud GPUs. <a href="https://github.com/noobcicle/portfolio">Source on GitHub</a>.</p>
   </div>
 </footer>

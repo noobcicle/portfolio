@@ -45,7 +45,9 @@ the model and the settings that made it.
 
 ## Pieces
 
-- `index.html`: the whole story, chapter by chapter
+- `index.html`: one page, in the order a hiring manager needs it: the pitch, the short version (what I bring,
+  experience, what I'm looking for), skills, contact, then projects and the longer stories. Nothing pins the
+  page while it scrolls
 - `assets/js/hero.js`: the canvas network in the hero (packets are gummy worms of light)
 - `assets/js/route.js`: the scroll bar, a packet routed from the visitor to me with one router per section.
   On wide screens it's a slim rail with a "traceroute · expand" tab; expanding it opens the full sidebar that
@@ -55,18 +57,18 @@ the model and the settings that made it.
   IS-IS (Dijkstra) and BGP best-path selection really run; Cloudflare AS13335 and Starlink AS14593 are
   real, while the ISP, the transit networks (RFC 5398 ASNs) and the metrics are made up. Hover it (or tap the
   strip) for the traceroute.
-- `assets/js/site.js`: one scroll loop for the pinned chapters, traceroute sync, the 60 garden plots
-  (one sprouts per garden year), the project carousels, and the live trip and server widgets
+- `assets/js/site.js`: one scroll loop (the hero fade, the art bands, the garden's sunrise, its 60 plots and
+  peppers), traceroute sync, the carousels and the Early projects strip, and the live trip and server widgets
 - `assets/js/peppers.js`: pepper plants that grow up the garden section with the scroll and end with
   big red peppers; one small SVG on its own layer
-- `assets/js/widgets.js`: a small working model on each Before AI card (the GNS3 lab, the garage door, the
+- `assets/js/widgets.js`: a small working model on each Early projects card (the GNS3 lab, the garage door, the
   HDMI remote, the plant waterer, the Pepperpi, the camera, the ESP32 relay, AskChef, the MTU test, the
   radio), each built from what that project's real code did. All simulated: nothing calls a device
 - `assets/js/mission.js`: the Hub section's pipeline, one real request from Mike's voice to Claude
   thinking, in eleven steps. The gold flag, the review dialog and the terminal reuse the Hub's own
   styles; the spinner frames and colors are Claude Code's
 - `assets/js/skills.js`: the skills map, skills and work wired to what they used; solid is by hand,
-  hollow is Claude-built (the data lives at the top of the file)
+  hollow is Claude-built (the data lives at the top of the file). It folds away under the skill chips
 - `assets/js/lab.js`: the wires on the lab's system map
 - `assets/js/lightbox.js`: project screenshots, bigger: a larger preview on hover, the full size on click or
   tap, in a native dialog that works from the keyboard
