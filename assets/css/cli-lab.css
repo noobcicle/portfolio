@@ -26,6 +26,9 @@
 .lab-tab[aria-selected="true"] { color: rgba(255, 255, 255, .86); background: var(--gummy); border-color: rgba(255, 255, 255, .22); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), 0 8px 22px -10px rgba(255, 92, 168, .6); }
 .lab-tab[aria-selected="true"] b { color: #fff; }
 
+/* until main.js has built the labs (it replaces this note) */
+.lab-loading { margin: 0; padding: 26px 20px; border-radius: 18px; border: 1px dashed var(--line-2); color: var(--ink-dim); font: 14px/1.6 var(--font-mono); }
+
 /* ---------------------------------------------------------------- one lab */
 .lab-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 330px); gap: 18px; align-items: start; }
 .lab-main { min-width: 0; }

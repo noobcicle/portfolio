@@ -66,6 +66,7 @@ const tpl = $('#lab-tpl');
 const labs = {};
 for (const panel of $$('.lab-panel')) {
   const id = panel.dataset.dev;
+  panel.textContent = '';   // the "Loading the lab" note
   panel.append(tpl.content.cloneNode(true));
   const dev = MAKE[id]();
   const saved = store.get(KEY(id));

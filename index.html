@@ -24,6 +24,18 @@
 <link rel="preload" href="assets/fonts/instrument-serif-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/geist-mono-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
+<!-- site.js and everything it imports, fetched together: found one import at a time, a slow link kept the
+     buttons dead until the last module arrived -->
+<link rel="modulepreload" href="assets/js/site.js">
+<link rel="modulepreload" href="assets/js/hero.js">
+<link rel="modulepreload" href="assets/js/audio.js">
+<link rel="modulepreload" href="assets/js/route.js">
+<link rel="modulepreload" href="assets/js/skills.js">
+<link rel="modulepreload" href="assets/js/lab.js">
+<link rel="modulepreload" href="assets/js/lightbox.js">
+<link rel="modulepreload" href="assets/js/peppers.js">
+<link rel="modulepreload" href="assets/js/widgets.js">
+<link rel="modulepreload" href="assets/js/mission.js">
 <!-- the full traceroute sidebar is opt-in: route.js switches its stylesheet on when a visitor expands it.
      This writes that stylesheet with the visitor's saved choice already applied, so an expanded sidebar
      is there in the first paint instead of shoving the page over once the scripts load.

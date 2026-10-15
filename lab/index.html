@@ -21,6 +21,20 @@
 <link rel="preload" href="/assets/fonts/geist-mono-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/site.css">
 <link rel="stylesheet" href="/assets/css/cli-lab.css">
+<!-- every module of the lab at once: without these the browser finds them one import at a time,
+     and on a slow link (each round trip a second or more) that left the buttons dead for seconds -->
+<link rel="modulepreload" href="/assets/js/cli/main.js">
+<link rel="modulepreload" href="/assets/js/cli/engine.js">
+<link rel="modulepreload" href="/assets/js/cli/device.js">
+<link rel="modulepreload" href="/assets/js/cli/ios.js">
+<link rel="modulepreload" href="/assets/js/cli/catalyst.js">
+<link rel="modulepreload" href="/assets/js/cli/me3600.js">
+<link rel="modulepreload" href="/assets/js/cli/iosxr.js">
+<link rel="modulepreload" href="/assets/js/cli/junos.js">
+<link rel="modulepreload" href="/assets/js/cli/term.js">
+<link rel="modulepreload" href="/assets/js/cli/quiz.js">
+<link rel="modulepreload" href="/assets/js/cli/banks.js">
+<link rel="modulepreload" href="/assets/js/cli/heat.js">
 </head>
 <body class="lab-page">
 <a class="skip" href="#lab-app">Skip to the lab</a>
@@ -71,10 +85,10 @@
         <button class="lab-tab" role="tab" type="button" id="tab-me3600x" aria-controls="panel-me3600x" aria-selected="false" tabindex="-1" data-dev="me3600x"><b>Metro Ethernet</b><span>ME 3600X · IOS</span></button>
         <button class="lab-tab" role="tab" type="button" id="tab-catalyst" aria-controls="panel-catalyst" aria-selected="false" tabindex="-1" data-dev="catalyst"><b>Catalyst</b><span>Access switch · IOS XE</span></button>
       </div>
-      <div class="lab-panel" role="tabpanel" id="panel-junos" aria-labelledby="tab-junos" data-dev="junos"></div>
-      <div class="lab-panel" role="tabpanel" id="panel-iosxr" aria-labelledby="tab-iosxr" data-dev="iosxr" hidden></div>
-      <div class="lab-panel" role="tabpanel" id="panel-me3600x" aria-labelledby="tab-me3600x" data-dev="me3600x" hidden></div>
-      <div class="lab-panel" role="tabpanel" id="panel-catalyst" aria-labelledby="tab-catalyst" data-dev="catalyst" hidden></div>
+      <div class="lab-panel" role="tabpanel" id="panel-junos" aria-labelledby="tab-junos" data-dev="junos"><p class="lab-loading">Loading the lab&hellip; On a slow connection this takes a few seconds. If nothing shows up, reload the page.</p></div>
+      <div class="lab-panel" role="tabpanel" id="panel-iosxr" aria-labelledby="tab-iosxr" data-dev="iosxr" hidden><p class="lab-loading">Loading the lab&hellip; On a slow connection this takes a few seconds. If nothing shows up, reload the page.</p></div>
+      <div class="lab-panel" role="tabpanel" id="panel-me3600x" aria-labelledby="tab-me3600x" data-dev="me3600x" hidden><p class="lab-loading">Loading the lab&hellip; On a slow connection this takes a few seconds. If nothing shows up, reload the page.</p></div>
+      <div class="lab-panel" role="tabpanel" id="panel-catalyst" aria-labelledby="tab-catalyst" data-dev="catalyst" hidden><p class="lab-loading">Loading the lab&hellip; On a slow connection this takes a few seconds. If nothing shows up, reload the page.</p></div>
       <noscript><p class="lab-sim">The lab runs on JavaScript, which is turned off in this browser.</p></noscript>
     </div>
   </section>
