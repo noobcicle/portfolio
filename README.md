@@ -74,6 +74,11 @@ the model and the settings that made it.
   tap, in a native dialog that works from the keyboard
 - `assets/js/audio.js`: the opt-in soundtrack and narrated tour with live captions, all through Web Audio
 - `resume/`: a printable one-page web résumé
+- `lab/` and `assets/js/cli/`: the CLI practice lab. Four simulated command lines (Junos, IOS XR on an ASR 9000,
+  IOS on an ME 3600X, a Catalyst switch) with abbreviations, `?` help, Tab completion, configs that change what the
+  show commands print, saving to the browser (commit / write memory), and a quiz mode with a heat meter. Pure
+  client-side: nothing connects to a device. `engine.js` and `device.js` are the shared parser; each box is its own
+  file; `banks.js` holds the 135 quiz questions
 
 Deploy with `bash deploy.sh "message"`.
 

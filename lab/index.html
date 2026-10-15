@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CLI Practice Lab · Mike Purpura</title>
+<meta name="description" content="Practice network command lines in your browser: simulated Juniper Junos, Cisco IOS XR (ASR 9000), IOS Metro Ethernet (ME 3600X) and Catalyst switch CLIs, with configs you can change and save, and quizzes. Nothing connects to a real device.">
+<meta name="theme-color" content="#0b0716">
+<link rel="canonical" href="https://okay-cool.net/lab/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://okay-cool.net/lab/">
+<meta property="og:title" content="CLI Practice Lab · okay-cool.net">
+<meta property="og:description" content="Simulated Junos, IOS XR, Metro Ethernet and Catalyst command lines to practice on, with saved configs and quizzes. All in the browser; nothing touches a network.">
+<meta property="og:image" content="https://okay-cool.net/assets/img/og.png?v=099febe8">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/assets/fonts/instrument-serif-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/geist-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-serif-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/geist-mono-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/cli-lab.css">
+</head>
+<body class="lab-page">
+<a class="skip" href="#lab-app">Skip to the lab</a>
+
+<!-- ===================================================== NAV (the home page's, pointing back at it) -->
+<header class="nav scrolled" id="nav">
+  <div class="nav-left">
+    <a class="brand" href="/" aria-label="Mike Purpura, home">
+      <svg class="brand-worm" viewBox="0 0 64 32" aria-hidden="true"><use href="#worm"/></svg>
+      <span class="brand-name">Mike Purpura</span>
+    </a>
+    <p class="nav-status"><span class="dot-live" aria-hidden="true"></span> Open to work<span class="nav-where"> · Milton, Wisconsin</span></p>
+  </div>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="/#tldr">About</a>
+    <a href="/#story">Story</a>
+    <a href="/#skills">Skills</a>
+    <a href="/#contact">Contact</a>
+    <a href="/#projects">Projects</a>
+    <a href="/#hub">Hub</a>
+    <a href="/#lab">Lab</a>
+    <a class="active" href="/lab/" aria-current="page">CLI lab</a>
+  </nav>
+  <div class="nav-actions">
+    <a class="pill-btn pill-solid" href="/resume/">Résumé</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu"><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <a href="/#tldr">About</a><a href="/#story">Story</a><a href="/#skills">Skills</a><a href="/resume/">Résumé</a><a href="/#contact">Contact</a><a href="/#projects">Projects</a><a href="/#before">Early projects</a><a href="/#hub">Hub</a><a href="/#lab">Lab</a><a href="/lab/" aria-current="page">CLI lab</a><a href="/#made">How it's made</a>
+</div>
+
+<main id="top">
+  <section class="lab-hero">
+    <div class="wrap">
+      <p class="eyebrow">Practice lab</p>
+      <h1 class="display">Four network CLIs, <em>right in your browser.</em></h1>
+      <p class="section-lede">Juniper Junos, Cisco IOS XR on an ASR 9000, IOS on an ME 3600X metro Ethernet switch, and a Catalyst access switch. Type real commands, change the config, save it, break it and fix it, or take a quiz. Built for interview practice.</p>
+      <p class="lab-sim"><b>Simulated.</b> These are pretend devices written in JavaScript. Nothing here connects to a real router, and nothing you type leaves your browser. Addresses are documentation and private ranges; the hostnames and the network are made up.</p>
+    </div>
+  </section>
+
+  <section class="lab-app" id="lab-app" aria-label="The practice lab">
+    <div class="wrap">
+      <div class="lab-tabs" role="tablist" aria-label="Pick a device">
+        <button class="lab-tab" role="tab" type="button" id="tab-junos" aria-controls="panel-junos" aria-selected="true" data-dev="junos"><b>Junos</b><span>QFX / MX style</span></button>
+        <button class="lab-tab" role="tab" type="button" id="tab-iosxr" aria-controls="panel-iosxr" aria-selected="false" tabindex="-1" data-dev="iosxr"><b>IOS XR</b><span>ASR 9000</span></button>
+        <button class="lab-tab" role="tab" type="button" id="tab-me3600x" aria-controls="panel-me3600x" aria-selected="false" tabindex="-1" data-dev="me3600x"><b>Metro Ethernet</b><span>ME 3600X · IOS</span></button>
+        <button class="lab-tab" role="tab" type="button" id="tab-catalyst" aria-controls="panel-catalyst" aria-selected="false" tabindex="-1" data-dev="catalyst"><b>Catalyst</b><span>Access switch · IOS XE</span></button>
+      </div>
+      <div class="lab-panel" role="tabpanel" id="panel-junos" aria-labelledby="tab-junos" data-dev="junos"></div>
+      <div class="lab-panel" role="tabpanel" id="panel-iosxr" aria-labelledby="tab-iosxr" data-dev="iosxr" hidden></div>
+      <div class="lab-panel" role="tabpanel" id="panel-me3600x" aria-labelledby="tab-me3600x" data-dev="me3600x" hidden></div>
+      <div class="lab-panel" role="tabpanel" id="panel-catalyst" aria-labelledby="tab-catalyst" data-dev="catalyst" hidden></div>
+      <noscript><p class="lab-sim">The lab runs on JavaScript, which is turned off in this browser.</p></noscript>
+    </div>
+  </section>
+
+  <section class="lab-notes" aria-labelledby="lab-notes-h">
+    <div class="wrap">
+      <h2 class="lab-notes-h" id="lab-notes-h">How it works</h2>
+      <div class="lab-notes-grid">
+        <div>
+          <h3>Saving</h3>
+          <p>Each device keeps its own config in this browser's local storage, the way the real one would: Junos when you <code>commit</code>, IOS XR when you <code>commit</code>, and the two IOS switches when you <code>write memory</code>. Reload this page and the Cisco boxes come back with their startup config, so anything you didn't save is gone. <b>Reset to factory</b> starts a device over.</p>
+        </div>
+        <div>
+          <h3>What's real and what isn't</h3>
+          <p>The command syntax, the modes and the error messages follow the real platforms closely. The outputs are rebuilt from your config plus a small pretend network around each box: neighbors, customers, a transit provider. Show commands answer to what you configure, but there's no real routing or forwarding underneath, and only a slice of each CLI is here.</p>
+        </div>
+        <div>
+          <h3>Quizzes</h3>
+          <p>Each lab has three: command syntax, config tasks, and troubleshooting, where something is broken and you find and fix it. Every question runs on a scratch copy of the device, so your saved lab stays put. Abbreviations count. Your best score per quiz stays in this browser too.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <p>© 2026 Mike Purpura · Milton, Wisconsin · <a class="js-email" href="/#contact" data-u="mapurpura12" data-d="gmail.com">Email me</a> · <a href="/resume/">Résumé</a> · <a href="/">Home</a></p>
+    <p>Served from a Raspberry Pi in my basement over Starlink. No trackers. <a href="https://github.com/noobcicle/portfolio">Source on GitHub</a>.</p>
+  </div>
+</footer>
+
+<!-- one lab: a toolbar, the terminal, on-screen keys, and the quiz and command list beside it (main.js fills four of these) -->
+<template id="lab-tpl">
+  <div class="lab-grid">
+    <div class="lab-main">
+      <div class="lab-toolbar">
+        <p class="lab-dev-name"></p>
+        <div class="lab-actions">
+          <button class="btn btn-gummy btn-small" type="button" data-act="quiz">Quiz mode</button>
+          <button class="btn btn-ghost btn-small" type="button" data-act="export">Export config</button>
+          <button class="btn btn-ghost btn-small" type="button" data-act="import">Import</button>
+          <button class="btn btn-ghost btn-small" type="button" data-act="clear">Clear screen</button>
+          <button class="btn btn-ghost btn-small lab-reset" type="button" data-act="reset">Reset to factory</button>
+        </div>
+      </div>
+      <div class="term lab-term">
+        <div class="term-bar"><i></i><i></i><i></i><span class="lab-title"></span><span class="lab-heat" hidden aria-hidden="true"></span></div>
+        <div class="lab-screen">
+          <div class="lab-out" role="log" aria-live="polite" aria-label="Terminal output"></div>
+          <div class="lab-line"><span class="lab-prompt" aria-hidden="true"></span><input class="lab-input" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="send"></div>
+        </div>
+      </div>
+      <div class="lab-keys" role="group" aria-label="Terminal keys">
+        <button type="button" data-key="tab" aria-label="Complete the word (Tab)">Tab</button>
+        <button type="button" data-key="help" aria-label="What can come next (question mark)">?</button>
+        <button type="button" data-key="up" aria-label="Previous command">&uarr;</button>
+        <button type="button" data-key="down" aria-label="Next command">&darr;</button>
+        <button type="button" data-key="ctrlc" aria-label="Clear the line (Control C)">Ctrl-C</button>
+        <button type="button" data-key="ctrlz" aria-label="Leave config mode (Control Z)">Ctrl-Z</button>
+      </div>
+      <p class="lab-help">Enter runs a command. <kbd>?</kbd> lists what can come next. <kbd>Tab</kbd> completes a word. <kbd>&uarr;</kbd> <kbd>&darr;</kbd> walk the history. <kbd>Ctrl</kbd>+<kbd>C</kbd> clears the line. To leave the terminal by keyboard, press <kbd>Esc</kbd>, then <kbd>Tab</kbd>.</p>
+    </div>
+    <aside class="lab-side" aria-label="Quiz and commands">
+      <div class="lab-card quiz"></div>
+      <details class="lab-card lab-ref" open>
+        <summary>Commands to try</summary>
+        <p class="lab-ref-note">A click types it on the command line; Enter runs it. There's more: try <kbd>?</kbd> anywhere.</p>
+        <div class="lab-ref-body"></div>
+      </details>
+      <div class="lab-card lab-save">
+        <p class="lab-ref-k">How saving works here</p>
+        <p class="lab-save-text"></p>
+      </div>
+    </aside>
+  </div>
+</template>
+
+<dialog class="lab-dialog" id="lab-import" aria-labelledby="lab-import-title">
+  <h2 id="lab-import-title">Import a config</h2>
+  <p id="lab-import-note"></p>
+  <label class="lab-import-label" for="lab-import-text">Config text</label>
+  <textarea id="lab-import-text" rows="12" spellcheck="false" autocapitalize="none" autocomplete="off"></textarea>
+  <div class="lab-dialog-row">
+    <label class="btn btn-ghost btn-small lab-file">Choose a file<input id="lab-import-file" type="file" accept=".txt,.conf,.cfg,text/plain"></label>
+    <span class="lab-dialog-gap"></span>
+    <button class="btn btn-ghost btn-small" type="button" id="lab-import-cancel">Cancel</button>
+    <button class="btn btn-gummy btn-small" type="button" id="lab-import-go">Load it</button>
+  </div>
+</dialog>
+
+<!-- shared SVG: the gummy worm -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gummy-grad" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#ff5ca8"/><stop offset=".5" stop-color="#b36bff"/><stop offset="1" stop-color="#4c8dff"/>
+    </linearGradient>
+    <symbol id="worm" viewBox="0 0 64 32">
+      <path d="M6 20c6-10 12-10 18 0s12 10 18 0 12-10 16-2" fill="none" stroke="url(#gummy-grad)" stroke-width="7" stroke-linecap="round"/>
+      <path d="M7 18.5c5.5-8 11-8 16.5 0M31 21c5.5 7 11 7 16.5-1" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.6" stroke-linecap="round"/>
+      <circle cx="58" cy="17" r="1.1" fill="#fff" fill-opacity=".9"/>
+    </symbol>
+  </defs>
+</svg>
+
+<script type="module" src="/assets/js/cli/main.js"></script>
+<script src="/assets/js/track.js" defer></script>
+</body>
+</html>
