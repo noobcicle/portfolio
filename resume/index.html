@@ -101,24 +101,32 @@
   }
 
   /* Designed / ATS-friendly: one copy of the words, two looks. The radios switch it with CSS alone
-     (resume.js only keeps #plain in the address bar), and the downloads sit under either view. */
+     (resume.js only keeps #plain in the address bar), and the Download menu offers all four files in either view. */
   .views { display: inline-flex; padding: 3px; border-radius: 999px; border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.06); }
   .views label { position: relative; display: inline-flex; align-items: center; height: 32px; padding: 0 15px; border-radius: 999px; color: rgba(245,240,253,.8); font: 600 13.5px/1 Geist, ui-sans-serif, system-ui, sans-serif; cursor: pointer; user-select: none; }
   .views input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
   .views label:hover { color: #fff; }
   .views label:has(:checked) { background: var(--gummy); color: #fff; box-shadow: inset 0 1px 0 rgba(255,255,255,.45); }
   .views label:has(:focus-visible) { outline: 2px solid #fff; outline-offset: 2px; }
-  .downloads { max-width: 880px; margin: -34px auto 60px; padding: 0 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-  .downloads .dl-k { margin-right: 6px; font: 600 11px/1 "Geist Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,253,.7); }
-  .downloads a { display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.08); color: #fff; font: 600 13.5px/1 Geist, ui-sans-serif, system-ui, sans-serif; text-decoration: none; }
-  .downloads a:hover { background: rgba(255,255,255,.15); }
-  .downloads svg { width: 15px; height: 15px; flex: none; }
-  @media (max-width: 680px) {
-    .downloads { margin-top: 20px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .downloads .dl-k { grid-column: 1 / -1; margin: 0 0 2px; }
-    .downloads a { justify-content: center; gap: 6px; padding: 0 10px; white-space: nowrap; }
-  }
-  @media (max-width: 379px) { .downloads { grid-template-columns: minmax(0, 1fr); } }
+  /* Download: one button in the bar that opens a menu of the four files. It's a <details>, so it works
+     without script; resume.js closes it on a pick, a click elsewhere, Escape, or tabbing out. The auto margin
+     sends it right: beside the switch on a wide screen, beside "Back to okay-cool.net" once the bar wraps. */
+  .dl { position: relative; margin-left: auto; }
+  .dl summary { gap: 6px; padding: 0 13px 0 16px; line-height: 38px; list-style: none; -webkit-user-select: none; user-select: none; }
+  .dl summary::-webkit-details-marker { display: none; }
+  .dl summary:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .dl .caret { width: 14px; height: 14px; vertical-align: middle; transition: transform .15s ease; }
+  .dl[open] .caret { transform: rotate(180deg); }
+  .dl-menu { position: absolute; top: calc(100% + 8px); right: 0; z-index: 10; display: grid; min-width: 210px; padding: 6px; border-radius: 14px; border: 1px solid rgba(255,255,255,.16); background: #1a1230; box-shadow: 0 22px 50px -18px rgba(0,0,0,.8), 0 14px 36px -18px rgba(255,92,168,.5); }
+  .dl[open] .dl-menu { animation: dl-in .14s ease-out; }
+  @keyframes dl-in { from { opacity: 0; transform: translateY(-4px); } }
+  .dl-menu a { display: flex; align-items: center; gap: 9px; height: 38px; padding: 0 12px; border-radius: 9px; color: #fff; font: 600 13.5px/1 Geist, ui-sans-serif, system-ui, sans-serif; text-decoration: none; white-space: nowrap; }
+  .dl-menu a:hover { background: rgba(255,255,255,.1); }
+  .dl-menu a:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }
+  .dl-menu a:nth-child(3) { position: relative; margin-top: 9px; }
+  .dl-menu a:nth-child(3)::before { content: ""; position: absolute; left: 10px; right: 10px; top: -5px; height: 1px; background: rgba(255,255,255,.12); }
+  .dl-menu svg { width: 15px; height: 15px; flex: none; color: #ff8cc4; }
+  @media (prefers-reduced-motion: reduce) { .dl .caret { transition: none; } .dl[open] .dl-menu { animation: none; } }
 
   /* ATS-friendly: the same elements, simply formatted (one font, black text, plain headings and lists),
      like the ATS-friendly PDF. Only the sheet changes: the page, the bar, the switch and the downloads stay. */
@@ -181,6 +189,15 @@
 <body>
 <div class="bar">
   <a class="home" href="../"><svg viewBox="0 0 64 32" aria-hidden="true"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ff5ca8"/><stop offset=".5" stop-color="#c46bff"/><stop offset="1" stop-color="#4c8dff"/></linearGradient></defs><path d="M6 20c6-10 12-10 18 0s12 10 18 0 12-10 16-2" fill="none" stroke="url(#g)" stroke-width="7" stroke-linecap="round"/></svg> Back to okay-cool.net</a>
+  <details class="dl">
+    <summary class="btn">Download<svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+    <nav class="dl-menu" aria-label="Download the résumé">
+      <a href="Mike_Purpura_Resume.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Designed PDF</a>
+      <a href="Mike_Purpura_Resume.docx" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Designed DOCX</a>
+      <a href="Mike_Purpura_Resume_Plain.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>ATS-friendly PDF</a>
+      <a href="Mike_Purpura_Resume_Plain.docx" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>ATS-friendly DOCX</a>
+    </nav>
+  </details>
   <span class="bar-actions">
     <span class="views" role="radiogroup" aria-label="Résumé view">
       <label><input type="radio" name="view" id="view-designed" value="designed" checked autocomplete="off">Designed</label>
@@ -249,13 +266,6 @@
 
   <div class="foot no-print"><span>Projects, stories and live demos at <a href="../">okay-cool.net</a></span><span>References available on request</span></div>
 </main>
-<nav class="downloads no-print" aria-label="Download the résumé">
-  <span class="dl-k">Download</span>
-  <a href="Mike_Purpura_Resume.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Designed PDF</a>
-  <a href="Mike_Purpura_Resume.docx" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Designed DOCX</a>
-  <a href="Mike_Purpura_Resume_Plain.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>ATS-friendly PDF</a>
-  <a href="Mike_Purpura_Resume_Plain.docx" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>ATS-friendly DOCX</a>
-</nav>
 <script src="../assets/js/resume.js" defer></script>
 <script src="../assets/js/track.js" defer></script>
 </body>
